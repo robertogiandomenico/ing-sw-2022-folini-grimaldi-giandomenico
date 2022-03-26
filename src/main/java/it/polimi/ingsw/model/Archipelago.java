@@ -20,7 +20,7 @@ public class Archipelago {
         islands.add(island);
     }
 
-    public void createFirstIsland(List<Student> students){
+    private void createFirstIsland(List<Student> students){
         islands = new ArrayList<Island>();
         Island island = new Island(students);
         addIsland(island);
