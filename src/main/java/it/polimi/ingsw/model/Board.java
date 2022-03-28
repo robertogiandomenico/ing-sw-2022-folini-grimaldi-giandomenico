@@ -18,7 +18,7 @@ public class Board {
     private EnumMap<Color, Integer> colorsIndex;
 
     private boolean[] availableProfessors;
-    private List<Student> intialStudents;
+    private List<Student> initialStudents;
     private int coinsSupply;
     private Character[] selectedCharacters;
 
