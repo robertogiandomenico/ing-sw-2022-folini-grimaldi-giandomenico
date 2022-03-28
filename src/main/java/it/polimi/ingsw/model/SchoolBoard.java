@@ -1,25 +1,19 @@
 package it.polimi.ingsw.model;
 
-import java.util.Arrays;
-
 public class SchoolBoard {
     private final Player player;
-    private Student[] entrance;
-    private boolean[] professorTable;
+    private final Student[] entrance;
+    private final boolean[] professorTable = new boolean[5];
     private int towersLeft;
-    private int[] diningRoom;
+    private final int[] diningRoom = new int[5];
 
-    public SchoolBoard(Player player, Student[] entrance) {
+    public SchoolBoard(Player player, Student[] entrance, int towersLeft) {
         this.player = player;
 
         this.entrance = new Student[entrance.length];
-        System.arraycopy(entrance, 0, this.entrance, 0, this.entrance.length);
+        System.arraycopy(entrance, 0, this.entrance, 0, entrance.length);
 
-        //set all professors to FALSE at the beginning
-        Arrays.fill(professorTable, false);
-
-        //set every table in diningRoom to 0 at the beginning
-        Arrays.fill(diningRoom, 0);
+        this.towersLeft = towersLeft;
     }
 
     public Player getPlayer() {
@@ -46,22 +40,20 @@ public class SchoolBoard {
         for(int i=0; i<(entrance.length); i++){
             if(entrance[i] == null){
                 entrance[i] = student;
+                break;
             }
         }
     }
 
     public Student removeFromEntrance(Color color){
         Student tmp = null;
-
         for(int i=0; i<(entrance.length); i++){
             if( (entrance[i]!= null) && (entrance[i].getColor().equals(color)) ){
                 tmp = entrance[i];
                 entrance[i] = null;
-
                 break;
             }
         }
-
         return tmp;
     }
 
@@ -69,4 +61,11 @@ public class SchoolBoard {
         diningRoom[index]++;
     }
 
+    public void removeTowers(int numOfTowers){
+        towersLeft -= numOfTowers;
+    }
+
+    public void addTowers(int numOfTowers){
+        towersLeft += numOfTowers;
+    }
 }
