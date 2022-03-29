@@ -3,9 +3,8 @@ package it.polimi.ingsw.model;
 public class Cloud {
     private final Student[] cloudContent;
 
-    public Cloud(Student[] cloudContent) {
-        this.cloudContent = new Student[cloudContent.length];
-        System.arraycopy(cloudContent, 0, this.cloudContent, 0, this.cloudContent.length);
+    public Cloud(int size) {
+        this.cloudContent = new Student[size];
     }
 
     public boolean isEmpty() {

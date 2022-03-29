@@ -4,26 +4,25 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Archipelago {
-    private List<Island> islands;
+    private final List<Island> islands;
     private boolean motherNature;
     private boolean noEntryTile;
     private TeamColor towerColor;
 
-    public Archipelago(List<Student> students, boolean motherNature){
-        createFirstIsland(students);
+    public Archipelago(Student student, boolean motherNature){
+        islands = new ArrayList<Island>();
+        createFirstIsland(student);
         this.motherNature = motherNature;
         noEntryTile = false;
-        towerColor = null;
+    }
+
+    private void createFirstIsland(Student student){
+        Island island = new Island(student);
+        addIsland(island);
     }
 
     public void addIsland(Island island){
         islands.add(island);
-    }
-
-    private void createFirstIsland(List<Student> students){
-        islands = new ArrayList<Island>();
-        Island island = new Island(students);
-        addIsland(island);
     }
 
     public void setMotherNature(boolean motherNature){
@@ -57,4 +56,3 @@ public class Archipelago {
     }
 
 }
-
