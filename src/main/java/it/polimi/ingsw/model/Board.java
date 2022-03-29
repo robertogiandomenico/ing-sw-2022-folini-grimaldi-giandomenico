@@ -51,8 +51,6 @@ public class Board {
 
         //initialize the playerBoards array
         initializeBoards();
-
-        //TODO: complete ALL the Board constructor, even the arguments taken by the method are INCOMPLETE
     }
 
     public void fillClouds(){
