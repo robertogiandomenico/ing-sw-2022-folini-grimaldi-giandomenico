@@ -4,14 +4,16 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Island {
-    private List<Student> students;
+    private final List<Student> students;
 
-    public Island(List<Student> students) {
-        this.students = new ArrayList<Student>(students);
+    public Island(Student student) {
+        students = new ArrayList<Student>();
+        students.add(student);
     }
 
     public void addStudent(Student student) {
-        students.add(student);
+        if(students.get(0) == null) students.set(0, student);
+        else students.add(student);
     }
 
     public int getStudentNumber(Color color) {
