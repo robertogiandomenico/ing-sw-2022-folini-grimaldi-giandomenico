@@ -19,10 +19,10 @@ public class Board {
 
     private final boolean[] availableProfessors = new boolean[5];
     private int coinsSupply;
-    private final Character[] selectedCharacters;
+    private final GameCharacter[] selectedCharacters;
 
 
-    public Board(List<Player> players, int TOTALCLOUDS, int CLOUDSIZE, int ENTRANCESIZE, int TOTALTOWERS, Character[] selectedCharacters){
+    public Board(List<Player> players, int TOTALCLOUDS, int CLOUDSIZE, int ENTRANCESIZE, int TOTALTOWERS, GameCharacter[] selectedCharacters){
         this.players = players;
         this.TOTALCLOUDS = TOTALCLOUDS;
         this.CLOUDSIZE = CLOUDSIZE;

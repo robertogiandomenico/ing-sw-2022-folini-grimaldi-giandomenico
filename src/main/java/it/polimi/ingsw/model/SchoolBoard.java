@@ -6,6 +6,7 @@ public class SchoolBoard {
     private final boolean[] professorTable = new boolean[5];
     private int towersLeft;
     private final int[] diningRoom = new int[5];
+    private int additionalInfluence = 0;
 
     public SchoolBoard(Player player, Student[] entrance, int towersLeft) {
         this.player = player;
