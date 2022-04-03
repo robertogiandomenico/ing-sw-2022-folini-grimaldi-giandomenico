@@ -89,7 +89,7 @@ public class Game {
             }
         }
 
-        //if the game is played in easy mode, board is created with a null reference for its selectedGameCharacters attribute
+        //if the game is played in easy mode, board is created with a null reference for its selectedCharacters attribute
         board = new Board(players, TOTALCLOUDS, CLOUDSIZE, ENTRANCESIZE, TOTALTOWERS, selectedCharacters);
     }
 
