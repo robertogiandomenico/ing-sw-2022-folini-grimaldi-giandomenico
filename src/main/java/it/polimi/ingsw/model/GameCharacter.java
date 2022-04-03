@@ -1,10 +1,9 @@
 package it.polimi.ingsw.model;
 
-public abstract class GameCharacter {
+public class GameCharacter {
     int cost;
     Effect effect;
     boolean active;
-
 
     public GameCharacter(int cost, Effect effect, boolean active) {
         this.cost = cost;
@@ -24,6 +23,7 @@ public abstract class GameCharacter {
         return active;
     }
 
-    public abstract void useEffect();
-
+    public void useEffect() {
+        effect.applyEffect();
+    }
 }
