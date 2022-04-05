@@ -39,8 +39,9 @@ public class Board {
         //set all availableProfessors to true at the beginning
         Arrays.fill(availableProfessors, true);
 
-        //place 2 students of each color into the bag and initialize the islands with mother nature and the students
-        initializeBag();
+        bag = new Bag();
+
+        //initialize the islands with mother nature and the students
         initializeIslands();
 
         //fill the bag with the remaining 120 students
@@ -89,18 +90,6 @@ public class Board {
         colorsIndex.put(Color.YELLOW, 2);
         colorsIndex.put(Color.PINK, 3);
         colorsIndex.put(Color.BLUE, 4);
-    }
-
-    private void initializeBag(){
-        List<Student> bagContent = new ArrayList<Student>();
-        for (int i = 0; i < 2; i++) {
-            bagContent.add(new Student(Color.GREEN));
-            bagContent.add(new Student(Color.RED));
-            bagContent.add(new Student(Color.YELLOW));
-            bagContent.add(new Student(Color.PINK));
-            bagContent.add(new Student(Color.BLUE));
-        }
-        bag = new Bag(bagContent);
     }
 
     private void initializeIslands(){
