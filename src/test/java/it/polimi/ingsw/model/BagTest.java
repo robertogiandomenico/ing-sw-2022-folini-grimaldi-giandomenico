@@ -35,5 +35,22 @@ class BagTest {
     void testPut() {
         List<Student> in = new ArrayList<>(Arrays.asList(new Student(Color.BLUE), new Student(Color.YELLOW), new Student(Color.PINK),
                 new Student(Color.GREEN), new Student(Color.RED)));
+        List<Student> out = new ArrayList<>();
+
+        Bag bag = new Bag();
+
+        for (int i = 0; i < in.size(); i++) {
+            bag.put(in.get(i));
+            assertEquals(10 + i + 1, bag.getSize());
+        }
+
+        int bagSize = bag.getSize();
+        for (int i = 0; i < bagSize; i++) {
+            out.add(bag.draw());
+        }
+
+        for (Color c : Color.values()){
+            assertEquals(3, out.stream().filter(x -> x.getColor() == c).count());
+        }
     }
 }
