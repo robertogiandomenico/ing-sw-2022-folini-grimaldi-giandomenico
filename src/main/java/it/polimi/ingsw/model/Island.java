@@ -7,7 +7,7 @@ public class Island {
     private final List<Student> students;
 
     public Island(Student student) {
-        students = new ArrayList<Student>();
+        students = new ArrayList<>();
         students.add(student);
     }
 
@@ -17,11 +17,15 @@ public class Island {
     }
 
     public int getStudentNumber(Color color) {
-        int count=0;
-        for(Student student : students){
-            if(student.getColor().equals(color)) count++;
+        try {
+            int count = 0;
+            for (Student student : students) {
+                if (student.getColor().equals(color)) count++;
+            }
+            return count;
+        } catch (NullPointerException e){
+            return 0;
         }
-        return count;
     }
 
 }

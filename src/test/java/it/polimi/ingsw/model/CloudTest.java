@@ -13,7 +13,7 @@ class CloudTest {
     private Student[] students;
 
     @BeforeEach
-    void createCloud() {
+    void setUp() {
         int CLOUDSIZE = 3;
         cloud = new Cloud(CLOUDSIZE);
         students = new Student[] {new Student(Color.BLUE), new Student(Color.YELLOW), new Student(Color.RED)};
