@@ -25,6 +25,17 @@ public class Archipelago {
         islands.add(island);
     }
 
+    public int getTotalStudents(Color color){
+        int count=0;
+        for(Island island : islands)
+            count+=island.getStudentNumber(color);
+        return count;
+    }
+
+    public int countIslands() {
+          return islands.size();
+    }
+
     public void setMotherNature(boolean motherNature){
         this.motherNature = motherNature;
     }
@@ -48,11 +59,4 @@ public class Archipelago {
     public TeamColor getTowerColor(){
         return towerColor;
     }
-
-    public int getTotalStudents(Color color){
-        int count=0;
-        for(Island island : islands) count+=island.getStudentNumber(color);
-        return count;
-    }
-
 }
