@@ -10,7 +10,7 @@ public class Archipelago {
     private TeamColor towerColor;
 
     public Archipelago(Student student, boolean motherNature){
-        islands = new ArrayList<Island>();
+        islands = new ArrayList<>();
         createFirstIsland(student);
         this.motherNature = motherNature;
         noEntryTile = false;
@@ -23,6 +23,10 @@ public class Archipelago {
 
     public void addIsland(Island island){
         islands.add(island);
+    }
+
+    public List<Island> getIslands() {
+        return islands;
     }
 
     public void setMotherNature(boolean motherNature){
