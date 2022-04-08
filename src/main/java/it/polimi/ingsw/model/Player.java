@@ -14,6 +14,9 @@ public class Player {
     private boolean canChooseAssistant;
     private boolean canMoveStudents;
     private boolean canBuyCharacter;
+    private int maxSteps;
+    private int selectedSteps;
+
 
     public Player(String nickname, TeamColor playerColor, Wizard selectedWizard) {
         this.nickname = nickname;
@@ -95,9 +98,14 @@ public class Player {
 
     public void chooseAssistant(){
         //TODO: implement chooseAssistant function
+        //maxSteps = assistant.maxMNSteps
     }
 
     public void endTurn(){
         //TODO: implement endTurn function
+    }
+
+    public void setAdditionalSteps() {
+        maxSteps += 2;
     }
 }

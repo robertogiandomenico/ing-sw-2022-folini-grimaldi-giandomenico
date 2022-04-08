@@ -10,14 +10,13 @@ public class Board {
     private final int TOTALTOWERS;
 
     private final List<Archipelago> archipelagos;
-    private Bag bag;
+    private final Bag bag;
     private Cloud[] clouds;
     private final List<Player> players;
     private SchoolBoard[] playerBoards;
 
     private final EnumMap<Color, Integer> colorsIndex;
 
-    private final boolean[] availableProfessors = new boolean[5];
     private int coinsSupply;
     private final GameCharacter[] selectedCharacters;
 
@@ -35,9 +34,6 @@ public class Board {
         //create and fill the map colorsIndex
         colorsIndex = new EnumMap<Color, Integer>(Color.class);
         mapSetup();
-
-        //set all availableProfessors to true at the beginning
-        Arrays.fill(availableProfessors, true);
 
         bag = new Bag();
 
@@ -80,7 +76,7 @@ public class Board {
         //TODO: implement calculateInfluence method
     }
 
-    private void mergeIslands(int island1, int island2){
+    private void mergeIslands(int archi1, int archi2){
         //TODO: implement mergeIslands method
     }
 
@@ -127,6 +123,14 @@ public class Board {
         playerBoards = new SchoolBoard[players.size()];
         for (int i = 0; i < players.size(); i++) {
             playerBoards[i] = new SchoolBoard(players.get(i), createStudentsArray(ENTRANCESIZE), TOTALTOWERS);
+        }
+
+        for(SchoolBoard x : playerBoards) {
+            for(SchoolBoard y : playerBoards) {
+                if(x != y) {
+                    x.addOtherBoard(y);
+                }
+            }
         }
     }
 

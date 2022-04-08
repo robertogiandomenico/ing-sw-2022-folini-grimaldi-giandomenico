@@ -8,6 +8,7 @@ public class Archipelago {
     private boolean motherNature;
     private boolean noEntryTile;
     private TeamColor towerColor;
+    private static Color forbiddenColor;
 
     public Archipelago(Student student, boolean motherNature){
         islands = new ArrayList<>();
@@ -57,6 +58,14 @@ public class Archipelago {
         int count=0;
         for(Island island : islands) count+=island.getStudentNumber(color);
         return count;
+    }
+
+    public static void setForbiddenColor(Color forbiddenColor) {
+        Archipelago.forbiddenColor = forbiddenColor;
+    }
+
+    public static void resetForbiddenColor() {
+        forbiddenColor = null;
     }
 
 }
