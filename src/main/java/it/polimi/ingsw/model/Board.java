@@ -60,19 +60,31 @@ public class Board {
         //TODO: implement moveFromCloudToEntrance method
     }
 
-    public void moveFromEntranceToIsland(){
-        //TODO: implement moveFromEntranceToIsland method
+    public void moveFromEntranceToArchipelago(){
+        //TODO: implement moveFromEntranceToArchipelago method
     }
 
     public void moveFromEntranceToDiningRoom(){
         //TODO: implement moveFromEntranceToDiningRoom method
     }
 
+    public void moveFromCharacterToArchipelago(Student student, Archipelago archipelago){
+        //TODO: implement moveFromCharacterToArchipelago method
+    }
+
+    public void moveFromCharacterToEntrance(){
+        //TODO: implement moveFromCharacterToEntrance method
+    }
+
+    public void moveFromCharacterToDiningRoom(){
+        //TODO: implement moveFromCharacterToDiningRoom method
+    }
+
     public void moveMotherNature(){
         //TODO: implement moveMotherNature method
     }
 
-    public void calculateInfluence(){
+    public void calculateInfluence(Archipelago archipelago){
         //TODO: implement calculateInfluence method
     }
 
@@ -134,7 +146,7 @@ public class Board {
         }
     }
 
-    private Student[] createStudentsArray(int size){
+    public Student[] createStudentsArray(int size){
         Student[] tmp = new Student[size];
         for (int i = 0; i < size; i++) {
             tmp[i] = bag.draw();
