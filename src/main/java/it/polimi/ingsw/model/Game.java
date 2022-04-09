@@ -120,18 +120,18 @@ public class Game {
     private void initializeExpertModeFeatures(){
         availableCharacters = new ArrayList<>(
                 Arrays.asList(
-                        new GameCharacter(3, new HeraldEffect(), false),
-                        new GameCharacter(2, new KnightEffect(), false),
-                        new GameCharacter(3, new CentaurEffect(), false),
-                        new GameCharacter(2, new FarmerEffect(), false),
-                        new GameCharacter(3, new MushroomManEffect(), false),
-                        new GameCharacter(1, new JesterEffect(), false),
-                        new GameCharacter(3, new ThiefEffect(), false),
-                        new GameCharacter(1, new MinstrelEffect(), false),
-                        new GameCharacter(1, new MonkEffect(), false),
-                        new GameCharacter(2, new GrannyGrassEffect(), false),
-                        new GameCharacter(1, new MagicMailmanEffect(), false),
-                        new GameCharacter(2, new SpoiledPrincessEffect(), false)
+                        new GameCharacter(3, new HeraldEffect()),
+                        new GameCharacter(2, new KnightEffect()),
+                        new GameCharacter(3, new CentaurEffect()),
+                        new GameCharacter(2, new FarmerEffect()),
+                        new GameCharacter(3, new MushroomManEffect()),
+                        new GameCharacter(1, new JesterEffect()),
+                        new GameCharacter(3, new ThiefEffect()),
+                        new GameCharacter(1, new MinstrelEffect()),
+                        new GameCharacter(1, new MonkEffect()),
+                        new GameCharacter(2, new GrannyGrassEffect()),
+                        new GameCharacter(1, new MagicMailmanEffect()),
+                        new GameCharacter(2, new SpoiledPrincessEffect())
                 )
         );
     }

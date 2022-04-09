@@ -1,18 +1,20 @@
 package it.polimi.ingsw.model;
 
 public class Cloud {
-    private final Student[] cloudContent;
+    private Student[] cloudContent;
 
     public Cloud(int size) {
         this.cloudContent = new Student[size];
     }
 
     public boolean isEmpty() {
-        return cloudContent.length == 0;
+        return cloudContent[0] == null;
     }
 
-    public Student[] get() {
-        return cloudContent;
+    public Student[] get(){
+        Student[] tmp = cloudContent;
+        cloudContent = new Student[tmp.length];
+        return tmp;
     }
 
     public void fill(Student[] cloudContent){
