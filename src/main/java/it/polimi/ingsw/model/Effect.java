@@ -1,5 +1,5 @@
 package it.polimi.ingsw.model;
 
 public interface Effect {
-    void applyEffect();
+    void applyEffect(Board board);
 }

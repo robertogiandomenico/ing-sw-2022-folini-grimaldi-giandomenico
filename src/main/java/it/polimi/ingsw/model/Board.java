@@ -141,4 +141,9 @@ public class Board {
         }
         return tmp;
     }
+
+    public Archipelago getArchipelago(int archiIndex) {
+        return archipelagos.get(archiIndex);
+    }
+
 }

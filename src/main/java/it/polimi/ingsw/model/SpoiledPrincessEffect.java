@@ -3,7 +3,7 @@ package it.polimi.ingsw.model;
 public class SpoiledPrincessEffect implements Effect {
     Student[] students = new Student[4];
 
-    public void applyEffect() {
+    public void applyEffect(Board board) {
         // TODO: implement effect
     }
 

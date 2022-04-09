@@ -21,7 +21,7 @@ public class GameCharacter {
         return cost;
     }
 
-    public void useEffect() {
-        effect.applyEffect();
+    public void useEffect(Board board) {
+        effect.applyEffect(board);
     }
 }
