@@ -16,9 +16,12 @@ public class CentaurEffect implements Effect {
             team = selectedArchipelago.getTowerColor();
 
             board.getPlayerSchoolBoardByTeam(team).setAdditionalInfluence(negativeInfluence);
-            board.calculateInfluence(selectedArchipelago);
+
+            /* is it really the applyEffect that must call the calculateInfluence() ?
+            board.calculateInfluence(selectedArchipelago);  */
 
             //additionalInfluence goes back to 0
+            /* TODO: AdditionalInfluence must go back to 0  ** AT THE END OF THE TURN **, NOT IMMEDIATELY, need controller(?) to manage turns and send a signal to de-activate the effect */
             board.getPlayerSchoolBoardByTeam(team).setAdditionalInfluence(0);
         }
     }

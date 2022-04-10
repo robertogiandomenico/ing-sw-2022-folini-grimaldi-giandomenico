@@ -52,7 +52,7 @@ public class Board {
 
     public void fillClouds(){
         for(int i = 0; i < TOTALCLOUDS; i++) {
-            clouds[i].fill(createStudentsArray(CLOUDSIZE));
+            clouds[i].fill(drawStudentsArray(CLOUDSIZE));
         }
     }
 
@@ -76,8 +76,9 @@ public class Board {
         //TODO: implement moveFromCharacterToEntrance method
     }
 
-    public void moveFromCharacterToDiningRoom(){
+    public void moveFromCharacterToDiningRoom(Student student){
         //TODO: implement moveFromCharacterToDiningRoom method
+        //from the given student, detect the color, find the mapped int of the color, finally increment that diningRoom[int]
     }
 
     public void moveMotherNature(){
@@ -134,7 +135,7 @@ public class Board {
     private void initializeBoards(){
         playerBoards = new SchoolBoard[players.size()];
         for (int i = 0; i < players.size(); i++) {
-            playerBoards[i] = new SchoolBoard(players.get(i), createStudentsArray(ENTRANCESIZE), TOTALTOWERS);
+            playerBoards[i] = new SchoolBoard(players.get(i), drawStudentsArray(ENTRANCESIZE), TOTALTOWERS);
         }
 
         for(SchoolBoard x : playerBoards) {
@@ -146,7 +147,7 @@ public class Board {
         }
     }
 
-    public Student[] createStudentsArray(int size){
+    public Student[] drawStudentsArray(int size){
         Student[] tmp = new Student[size];
         for (int i = 0; i < size; i++) {
             tmp[i] = bag.draw();
@@ -178,6 +179,14 @@ public class Board {
         }
 
         return playerSchoolBoard;
+    }
+
+    public Bag getBag() {
+        return bag;
+    }
+
+    public SchoolBoard[] getPlayerBoards() {
+        return playerBoards;
     }
 
 }

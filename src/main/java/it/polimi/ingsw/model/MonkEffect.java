@@ -24,7 +24,7 @@ public class MonkEffect implements Effect {
         for(Student s : students) {
             if(s == selectedStudent){
                 tmp = s;
-                s = board.createStudentsArray(1)[0];
+                s = board.drawStudentsArray(1)[0];
                 break;
             }
         }

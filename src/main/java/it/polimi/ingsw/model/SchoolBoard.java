@@ -98,7 +98,7 @@ public class SchoolBoard {
         otherBoards.add(schoolBoard);
     }
 
-    private void checkProfessorMovement(int index, String action) {
+    public void checkProfessorMovement(int index, String action) {
         SchoolBoard enemyBoard = null;
 
         switch (action) {
