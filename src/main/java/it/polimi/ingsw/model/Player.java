@@ -108,4 +108,12 @@ public class Player {
     public void setAdditionalSteps() {
         maxSteps += 2;
     }
+
+    public boolean getCanChooseAssistant() {
+        return canChooseAssistant;
+    }
+
+    public TeamColor getPlayerTeam() {
+        return playerColor;
+    }
 }

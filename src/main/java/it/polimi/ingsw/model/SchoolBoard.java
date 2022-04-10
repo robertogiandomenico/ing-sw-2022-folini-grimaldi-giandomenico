@@ -85,9 +85,9 @@ public class SchoolBoard {
         towersLeft += numOfTowers;
     }
 
-    //call this method twice, once to set to 2 and once to set it back to 0
-    public void setAdditionalInfluence() {
-        additionalInfluence = additionalInfluence==0 ? 2 : 0;
+    //call this method twice, once to set to the extraInfluence and once to set it back to 0
+    public void setAdditionalInfluence(int additionalInfluence) {
+        this.additionalInfluence = additionalInfluence;
     }
 
     public void setFarmerEffect(boolean farmerEffect) {

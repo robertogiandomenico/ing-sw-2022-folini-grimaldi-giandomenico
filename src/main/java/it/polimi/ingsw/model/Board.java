@@ -158,4 +158,26 @@ public class Board {
         return archipelagos.get(archiIndex);
     }
 
+    public SchoolBoard getCurrentPlayerSchoolBoard() {
+        SchoolBoard currentPlayerSchoolBoard = null;
+        for(SchoolBoard s : playerBoards){
+            if(s.getPlayer().getCanChooseAssistant()) {
+                currentPlayerSchoolBoard = s;
+            }
+        }
+
+        return currentPlayerSchoolBoard;
+    }
+
+    public SchoolBoard getPlayerSchoolBoardByTeam(TeamColor towerColor) {
+        SchoolBoard playerSchoolBoard = null;
+        for(SchoolBoard s : playerBoards){
+            if(s.getPlayer().getPlayerTeam() == towerColor) {
+                playerSchoolBoard = s;
+            }
+        }
+
+        return playerSchoolBoard;
+    }
+
 }
