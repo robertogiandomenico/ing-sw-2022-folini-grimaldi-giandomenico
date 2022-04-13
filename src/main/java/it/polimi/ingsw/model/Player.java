@@ -113,6 +113,14 @@ public class Player {
         return canChooseAssistant;
     }
 
+    public boolean getCanMoveStudents() {
+        return canMoveStudents;
+    }
+
+    public boolean getCanBuyCharacter() {
+        return canBuyCharacter;
+    }
+
     public TeamColor getPlayerTeam() {
         return playerColor;
     }

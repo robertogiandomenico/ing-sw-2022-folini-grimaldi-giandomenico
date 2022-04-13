@@ -3,9 +3,8 @@ package it.polimi.ingsw.model;
 public class GrannyGrassEffect implements Effect {
     private int noEntryTiles = 4;
 
-    public void applyEffect(Board board) {
+    public void applyEffect(Board board, int archiIndex, int numOfStudents, Color...studColors) {
         if(noEntryTiles > 0 && noEntryTiles <= 4) {
-            int archiIndex = setArchiIndex();
             board.getArchipelago(archiIndex).setNoEntryTile(true);
             noEntryTiles--;
         } else {
@@ -15,12 +14,6 @@ public class GrannyGrassEffect implements Effect {
 
     public void putBackTile() {
         noEntryTiles++;
-    }
-
-    //TODO: controller must intervene to set this variable
-    public int setArchiIndex() {
-        int index = 0; //controller should ask the user for the input
-        return index;
     }
 
 }

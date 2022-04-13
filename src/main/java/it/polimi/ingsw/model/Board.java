@@ -162,11 +162,12 @@ public class Board {
     public SchoolBoard getCurrentPlayerSchoolBoard() {
         SchoolBoard currentPlayerSchoolBoard = null;
         for(SchoolBoard s : playerBoards){
-            if(s.getPlayer().getCanChooseAssistant()) {
+            if(s.getPlayer().getCanMoveStudents()) {
                 currentPlayerSchoolBoard = s;
             }
         }
 
+        //short form: return Arrays.stream(playerBoards).filter(s -> s.getPlayer().getCanMoveStudents()).findFirst().orElse(null);
         return currentPlayerSchoolBoard;
     }
 
@@ -177,7 +178,7 @@ public class Board {
                 playerSchoolBoard = s;
             }
         }
-
+        //short form: return Arrays.stream(playerBoards).filter(s -> s.getPlayer().getPlayerTeam() == towerColor).findFirst().orElse(null);
         return playerSchoolBoard;
     }
 
@@ -187,6 +188,10 @@ public class Board {
 
     public SchoolBoard[] getPlayerBoards() {
         return playerBoards;
+    }
+
+    public int mapToIndex(Color color){
+        return colorsIndex.get(color);
     }
 
 }
