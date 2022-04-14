@@ -15,11 +15,9 @@ public class JesterEffect implements Effect {
         //Finding the indexes of numOfStudents students with the specified color, in order to move them from the card to the entrance
         for (int i = 0; i < numOfStudents; i++) {
             for (int j = 0; j < students.length; j++) {
-                for (int k = 0; k < numOfStudents; k++){
-                    if (students[j].getColor() == studColors[k]) {
-                        studentIndexesOnCard[i] = j;
-                        break;
-                    }
+                if (studColors[i] == students[j].getColor()) {
+                    studentIndexesOnCard[i] = j;
+                    break;
                 }
             }
         }
@@ -30,7 +28,7 @@ public class JesterEffect implements Effect {
             currentPlayerSB.addToEntrance(students[studentIndexesOnCard[i]]);
         }
 
-        //Substituting the students chosen from the card with the students chosen from the entrance
+        //Replacing students chosen from the card with the students chosen from the entrance
         for (int i = 0; i < numOfStudents; i++) {
             students[studentIndexesOnCard[i]] = studentsFromEntrance[i];
         }

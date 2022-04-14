@@ -56,20 +56,46 @@ public class Board {
         }
     }
 
-    public void moveFromCloudToEntrance(){
-        //TODO: implement moveFromCloudToEntrance method
+    public void moveFromCloudToEntrance(int selectedCloud){
+        SchoolBoard currentPlayerSB = getCurrentPlayerSchoolBoard();
+        Student[] newStudents = clouds[selectedCloud].get();
+
+        for (int i = 0; i < newStudents.length; i++) {
+            currentPlayerSB.addToEntrance(newStudents[i]);
+        }
     }
 
-    public void moveFromEntranceToArchipelago(){
-        //TODO: implement moveFromEntranceToArchipelago method
+    public void moveFromEntranceToArchipelago(Student student, int archiIndex){
+        SchoolBoard currentPlayerSB = getCurrentPlayerSchoolBoard();
+        Archipelago selectedArchipelago = archipelagos.get(archiIndex);
+
+        currentPlayerSB.removeFromEntrance(student.getColor());
+        selectedArchipelago.getIslands().get(0).addStudent(student);
     }
 
-    public void moveFromEntranceToDiningRoom(){
-        //TODO: implement moveFromEntranceToDiningRoom method
+    public void moveFromEntranceToDiningRoom(Student student){
+        SchoolBoard currentPlayerSB = getCurrentPlayerSchoolBoard();
+        int indexDR = mapToIndex(student.getColor());
+
+        currentPlayerSB.removeFromEntrance(student.getColor());
+        currentPlayerSB.addToDiningRoom(indexDR);
     }
 
-    public void moveMotherNature(){
-        //TODO: implement moveMotherNature method
+    public void moveMotherNature(int mnSteps){
+        int archiIndex = 0; //needed to know the index of the starting archipelago
+        int nextArchiIndex;
+
+        for(Archipelago archi : archipelagos) {
+            if (archi.isMNPresent()) {
+                archi.setMotherNature(false);
+
+                nextArchiIndex = (archiIndex + mnSteps) % archipelagos.size();
+                archipelagos.get(nextArchiIndex).setMotherNature(true);
+                break;
+            }
+
+            archiIndex++;
+        }
     }
 
     public void calculateInfluence(Archipelago archipelago){
@@ -77,7 +103,13 @@ public class Board {
     }
 
     private void mergeIslands(int archi1, int archi2){
-        //TODO: implement mergeIslands method
+        List<Island> islands1 = archipelagos.get(archi1).getIslands();
+        List<Island> islands2 = archipelagos.get(archi2).getIslands();
+
+        islands1.addAll(islands2);
+
+        islands2.removeAll(islands2);
+        archipelagos.remove(getArchipelago(archi2));
     }
 
     private void mapSetup(){
