@@ -68,19 +68,6 @@ public class Board {
         //TODO: implement moveFromEntranceToDiningRoom method
     }
 
-    public void moveFromCharacterToArchipelago(Student student, Archipelago archipelago){
-        //TODO: implement moveFromCharacterToArchipelago method
-    }
-
-    public void moveFromCharacterToEntrance(){
-        //TODO: implement moveFromCharacterToEntrance method
-    }
-
-    public void moveFromCharacterToDiningRoom(Student student){
-        //TODO: implement moveFromCharacterToDiningRoom method
-        //from the given student, detect the color, find the mapped int of the color, finally increment that diningRoom[int]
-    }
-
     public void moveMotherNature(){
         //TODO: implement moveMotherNature method
     }
