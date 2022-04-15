@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-public enum TeamColor {
+public enum TowerColor {
     WHITE, BLACK, GREY
 
 }

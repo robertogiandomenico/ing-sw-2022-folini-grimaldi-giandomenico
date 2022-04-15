@@ -29,10 +29,10 @@ public class Board {
         this.TOTALTOWERS = TOTALTOWERS;
         coinsSupply = 20 - players.size();
         this.selectedCharacters = selectedCharacters;
-        archipelagos = new ArrayList<Archipelago>();
+        archipelagos = new ArrayList<>();
 
         //create and fill the map colorsIndex
-        colorsIndex = new EnumMap<Color, Integer>(Color.class);
+        colorsIndex = new EnumMap<>(Color.class);
         mapSetup();
 
         bag = new Bag();
@@ -52,32 +52,65 @@ public class Board {
 
     public void fillClouds(){
         for(int i = 0; i < TOTALCLOUDS; i++) {
-            clouds[i].fill(createStudentsArray(CLOUDSIZE));
+            clouds[i].fill(drawStudentsArray(CLOUDSIZE));
         }
     }
 
-    public void moveFromCloudToEntrance(){
-        //TODO: implement moveFromCloudToEntrance method
+    public void moveFromCloudToEntrance(int selectedCloud){
+        SchoolBoard currentPlayerSB = getCurrentPlayerSchoolBoard();
+        Student[] newStudents = clouds[selectedCloud].get();
+
+        for (Student newStudent : newStudents) {
+            currentPlayerSB.addToEntrance(newStudent);
+        }
     }
 
-    public void moveFromEntranceToIsland(){
-        //TODO: implement moveFromEntranceToIsland method
+    public void moveFromEntranceToArchipelago(Student student, int archiIndex){
+        SchoolBoard currentPlayerSB = getCurrentPlayerSchoolBoard();
+        Archipelago selectedArchipelago = archipelagos.get(archiIndex);
+
+        currentPlayerSB.removeFromEntrance(student.getColor());
+        selectedArchipelago.getIslands().get(0).addStudent(student);
     }
 
-    public void moveFromEntranceToDiningRoom(){
-        //TODO: implement moveFromEntranceToDiningRoom method
+    public void moveFromEntranceToDiningRoom(Student student){
+        SchoolBoard currentPlayerSB = getCurrentPlayerSchoolBoard();
+        int indexDR = mapToIndex(student.getColor());
+
+        currentPlayerSB.removeFromEntrance(student.getColor());
+        currentPlayerSB.addToDiningRoom(indexDR);
     }
 
-    public void moveMotherNature(){
-        //TODO: implement moveMotherNature method
+    public void moveMotherNature(int mnSteps){
+        int archiIndex = 0; //needed to know the index of the starting archipelago
+        int nextArchiIndex;
+
+        for(Archipelago archi : archipelagos) {
+            if (archi.isMNPresent()) {
+                archi.setMotherNature(false);
+
+                nextArchiIndex = (archiIndex + mnSteps) % archipelagos.size();
+                archipelagos.get(nextArchiIndex).setMotherNature(true);
+                calculateInfluence(archipelagos.get(nextArchiIndex));
+                break;
+            }
+
+            archiIndex++;
+        }
     }
 
-    public void calculateInfluence(){
+    public void calculateInfluence(Archipelago archipelago){
         //TODO: implement calculateInfluence method
     }
 
     private void mergeIslands(int archi1, int archi2){
-        //TODO: implement mergeIslands method
+        List<Island> islands1 = archipelagos.get(archi1).getIslands();
+        List<Island> islands2 = archipelagos.get(archi2).getIslands();
+
+        islands1.addAll(islands2);
+
+        islands2.removeAll(islands2);
+        archipelagos.remove(getArchipelago(archi2));
     }
 
     private void mapSetup(){
@@ -122,7 +155,7 @@ public class Board {
     private void initializeBoards(){
         playerBoards = new SchoolBoard[players.size()];
         for (int i = 0; i < players.size(); i++) {
-            playerBoards[i] = new SchoolBoard(players.get(i), createStudentsArray(ENTRANCESIZE), TOTALTOWERS);
+            playerBoards[i] = new SchoolBoard(players.get(i), drawStudentsArray(ENTRANCESIZE), TOTALTOWERS);
         }
 
         for(SchoolBoard x : playerBoards) {
@@ -134,11 +167,51 @@ public class Board {
         }
     }
 
-    private Student[] createStudentsArray(int size){
+    public Student[] drawStudentsArray(int size){
         Student[] tmp = new Student[size];
         for (int i = 0; i < size; i++) {
             tmp[i] = bag.draw();
         }
         return tmp;
     }
+
+    public Archipelago getArchipelago(int archiIndex) {
+        return archipelagos.get(archiIndex);
+    }
+
+    public SchoolBoard getCurrentPlayerSchoolBoard() {
+        SchoolBoard currentPlayerSchoolBoard = null;
+        for(SchoolBoard s : playerBoards){
+            if(s.getPlayer().getCanMoveStudents()) {
+                currentPlayerSchoolBoard = s;
+            }
+        }
+
+        //short form: return Arrays.stream(playerBoards).filter(s -> s.getPlayer().getCanMoveStudents()).findFirst().orElse(null);
+        return currentPlayerSchoolBoard;
+    }
+
+    public SchoolBoard getPlayerSchoolBoardByTeam(TowerColor towerColor) {
+        SchoolBoard playerSchoolBoard = null;
+        for(SchoolBoard s : playerBoards){
+            if(s.getPlayer().getTowerColor() == towerColor) {
+                playerSchoolBoard = s;
+            }
+        }
+        //short form: return Arrays.stream(playerBoards).filter(s -> s.getPlayer().getPlayerTeam() == towerColor).findFirst().orElse(null);
+        return playerSchoolBoard;
+    }
+
+    public Bag getBag() {
+        return bag;
+    }
+
+    public SchoolBoard[] getPlayerBoards() {
+        return playerBoards;
+    }
+
+    public int mapToIndex(Color color){
+        return colorsIndex.get(color);
+    }
+
 }
