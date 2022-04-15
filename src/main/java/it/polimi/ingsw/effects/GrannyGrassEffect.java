@@ -1,4 +1,5 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.effects;
+import it.polimi.ingsw.model.*;
 
 public class GrannyGrassEffect implements Effect {
     private int noEntryTiles = 4;

@@ -56,8 +56,8 @@ class ArchipelagoTest {
 
     @Test
     void testSetTowerColor(){
-        archipelagos.get(0).setTowerColor(TeamColor.BLACK);
-        assertEquals(TeamColor.BLACK, archipelagos.get(0).getTowerColor());
+        archipelagos.get(0).setTowerColor(TowerColor.BLACK);
+        assertEquals(TowerColor.BLACK, archipelagos.get(0).getTowerColor());
     }
 
     @Test

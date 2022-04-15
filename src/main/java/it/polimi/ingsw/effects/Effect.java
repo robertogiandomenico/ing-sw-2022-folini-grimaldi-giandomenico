@@ -1,4 +1,5 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.effects;
+import it.polimi.ingsw.model.*;
 
 public interface Effect {
     //Color...studColor means that the function can take a variable number of colors (this is useful because some effects

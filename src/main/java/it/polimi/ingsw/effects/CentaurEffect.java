@@ -1,10 +1,11 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.effects;
+import it.polimi.ingsw.model.*;
 
 public class CentaurEffect implements Effect {
 
     public void applyEffect(Board board, int archiIndex, int numOfStudents, Color...studColors) {
         Archipelago selectedArchipelago = board.getArchipelago(archiIndex);
-        TeamColor team = selectedArchipelago.getTowerColor();
+        TowerColor team = selectedArchipelago.getTowerColor();
 
         if(team != null) {
             int negativeInfluence;

@@ -29,10 +29,10 @@ public class Board {
         this.TOTALTOWERS = TOTALTOWERS;
         coinsSupply = 20 - players.size();
         this.selectedCharacters = selectedCharacters;
-        archipelagos = new ArrayList<Archipelago>();
+        archipelagos = new ArrayList<>();
 
         //create and fill the map colorsIndex
-        colorsIndex = new EnumMap<Color, Integer>(Color.class);
+        colorsIndex = new EnumMap<>(Color.class);
         mapSetup();
 
         bag = new Bag();
@@ -91,6 +91,7 @@ public class Board {
 
                 nextArchiIndex = (archiIndex + mnSteps) % archipelagos.size();
                 archipelagos.get(nextArchiIndex).setMotherNature(true);
+                calculateInfluence(archipelagos.get(nextArchiIndex));
                 break;
             }
 
@@ -190,10 +191,10 @@ public class Board {
         return currentPlayerSchoolBoard;
     }
 
-    public SchoolBoard getPlayerSchoolBoardByTeam(TeamColor towerColor) {
+    public SchoolBoard getPlayerSchoolBoardByTeam(TowerColor towerColor) {
         SchoolBoard playerSchoolBoard = null;
         for(SchoolBoard s : playerBoards){
-            if(s.getPlayer().getPlayerTeam() == towerColor) {
+            if(s.getPlayer().getTowerColor() == towerColor) {
                 playerSchoolBoard = s;
             }
         }

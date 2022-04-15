@@ -7,7 +7,7 @@ public class Archipelago {
     private final List<Island> islands;
     private boolean motherNature;
     private boolean noEntryTile;
-    private TeamColor towerColor;
+    private TowerColor towerColor;
     private static Color forbiddenColor;
 
     public Archipelago(Student student, boolean motherNature){
@@ -46,11 +46,11 @@ public class Archipelago {
         return noEntryTile;
     }
 
-    public void setTowerColor(TeamColor towerColor){
+    public void setTowerColor(TowerColor towerColor){
         this.towerColor = towerColor;
     }
 
-    public TeamColor getTowerColor(){
+    public TowerColor getTowerColor(){
         return towerColor;
     }
 

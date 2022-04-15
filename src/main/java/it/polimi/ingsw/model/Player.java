@@ -8,7 +8,7 @@ public class Player {
     private final String nickname;
     private int coins;
     private List<Assistant> cards;
-    private final TeamColor playerColor;
+    private final TowerColor towerColor;
     private Assistant discardPile;
     private final Wizard selectedWizard;
     private boolean canChooseAssistant;
@@ -18,16 +18,16 @@ public class Player {
     private int selectedSteps;
 
 
-    public Player(String nickname, TeamColor playerColor, Wizard selectedWizard) {
+    public Player(String nickname, TowerColor towerColor, Wizard selectedWizard) {
         this.nickname = nickname;
-        this.playerColor = playerColor;
+        this.towerColor = towerColor;
         this.selectedWizard = selectedWizard;
         coins = 1;
         initializeCards();
     }
 
     private void initializeCards(){
-        cards = new ArrayList<Assistant>(
+        cards = new ArrayList<>(
                 Arrays.asList(
                 Assistant.CAT,
                 Assistant.CHEETAH,
@@ -51,8 +51,8 @@ public class Player {
         return coins;
     }
 
-    public TeamColor getPlayerColor() {
-        return playerColor;
+    public TowerColor getTowerColor() {
+        return towerColor;
     }
 
     public Assistant getDiscardPile() {
@@ -96,9 +96,10 @@ public class Player {
         return tot;
     }
 
-    public void chooseAssistant(){
-        //TODO: implement chooseAssistant function
-        //maxSteps = assistant.maxMNSteps
+    public void chooseAssistant(Assistant assistant){
+        cards.remove(assistant);
+        discardPile = assistant;
+        maxSteps = discardPile.getMaxMNSteps();
     }
 
     public void endTurn(){
@@ -119,9 +120,5 @@ public class Player {
 
     public boolean getCanBuyCharacter() {
         return canBuyCharacter;
-    }
-
-    public TeamColor getPlayerTeam() {
-        return playerColor;
     }
 }

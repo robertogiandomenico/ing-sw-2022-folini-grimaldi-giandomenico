@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import java.io.Serializable;
+import it.polimi.ingsw.effects.*;
 import java.util.*;
 
 public class Game {
@@ -8,7 +8,7 @@ public class Game {
     private final List<Player> players;
     private List<Wizard> availableWizards;
     private List<GameCharacter> availableCharacters;
-    private List<TeamColor> availableTowers;
+    private List<TowerColor> availableTowers;
     private int numberOfPlayers;
     private Player[] playerOrder;
     private Player currentPlayer;
@@ -110,9 +110,9 @@ public class Game {
     private void initializeTowers(){
         availableTowers = new ArrayList<>(
                 Arrays.asList(
-                        TeamColor.WHITE,
-                        TeamColor.BLACK,
-                        TeamColor.GREY
+                        TowerColor.WHITE,
+                        TowerColor.BLACK,
+                        TowerColor.GREY
                 )
         );
     }
