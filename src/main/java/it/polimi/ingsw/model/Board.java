@@ -60,8 +60,8 @@ public class Board {
         SchoolBoard currentPlayerSB = getCurrentPlayerSchoolBoard();
         Student[] newStudents = clouds[selectedCloud].get();
 
-        for (int i = 0; i < newStudents.length; i++) {
-            currentPlayerSB.addToEntrance(newStudents[i]);
+        for (Student newStudent : newStudents) {
+            currentPlayerSB.addToEntrance(newStudent);
         }
     }
 

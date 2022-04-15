@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.effects.*;
 
 public class GameCharacter {
     private int cost;
-    private Effect effect;
+    private final Effect effect;
     private boolean alreadyUsed;
 
     public GameCharacter(int cost, Effect effect) {

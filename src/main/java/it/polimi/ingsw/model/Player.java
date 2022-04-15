@@ -63,18 +63,6 @@ public class Player {
         return selectedWizard;
     }
 
-    public boolean canChooseAssistant() {
-        return canChooseAssistant;
-    }
-
-    public boolean canMoveStudents() {
-        return canMoveStudents;
-    }
-
-    public boolean canBuyCharacter() {
-        return canBuyCharacter;
-    }
-
     public void setCanChooseAssistant(boolean canChooseAssistant) {
         this.canChooseAssistant = canChooseAssistant;
     }
