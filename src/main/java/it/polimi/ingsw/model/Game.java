@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.effects.*;
+import it.polimi.ingsw.model.effects.*;
 import java.util.*;
 
 public class Game {

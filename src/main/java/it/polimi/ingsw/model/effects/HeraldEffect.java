@@ -1,4 +1,5 @@
-package it.polimi.ingsw.effects;
+package it.polimi.ingsw.model.effects;
+
 import it.polimi.ingsw.model.*;
 
 public class HeraldEffect implements Effect {

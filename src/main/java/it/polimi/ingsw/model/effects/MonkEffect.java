@@ -1,4 +1,5 @@
-package it.polimi.ingsw.effects;
+package it.polimi.ingsw.model.effects;
+
 import it.polimi.ingsw.model.*;
 
 public class MonkEffect implements Effect {
@@ -28,7 +29,6 @@ public class MonkEffect implements Effect {
 
         students[selectedStudent] = board.getBag().draw();
 
-        //board.moveFromCharacterToArchipelago(selectedStudent, selectedArchipelago);
     }
 
     public void setStudents(Student[] students) {
