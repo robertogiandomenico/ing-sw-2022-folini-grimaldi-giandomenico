@@ -55,6 +55,9 @@ public class Archipelago {
     }
 
     public int getTotalStudents(Color color){
+        if(color == forbiddenColor){
+            return 0;
+        }
         int count=0;
         for(Island island : islands) count+=island.getStudentNumber(color);
         return count;

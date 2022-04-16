@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Math;
 
 public class SchoolBoard {
     private final Player player;
@@ -34,6 +35,10 @@ public class SchoolBoard {
 
     public int[] getDiningRoom() {
         return diningRoom;
+    }
+
+    public int getAdditionalInfluence() {
+        return additionalInfluence;
     }
 
     public boolean isProfessorPresent(int index){
@@ -78,7 +83,7 @@ public class SchoolBoard {
     }
 
     public void removeTowers(int numOfTowers){
-        towersLeft -= numOfTowers;
+        towersLeft = Math.max(towersLeft - numOfTowers, 0);
     }
 
     public void addTowers(int numOfTowers){

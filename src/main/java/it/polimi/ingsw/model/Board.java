@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model;
 
 
+import it.polimi.ingsw.model.effects.*;
+
+
 import java.util.*;
 
 public class Board {
@@ -48,6 +51,9 @@ public class Board {
 
         //initialize the playerBoards array
         initializeBoards();
+
+        //initialize characters with eventual students
+        initializeCharacters();
     }
 
     public void fillClouds(){
@@ -100,7 +106,74 @@ public class Board {
     }
 
     public void calculateInfluence(Archipelago archipelago){
-        //TODO: implement calculateInfluence method
+        if(!archipelago.isNoEntryTilePresent()){
+            int topInfluence = 0;
+            SchoolBoard topInfluencer = null;
+            TowerColor currentTowerColor = archipelago.getTowerColor();
+
+            for(SchoolBoard s : playerBoards){
+                int currentInfluence = 0;
+                for(Color c : Color.values()){
+                    if (s.isProfessorPresent(mapToIndex(c))){
+                        currentInfluence += archipelago.getTotalStudents(c);
+                    }
+                }
+                if(s.getPlayer().getTowerColor() != null && s.getPlayer().getTowerColor() == currentTowerColor){
+                    currentInfluence += archipelago.getIslands().size();
+                }
+                currentInfluence += s.getAdditionalInfluence();
+                s.setAdditionalInfluence(0);
+                if(currentInfluence > topInfluence) {
+                    topInfluence = currentInfluence;
+                    topInfluencer = s;
+                }
+            }
+
+            if(topInfluencer != null && currentTowerColor == null){
+                //CASE 1: Controlling an Island
+                archipelago.setTowerColor(topInfluencer.getPlayer().getTowerColor());
+                topInfluencer.removeTowers(archipelago.getIslands().size());
+            } else if(topInfluencer != null && topInfluencer.getPlayer().getTowerColor() != currentTowerColor){
+                //CASE 2: Conquering an Island, if the topInfluencer isn't the current owner of the archi, we replace the current owner's towers with theirs
+                getPlayerSchoolBoardByTeam(currentTowerColor).addTowers(archipelago.getIslands().size());
+                topInfluencer.removeTowers(archipelago.getIslands().size());
+                archipelago.setTowerColor(topInfluencer.getPlayer().getTowerColor());
+            }
+            //We'll need to remember that if topInfluencer.getTowersLeft() == 0 -> topInfluencer wins the game
+
+            Archipelago.resetForbiddenColor();
+            checkMerge(archipelago);
+        } else {
+            for (GameCharacter c : selectedCharacters){
+                if (c.getName().equals("GrannyGrass")){
+                    GrannyGrassEffect effect = (GrannyGrassEffect) c.getEffect();
+                    effect.putBackTile();
+                }
+            }
+        }
+    }
+
+    private void checkMerge(Archipelago archipelago){
+        int indexCurrentArchi = archipelagos.indexOf(archipelago);
+        int indexRightArchi = (indexCurrentArchi + 1) % archipelagos.size();
+        int indexLeftArchi = indexCurrentArchi != 0 ?  (indexCurrentArchi - 1) : archipelagos.size()-1;
+
+        Archipelago leftArchi = archipelagos.get(indexLeftArchi);
+
+        if(archipelago.getTowerColor() == archipelagos.get(indexRightArchi).getTowerColor()){
+            mergeIslands(indexCurrentArchi, indexRightArchi);
+        }
+
+        //We need to recalculate the index of the current and left archis because there is a chance that the deletion of the rightArchi changed them,
+        //this happens when initially currentArchi is the last archi of the list and rightArchi is the first one
+        indexLeftArchi = archipelagos.indexOf(leftArchi);
+        indexCurrentArchi = (indexLeftArchi + 1) % archipelagos.size();
+
+        if(archipelagos.get(indexLeftArchi).getTowerColor() == archipelagos.get(indexCurrentArchi).getTowerColor()){
+            mergeIslands(indexLeftArchi, indexCurrentArchi);
+        }
+
+        //We'll need to remember that if archipelagos.size() == 3 the game will end and the winner will be the player with min(towersLefts)
     }
 
     private void mergeIslands(int archi1, int archi2){
@@ -109,8 +182,8 @@ public class Board {
 
         islands1.addAll(islands2);
 
-        islands2.removeAll(islands2);
-        archipelagos.remove(getArchipelago(archi2));
+        islands2.clear();
+        archipelagos.remove(archi2);
     }
 
     private void mapSetup(){
@@ -167,7 +240,30 @@ public class Board {
         }
     }
 
-    public Student[] drawStudentsArray(int size){
+    private void initializeCharacters(){
+        for (GameCharacter c : selectedCharacters){
+            switch (c.getName()){
+                case "Monk": {
+                    MonkEffect effect = (MonkEffect) c.getEffect();
+                    effect.setStudents(drawStudentsArray(4));
+                    break;
+                }
+                case "Jester": {
+                    JesterEffect effect = (JesterEffect) c.getEffect();
+                    effect.setStudents(drawStudentsArray(6));
+                    break;
+                }
+                case "SpoiledPrincess": {
+                    SpoiledPrincessEffect effect = (SpoiledPrincessEffect) c.getEffect();
+                    effect.setStudents(drawStudentsArray(4));
+                    break;
+                }
+                default: break;
+            }
+        }
+    }
+
+    private Student[] drawStudentsArray(int size){
         Student[] tmp = new Student[size];
         for (int i = 0; i < size; i++) {
             tmp[i] = bag.draw();

@@ -4,12 +4,14 @@ import it.polimi.ingsw.model.effects.*;
 
 public class GameCharacter {
     private int cost;
+    private String name;
     private final Effect effect;
     private boolean alreadyUsed;
 
-    public GameCharacter(int cost, Effect effect) {
+    public GameCharacter(int cost, Effect effect, String name) {
         this.cost = cost;
         this.effect = effect;
+        this.name = name;
     }
 
     private void updateCost(){
@@ -19,6 +21,14 @@ public class GameCharacter {
 
     public int getCost(){
         return cost;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Effect getEffect(){
+        return effect;
     }
 
     public void useEffect(Board board, int archiIndex, int numOfStudents, Color...studColors) {
