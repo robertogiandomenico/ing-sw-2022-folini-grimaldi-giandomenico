@@ -310,10 +310,6 @@ public class Board {
         return colorsIndex.get(color);
     }
 
-    public List<Archipelago> getArchipelagos() {
-        return archipelagos;
-    }
-
     public Cloud[] getClouds() {
         return clouds;
     }
