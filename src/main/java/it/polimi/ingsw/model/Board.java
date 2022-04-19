@@ -53,7 +53,7 @@ public class Board {
         initializeBoards();
 
         //initialize characters with eventual students
-        initializeCharacters();
+        if (selectedCharacters != null) initializeCharacters();
     }
 
     public void fillClouds(){
@@ -310,4 +310,39 @@ public class Board {
         return colorsIndex.get(color);
     }
 
+    public List<Archipelago> getArchipelagos() {
+        return archipelagos;
+    }
+
+    public Cloud[] getClouds() {
+        return clouds;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public int getCoinsSupply() {
+        return coinsSupply;
+    }
+
+    public GameCharacter[] getSelectedCharacters() {
+        return selectedCharacters;
+    }
+
+    public int getTOTALCLOUDS() {
+        return TOTALCLOUDS;
+    }
+
+    public int getCLOUDSIZE() {
+        return CLOUDSIZE;
+    }
+
+    public int getENTRANCESIZE() {
+        return ENTRANCESIZE;
+    }
+
+    public int getTOTALTOWERS() {
+        return TOTALTOWERS;
+    }
 }

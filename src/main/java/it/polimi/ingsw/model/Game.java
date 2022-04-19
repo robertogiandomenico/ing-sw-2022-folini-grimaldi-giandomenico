@@ -10,68 +10,67 @@ public class Game {
     private List<GameCharacter> availableCharacters;
     private List<TowerColor> availableTowers;
     private int numberOfPlayers;
-    private Player[] playerOrder;
+    private List<Player> playerOrder;
     private Player currentPlayer;
     private final boolean expertMode;
 
-    public Game(boolean expertMode){
+    public Game(boolean expertMode) {
         this.expertMode = expertMode;
 
         players = new ArrayList<>();
+        playerOrder = new ArrayList<>();
 
         initializeWizards();
         initializeTowers();
-        if(expertMode) initializeExpertModeFeatures();
+        if (expertMode) initializeExpertModeFeatures();
 
-        setInitialOrder();
-
-        //TODO: implement players login methods
-
-        setBoard();
     }
 
-    public void start(){
+    public void start() {
         //TODO: implement start() method
     }
 
-    public void createNewPlayer(){
-        //TODO: implement createNewPlayer()
+    public void addNewPlayer(Player newPlayer) {
+        players.add(newPlayer);
+        playerOrder.add(newPlayer);
+        availableTowers.remove(newPlayer.getTowerColor());
+        availableWizards.remove(newPlayer.getSelectedWizard());
         numberOfPlayers++;
     }
 
-    public Player getPlayerByNickname(String nickname){
-        for(Player p : players){
-            if(p.getNickname().equals(nickname)){
+    public Player getPlayerByNickname(String nickname) {
+        for (Player p : players) {
+            if (p.getNickname().equals(nickname)) {
                 return p;
             }
         }
         return null;
     }
 
-    public void setCurrentPlayer(Player currentPlayer){
+    public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
     //this method uses a simple sorting algorithm to sort the players according to the weight
     //of the last assistant played and then sets the current player as the first player for the next turn
-    public void updatePlayersOrder(){
+    public void updatePlayersOrder() {
         for (int i = 0; i < numberOfPlayers - 1; i++) {
-            for(int j = i+1; j < numberOfPlayers; j++){
-                if(playerOrder[i].getDiscardPile().getWeight() > playerOrder[j].getDiscardPile().getWeight()){
-                    Player tmp = playerOrder[i];
-                    playerOrder[i] = playerOrder[j];
-                    playerOrder[j] = tmp;
+            for (int j = i + 1; j < numberOfPlayers; j++) {
+                if (playerOrder.get(i).getDiscardPile().getWeight() > playerOrder.get(j).getDiscardPile().getWeight()) {
+                    Player tmp = playerOrder.get(i);
+                    playerOrder.set(i, playerOrder.get(j));
+                    playerOrder.set(j, tmp);
                 }
             }
         }
-        setCurrentPlayer(playerOrder[0]);
+        setCurrentPlayer(playerOrder.get(0));
     }
 
-    public void setBoard(){
+    public void initializeBoard() {
         int TOTALCLOUDS, CLOUDSIZE, ENTRANCESIZE, TOTALTOWERS;
         GameCharacter[] selectedCharacters = null;
         Random rand = new Random();
@@ -83,10 +82,10 @@ public class Game {
         ENTRANCESIZE = 2 * numberOfPlayers + 3;  //2 players -> 7 spaces, 3 players -> 9 spaces
         TOTALTOWERS = -2 * numberOfPlayers + 12; //2 players -> 8 towers, 3 players -> 6 towers
 
-        if(expertMode){
+        if (expertMode) {
             selectedCharacters = new GameCharacter[3];
-            for (int i = 0; i < 3; i++){
-                selectedCharacters[i] = availableCharacters.remove(rand.nextInt(12-i));
+            for (int i = 0; i < 3; i++) {
+                selectedCharacters[i] = availableCharacters.remove(rand.nextInt(12 - i));
             }
         }
 
@@ -95,7 +94,7 @@ public class Game {
     }
 
     //initialize all the possible wizards
-    private void initializeWizards(){
+    private void initializeWizards() {
         availableWizards = new ArrayList<>(
                 Arrays.asList(
                         Wizard.WIZARD1,
@@ -107,7 +106,7 @@ public class Game {
     }
 
     //initialize all the possible tower colors
-    private void initializeTowers(){
+    private void initializeTowers() {
         availableTowers = new ArrayList<>(
                 Arrays.asList(
                         TowerColor.WHITE,
@@ -118,7 +117,7 @@ public class Game {
     }
 
     //initialize all the expert mode features (GameCharacters)
-    private void initializeExpertModeFeatures(){
+    private void initializeExpertModeFeatures() {
         availableCharacters = new ArrayList<>(
                 Arrays.asList(
                         new GameCharacter(3, new HeraldEffect(), "Herald"),
@@ -137,10 +136,35 @@ public class Game {
         );
     }
 
-    //set the initial order of the players equals to the login order
-    private void setInitialOrder(){
-        for (int i = 0; i < numberOfPlayers; i++) {
-            playerOrder[i] = players.get(i);
-        }
+    public Board getBoard() {
+        return board;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public List<Wizard> getAvailableWizards() {
+        return availableWizards;
+    }
+
+    public List<GameCharacter> getAvailableCharacters() {
+        return availableCharacters;
+    }
+
+    public List<TowerColor> getAvailableTowers() {
+        return availableTowers;
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    public List<Player> getPlayerOrder() {
+        return playerOrder;
+    }
+
+    public boolean isExpertMode() {
+        return expertMode;
     }
 }
