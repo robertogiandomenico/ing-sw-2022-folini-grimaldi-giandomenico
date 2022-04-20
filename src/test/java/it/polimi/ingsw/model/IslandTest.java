@@ -25,9 +25,9 @@ class IslandTest {
 
         for (Color c : Color.values()){
             if(c == Color.GREEN){
-                assertTrue(1 == island.getStudentNumber(c) && islandNull.getStudentNumber(c) == 0);
+                assertEquals(1, island.getStudentNumber(c));
             } else {
-                assertTrue(0 == island.getStudentNumber(c) && islandNull.getStudentNumber(c) == 0);
+                assertEquals(0, island.getStudentNumber(c));
             }
         }
 

@@ -16,16 +16,16 @@ public class Island {
         else students.add(student);
     }
 
+    public boolean hasNoStudents(){
+        return students.get(0) == null;
+    }
+
     public int getStudentNumber(Color color) {
-        try {
-            int count = 0;
-            for (Student student : students) {
-                if (student.getColor().equals(color)) count++;
-            }
-            return count;
-        } catch (NullPointerException e){
-            return 0;
+        int count = 0;
+        for (Student student : students) {
+            if (student.getColor().equals(color)) count++;
         }
+        return count;
     }
 
 }

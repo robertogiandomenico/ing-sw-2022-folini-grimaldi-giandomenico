@@ -59,7 +59,9 @@ public class Archipelago {
             return 0;
         }
         int count=0;
-        for(Island island : islands) count+=island.getStudentNumber(color);
+        for(Island island : islands) {
+            if (!island.hasNoStudents()) count+=island.getStudentNumber(color);
+        }
         return count;
     }
 

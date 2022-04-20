@@ -106,54 +106,59 @@ public class Board {
     }
 
     public void calculateInfluence(Archipelago archipelago){
-        if(!archipelago.isNoEntryTilePresent()){
-            int topInfluence = 0;
-            SchoolBoard topInfluencer = null;
-            TowerColor currentTowerColor = archipelago.getTowerColor();
+        if(!archipelago.getIslands().get(0).hasNoStudents()) {
+            if (!archipelago.isNoEntryTilePresent()) {
+                int topInfluence = 0;
+                SchoolBoard topInfluencer = null;
+                TowerColor currentTowerColor = archipelago.getTowerColor();
 
-            for(SchoolBoard s : playerBoards){
-                int currentInfluence = 0;
-                for(Color c : Color.values()){
-                    if (s.isProfessorPresent(mapToIndex(c))){
-                        currentInfluence += archipelago.getTotalStudents(c);
+                for (SchoolBoard s : playerBoards) {
+                    int currentInfluence = 0;
+                    for (Color c : Color.values()) {
+                        if (s.isProfessorPresent(mapToIndex(c))) {
+                            currentInfluence += archipelago.getTotalStudents(c);
+                        }
+                    }
+                    if (s.getPlayer().getTowerColor() != null && s.getPlayer().getTowerColor() == currentTowerColor) {
+                        currentInfluence += archipelago.getIslands().size();
+                    }
+                    currentInfluence += s.getAdditionalInfluence();
+                    s.setAdditionalInfluence(0);
+                    if (currentInfluence > topInfluence || (currentInfluence == topInfluence && currentTowerColor == s.getPlayer().getTowerColor())) {
+                        topInfluence = currentInfluence;
+                        topInfluencer = s;
                     }
                 }
-                if(s.getPlayer().getTowerColor() != null && s.getPlayer().getTowerColor() == currentTowerColor){
-                    currentInfluence += archipelago.getIslands().size();
-                }
-                currentInfluence += s.getAdditionalInfluence();
-                s.setAdditionalInfluence(0);
-                if(currentInfluence > topInfluence) {
-                    topInfluence = currentInfluence;
-                    topInfluencer = s;
-                }
-            }
 
-            if(topInfluencer != null && currentTowerColor == null){
-                //CASE 1: Controlling an Island
-                archipelago.setTowerColor(topInfluencer.getPlayer().getTowerColor());
-                topInfluencer.removeTowers(archipelago.getIslands().size());
-            } else if(topInfluencer != null && topInfluencer.getPlayer().getTowerColor() != currentTowerColor){
-                //CASE 2: Conquering an Island, if the topInfluencer isn't the current owner of the archi, we replace the current owner's towers with theirs
-                getPlayerSchoolBoardByTeam(currentTowerColor).addTowers(archipelago.getIslands().size());
-                topInfluencer.removeTowers(archipelago.getIslands().size());
-                archipelago.setTowerColor(topInfluencer.getPlayer().getTowerColor());
-            }
-            //We'll need to remember that if topInfluencer.getTowersLeft() == 0 -> topInfluencer wins the game
+                if (topInfluencer != null && currentTowerColor == null) {
+                    //CASE 1: Controlling an Island
+                    archipelago.setTowerColor(topInfluencer.getPlayer().getTowerColor());
+                    topInfluencer.removeTowers(archipelago.getIslands().size());
+                } else if (topInfluencer != null && topInfluencer.getPlayer().getTowerColor() != currentTowerColor) {
+                    //CASE 2: Conquering an Island, if the topInfluencer isn't the current owner of the archi, we replace the current owner's towers with theirs
+                    getPlayerSchoolBoardByTeam(currentTowerColor).addTowers(archipelago.getIslands().size());
+                    topInfluencer.removeTowers(archipelago.getIslands().size());
+                    archipelago.setTowerColor(topInfluencer.getPlayer().getTowerColor());
+                }
+                //We'll need to remember that if topInfluencer.getTowersLeft() == 0 -> topInfluencer wins the game
 
-            Archipelago.resetForbiddenColor();
-            checkMerge(archipelago);
-        } else {
-            for (GameCharacter c : selectedCharacters){
-                if (c.getName().equals("GrannyGrass")){
-                    GrannyGrassEffect effect = (GrannyGrassEffect) c.getEffect();
-                    effect.putBackTile();
+                Archipelago.resetForbiddenColor();
+                if (archipelago.getTowerColor() != null) checkMerge(archipelago);
+            } else {
+                archipelago.setNoEntryTile(false);
+                for (GameCharacter c : selectedCharacters) {
+                    if (c.getName().equals("GrannyGrass")) {
+                        GrannyGrassEffect effect = (GrannyGrassEffect) c.getEffect();
+                        effect.putBackTile();
+                    }
                 }
             }
         }
     }
 
     private void checkMerge(Archipelago archipelago){
+        //If one of the adjacent archis can be merged we'll merge THAT archi into archipelago, so that we can preserve the reference to the
+        //current archi on which we calculated the influence (archipelago)
         int indexCurrentArchi = archipelagos.indexOf(archipelago);
         int indexRightArchi = (indexCurrentArchi + 1) % archipelagos.size();
         int indexLeftArchi = indexCurrentArchi != 0 ?  (indexCurrentArchi - 1) : archipelagos.size()-1;
@@ -170,7 +175,7 @@ public class Board {
         indexCurrentArchi = (indexLeftArchi + 1) % archipelagos.size();
 
         if(archipelagos.get(indexLeftArchi).getTowerColor() == archipelagos.get(indexCurrentArchi).getTowerColor()){
-            mergeIslands(indexLeftArchi, indexCurrentArchi);
+            mergeIslands(indexCurrentArchi, indexLeftArchi);
         }
 
         //We'll need to remember that if archipelagos.size() == 3 the game will end and the winner will be the player with min(towersLefts)
@@ -298,6 +303,22 @@ public class Board {
         return playerSchoolBoard;
     }
 
+    public void playCharacter(String characterName, int archiIndex, int numOfStudents, Color...studColors){
+        GameCharacter selected = null;
+        for (GameCharacter c : selectedCharacters){
+            if (c.getName().equals(characterName)){
+                selected = c;
+                break;
+            }
+        }
+        if (selected != null){
+            Player p = getCurrentPlayerSchoolBoard().getPlayer();
+            p.removeCoins(selected.getCost());
+            coinsSupply = coinsSupply + (selected.isAlreadyUsed() ? selected.getCost() : selected.getCost()-1);
+            selected.useEffect(this, archiIndex, numOfStudents, studColors);
+        }
+    }
+
     public Bag getBag() {
         return bag;
     }
@@ -308,6 +329,10 @@ public class Board {
 
     public int mapToIndex(Color color){
         return colorsIndex.get(color);
+    }
+
+    public List<Archipelago> getArchipelagos() {
+        return archipelagos;
     }
 
     public Cloud[] getClouds() {
