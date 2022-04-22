@@ -149,5 +149,15 @@ class ArchipelagoTest {
                 default: break;
             }
         }
+
+        Archipelago.setForbiddenColor(Color.RED);
+        for (Archipelago a : archipelagos){
+            assertEquals(0, a.getTotalStudents(Color.RED));
+        }
+
+        Archipelago.resetForbiddenColor();
+        assertEquals(0, archipelagos.get(0).getTotalStudents(Color.RED));
+        assertEquals(2, archipelagos.get(1).getTotalStudents(Color.RED));
+        assertEquals(1, archipelagos.get(2).getTotalStudents(Color.RED));
     }
 }

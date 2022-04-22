@@ -20,4 +20,8 @@ public class SpoiledPrincessEffect implements Effect {
         this.students = students;
     }
 
+    public Student[] getStudents() {
+        return students;
+    }
+
 }

@@ -35,4 +35,7 @@ public class MonkEffect implements Effect {
         this.students = students;
     }
 
+    public Student[] getStudents() {
+        return students;
+    }
 }

@@ -37,6 +37,10 @@ public class SchoolBoard {
         return diningRoom;
     }
 
+    public Student[] getEntrance() {
+        return entrance;
+    }
+
     public int getAdditionalInfluence() {
         return additionalInfluence;
     }

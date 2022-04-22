@@ -80,7 +80,7 @@ public class Player {
     }
 
     public int removeCoins(int tot){
-        coins -= tot;
+        coins = Math.max(coins - tot, 0);
         return tot;
     }
 
@@ -88,10 +88,6 @@ public class Player {
         cards.remove(assistant);
         discardPile = assistant;
         maxSteps = discardPile.getMaxMNSteps();
-    }
-
-    public void endTurn(){
-        //TODO: implement endTurn function
     }
 
     public void setAdditionalSteps() {
@@ -108,5 +104,21 @@ public class Player {
 
     public boolean getCanBuyCharacter() {
         return canBuyCharacter;
+    }
+
+    public List<Assistant> getCards() {
+        return cards;
+    }
+
+    public int getMaxSteps() {
+        return maxSteps;
+    }
+
+    public int getSelectedSteps() {
+        return selectedSteps;
+    }
+
+    public void setSelectedSteps(int selectedSteps) {
+        this.selectedSteps = selectedSteps;
     }
 }

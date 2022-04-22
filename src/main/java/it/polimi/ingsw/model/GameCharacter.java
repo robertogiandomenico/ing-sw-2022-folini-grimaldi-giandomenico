@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.effects.*;
 
 public class GameCharacter {
     private int cost;
-    private String name;
+    private final String name;
     private final Effect effect;
     private boolean alreadyUsed;
 
@@ -29,6 +29,10 @@ public class GameCharacter {
 
     public Effect getEffect(){
         return effect;
+    }
+
+    public boolean isAlreadyUsed() {
+        return alreadyUsed;
     }
 
     public void useEffect(Board board, int archiIndex, int numOfStudents, Color...studColors) {
