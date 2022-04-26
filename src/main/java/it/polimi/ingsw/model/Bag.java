@@ -4,9 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class represents the game bag that contains the student discs.
+ * Discs can be drawn from it and also put in there according to the game rules.
+ * There is only one instance of this class for each game.
+ */
 public class Bag {
     private final List<Student> bagContent;
 
+    /**
+     * Class constructor that initializes this bag with two students for each color.
+     */
     public Bag(){
         this.bagContent = new ArrayList<>();
 
@@ -20,15 +28,31 @@ public class Bag {
         Collections.shuffle(this.bagContent);
     }
 
+    /**
+     * Draws a student from this bag.
+     *
+     * @return                 a Student randomly drawn from this Bag.
+     */
     public Student draw(){
         return getSize()==0 ? null : bagContent.remove(getSize()-1);
     }
 
+    /**
+     * Puts the given student inside this bag.
+     *
+     * @param student          the Student added to the List that represents the bag
+     *                         content.
+     */
     public void put(Student student){
         bagContent.add(student);
         Collections.shuffle(this.bagContent);
     }
 
+    /**
+     * Returns the number of students inside this bag.
+     *
+     * @return                 the size of the bag's Student List.
+     */
     public int getSize(){
         return bagContent.size();
     }

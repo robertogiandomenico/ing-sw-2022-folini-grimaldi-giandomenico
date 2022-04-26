@@ -10,6 +10,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class tests the {@link it.polimi.ingsw.model.Game Game} methods.
+ */
 class GameTest {
     private List<Game> games;
     private List<Player> players;

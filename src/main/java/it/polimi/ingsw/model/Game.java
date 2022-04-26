@@ -3,6 +3,11 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.effects.*;
 import java.util.*;
 
+/**
+ * This class represents the whole game.
+ * It manages the players and initializes board, wizards, towers and expert mode
+ * features during a match.
+ */
 public class Game {
     private Board board;
     private final List<Player> players;
@@ -14,6 +19,17 @@ public class Game {
     private Player currentPlayer;
     private final boolean expertMode;
 
+    /**
+     * Class constructor specifying if expert mode is selected.
+     * Initializes wizards and towers and expert mode features (if required).
+     *
+     * @param expertMode    a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if expert mode is selected;
+     *                      </p> <p>
+     *                      -{@code false} if expert mode isn't selected.
+     *                      </p>
+     */
     public Game(boolean expertMode) {
         this.expertMode = expertMode;
 
@@ -26,10 +42,18 @@ public class Game {
 
     }
 
+    /**
+     * Starts the game.
+     */
     public void start() {
         //TODO: implement start() method
     }
 
+    /**
+     * Adds a new player to the game.
+     *
+     * @param newPlayer     the Player to be added.
+     */
     public void addNewPlayer(Player newPlayer) {
         players.add(newPlayer);
         playerOrder.add(newPlayer);
@@ -38,6 +62,12 @@ public class Game {
         numberOfPlayers++;
     }
 
+    /**
+     * Returns the player corresponding to the given nickname.
+     *
+     * @param nickname      the nickname of the Player.
+     * @return              the Player corresponding to the nickname.
+     */
     public Player getPlayerByNickname(String nickname) {
         for (Player p : players) {
             if (p.getNickname().equals(nickname)) {
@@ -47,14 +77,27 @@ public class Game {
         return null;
     }
 
+    /**
+     * Sets the given player as current.
+     *
+     * @param currentPlayer the Player to be set as current.
+     */
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
+    /**
+     * Returns the current player.
+     *
+     * @return              the current Player.
+     */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * Updates playing order according to the weight of the chosen assistant cards.
+     */
     //this method uses a simple sorting algorithm to sort the players according to the weight
     //of the last assistant played and then sets the current player as the first player for the next turn
     public void updatePlayersOrder() {
@@ -70,6 +113,9 @@ public class Game {
         setCurrentPlayer(playerOrder.get(0));
     }
 
+    /**
+     * Initializes board (either easy or expert mode).
+     */
     public void initializeBoard() {
         int TOTALCLOUDS, CLOUDSIZE, ENTRANCESIZE, TOTALTOWERS;
         GameCharacter[] selectedCharacters = null;
@@ -93,7 +139,9 @@ public class Game {
         board = new Board(players, TOTALCLOUDS, CLOUDSIZE, ENTRANCESIZE, TOTALTOWERS, selectedCharacters);
     }
 
-    //initialize all the possible wizards
+    /**
+     * Initializes all the possible wizards.
+     */
     private void initializeWizards() {
         availableWizards = new ArrayList<>(
                 Arrays.asList(
@@ -105,7 +153,9 @@ public class Game {
         );
     }
 
-    //initialize all the possible tower colors
+    /**
+     * Initializes all the possible tower colors.
+     */
     private void initializeTowers() {
         availableTowers = new ArrayList<>(
                 Arrays.asList(
@@ -116,7 +166,9 @@ public class Game {
         );
     }
 
-    //initialize all the expert mode features (GameCharacters)
+    /**
+     * Initializes all the expert mode features (GameCharacters).
+     */
     private void initializeExpertModeFeatures() {
         availableCharacters = new ArrayList<>(
                 Arrays.asList(
@@ -136,34 +188,79 @@ public class Game {
         );
     }
 
+    /**
+     * Returns game board.
+     *
+     * @return              the Board of this Game.
+     */
     public Board getBoard() {
         return board;
     }
 
+    /**
+     * Returns the players of this game.
+     *
+     * @return              the Player List of this Game.
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * Returns the available wizards.
+     *
+     * @return              the Wizard List of available ones.
+     */
     public List<Wizard> getAvailableWizards() {
         return availableWizards;
     }
 
+    /**
+     * Returns the available characters.
+     *
+     * @return              the GameCharacter List of available ones.
+     */
     public List<GameCharacter> getAvailableCharacters() {
         return availableCharacters;
     }
 
+    /**
+     * Returns the available tower colors.
+     *
+     * @return              the TowerColor List of available ones.
+     */
     public List<TowerColor> getAvailableTowers() {
         return availableTowers;
     }
 
+    /**
+     * Returns the number of players.
+     *
+     * @return              the number of Players.
+     */
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
+    /**
+     * Returns the players ordered according to the turns.
+     *
+     * @return              a Player List of the playing order.
+     */
     public List<Player> getPlayerOrder() {
         return playerOrder;
     }
 
+    /**
+     * States whether the expert mode is chosen or not for this game.
+     *
+     * @return              a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if expert mode is selected;
+     *                      </p> <p>
+     *                      -{@code false} if expert mode isn't selected.
+     *                      </p>
+     */
     public boolean isExpertMode() {
         return expertMode;
     }

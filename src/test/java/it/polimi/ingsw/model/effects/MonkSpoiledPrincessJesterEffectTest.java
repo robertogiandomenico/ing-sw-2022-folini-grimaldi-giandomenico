@@ -11,6 +11,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ *  This class tests {@link it.polimi.ingsw.model.effects.MonkEffect MonkEffect},
+ *  {@link it.polimi.ingsw.model.effects.SpoiledPrincessEffect SpoiledPrincessEffect}
+ *  and {@link it.polimi.ingsw.model.effects.JesterEffect JesterEffect} methods.
+ */
 class MonkSpoiledPrincessJesterEffectTest {
     private Board board;
     private List<Player> players;

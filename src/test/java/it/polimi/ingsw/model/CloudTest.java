@@ -7,6 +7,9 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class tests the {@link it.polimi.ingsw.model.Cloud Cloud} methods.
+ */
 class CloudTest {
 
     private Cloud cloud;

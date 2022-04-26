@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class tests the {@link it.polimi.ingsw.model.SchoolBoard SchoolBoard} methods.
+ */
 class SchoolBoardTest {
 
     private SchoolBoard sb; //currentPlayerSB

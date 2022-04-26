@@ -6,9 +6,28 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class implements the {@link Effect} of the Jester character.
+ * Up to 3 students can be taken from the card and replaced with the same number
+ * of students from the player's entrance.
+ */
 public class JesterEffect implements Effect {
     Student[] students = new Student[6];
 
+    /**
+     * Applies the changes caused by the effect of the Jester character.
+     * The students chosen from the card will be replaced with the students chosen
+     * from the entrance.
+     *
+     * @param board            the Board of the Game (to access current player
+     *                         SchoolBoard).
+     * @param archiIndex       the selected Archipelago (unused in this case).
+     * @param numOfStudents    the number of Students to take and replace.
+     * @param studColors       the Colors of the Students (the first numOfStudents
+     *                         Colors in studColors[] will be those of the Students
+     *                         chosen FROM THIS CARD; the remaining will be those of
+     *                         the Students chosen FROM THE ENTRANCE).
+     */
     public void applyEffect(Board board, int archiIndex, int numOfStudents, Color...studColors) {
         //the user will choose how many students they want to move and this number will be saved in the variable numOfStudents
         //the first numOfStudents Colors in studColors[] will be the colors of the students chosen FROM THIS CARD, while the remaining
@@ -44,6 +63,20 @@ public class JesterEffect implements Effect {
         }
     }
 
+    /**
+     * Checks if a given number is within the elements of an array.
+     * Used in {@link JesterEffect#applyEffect}.
+     *
+     * @param index            the selected number.
+     * @param indexes          an Array of indexes.
+     *
+     * @return                 a boolean whose value is:
+     *                         <p>
+     *                         -{@code true} if there is the sought match;
+     *                         </p> <p>
+     *                         -{@code false} if there isn't the sought match.
+     *                         </p>
+     */
     private boolean alreadyPresent(int index, int[] indexes){
         for (int i : indexes){
             if (i == index) return true;
@@ -51,10 +84,20 @@ public class JesterEffect implements Effect {
         return false;
     }
 
+    /**
+     * Puts the given students on the card.
+     *
+     * @param students         the Student Array of students to put on the card.
+     */
     public void setStudents(Student[] students){
         this.students = students;
     }
 
+    /**
+     * Takes students from the card.
+     *
+     * @return                 the Student Array of removed students.
+     */
     public Student[] getStudents() {
         return students;
     }

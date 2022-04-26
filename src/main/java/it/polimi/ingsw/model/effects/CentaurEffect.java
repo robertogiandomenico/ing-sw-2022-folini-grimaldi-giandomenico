@@ -2,8 +2,22 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
 
+/**
+ * This class implements the {@link Effect} of the Centaur character.
+ * When resolving a conquering on the selected island, towers (if present) do not
+ * count towards influence.
+ */
 public class CentaurEffect implements Effect {
 
+    /**
+     * Applies the changes caused by the effect of the Centaur character.
+     * Sets the number of towers present as negative, to balance influence count.
+     *
+     * @param board                the Board of the game.
+     * @param archiIndex           the selected Archipelago.
+     * @param numOfStudents        the number of Students (unused in this case).
+     * @param studColors           the Colors of the Students (unused in this case).
+     */
     public void applyEffect(Board board, int archiIndex, int numOfStudents, Color...studColors) {
         Archipelago selectedArchipelago = board.getArchipelago(archiIndex);
         TowerColor team = selectedArchipelago.getTowerColor();

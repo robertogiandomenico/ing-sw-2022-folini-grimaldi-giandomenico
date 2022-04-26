@@ -12,6 +12,9 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class tests the {@link it.polimi.ingsw.model.Board Board} methods.
+ */
 class BoardTest {
 
     private List<Board> boards;

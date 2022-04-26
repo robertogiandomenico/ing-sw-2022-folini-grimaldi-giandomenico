@@ -6,6 +6,12 @@ import it.polimi.ingsw.model.effects.*;
 
 import java.util.*;
 
+/**
+ * This class represents the game board.
+ * The board includes 12 islands and 2 or 3 school boards and clouds. If expert
+ * mode, it also includes coins and selected characters.
+ * There is only one instance of this class for each game.
+ */
 public class Board {
     private final int TOTALCLOUDS;
     private final int CLOUDSIZE;
@@ -24,6 +30,17 @@ public class Board {
     private final GameCharacter[] selectedCharacters;
 
 
+    /**
+     * Class constructor that initializes the board using the parameters to correctly
+     * set school boards, towers, clouds and characters.
+     *
+     * @param players               the Player List.
+     * @param TOTALCLOUDS           the number of Clouds.
+     * @param CLOUDSIZE             the number of Students for each Cloud.
+     * @param ENTRANCESIZE          the number of Students for each school entrance.
+     * @param TOTALTOWERS           the number of towers for each Player.
+     * @param selectedCharacters    the List of GameCharacters drawn for this game.
+     */
     public Board(List<Player> players, int TOTALCLOUDS, int CLOUDSIZE, int ENTRANCESIZE, int TOTALTOWERS, GameCharacter[] selectedCharacters){
         this.players = players;
         this.TOTALCLOUDS = TOTALCLOUDS;
@@ -56,12 +73,20 @@ public class Board {
         if (selectedCharacters != null) initializeCharacters();
     }
 
+    /**
+     * Puts students on the clouds.
+     */
     public void fillClouds(){
         for(int i = 0; i < TOTALCLOUDS; i++) {
             clouds[i].fill(drawStudentsArray(CLOUDSIZE));
         }
     }
 
+    /**
+     * Moves students from a cloud to the player's school entrance.
+     *
+     * @param selectedCloud         the Cloud from which Students are taken.
+     */
     public void moveFromCloudToEntrance(int selectedCloud){
         SchoolBoard currentPlayerSB = getCurrentPlayerSchoolBoard();
         Student[] newStudents = clouds[selectedCloud].get();
@@ -71,6 +96,12 @@ public class Board {
         }
     }
 
+    /**
+     * Moves a student from the player's entrance to the given archipelago.
+     *
+     * @param student               the Student that has to be moved.
+     * @param archiIndex            the selected Archipelago.
+     */
     public void moveFromEntranceToArchipelago(Student student, int archiIndex){
         SchoolBoard currentPlayerSB = getCurrentPlayerSchoolBoard();
         Archipelago selectedArchipelago = archipelagos.get(archiIndex);
@@ -79,6 +110,11 @@ public class Board {
         selectedArchipelago.getIslands().get(0).addStudent(student);
     }
 
+    /**
+     * Moves a student from the player's entrance to the corresponding dining room.
+     *
+     * @param student               the Student that has to be moved.
+     */
     public void moveFromEntranceToDiningRoom(Student student){
         SchoolBoard currentPlayerSB = getCurrentPlayerSchoolBoard();
         int indexDR = mapToIndex(student.getColor());
@@ -87,6 +123,12 @@ public class Board {
         currentPlayerSB.addToDiningRoom(indexDR);
     }
 
+    /**
+     * Moves Mother Nature according to the selected number of steps and then
+     * calculates the influence.
+     *
+     * @param mnSteps               the number of steps Mother Nature has to take.
+     */
     public void moveMotherNature(int mnSteps){
         int archiIndex = 0; //needed to know the index of the starting archipelago
         int nextArchiIndex;
@@ -105,6 +147,15 @@ public class Board {
         }
     }
 
+    /**
+     * Calculates the influence for the given archipelago.
+     * Adds/replaces towers if necessary.
+     * {@link it.polimi.ingsw.model.effects.GrannyGrassEffect Granny Grass} and
+     * {@link it.polimi.ingsw.model.effects.MushroomManEffect Mushroom Man}
+     * effects are considered.
+     *
+     * @param archipelago           the Archipelago where influence is calculated.
+     */
     public void calculateInfluence(Archipelago archipelago){
         if(!archipelago.getIslands().get(0).hasNoStudents()) {
             if (!archipelago.isNoEntryTilePresent()) {
@@ -156,6 +207,11 @@ public class Board {
         }
     }
 
+    /**
+     * Checks if adjacent archipelagos can be merged into the given one.
+     *
+     * @param archipelago           the selected Archipelago.
+     */
     private void checkMerge(Archipelago archipelago){
         //If one of the adjacent archis can be merged we'll merge THAT archi into archipelago, so that we can preserve the reference to the
         //current archi on which we calculated the influence (archipelago)
@@ -181,6 +237,12 @@ public class Board {
         //We'll need to remember that if archipelagos.size() == 3 the game will end and the winner will be the player with min(towersLefts)
     }
 
+    /**
+     * Merges islands from the second archipelago into the first one.
+     *
+     * @param archi1                the first Archipelago.
+     * @param archi2                the second Archipelago.
+     */
     private void mergeIslands(int archi1, int archi2){
         List<Island> islands1 = archipelagos.get(archi1).getIslands();
         List<Island> islands2 = archipelagos.get(archi2).getIslands();
@@ -191,6 +253,9 @@ public class Board {
         archipelagos.remove(archi2);
     }
 
+    /**
+     * Maps each color to an index.
+     */
     private void mapSetup(){
         colorsIndex.put(Color.GREEN, 0);
         colorsIndex.put(Color.RED, 1);
@@ -199,6 +264,10 @@ public class Board {
         colorsIndex.put(Color.BLUE, 4);
     }
 
+    /**
+     * Initializes the 12 islands on the board.
+     * A random number states where Mother Nature is located initially.
+     */
     private void initializeIslands(){
         int n = new Random().nextInt(12);
         for (int i = 0; i < 12; i++) {
@@ -212,6 +281,9 @@ public class Board {
         }
     }
 
+    /**
+     * Fills the bag with students of each color.
+     */
     private void fillBag(){
         for (int i = 0; i < 24; i++) {
             bag.put(new Student(Color.GREEN));
@@ -222,6 +294,9 @@ public class Board {
         }
     }
 
+    /**
+     * Initializes the clouds on this board.
+     */
     private void initializeClouds(){
         clouds = new Cloud[TOTALCLOUDS];
         for(int i = 0; i < TOTALCLOUDS; i++) {
@@ -230,6 +305,9 @@ public class Board {
         fillClouds();
     }
 
+    /**
+     * Initializes a school board for each player.
+     */
     private void initializeBoards(){
         playerBoards = new SchoolBoard[players.size()];
         for (int i = 0; i < players.size(); i++) {
@@ -245,6 +323,10 @@ public class Board {
         }
     }
 
+    /**
+     * Preliminarily sets the features of some characters
+     * ({@link MonkEffect}, {@link JesterEffect}, {@link SpoiledPrincessEffect}).
+     */
     private void initializeCharacters(){
         for (GameCharacter c : selectedCharacters){
             switch (c.getName()){
@@ -268,6 +350,12 @@ public class Board {
         }
     }
 
+    /**
+     * Draws students from the bag.
+     *
+     * @param size                  the number of Students to draw.
+     * @return                      the Student Array of drawn students.
+     */
     private Student[] drawStudentsArray(int size){
         Student[] tmp = new Student[size];
         for (int i = 0; i < size; i++) {
@@ -276,10 +364,21 @@ public class Board {
         return tmp;
     }
 
+    /**
+     * Returns an archipelago given its index.
+     *
+     * @param archiIndex            the selected index.
+     * @return                      the corresponding Archipelago.
+     */
     public Archipelago getArchipelago(int archiIndex) {
         return archipelagos.get(archiIndex);
     }
 
+    /**
+     * Returns the school board of the current player.
+     *
+     * @return                      the SchoolBoard of the current Player.
+     */
     public SchoolBoard getCurrentPlayerSchoolBoard() {
         SchoolBoard currentPlayerSchoolBoard = null;
         for(SchoolBoard s : playerBoards){
@@ -292,6 +391,12 @@ public class Board {
         return currentPlayerSchoolBoard;
     }
 
+    /**
+     * Returns a school board given the tower color.
+     *
+     * @param towerColor            the color of the towers.
+     * @return                      the corresponding SchoolBoard.
+     */
     public SchoolBoard getPlayerSchoolBoardByTeam(TowerColor towerColor) {
         SchoolBoard playerSchoolBoard = null;
         for(SchoolBoard s : playerBoards){
@@ -303,6 +408,16 @@ public class Board {
         return playerSchoolBoard;
     }
 
+    /**
+     * Enables the effect of the given character with the given parameters.
+     *
+     * @see Effect
+     *
+     * @param characterName         the name of the GameCharacter.
+     * @param archiIndex            the selected Archipelago.
+     * @param numOfStudents         the number of Students.
+     * @param studColors            the Colors of the Students.
+     */
     public void playCharacter(String characterName, int archiIndex, int numOfStudents, Color...studColors){
         GameCharacter selected = null;
         for (GameCharacter c : selectedCharacters){
@@ -319,50 +434,112 @@ public class Board {
         }
     }
 
+    /**
+     * Returns the bag on this board.
+     *
+     * @return                      the Bag on this Board.
+     */
     public Bag getBag() {
         return bag;
     }
 
+    /**
+     * Gets the school board for each player.
+     *
+     * @return                      a SchoolBoard Array.
+     */
     public SchoolBoard[] getPlayerBoards() {
         return playerBoards;
     }
 
+    /**
+     * Returns the color index according to the map.
+     * @see Board#mapSetup()
+     *
+     * @param color                 the given Color.
+     * @return                      the index corresponding to that Color.
+     */
     public int mapToIndex(Color color){
         return colorsIndex.get(color);
     }
 
+    /**
+     * Returns the archipelagos on this board.
+     *
+     * @return                      the Archipelago List of this Board's archipelagos.
+     */
     public List<Archipelago> getArchipelagos() {
         return archipelagos;
     }
 
+    /**
+     * Returns the clouds on this board.
+     *
+     * @return                      the Cloud Array of this Board's clouds.
+     */
     public Cloud[] getClouds() {
         return clouds;
     }
 
+    /**
+     * Returns the players for this game.
+     *
+     * @return                      the Player List of players for this game.
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * Returns how many coins are in the supply.
+     *
+     * @return                      the number of coins.
+     */
     public int getCoinsSupply() {
         return coinsSupply;
     }
 
+    /**
+     * Returns the selected characters for this game.
+     *
+     * @return                      the GameCharacter Array of selected characters.
+     */
     public GameCharacter[] getSelectedCharacters() {
         return selectedCharacters;
     }
 
+    /**
+     * Returns the number of clouds on this board.
+     *
+     * @return                      the number of Clouds.
+     */
     public int getTOTALCLOUDS() {
         return TOTALCLOUDS;
     }
 
+    /**
+     * Returns the cloud size for this game.
+     *
+     * @return                      the size of the Clouds.
+     */
     public int getCLOUDSIZE() {
         return CLOUDSIZE;
     }
 
+    /**
+     * Returns the entrance size for this game.
+     *
+     * @return                      the size of the entrance.
+     */
     public int getENTRANCESIZE() {
         return ENTRANCESIZE;
     }
 
+    /**
+     * Returns the number of towers for this game.
+     *
+     * @return                      the number of towers.
+     */
     public int getTOTALTOWERS() {
         return TOTALTOWERS;
     }

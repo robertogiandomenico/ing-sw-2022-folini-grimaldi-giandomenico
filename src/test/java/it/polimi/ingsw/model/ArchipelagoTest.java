@@ -9,6 +9,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This class tests the {@link it.polimi.ingsw.model.Archipelago Archipelago} methods.
+ */
 class ArchipelagoTest {
 
     private List<Archipelago> archipelagos;
