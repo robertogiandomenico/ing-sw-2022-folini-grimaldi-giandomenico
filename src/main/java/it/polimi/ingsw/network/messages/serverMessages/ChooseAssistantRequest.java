@@ -19,4 +19,8 @@ public class ChooseAssistantRequest extends GenericServerMessage {
                 "type=" + getType() +
                 '}';
     }
+
+    public List<Assistant> getAvailableAssistants() {
+        return availableAssistants;
+    }
 }
