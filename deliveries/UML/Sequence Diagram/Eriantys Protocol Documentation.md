@@ -147,7 +147,7 @@ Server communicates to the client their game result.
 ## Scenarios
 
 ### Access to the game
-<img src="1-AccessToTheGame.png" width=350px align="right" />
+<img src="resources/1-AccessToTheGame.png" width=400px>
 
 1. Client accesses the server with IP address and server port;
 2. once connection is established, server asks the client for their nickname until it is valid (not already taken and only alphanumeric characters);
@@ -157,7 +157,46 @@ Server communicates to the client their game result.
 4. once all the players joined, the game starts and asks every client, following the connection order, to select a wizard from the list of the available ones.
 
 
+
 ### Planning Phase
-<img src="2-PlanningPhase.png" width=350px align="right" />
+<img src="resources/2-PlanningPhase.png" width=350px>
+
+1. Server sends a message notifying the client that a phase (_planningPhase_) is about to start;
+2. server notifies the current player that their turn starts now;
+3. server asks the client to play an assistant card from their deck of available assistants. The server sends only the available assistants which have not already been chosen by the other players in this round.
 
 
+
+### Action Phase 1: Students Movement
+
+<img src="resources/3-ActionPhase1.png" width="450"/>
+
+1. Server sends a message notifying the client that a phase (_actionPhase_) is about to start;
+2. server asks the client to do one of the following actions:
+   1. select a student from the entrance and, after the reply, the place (**archipelago**/**dining room**) where they want to put it;
+   2. select a character from the available ones to use their special effect. This action may only be chosen once in the whole turn.
+3. The operation 2 is repeated until three students from the entrance are moved.
+
+
+
+### Action Phase 2: Mother Nature Movement
+
+<img src="resources/4-ActionPhase2.png" width="350"/>
+
+Server asks the client to do one of the following actions:
+    1. select a character from the available ones to use their special effect, if not chosen during the action phase 1;
+    2. select the number of steps mother nature will take between 1 and maxMNSteps.
+
+
+### Action Phase 3: Draw from cloud
+<img src="resources/5-ActionPhase3.png" width="300"/>
+
+1. Server asks the client to choose a cloud from the list of the still full ones;
+2. after the client reply, server notifies the client that their turn is over.
+
+
+### End of the Game
+<img src="resources/6-EndOfTheGame.png" width="400"/>
+
+When the winning conditions are met, server sends the clients their result. The message parameter will be `true` to the winner player, `false` to the others.
+This message will also notify the client that the game is ending and the process will close.
