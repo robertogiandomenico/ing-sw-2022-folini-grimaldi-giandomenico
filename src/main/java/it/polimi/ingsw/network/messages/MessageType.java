@@ -28,7 +28,5 @@ public enum MessageType {
 
     //utility messages:
     PING,
-    DISCONNECTION,
-    GAME_LOAD,
-    PERSISTANCE
+    DISCONNECTION
 }

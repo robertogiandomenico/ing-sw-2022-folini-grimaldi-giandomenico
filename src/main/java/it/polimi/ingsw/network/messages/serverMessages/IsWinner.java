@@ -2,10 +2,12 @@ package it.polimi.ingsw.network.messages.serverMessages;
 
 import it.polimi.ingsw.network.messages.MessageType;
 
-public class GameModeRequest extends GenericServerMessage {
+public class IsWinner extends GenericServerMessage {
+    private boolean result;
 
-    public GameModeRequest() {
-        super(MessageType.GAMEMODE_REQUEST);
+    public IsWinner(boolean isWinner) {
+        super(MessageType.RESULT);
+        this.result = isWinner;
     }
 
     @Override
@@ -13,5 +15,9 @@ public class GameModeRequest extends GenericServerMessage {
         return "ServerMessage {" +
                 "type=" + getType() +
                 '}';
+    }
+
+    public boolean isWinner() {
+        return result;
     }
 }

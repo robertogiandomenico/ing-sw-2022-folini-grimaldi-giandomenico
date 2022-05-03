@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller.actions;
 
 import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.network.messages.serverMessages.MNStepsRequest;
 import it.polimi.ingsw.network.server.ClientHandler;
 
 public class MoveMNAction implements Action{
@@ -9,6 +10,7 @@ public class MoveMNAction implements Action{
     private Player currentPlayer;
     private ClientHandler clientHandler;
     private TurnController turnController;
+    private int maxMNSteps;
 
     public MoveMNAction(TurnController turnController) {
         this.turnController = turnController;
@@ -18,7 +20,8 @@ public class MoveMNAction implements Action{
 
     @Override
     public void execute() {
-
+        maxMNSteps = turnController.getController().getGame().getCurrentPlayer().getMaxSteps();
+        clientHandler.sendMsgToClient(new MNStepsRequest(maxMNSteps));
     }
 
     @Override

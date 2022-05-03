@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.messages.serverMessages.GenericServerMessage;
+import it.polimi.ingsw.network.messages.serverMessages.Ping;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -27,6 +28,7 @@ public class ClientHandler implements Runnable{
             while (activeClient){
                 try {
                     Thread.sleep(PING_TIME);
+                    sendMsgToClient(new Ping());
                 } catch (InterruptedException ignored) {
                     break;
                 }

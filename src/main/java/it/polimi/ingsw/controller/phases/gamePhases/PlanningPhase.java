@@ -8,4 +8,9 @@ public class PlanningPhase implements GamePhase {
     public void execute(Controller controller) {
 
     }
+
+    @Override
+    public String toString() {
+        return "PlanningPhase";
+    }
 }

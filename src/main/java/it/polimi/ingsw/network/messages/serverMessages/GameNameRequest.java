@@ -10,7 +10,7 @@ public class GameNameRequest extends GenericServerMessage {
 
     @Override
     public String toString() {
-        return "GameNameRequest{" +
+        return "ServerMessage {" +
                 "type=" + getType() +
                 '}';
     }

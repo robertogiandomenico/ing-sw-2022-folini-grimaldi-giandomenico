@@ -10,7 +10,7 @@ public class PlayerNumberRequest extends GenericServerMessage{
 
     @Override
     public String toString() {
-        return "ServerMessage{" +
+        return "ServerMessage {" +
                 "type=" + getType() +
                 '}';
     }

@@ -15,7 +15,7 @@ public class ChooseAssistantRequest extends GenericServerMessage {
 
     @Override
     public String toString() {
-        return "ChooseAssistantRequest{" +
+        return "ServerMessage {" +
                 "type=" + getType() +
                 '}';
     }

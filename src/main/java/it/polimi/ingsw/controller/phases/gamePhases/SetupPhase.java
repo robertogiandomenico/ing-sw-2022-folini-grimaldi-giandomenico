@@ -23,4 +23,8 @@ public class SetupPhase implements GamePhase {
         }
     }
 
+    @Override
+    public String toString() {
+        return "SetupPhase";
+    }
 }

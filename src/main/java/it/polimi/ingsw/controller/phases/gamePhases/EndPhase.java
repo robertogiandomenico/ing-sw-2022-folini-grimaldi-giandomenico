@@ -8,4 +8,9 @@ public class EndPhase implements GamePhase {
     public void execute(Controller controller) {
 
     }
+
+    @Override
+    public String toString() {
+        return "EndPhase";
+    }
 }
