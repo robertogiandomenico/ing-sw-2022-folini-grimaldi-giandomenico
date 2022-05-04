@@ -2,6 +2,9 @@ package it.polimi.ingsw.controller.actions;
 
 import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.network.messages.MessageType;
+import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
+import it.polimi.ingsw.network.messages.clientMessages.MNStepsReply;
 import it.polimi.ingsw.network.messages.serverMessages.MNStepsRequest;
 import it.polimi.ingsw.network.server.ClientHandler;
 
@@ -9,8 +12,7 @@ public class MoveMNAction implements Action{
     private final ActionType type = ActionType.MOVE_MN_ACTION;
     private Player currentPlayer;
     private ClientHandler clientHandler;
-    private TurnController turnController;
-    private int maxMNSteps;
+    private final TurnController turnController;
 
     public MoveMNAction(TurnController turnController) {
         this.turnController = turnController;
@@ -20,7 +22,7 @@ public class MoveMNAction implements Action{
 
     @Override
     public void execute() {
-        maxMNSteps = turnController.getController().getGame().getCurrentPlayer().getMaxSteps();
+        int maxMNSteps = turnController.getController().getGame().getCurrentPlayer().getMaxSteps();
         clientHandler.sendMsgToClient(new MNStepsRequest(maxMNSteps));
     }
 
@@ -33,5 +35,16 @@ public class MoveMNAction implements Action{
     @Override
     public ActionType getType() {
         return type;
+    }
+
+    @Override
+    public void receiveMessage(GenericClientMessage msg) {
+        if (!(msg.getType() == MessageType.MNSTEPS_REPLY)){
+            return;
+        }
+
+        int selectedSteps = ((MNStepsReply) msg).getMnSteps();
+        currentPlayer.setSelectedSteps(selectedSteps);
+        turnController.getController().getGame().getBoard().moveMotherNature(selectedSteps);
     }
 }
