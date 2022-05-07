@@ -1,47 +1,51 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.view.cli.CliColor;
+
 import java.util.Scanner;
 
 public class ServerMain {
     private static final int MIN = 1024;
     private static final int MAX = 65535;
     private static final int DEFAULT = 2807;
-    private static final String CLEAR = "\033[H\033[2J";
 
     public static void main(String[] args) {
         int port = DEFAULT;
         String input;
-        boolean valid = false;
+        boolean firstAttempt = true;
+        boolean validInput = false;
 
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
 
-        System.out.print(CLEAR);
+        System.out.print(CliColor.CLEAR_ALL);
 
-        while (!valid){
-            System.out.println("*************************");
-            System.out.println("*    ERIANTYS SERVER    *");
-            System.out.println("*************************");
+        while (!validInput){
+            System.out.println("\t E R I A N T Y S  |  S E R V E R \n");
+
+            if(!firstAttempt)
+                System.err.println("ERROR: MIN PORT = " + MIN + ", MAX PORT = " + MAX + ". Try Again.");
+
             System.out.println("Please select a valid port between [" + MIN + ", " + MAX + "]");
-            System.out.print("Insert 'd' for the default value (" + DEFAULT + "): ");
-            input = sc.nextLine();
-            if(input.equalsIgnoreCase("d")){
+            System.out.print("Insert 'd' for the default value [" + DEFAULT + "]: ");
+            firstAttempt = false;
+            input = scanner.nextLine();
+
+            if(input.equalsIgnoreCase("d") || input.equals("")){
                 port = DEFAULT;
-                valid = true;
+                validInput = true;
             } else {
                 try {
                     port = Integer.parseInt(input);
-                    if(MIN <= port && port <= MAX){
-                        valid = true;
-                    } else {
-                        System.out.println("ERROR: MIN_PORT = " + MIN + ", MAX_PORT = " + MAX);
-                    }
+                    if(port >= MIN && port <= MAX)
+                        validInput = true;
+
                 } catch (NumberFormatException e){
-                    System.out.println("Please insert only numbers");
+                    System.err.println("Please insert only numbers.");
                 }
             }
-            if (!valid) {
-                System.out.print(CLEAR);
+            if (!validInput) {
+                System.out.print(CliColor.CLEAR_ALL);
                 System.out.flush();
             }
         }
