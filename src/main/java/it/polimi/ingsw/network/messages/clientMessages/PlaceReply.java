@@ -1,6 +1,8 @@
 package it.polimi.ingsw.network.messages.clientMessages;
 
 import it.polimi.ingsw.network.messages.MessageType;
+import it.polimi.ingsw.network.server.ClientHandler;
+import it.polimi.ingsw.network.server.Server;
 
 public class PlaceReply extends GenericClientMessage {
 
@@ -26,5 +28,10 @@ public class PlaceReply extends GenericClientMessage {
 
     public int getArchiIndex() {
         return archiIndex;
+    }
+
+    @Override
+    public void execute(Server server, ClientHandler clientHandler) {
+
     }
 }

@@ -15,6 +15,7 @@ public class ChooseAssistantAction implements Action {
     private ClientHandler clientHandler;
     private TurnController turnController;
     private List<Assistant> availableAssistants;
+    private List<Assistant> chosenAssistants;
 
     public ChooseAssistantAction(TurnController turnController) {
         this.turnController = turnController;
@@ -28,10 +29,10 @@ public class ChooseAssistantAction implements Action {
         List<Player> players = turnController.getController().getGame().getPlayerOrder();
 
         for (int i = 0; i < players.indexOf(currentPlayer); i++){
-            availableAssistants.remove(players.get(i).getDiscardPile());
+            chosenAssistants.add(players.get(i).getDiscardPile());
         }
 
-        clientHandler.sendMsgToClient(new ChooseAssistantRequest(availableAssistants));
+        clientHandler.sendMsgToClient(new ChooseAssistantRequest(availableAssistants, chosenAssistants));
     }
 
     @Override

@@ -12,6 +12,8 @@ public class ServerMain {
         int port = DEFAULT;
         String input;
         boolean valid = false;
+        boolean notAnInt = false;
+        boolean wrongPort = false;
 
         Scanner sc = new Scanner(System.in);
 
@@ -22,6 +24,14 @@ public class ServerMain {
             System.out.println("*************************");
             System.out.println("*    ERIANTYS SERVER    *");
             System.out.println("*************************");
+            if(notAnInt){
+                System.err.println("ERROR: Please insert only numbers");
+                notAnInt = false;
+            }
+            if(wrongPort){
+                System.err.println("ERROR: MIN_PORT = " + MIN + ", MAX_PORT = " + MAX);
+                wrongPort = false;
+            }
             System.out.println("Please select a valid port between [" + MIN + ", " + MAX + "]");
             System.out.print("Insert 'd' for the default value (" + DEFAULT + "): ");
             input = sc.nextLine();
@@ -34,10 +44,10 @@ public class ServerMain {
                     if(MIN <= port && port <= MAX){
                         valid = true;
                     } else {
-                        System.out.println("ERROR: MIN_PORT = " + MIN + ", MAX_PORT = " + MAX);
+                        wrongPort = true;
                     }
                 } catch (NumberFormatException e){
-                    System.out.println("Please insert only numbers");
+                    notAnInt = true;
                 }
             }
             if (!valid) {

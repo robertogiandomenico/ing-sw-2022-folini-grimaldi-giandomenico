@@ -1,46 +1,73 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.controller.phases.ClientHandlerPhases;
+import it.polimi.ingsw.network.messages.serverMessages.TextMessage;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Server {
-    private int port;
+    private final int port;
     private ServerSocket serverSocket;
-    private List<ClientHandler> lobby;
+    private final Map<Controller, Integer> lobbies;
     private ExecutorService executor;
+
+    private final Object lobbyLock = new Object();
     public static final Logger SERVER_LOGGER = Logger.getLogger(Server.class.getName() + "Logger");
-    private final Object lockLobby;
 
     public Server(int port) {
         this.port = port;
-        lobby = new ArrayList<>();
-        lockLobby = new Object();
+        lobbies = new ConcurrentHashMap<>();
     }
 
     public void start(){
         try {
             serverSocket = new ServerSocket(port);
         } catch (IOException e) {
-            SERVER_LOGGER.log(Level.SEVERE, "Unable to open port " + port);
+            SERVER_LOGGER.severe("Unable to open port " + port);
             return;
         }
 
-        SERVER_LOGGER.log(Level.INFO,"Server started on port " + port);
+        SERVER_LOGGER.info("Server started on port " + port);
 
         try {
             while (true){
                 Socket clientSocket = serverSocket.accept();
                 SERVER_LOGGER.log(Level.INFO,"New client connected from ( " + clientSocket.getInetAddress().getHostAddress() + ")");
-                executor.submit(new ClientHandler(this, clientSocket));
+                ClientHandler clientConnection= new ClientHandler(this, clientSocket);
+                executor.submit(clientConnection);
             }
         } catch (IOException e) {
             SERVER_LOGGER.log(Level.SEVERE, "Error during client acceptance");
+        }
+    }
+
+    public Map<Controller, Integer> getLobbies() {
+        return lobbies;
+    }
+
+    public void addToLobby(String gameName, ClientHandler clientHandler){
+        synchronized (lobbyLock){
+            Controller gameController = lobbies.keySet().stream().filter(l -> l.getGameName().equalsIgnoreCase(gameName)).findFirst().get();
+            gameController.addHandler(clientHandler);
+            checkLobby(gameController);
+        }
+        clientHandler.setClientHandlerPhase(ClientHandlerPhases.WAITING_IN_LOBBY);
+        clientHandler.sendMsgToClient(new TextMessage("Waiting for the other player(s) to join"));
+    }
+
+    public void checkLobby(Controller controller) {
+        synchronized (lobbyLock){
+            if(lobbies.get(controller) == controller.getHandlers().size()){
+                controller.startGame();
+            }
         }
     }
 }

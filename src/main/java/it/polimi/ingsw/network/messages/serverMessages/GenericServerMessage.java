@@ -15,6 +15,8 @@ public abstract class GenericServerMessage implements Serializable {
         return type;
     }
 
+    public abstract void show();
+
     @Override
     public String toString() {
         return "ServerMessage {" +
