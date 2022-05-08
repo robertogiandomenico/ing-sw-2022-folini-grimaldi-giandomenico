@@ -41,7 +41,7 @@ public class ServerMain {
                         validInput = true;
 
                 } catch (NumberFormatException e){
-                    System.err.println("Please insert only numbers.");
+                    System.err.println("Please insert numbers only.");
                 }
             }
             if (!validInput) {

@@ -13,7 +13,51 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askServerInfo() {
+    /*  final String DEFAULT_PORT = "2807";
+        final String DEFAULT_ADDRESS = "localhost";
+        final String MIN_PORT = "1024";
+        final String MAX_PORT = "65535";
+        Map<String, String> serverInfo = new HashMap<>();
+        boolean validInput;
 
+        System.out.println("Game connection setup. Follow the instructions.");
+
+        do {
+            System.out.print("Enter the server address [" + DEFAULT_ADDRESS + "]: ");
+            String address = scanner.nextLine();
+
+            if (address.equals("")) {
+                serverInfo.put("address", DEFAULT_ADDRESS);
+                validInput = true;
+            } else if (ClientController.isValidIpAddress(address)) {
+                serverInfo.put("address", address);
+                validInput = true;
+            } else {
+                System.out.println("Invalid address!");
+                clearCLI();
+                validInput = false;
+            }
+        } while (!validInput);
+
+        do {
+            System.out.print("Enter the server port [" + DEFAULT_PORT + "]: ");
+            String port = scanner.nextLine();
+
+            if (port.equals("")) {
+                serverInfo.put("port", DEFAULT_PORT);
+                validInput = true;
+            } else {
+                if (ClientController.isValidPort(port)) {
+                    serverInfo.put("port", port);
+                    validInput = true;
+                } else {
+                    System.out.println("Invalid port!");
+                    validInput = false;
+                }
+            }
+        } while (!validInput);   */
+
+        //TODO: notifyObserver(obs -> obs.onUpdateServerInfo(serverInfo));
     }
 
     @Override
@@ -24,7 +68,7 @@ public class CLI implements ViewInterface {
             String nickname = scanner.nextLine();
             while (!nickname.matches(STRING_STANDARD)) {
                 System.out.println(CliColor.RESET_LINE);
-                System.out.println("Invalid nickname. Try again: ");
+                System.out.println("Invalid nickname. Special characters are not allowed. Try again: ");
                 nickname = scanner.nextLine();
             }
             //TODO: notifyObserver(obs -> obs.onUpdateNickname(nickname));
@@ -57,11 +101,11 @@ public class CLI implements ViewInterface {
         System.out.print("Enter the game mode you would like to play: ");
 
         try {
-            int gameMode = scanner.nextInt();
-            while (gameMode != 0 && gameMode !=1) {
+            String gameMode = scanner.nextLine();
+            while (!gameMode.equals("0") && !gameMode.equals("1")) {
                 System.out.println(CliColor.RESET_LINE);
                 System.out.print("Invalid game mode. Try again: ");
-                gameMode = scanner.nextInt();
+                gameMode = scanner.nextLine();
             }
             //TODO: notifyObserver(obs -> obs.onUpdateGameMode(gameMode));
         } catch (Exception e) {
@@ -71,18 +115,16 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askPlayerNumber() {
-        int playerNumber;
-
         System.out.print("How many players are going to play? [2/3]: ");
 
         try {
-            playerNumber = scanner.nextInt();
-            while (playerNumber != 2 && playerNumber !=3) {
+            String playerNumber = scanner.nextLine();
+            while (!playerNumber.equals("2") && !playerNumber.equals("3")) {
                 System.out.println(CliColor.RESET_LINE);
                 System.out.print("Match can only be started with 2 or 3 players. Try again: ");
-                playerNumber = scanner.nextInt();
+                playerNumber = scanner.nextLine();
             }
-            //TODO: notifyObserver(obs -> obs.onUpdatePlayerNumber(playerNumber));
+            //TODO: notifyObserver(obs -> obs.onUpdatePlayerNumber(Integer.parseInt(playerNumber)));
         } catch (Exception e) {
             System.out.println("An error occured while reading the player number.");
         }
@@ -96,13 +138,13 @@ public class CLI implements ViewInterface {
         System.out.print("\nEnter the index of the " + CliColor.BOLDPINK + "wizard" + CliColor.RESET + " you would like to choose: ");
 
         try {
-            int wizardIndex = scanner.nextInt();
+            int wizardIndex = Integer.parseInt(scanner.nextLine());
             while (wizardIndex<0 || wizardIndex>availableWizards.size()) {
                 System.out.println(CliColor.RESET_LINE);
                 System.out.print("Invalid wizard index. Try again: ");
                 wizardIndex = scanner.nextInt();
             }
-            //TODO: notifyObserver(obs -> obs.onUpdateWizard(wizardIndex));
+            //TODO: notifyObserver(obs -> obs.onUpdateWizard( availableWizard.get(wizardIndex) ));
         } catch (Exception e) {
             System.out.println("An error occured while reading the index of the wizard.");
         }
@@ -129,7 +171,7 @@ public class CLI implements ViewInterface {
                 assistantIndex = scanner.nextInt();
             }
 
-            //TODO: notifyObserver(obs -> obs.onUpdateWizard(wizardIndex));
+            //TODO: notifyObserver(obs -> obs.onUpdateAssistant( availableAssistant.get(AssistantIndex) ));
         } catch (Exception e) {
             System.out.println("An error occured while reading the index of the wizard.");
         }
@@ -151,7 +193,7 @@ public class CLI implements ViewInterface {
                 actionIndex = scanner.nextInt();
             }
 
-            //TODO: notifyObserver(obs -> obs.onUpdateAction(actionIndex));
+            //TODO: notifyObserver(obs -> obs.onUpdateAction( possibleActions.get(actionIndex) ));
         } catch (Exception e) {
             System.out.println("An error occured while reading the index of the action.");
         }
@@ -160,23 +202,37 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askStudent(List<Color> availableColors) {
-        System.out.println(CliColor.GREEN  + "0 - GREEN\n" +
-                           CliColor.RED    + "1 - RED\n" +
-                           CliColor.YELLOW + "2 - YELLOW\n" +
-                           CliColor.PINK   + "3 - PINK\n" +
-                           CliColor.BLUE   + "4 - BLUE\n" + CliColor.RESET);
+        int i = 0;
 
-        System.out.print("Which " + CliColor.BOLD + "student" + CliColor.RESET + " would you like to move? Type the right index: ");
+        if (availableColors.contains(Color.GREEN)) {
+            System.out.println(CliColor.GREEN + "[" + i + " - GREEN]");
+            i++;
+        } else if (availableColors.contains(Color.RED)) {
+            System.out.println(CliColor.GREEN + "[" + i + " - RED]");
+            i++;
+        } else if (availableColors.contains(Color.YELLOW)) {
+            System.out.println(CliColor.YELLOW + "[" + i + " - YELLOW]");
+            i++;
+        } else if (availableColors.contains(Color.PINK)) {
+            System.out.println(CliColor.PINK + "[" + i + " - PINK]");
+            i++;
+        } else if (availableColors.contains(Color.BLUE)) {
+            System.out.println(CliColor.BLUE + "[" + i + " - BLUE]");
+        }
+
+        System.out.println(CliColor.RESET + "\n");
+        System.out.print("Which " + CliColor.BOLD + "student" + CliColor.RESET + " would you like to move?" +
+                         "Type the right color index: ");
 
         try {
             int colorIndex = scanner.nextInt();
-            while (colorIndex<0 || colorIndex>4) {
+            while (colorIndex<0 || colorIndex>availableColors.size()) {
                 System.out.println(CliColor.RESET_LINE);
                 System.out.print("Invalid color index. Try again: ");
                 colorIndex = scanner.nextInt();
             }
 
-            //TODO: notifyObserver(obs -> obs.onUpdateStudent(colorIndex));
+            //TODO: notifyObserver(obs -> obs.onUpdateColor( availableColors.get(colorIndex) ));
         } catch (Exception e) {
             System.out.println("An error occured while reading the index of the color.");
         }
@@ -190,6 +246,7 @@ public class CLI implements ViewInterface {
 
         try {
             String diningRoom = scanner.nextLine();
+            int archiIndex = -1;
 
             while (!diningRoom.equalsIgnoreCase("y") && !diningRoom.equalsIgnoreCase("n")) {
                 System.out.println(CliColor.RESET_LINE);
@@ -201,7 +258,7 @@ public class CLI implements ViewInterface {
                 System.out.print("Enter the index of the " + CliColor.BOLDGREEN + "island" + CliColor.RESET + " you would like to place the student on : ");
 
                 try {
-                    int archiIndex = scanner.nextInt();
+                    archiIndex = scanner.nextInt();
                     while (archiIndex<0 || archiIndex>maxArchis) {
                         System.out.println(CliColor.RESET_LINE);
                         System.out.print("Invalid island index. Try again: ");
@@ -213,26 +270,44 @@ public class CLI implements ViewInterface {
                 }
             }
 
-            //TODO: notifyObserver(obs -> obs.onUpdatePlace(place));
+            //TODO: notifyObserver(obs -> obs.onUpdatePlace(place, archiIndex));
         } catch (Exception e) {
-            System.out.println("An error occured while reading the index of the character.");
+            System.out.println("An error occured while reading the input.");
         }
 
     }
 
     @Override
-    public void askCharacter(List<GameCharacter> availableCharacters) {
-        System.out.print("Enter the index of the " + CliColor.BOLDYELLOW + "character" + CliColor.RESET + " you would like to choose: ");
+    public void askCharacter(List<GameCharacter> availableCharacters, int playerCoins) {
+        boolean affordable = true;
+
+        System.out.print("Enter the index of the " + CliColor.BOLD + "character" + CliColor.RESET + " you would like to choose: ");
 
         try {
             int characterIndex = scanner.nextInt();
-            while (characterIndex<0 || characterIndex>3) {
-                System.out.println(CliColor.RESET_LINE);
-                System.out.print("Invalid character index. Try again: ");
-                characterIndex = scanner.nextInt();
-            }
 
-            //TODO: notifyObserver(obs -> obs.onUpdateCharacter(characterIndex));
+            do {
+                while (characterIndex < 0 || characterIndex > 2) {
+                    System.out.println(CliColor.RESET_LINE);
+                    System.out.print("Invalid character index. Try again: ");
+                    characterIndex = scanner.nextInt();
+                }
+                GameCharacter selectedCharacter = availableCharacters.get(characterIndex);
+
+                if (selectedCharacter.getCost() > playerCoins) {
+                    affordable = false;
+                    System.out.println(CliColor.RESET_LINE);
+                    System.out.print("Cannot choose this character card since you do not have enough coins. Try again: ");
+                    characterIndex = scanner.nextInt();
+                } else {
+                    affordable = true;
+                }
+
+            } while (!affordable);
+
+
+            //TODO: switch case of all characters to ask the proper values
+            //TODO: notifyObserver(obs -> obs.onUpdateCharacter( selectedCharacter, archiIndex, studentNumber, studColors ));
         } catch (Exception e) {
             System.out.println("An error occured while reading the index of the character.");
         }
@@ -314,7 +389,7 @@ public class CLI implements ViewInterface {
 
     @Override
     public void displayBoard(Board board) {
-
+        //TODO: implements the method that draws the all the board (?)
     }
 
     @Override
