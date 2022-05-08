@@ -23,6 +23,7 @@ public interface ViewInterface {
     void askAction(List<ActionType> possibleActions);
     void askStudent(List<Color> availableColors);
     void askPlace(int maxArchis);
+    int askArchipelago(int maxArchis);
     void askCharacter(List<GameCharacter> availableCharacters, int playerCoins);
 
     void askMNSteps(int maxMNSteps);

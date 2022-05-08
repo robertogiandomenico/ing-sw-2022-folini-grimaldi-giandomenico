@@ -7,11 +7,12 @@ import java.util.List;
 
 public class CharacterRequest extends GenericServerMessage {
     private List<GameCharacter> availableCharacters;
+    int playerCoins;
 
-
-    public CharacterRequest(List<GameCharacter> availableCharacters) {
+    public CharacterRequest(List<GameCharacter> availableCharacters, int playerCoins) {
         super(MessageType.CHARACTER_REQUEST);
         this.availableCharacters = availableCharacters;
+        this.playerCoins = playerCoins;
     }
 
     @Override
@@ -23,5 +24,9 @@ public class CharacterRequest extends GenericServerMessage {
 
     public List<GameCharacter> getAvailableCharacters() {
         return availableCharacters;
+    }
+
+    public int getPlayerCoins() {
+        return playerCoins;
     }
 }

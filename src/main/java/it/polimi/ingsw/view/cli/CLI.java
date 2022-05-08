@@ -207,16 +207,20 @@ public class CLI implements ViewInterface {
         if (availableColors.contains(Color.GREEN)) {
             System.out.println(CliColor.GREEN + "[" + i + " - GREEN]");
             i++;
-        } else if (availableColors.contains(Color.RED)) {
+        }
+        if (availableColors.contains(Color.RED)) {
             System.out.println(CliColor.GREEN + "[" + i + " - RED]");
             i++;
-        } else if (availableColors.contains(Color.YELLOW)) {
+        }
+        if (availableColors.contains(Color.YELLOW)) {
             System.out.println(CliColor.YELLOW + "[" + i + " - YELLOW]");
             i++;
-        } else if (availableColors.contains(Color.PINK)) {
+        }
+        if (availableColors.contains(Color.PINK)) {
             System.out.println(CliColor.PINK + "[" + i + " - PINK]");
             i++;
-        } else if (availableColors.contains(Color.BLUE)) {
+        }
+        if (availableColors.contains(Color.BLUE)) {
             System.out.println(CliColor.BLUE + "[" + i + " - BLUE]");
         }
 
@@ -246,7 +250,6 @@ public class CLI implements ViewInterface {
 
         try {
             String diningRoom = scanner.nextLine();
-            int archiIndex = -1;
 
             while (!diningRoom.equalsIgnoreCase("y") && !diningRoom.equalsIgnoreCase("n")) {
                 System.out.println(CliColor.RESET_LINE);
@@ -257,17 +260,7 @@ public class CLI implements ViewInterface {
             if (diningRoom.equalsIgnoreCase("n")) {
                 System.out.print("Enter the index of the " + CliColor.BOLDGREEN + "island" + CliColor.RESET + " you would like to place the student on : ");
 
-                try {
-                    archiIndex = scanner.nextInt();
-                    while (archiIndex<0 || archiIndex>maxArchis) {
-                        System.out.println(CliColor.RESET_LINE);
-                        System.out.print("Invalid island index. Try again: ");
-                        archiIndex = scanner.nextInt();
-                    }
-
-                } catch (Exception e) {
-                    System.out.println("An error occured while reading the index of the island.");
-                }
+                int archiIndex = askArchipelago(maxArchis);
             }
 
             //TODO: notifyObserver(obs -> obs.onUpdatePlace(place, archiIndex));
@@ -278,8 +271,30 @@ public class CLI implements ViewInterface {
     }
 
     @Override
+    public int askArchipelago(int maxArchis) {
+        int archiIndex = -1;
+
+        try {
+            archiIndex = scanner.nextInt();
+            while (archiIndex<0 || archiIndex>maxArchis) {
+                System.out.println(CliColor.RESET_LINE);
+                System.out.print("Invalid island index. Try again: ");
+                archiIndex = scanner.nextInt();
+            }
+        } catch (Exception e) {
+            System.out.println("An error occured while reading the index of the island.");
+        }
+
+        return archiIndex;
+    }
+
+    @Override
     public void askCharacter(List<GameCharacter> availableCharacters, int playerCoins) {
-        boolean affordable = true;
+        boolean affordable;
+        GameCharacter selectedCharacter;
+        int archiIndex = -1;
+        int studentNumber = 0;
+        Color[] studColors = null;
 
         System.out.print("Enter the index of the " + CliColor.BOLD + "character" + CliColor.RESET + " you would like to choose: ");
 
@@ -292,9 +307,8 @@ public class CLI implements ViewInterface {
                     System.out.print("Invalid character index. Try again: ");
                     characterIndex = scanner.nextInt();
                 }
-                GameCharacter selectedCharacter = availableCharacters.get(characterIndex);
 
-                if (selectedCharacter.getCost() > playerCoins) {
+                if (availableCharacters.get(characterIndex).getCost() > playerCoins) {
                     affordable = false;
                     System.out.println(CliColor.RESET_LINE);
                     System.out.print("Cannot choose this character card since you do not have enough coins. Try again: ");
@@ -305,8 +319,18 @@ public class CLI implements ViewInterface {
 
             } while (!affordable);
 
+            selectedCharacter = availableCharacters.get(characterIndex);
 
+            //switch case of all characters to ask the proper values
+            switch (selectedCharacter.getName()) {
+                case "Centaur":
+                    System.out.print("Enter the index of the " + CliColor.BOLD + "island" + CliColor.RESET + " to cancel its towers influence: ");
+                    /*archiIndex = askArchipelago(maxArchis);
+                     should I give to askCharacter(..) ALL the parameters from which I can choose?
+                     */
+            }
             //TODO: switch case of all characters to ask the proper values
+
             //TODO: notifyObserver(obs -> obs.onUpdateCharacter( selectedCharacter, archiIndex, studentNumber, studColors ));
         } catch (Exception e) {
             System.out.println("An error occured while reading the index of the character.");

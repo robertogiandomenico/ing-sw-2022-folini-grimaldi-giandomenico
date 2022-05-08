@@ -28,7 +28,8 @@ public class BuyCharacterAction implements Action{
     @Override
     public void execute() {
         GameCharacter[] characters = turnController.getController().getGame().getBoard().getSelectedCharacters();
-        clientHandler.sendMsgToClient(new CharacterRequest(Arrays.stream(characters).collect(Collectors.toList())));
+        int playerCoins = turnController.getController().getGame().getCurrentPlayer().getCoins();
+        clientHandler.sendMsgToClient(new CharacterRequest(Arrays.stream(characters).collect(Collectors.toList()), playerCoins));
     }
 
     @Override
