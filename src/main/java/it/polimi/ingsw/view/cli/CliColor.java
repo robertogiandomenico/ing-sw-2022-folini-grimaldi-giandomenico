@@ -12,29 +12,38 @@ public enum CliColor {
     CLEAR_ALL("\033[H\033[2J"),
 
     //Regular Colors
+    BLACK("\033[0;30m"),
     RED("\033[0;31m"),
     GREEN("\033[0;32m"),
     YELLOW("\033[0;33m"),
     BLUE("\033[0;34m"),
     PINK("\033[0;35m"),
+    CYAN("\033[0;36m"),
+    WHITE("\033[0;37m"),
 
 
     //Bold Colors
     BOLD("\033[1m"),
+    BOLDBLACK("\033[1;30m"),
     BOLDRED("\033[1;31m"),
     BOLDGREEN("\033[1;32m"),
     BOLDYELLOW("\033[1;33m"),
     BOLDBLUE("\033[1;34m"),
     BOLDPINK("\033[1;35m"),
+    BOLDCYAN("\033[1;36m"),
+    BOLDWHITE("\033[1;37m"),
 
     //Background Colors
-    BRED("\033[41m"),
-    BGREEN("\033[42m"),
-    BYELLOW("\033[43m"),
-    BBLUE("\033[44m"),
-    BPINK("\033[45m"),
-    BLIGHT_GREEN("\033[92m"),
-    BLIGHT_CYAN("\033[96m");
+    BBLACK("\033[0;37m\033[40m"),
+    BRED("\033[0;37m\033[41m"),
+    BGREEN("\033[0;37m\033[42m"),
+    BYELLOW("\033[0;30m\033[103m"),
+    BBLUE("\033[0;37m\033[44m"),
+    BPINK("\033[0;37m\033[105m"),
+    BCYAN("\033[0;30m\033[46m"),
+    BWHITE("\033[0;30m\033[47m"),
+    BGREY("\033[0;37m\033[100m");
+
 
     private final String code;
 
