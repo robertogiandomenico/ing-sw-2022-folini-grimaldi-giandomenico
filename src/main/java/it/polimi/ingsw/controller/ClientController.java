@@ -178,7 +178,7 @@ public class ClientController implements ViewObserver, Observer {
 
     @Override
     public void onDisconnection() {
-    //TODO: implement the method that disconnects the clien from the server
+    //TODO: implement the method that disconnects the client from the server
     }
 
     /**
@@ -204,6 +204,38 @@ public class ClientController implements ViewObserver, Observer {
             case NICKNAME_REQUEST:
                 NicknameRequest nicknameRequest = (NicknameRequest) message;
                 taskQueue.execute(view::askNickname);
+                break;
+            case WIZARD_REQUEST:
+                WizardRequest wizardRequest = (WizardRequest) message;
+                taskQueue.execute(() -> view.askWizard(((WizardRequest) message).getAvailableWizards()));
+                break;
+            case CHOOSE_ASSISTANT_REQUEST:
+                ChooseAssistantRequest assistantRequest = (ChooseAssistantRequest) message;
+                taskQueue.execute(() -> view.askAssistant(((ChooseAssistantRequest) message).getAvailableAssistants(), ((ChooseAssistantRequest) message).getDiscardedAssistants()));
+                break;
+            case ACTION_REQUEST:
+                ActionRequest actionRequest = (ActionRequest) message;
+                taskQueue.execute(() -> view.askAction(((ActionRequest) message).getPossibleActions()));
+                break;
+            case STUDENT_REQUEST:
+                StudentRequest studentRequest = (StudentRequest) message;
+                taskQueue.execute(() -> view.askStudent(((StudentRequest) message).getAvailableColors()));
+                break;
+            case PLACE_REQUEST:
+                PlaceRequest placeRequest = (PlaceRequest) message;
+                taskQueue.execute(() -> view.askPlace(((PlaceRequest) message).getMaxArchis()));
+                break;
+            case CHARACTER_REQUEST:
+                //TODO: CharacterRequest
+
+
+            case MNSTEPS_REQUEST:
+                MNStepsRequest mnStepsRequest = (MNStepsRequest) message;
+                taskQueue.execute(() -> view.askMNSteps(((MNStepsRequest) message).getMaxMNSteps()));
+                break;
+            case CLOUD_REQUEST:
+                CloudRequest cloudRequest = (CloudRequest) message;
+                taskQueue.execute(() -> view.askCloud(((CloudRequest) message).getIndexesAvailableClouds()));
                 break;
 
             //TODO: complete w/ all the messages

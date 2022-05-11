@@ -24,7 +24,7 @@ public interface ViewInterface {
     void askStudent(List<Color> availableColors);
     void askPlace(int maxArchis);
     int askArchipelago(int maxArchis);
-    void askCharacter(List<GameCharacter> availableCharacters, int playerCoins);
+    void askCharacter(Board board);
 
     void askMNSteps(int maxMNSteps);
 
@@ -34,7 +34,7 @@ public interface ViewInterface {
     void displayMessage(String message);
     void displayDisconnectionMessage(String disconnectedNickname, String message);
     void displayErrorAndExit(String message);
-    void displayBoard(Board board);
+    void printBoard(Board board);
     void displayEndgameResult(String winner);
 
 }
