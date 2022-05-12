@@ -8,4 +8,8 @@ public class Ping extends GenericServerMessage {
         super(MessageType.PING);
     }
 
+    @Override
+    public void show() {
+
+    }
 }

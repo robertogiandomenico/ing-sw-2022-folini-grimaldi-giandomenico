@@ -1,8 +1,14 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.controller.phases.ClientHandlerPhases;
+import it.polimi.ingsw.controller.phases.gamePhases.ActionPhase;
 import it.polimi.ingsw.controller.phases.gamePhases.GamePhase;
+import it.polimi.ingsw.controller.phases.gamePhases.PlanningPhase;
 import it.polimi.ingsw.controller.phases.gamePhases.SetupPhase;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
+import it.polimi.ingsw.network.messages.serverMessages.GenericServerMessage;
+import it.polimi.ingsw.network.messages.serverMessages.PhaseEntering;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.Server;
 
@@ -14,21 +20,36 @@ import java.util.stream.Collectors;
 
 public class Controller {
     private Game game;
-    private String gameName;
+    private final String gameName;
+    private Boolean expertMode;
     private GamePhase gamePhase;
     private List<ClientHandler> clientHandlers;
     private Server server;
     private final Lock connectionLock;
 
-    public Controller(String gameName, boolean expertMode){
+    private boolean gameStarted;
+
+    public Controller(String gameName){
         this.gameName = gameName;
-        game = new Game(expertMode);
         connectionLock = new ReentrantLock();
+        gameStarted = false;
+    }
+
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+    public void setExpertMode(Boolean expertMode){
+        this.expertMode = expertMode;
     }
 
     public void startGame(){
-        Server.SERVER_LOGGER.log(Level.INFO, "Starting a new game for these players : " + clientHandlers.stream().map(ClientHandler::getClientNickname).collect(Collectors.toList()));
+        if(game == null) game = new Game(expertMode);
+        Server.SERVER_LOGGER.info("Starting a new game for these players : " + clientHandlers.stream().map(ClientHandler::getClientNickname).collect(Collectors.toList()));
+        for (ClientHandler c : clientHandlers){
+            c.setClientHandlerPhase(ClientHandlerPhases.WAITING_WIZARD);
+        }
         setGamePhase(new SetupPhase());
+        gameStarted = true;
     }
 
     public Game getGame() {
@@ -45,6 +66,10 @@ public class Controller {
 
     public void setGamePhase(GamePhase gamePhase) {
         this.gamePhase = gamePhase;
+        if(gamePhase instanceof PlanningPhase || gamePhase instanceof ActionPhase){
+            broadcastMessage(new PhaseEntering(gamePhase.getClass().getName()));
+        }
+        gamePhase.execute(this);
     }
 
     public List<ClientHandler> getHandlers() {
@@ -76,5 +101,21 @@ public class Controller {
         }
 
         return null;
+    }
+
+    public void broadcastMessage(GenericServerMessage msg){
+        connectionLock.lock();
+        try {
+            for (ClientHandler c : clientHandlers){
+                c.sendMsgToClient(msg);
+            }
+        } finally {
+            connectionLock.unlock();
+        }
+
+    }
+
+    public void receiveMessage(GenericClientMessage msg){
+        gamePhase.receiveMessage(msg);
     }
 }

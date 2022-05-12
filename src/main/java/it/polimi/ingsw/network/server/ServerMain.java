@@ -12,20 +12,24 @@ public class ServerMain {
     public static void main(String[] args) {
         int port = DEFAULT;
         String input;
-        boolean firstAttempt = true;
-        boolean validInput = false;
-
-        Scanner scanner = new Scanner(System.in);
-
+        boolean valid = false;
+        boolean notAnInt = false;
+        boolean wrongPort = false;
 
         System.out.print(CliColor.CLEAR_ALL);
 
-        while (!validInput){
-            System.out.println("\t E R I A N T Y S  |  S E R V E R \n");
-
-            if(!firstAttempt)
-                System.err.println("ERROR: MIN PORT = " + MIN + ", MAX PORT = " + MAX + ". Try Again.");
-
+        while (!valid){
+            System.out.println("*************************");
+            System.out.println("*    ERIANTYS SERVER    *");
+            System.out.println("*************************");
+            if(notAnInt){
+                System.err.println("ERROR: Please insert only numbers");
+                notAnInt = false;
+            }
+            if(wrongPort){
+                System.err.println("ERROR: MIN_PORT = " + MIN + ", MAX_PORT = " + MAX);
+                wrongPort = false;
+            }
             System.out.println("Please select a valid port between [" + MIN + ", " + MAX + "]");
             System.out.print("Insert 'd' for the default value [" + DEFAULT + "]: ");
             firstAttempt = false;
@@ -37,11 +41,13 @@ public class ServerMain {
             } else {
                 try {
                     port = Integer.parseInt(input);
-                    if(port >= MIN && port <= MAX)
-                        validInput = true;
-
+                    if(MIN <= port && port <= MAX){
+                        valid = true;
+                    } else {
+                        wrongPort = true;
+                    }
                 } catch (NumberFormatException e){
-                    System.err.println("Please insert numbers only.");
+                    notAnInt = true;
                 }
             }
             if (!validInput) {
@@ -53,3 +59,4 @@ public class ServerMain {
         new Server(port).start();
     }
 }
+  
