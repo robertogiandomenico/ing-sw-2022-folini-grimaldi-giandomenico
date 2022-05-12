@@ -8,9 +8,14 @@ import java.util.List;
 public class ChooseAssistantRequest extends GenericServerMessage {
     private List<Assistant> availableAssistants;
 
-    public ChooseAssistantRequest(List<Assistant> availableAssistants) {
+    public ChooseAssistantRequest(List<Assistant> availableAssistants, List<Assistant> chosenAssistants) {
         super(MessageType.CHOOSE_ASSISTANT_REQUEST);
         this.availableAssistants = availableAssistants;
+    }
+
+    @Override
+    public void show() {
+
     }
 
     @Override

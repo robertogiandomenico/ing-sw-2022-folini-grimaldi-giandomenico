@@ -13,6 +13,11 @@ public class CloudRequest extends GenericServerMessage {
     }
 
     @Override
+    public void show() {
+
+    }
+
+    @Override
     public String toString() {
         return "ServerMessage {" +
                 "type=" + getType() +
