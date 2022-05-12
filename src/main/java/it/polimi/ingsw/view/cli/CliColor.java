@@ -34,15 +34,15 @@ public enum CliColor {
     BOLDWHITE("\033[1;37m"),
 
     //Background Colors
-    BBLACK("\033[0;37m\033[40m"),
-    BRED("\033[0;37m\033[41m"),
-    BGREEN("\033[0;37m\033[42m"),
+    BBLACK("\033[1;37m\033[40m"),
+    BRED("\033[1;37m\033[41m"),
+    BGREEN("\033[1;37m\033[42m"),
     BYELLOW("\033[0;30m\033[103m"),
-    BBLUE("\033[0;37m\033[44m"),
-    BPINK("\033[0;37m\033[105m"),
+    BBLUE("\033[1;37m\033[44m"),
+    BPINK("\033[1;37m\033[105m"),
     BCYAN("\033[0;30m\033[46m"),
     BWHITE("\033[0;30m\033[47m"),
-    BGREY("\033[0;37m\033[100m");
+    BGREY("\033[1;37m\033[100m");
 
 
     private final String code;
