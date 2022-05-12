@@ -32,7 +32,7 @@ public class Cloud {
     }
 
     /**
-     * Returns the students present on this cloud and leaves it empty.
+     * Draws the students present on this cloud and leaves it empty.
      *
      * @return               the Student Array of this Cloud.
      */
@@ -49,5 +49,12 @@ public class Cloud {
      */
     public void fill(Student[] cloudContent){
         System.arraycopy(cloudContent, 0, this.cloudContent, 0, cloudContent.length);
+    }
+
+    /**
+     * Returns the students present on this cloud.
+     */
+    public Student[] getCloudContent(){
+        return cloudContent;
     }
 }

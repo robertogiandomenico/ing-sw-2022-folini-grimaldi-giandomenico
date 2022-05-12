@@ -120,7 +120,25 @@ public class Board {
         int indexDR = mapToIndex(student.getColor());
 
         currentPlayerSB.removeFromEntrance(student.getColor());
+
+        // if(currentPlayerSB.getDiningRoom()[indexDR]<10) then do lines 125-134
         currentPlayerSB.addToDiningRoom(indexDR);
+
+        if(selectedCharacters!=null){
+            //this means that expert mode was chosen
+            Boolean canTake = currentPlayerSB.checkCoinsPath(indexDR, currentPlayerSB.getDiningRoom()[indexDR]);
+            if (canTake && coinsSupply>0){
+                currentPlayerSB.getPlayer().addCoin();
+                removeFromCoinsSupply();
+            }
+        }
+    }
+
+    /**
+     * Removes a coin from the coins supply.
+     */
+    public void removeFromCoinsSupply(){
+        coinsSupply--;
     }
 
     /**
@@ -542,5 +560,14 @@ public class Board {
      */
     public int getTOTALTOWERS() {
         return TOTALTOWERS;
+    }
+
+    /**
+     * Returns the colors index map.
+     *
+     * @return                      an EnumMap associating Colors and Integers.
+     */
+    public EnumMap<Color, Integer> getColorsIndex(){
+        return colorsIndex;
     }
 }
