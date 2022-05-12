@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller.actions;
 import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.model.Assistant;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.ChooseAssistantRequest;
 import it.polimi.ingsw.network.server.ClientHandler;
 
@@ -46,5 +47,10 @@ public class ChooseAssistantAction implements Action {
     @Override
     public ActionType getType() {
         return type;
+    }
+
+    @Override
+    public void receiveMessage(GenericClientMessage msg) {
+
     }
 }

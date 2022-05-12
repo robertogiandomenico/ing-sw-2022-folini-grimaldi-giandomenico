@@ -14,9 +14,9 @@ public class TurnController {
     private Player currentPlayer;
     private ClientHandler clientHandler;
     private TurnPhase turnPhase;
-    private Controller controller;
+    private final Controller controller;
     private List<ActionType> availableActions;
-    private Map<Action, Boolean> possibleActions;
+    private final Map<Action, Boolean> possibleActions;
 
     public TurnController(Player currentPlayer, Controller controller) {
         this.currentPlayer = currentPlayer;
@@ -72,5 +72,11 @@ public class TurnController {
 
     public Map<Action, Boolean> getPossibleActions() {
         return possibleActions;
+    }
+
+    public void resetAllActionsForCurrentPlayer(){
+        for (Action a : possibleActions.keySet()){
+            a.resetAction(currentPlayer);
+        }
     }
 }
