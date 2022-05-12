@@ -2,6 +2,8 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.phases.ClientHandlerPhases;
+import it.polimi.ingsw.network.messages.serverMessages.GameNameRequest;
+import it.polimi.ingsw.network.messages.serverMessages.NicknameRequest;
 import it.polimi.ingsw.network.messages.serverMessages.TextMessage;
 
 import java.io.IOException;
@@ -18,13 +20,14 @@ public class Server {
     private ServerSocket serverSocket;
     private final Map<Controller, Integer> lobbies;
     private ExecutorService executor;
-
+    private Set<String> notAvailableNames;
     private final Object lobbyLock = new Object();
     public static final Logger SERVER_LOGGER = Logger.getLogger(Server.class.getName() + "Logger");
 
     public Server(int port) {
         this.port = port;
         lobbies = new ConcurrentHashMap<>();
+        notAvailableNames = new HashSet<>();
     }
 
     public void start(){
@@ -68,6 +71,17 @@ public class Server {
             if(lobbies.get(controller) == controller.getHandlers().size()){
                 controller.startGame();
             }
+        }
+    }
+
+    public void validateNickname(ClientHandler clientHandler){
+        if(!notAvailableNames.contains(clientHandler.getClientNickname())){
+            notAvailableNames.add(clientHandler.getClientNickname());
+            clientHandler.setClientHandlerPhase(ClientHandlerPhases.WAITING_GAMENAME);
+            clientHandler.sendMsgToClient(new GameNameRequest());
+        } else {
+            clientHandler.setClientHandlerPhase(ClientHandlerPhases.WAITING_NICKNAME);
+            clientHandler.sendMsgToClient(new NicknameRequest());
         }
     }
 }

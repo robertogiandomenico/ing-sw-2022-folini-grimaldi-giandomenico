@@ -77,6 +77,7 @@ public class ClientHandler implements Runnable{
 
     public void setClientNickname(String clientNickname) {
         this.clientNickname = clientNickname;
+        server.validateNickname(this);
     }
 
     public Wizard getChosenWizard() {

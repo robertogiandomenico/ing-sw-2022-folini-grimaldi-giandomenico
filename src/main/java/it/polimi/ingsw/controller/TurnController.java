@@ -31,6 +31,7 @@ public class TurnController {
         this.turnPhase = turnPhase;
         availableActions = turnPhase.getAvailableTurnActions();
         updatePossibleActions();
+        //turnPhase.execute();
     }
 
     private void fillPossibleActions() {

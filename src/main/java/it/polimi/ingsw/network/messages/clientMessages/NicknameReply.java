@@ -2,7 +2,6 @@ package it.polimi.ingsw.network.messages.clientMessages;
 
 import it.polimi.ingsw.controller.phases.ClientHandlerPhases;
 import it.polimi.ingsw.network.messages.MessageType;
-import it.polimi.ingsw.network.messages.serverMessages.GameNameRequest;
 import it.polimi.ingsw.network.messages.serverMessages.NicknameRequest;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.Server;
@@ -28,7 +27,6 @@ public class NicknameReply extends GenericClientMessage {
         if(!nickname.matches(REGEX)){
             clientHandler.sendMsgToClient(new NicknameRequest());
         }
-        clientHandler.setClientHandlerPhase(ClientHandlerPhases.WAITING_GAMENAME);
-        clientHandler.sendMsgToClient(new GameNameRequest());
+        clientHandler.setClientNickname(nickname);
     }
 }
