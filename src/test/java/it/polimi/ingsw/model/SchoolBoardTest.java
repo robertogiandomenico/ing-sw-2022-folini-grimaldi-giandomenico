@@ -30,11 +30,11 @@ class SchoolBoardTest {
         players.add(new Player("player3", TowerColor.GREY, Wizard.WIZARD3));
 
         //blue x2, green x1, yellow x2, pink x4, red x0
-        Student[] entrance1 = new Student[]{new Student(Color.BLUE), new Student(Color.GREEN), new Student(Color.YELLOW), new Student(Color.YELLOW), new Student(Color.PINK), new Student(Color.PINK), new Student(Color.BLUE),  new Student(Color.PINK),  new Student(Color.PINK)};
+        Student[] entrance1 = new Student[]{new Student(Color.BLUE), new Student(Color.GREEN), new Student(Color.YELLOW), new Student(Color.YELLOW), new Student(Color.PINK), new Student(Color.PINK), new Student(Color.BLUE), new Student(Color.PINK), new Student(Color.PINK)};
         //blue x2, green x3, yellow x1, pink x1, red x2
-        Student[] entrance2 = new Student[]{new Student(Color.GREEN), new Student(Color.GREEN), new Student(Color.YELLOW), new Student(Color.GREEN), new Student(Color.PINK), new Student(Color.BLUE), new Student(Color.BLUE),  new Student(Color.RED),  new Student(Color.RED)};
+        Student[] entrance2 = new Student[]{new Student(Color.GREEN), new Student(Color.GREEN), new Student(Color.YELLOW), new Student(Color.GREEN), new Student(Color.PINK), new Student(Color.BLUE), new Student(Color.BLUE), new Student(Color.RED), new Student(Color.RED)};
         //blue x1, green x2, yellow x1, pink x1, red x4
-        Student[] entrance3 = new Student[]{new Student(Color.YELLOW), new Student(Color.RED), new Student(Color.RED), new Student(Color.BLUE), new Student(Color.RED), new Student(Color.RED), new Student(Color.GREEN),  new Student(Color.GREEN),  new Student(Color.PINK)};
+        Student[] entrance3 = new Student[]{new Student(Color.YELLOW), new Student(Color.RED), new Student(Color.RED), new Student(Color.BLUE), new Student(Color.RED), new Student(Color.RED), new Student(Color.GREEN), new Student(Color.GREEN), new Student(Color.PINK)};
 
         sb = new SchoolBoard(players.get(0), entrance1, 6);
 
@@ -86,8 +86,8 @@ class SchoolBoardTest {
 
     @Test
     void testEntranceMovements() {
-        for (Color c : Color.values()){
-            if(c == Color.RED){
+        for (Color c : Color.values()) {
+            if (c == Color.RED) {
                 assertNull(sb.removeFromEntrance(c));
             } else {
                 assertEquals(c, sb.removeFromEntrance(c).getColor());
@@ -106,7 +106,7 @@ class SchoolBoardTest {
                 )
         );
 
-        for (Color c : Color.values()){
+        for (Color c : Color.values()) {
             assertEquals(expectedEntrance.stream().filter(x -> x.getColor() == c).count(), Arrays.stream(sb.getEntrance()).filter(x -> x.getColor() == c).count());
         }
     }
@@ -118,7 +118,7 @@ class SchoolBoardTest {
 
         //checking that nobody has the green professor
         assertFalse(sb.isProfessorPresent(index));
-        for (SchoolBoard x : otherBoards){
+        for (SchoolBoard x : otherBoards) {
             assertFalse(x.isProfessorPresent(index));
         }
 
@@ -126,7 +126,7 @@ class SchoolBoardTest {
         sb.addToDiningRoom(index);
         assertEquals(1, sb.getDiningRoom()[index]);
         assertTrue(sb.isProfessorPresent(index));
-        for (SchoolBoard x : otherBoards){
+        for (SchoolBoard x : otherBoards) {
             assertEquals(0, x.getDiningRoom()[index]);
             assertFalse(x.isProfessorPresent(index));
         }
@@ -151,6 +151,39 @@ class SchoolBoardTest {
         assertEquals(1, sb.getDiningRoom()[index]);
         assertTrue(otherBoards.get(1).isProfessorPresent(index));
         assertFalse(sb.isProfessorPresent(index));
+    }
+
+    @Test
+    void testCoinsManagement() {
+        //players only have 1 coin in the beginning
+        assertEquals(1, sb.getPlayer().getCoins());
+        assertEquals(1, otherBoards.get(0).getPlayer().getCoins());
+        assertEquals(1, otherBoards.get(1).getPlayer().getCoins());
+
+        int index = 2;
+        for (int i = 0; i < 2; i++) {                           //adding 2 yellow students
+            sb.addToDiningRoom(index);
+        }
+        assertEquals(1, sb.getPlayer().getCoins());
+
+        sb.addToDiningRoom(index);
+        //making sure that there's possibility of giving a coin and that only the current player gets one
+        assertTrue(sb.getCoinsPath()[index]<1);
+        assertTrue(sb.checkCoinsPath(index, sb.getDiningRoom()[index]));
+        assertEquals(2, sb.getPlayer().getCoins());
+        assertEquals(1, otherBoards.get(0).getPlayer().getCoins());
+        assertEquals(1, otherBoards.get(1).getPlayer().getCoins());
+
+        //removing the last student from the dining room and re-adding it to check that coins number stays the same
+        sb.removeFromDiningRoom(index);
+        sb.addToDiningRoom(index);
+        assertEquals(2, sb.getPlayer().getCoins());
+
+        //adding 6 more students
+        for(int i=0; i<6; i++) {
+            sb.addToDiningRoom(index);
+        }
+        assertEquals(4, sb.getPlayer().getCoins());
     }
 
 }

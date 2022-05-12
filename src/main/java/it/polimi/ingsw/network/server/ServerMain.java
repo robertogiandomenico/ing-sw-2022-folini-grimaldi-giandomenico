@@ -1,12 +1,13 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.view.cli.CliColor;
+
 import java.util.Scanner;
 
 public class ServerMain {
     private static final int MIN = 1024;
     private static final int MAX = 65535;
     private static final int DEFAULT = 2807;
-    private static final String CLEAR = "\033[H\033[2J";
 
     public static void main(String[] args) {
         int port = DEFAULT;
@@ -15,10 +16,7 @@ public class ServerMain {
         boolean notAnInt = false;
         boolean wrongPort = false;
 
-        Scanner sc = new Scanner(System.in);
-
-
-        System.out.print(CLEAR);
+        System.out.print(CliColor.CLEAR_ALL);
 
         while (!valid){
             System.out.println("*************************");
@@ -33,11 +31,13 @@ public class ServerMain {
                 wrongPort = false;
             }
             System.out.println("Please select a valid port between [" + MIN + ", " + MAX + "]");
-            System.out.print("Insert 'd' for the default value (" + DEFAULT + "): ");
-            input = sc.nextLine();
-            if(input.equalsIgnoreCase("d")){
+            System.out.print("Insert 'd' for the default value [" + DEFAULT + "]: ");
+            firstAttempt = false;
+            input = scanner.nextLine();
+
+            if(input.equalsIgnoreCase("d") || input.equals("")){
                 port = DEFAULT;
-                valid = true;
+                validInput = true;
             } else {
                 try {
                     port = Integer.parseInt(input);
@@ -50,8 +50,8 @@ public class ServerMain {
                     notAnInt = true;
                 }
             }
-            if (!valid) {
-                System.out.print(CLEAR);
+            if (!validInput) {
+                System.out.print(CliColor.CLEAR_ALL);
                 System.out.flush();
             }
         }
@@ -59,3 +59,4 @@ public class ServerMain {
         new Server(port).start();
     }
 }
+  

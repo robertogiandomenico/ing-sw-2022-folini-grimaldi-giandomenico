@@ -7,7 +7,7 @@ import it.polimi.ingsw.network.server.Server;
 import java.io.Serializable;
 
 public abstract class GenericClientMessage implements Serializable {
-    MessageType type;
+    private final MessageType type;
 
     public GenericClientMessage(MessageType type){
         this.type = type;

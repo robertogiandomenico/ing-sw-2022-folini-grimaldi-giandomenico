@@ -7,10 +7,12 @@ import java.util.List;
 
 public class ChooseAssistantRequest extends GenericServerMessage {
     private List<Assistant> availableAssistants;
+    private List<Assistant> discardedAssistants;
 
-    public ChooseAssistantRequest(List<Assistant> availableAssistants, List<Assistant> chosenAssistants) {
+    public ChooseAssistantRequest(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
         super(MessageType.CHOOSE_ASSISTANT_REQUEST);
         this.availableAssistants = availableAssistants;
+        this.discardedAssistants = discardedAssistants;
     }
 
     @Override
@@ -27,5 +29,9 @@ public class ChooseAssistantRequest extends GenericServerMessage {
 
     public List<Assistant> getAvailableAssistants() {
         return availableAssistants;
+    }
+
+    public List<Assistant> getDiscardedAssistants() {
+        return discardedAssistants;
     }
 }

@@ -27,13 +27,6 @@ public class ChooseAssistantAction implements Action {
 
     @Override
     public void execute() {
-        List<Player> players = turnController.getController().getGame().getPlayerOrder();
-
-        for (int i = 0; i < players.indexOf(currentPlayer); i++){
-            chosenAssistants.add(players.get(i).getDiscardPile());
-        }
-
-        clientHandler.sendMsgToClient(new ChooseAssistantRequest(availableAssistants, chosenAssistants));
     }
 
     @Override
