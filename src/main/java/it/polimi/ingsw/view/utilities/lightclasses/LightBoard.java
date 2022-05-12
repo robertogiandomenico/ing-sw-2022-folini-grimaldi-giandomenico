@@ -1,8 +1,6 @@
-package it.polimi.ingsw.view.utilities;
+package it.polimi.ingsw.view.utilities.lightclasses;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.network.messages.MessageType;
-import it.polimi.ingsw.network.messages.serverMessages.GenericServerMessage;
 
 import java.util.EnumMap;
 import java.util.List;

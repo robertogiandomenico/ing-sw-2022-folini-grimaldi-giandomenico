@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view.utilities;
+package it.polimi.ingsw.view.utilities.lightclasses;
 
 import it.polimi.ingsw.model.Archipelago;
 import it.polimi.ingsw.model.Color;

@@ -16,15 +16,15 @@ public class DisplayBoard {
         for (int i = 0; i < nicknameLength; i++) {  //backward for -nicknameLength- lines
             System.out.print("\033[1D");
         }
-        System.out.print("┏━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━┓" + "\033[1B" + "\033[31D");
-        System.out.print("┃   ┃ │          ║    ┃       ┃" + "\033[1B" + "\033[31D");
-        System.out.print("┃   ┃ │          ║    ┃       ┃" + "\033[1B" + "\033[31D");
-        System.out.print("┃   ┃ │          ║    ┃       ┃" + "\033[1B" + "\033[31D");
-        System.out.print("┃   ┃ │          ║    ┃       ┃" + "\033[1B" + "\033[31D");
-        System.out.print("┃   ┃ │          ║    ┃       ┃" + "\033[1B" + "\033[31D");
-        System.out.print("┗━━━┻━━━━━━━━━━━━━━━━━┻━━━━━━━┛");
+        System.out.print("╭───┬──────────────────┬───────╮" + "\033[1B" + "\033[32D");
+        System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
+        System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
+        System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
+        System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
+        System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
+        System.out.print("╰───┴──────────────────┴───────╯");
 
-        System.out.print("\033[31D" + "\033[5A");
+        System.out.print("\033[32D" + "\033[5A");
         System.out.print("\033[2C");
 
         //print all the entrance
@@ -42,7 +42,7 @@ public class DisplayBoard {
 
         //print all the coin spots
         for (int i = 0; i < 5; i++) {
-            System.out.print(CliColor.BOLDYELLOW + "\033[2C" + "C" + "\033[2C" + "C" + "\033[2C" + "C");
+            System.out.print(CliColor.BOLDYELLOW + "\033[2C" + "©" + "\033[2C" + "©" + "\033[2C" + "©");
             System.out.print("\033[9D" + "\033[1B");
         }
 
@@ -61,67 +61,72 @@ public class DisplayBoard {
         printStudentsTable(sB, 4);
 
         System.out.print(CliColor.RESET);
-        System.out.println("\033[11C" + "\033[5A");
+        System.out.println("\033[13C" + "\033[5A");
 
         //print professor table
         if (sB.isProfessorPresent(0)) {
-            System.out.print(CliColor.GREEN + " ■");
-            System.out.print("\033[1B" + "\033[2D");
+            System.out.print(CliColor.GREEN + "■");
+            System.out.print("\033[1B" + "\033[1D");
         } else System.out.print("\033[1B");
         if (sB.isProfessorPresent(1)) {
-            System.out.print(CliColor.RED + " ■");
-            System.out.print("\033[1B" + "\033[2D");
+            System.out.print(CliColor.RED + "■");
+            System.out.print("\033[1B" + "\033[1D");
         } else System.out.print("\033[1B");
         if (sB.isProfessorPresent(2)) {
-            System.out.print(CliColor.YELLOW + " ■");
-            System.out.print("\033[1B" + "\033[2D");
+            System.out.print(CliColor.BOLDYELLOW + "■");
+            System.out.print("\033[1B" + "\033[1D");
         } else System.out.print("\033[1B");
         if (sB.isProfessorPresent(3)) {
-            System.out.print(CliColor.PINK + " ■");
-            System.out.print("\033[1B" + "\033[2D");
+            System.out.print(CliColor.PINK + "■");
+            System.out.print("\033[1B" + "\033[1D");
         } else System.out.print("\033[1B");
         if (sB.isProfessorPresent(4)) {
-            System.out.print(CliColor.BLUE + " ■");
-            System.out.print("\033[1B" + "\033[2D");
+            System.out.print(CliColor.BLUE + "■");
+            System.out.print("\033[1B" + "\033[1D");
         } else System.out.print("\033[1B");
 
         System.out.print(CliColor.RESET);
-        System.out.print("\033[6C" + "\033[4A");
+        System.out.print("\033[5C" + "\033[4A");
 
         //print tower section
         int towerNameLength = sB.getPlayer().getTowerColor().getClass().getName().length();
         System.out.print(sB.getPlayer().getTowerColor().getClass().getName());
         for (int i = 0; i < towerNameLength; i++)
-            System.out.print("\033[1B");
-        System.out.print("T x" + sB.getTowersLeft());
+            System.out.print("\033[1D");
+        System.out.print("\033[1B" + "\033[1C");
+        System.out.print("♜×" + sB.getTowersLeft());
 
         System.out.print("\033[2B" + "\033[4D");
 
         //print money section
-        System.out.print("$ x" + sB.getPlayer().getCoins());
+        System.out.print("\uD83D\uDCB0×" + sB.getPlayer().getCoins());
 
         if (sB.getPlayer().getCoins() < 10)
-            System.out.println("\033[1B" + "\033[3C");
+            System.out.println("\033[1B" + "\033[4C");
         else
-            System.out.println("\033[1B" + "\033[2C");
+            System.out.println("\033[1B" + "\033[3C");
 
     }
 
     public static void printArchipelago(Archipelago archipelago, int archiIndex) {
         //print blank archipelago
-        if (archipelago.isMNPresent()) System.out.print(CliColor.YELLOW);
+        if (archipelago.isMNPresent())
+            System.out.print(CliColor.YELLOW);
         System.out.print("╒═══════════╕" + "\033[1B" + "\033[13D");
         System.out.print("│           │" + "\033[1B" + "\033[13D");
         System.out.print("│           │" + "\033[1B" + "\033[13D");
         System.out.print("│           │" + "\033[1B" + "\033[13D");
-        System.out.print("└───────────┘" + CliColor.RESET);
+        System.out.print("╰───────────╯" + CliColor.RESET);
 
-        System.out.print("\033[4A" + "\033[7D");
+        System.out.print("\033[4A" + "\033[8D");
 
         //print archiIndex
-        System.out.print(CliColor.BOLD + Integer.toString(archiIndex) + CliColor.RESET);
+        if (archiIndex < 10)
+            System.out.print(CliColor.BOLD + " " + archiIndex + " " + CliColor.RESET);
+        else
+            System.out.print("\033[D" + CliColor.BOLD + " " + archiIndex + " " + CliColor.RESET);
 
-        System.out.print("\033[1B" + "\033[5D");
+        System.out.print("\033[1B" + "\033[6D");
 
         //print students in archipelago
         System.out.print(CliColor.BGREEN + Integer.toString(archipelago.getTotalStudents(Color.GREEN)));
@@ -165,24 +170,28 @@ public class DisplayBoard {
         System.out.print("\033[1B" + "\033[1D");
 
         //print size of the archipelago
-        System.out.print("x" + archipelago.getIslands().size());
+        System.out.print("×" + archipelago.getIslands().size());
 
         System.out.print("\033[1C");
     }
 
     public static void printCloud(Cloud cloud, int cloudIndex) {
         //print blank cloud
+        if (cloud.isEmpty())
+            System.out.print(CliColor.BOLDBLACK);
+        else
+            System.out.print(CliColor.BOLDCYAN);
         System.out.print("╔═══════╗" + "\033[1B" + "\033[9D");
         System.out.print("║       ║" + "\033[1B" + "\033[9D");
         System.out.print("║       ║" + "\033[1B" + "\033[9D");
-        System.out.print("╚═══════╝");
+        System.out.print("╚═══════╝" + CliColor.RESET);
 
-        System.out.print("\033[5D" + "\033[3A");
+        System.out.print("\033[6D" + "\033[3A");
 
         //print cloudIndex
-        System.out.print(CliColor.BOLD + Integer.toString(cloudIndex) + CliColor.RESET);
+        System.out.print(CliColor.BOLD + " " + cloudIndex + " " + CliColor.RESET);
 
-        System.out.print("\033[1B" + "\033[3D");
+        System.out.print("\033[1B" + "\033[4D");
 
         //print students in cloud
         System.out.print(CliColor.BGREEN + numByColor(cloud.get(), Color.GREEN));

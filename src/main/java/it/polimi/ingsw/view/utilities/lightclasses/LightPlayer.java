@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view.utilities;
+package it.polimi.ingsw.view.utilities.lightclasses;
 
 import it.polimi.ingsw.model.Assistant;
 import it.polimi.ingsw.model.Player;

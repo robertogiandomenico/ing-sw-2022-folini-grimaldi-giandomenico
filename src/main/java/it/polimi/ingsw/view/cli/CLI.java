@@ -351,39 +351,47 @@ public class CLI implements ViewInterface {
 
     @Override
     public void printBoard(Board board) {
+        // to resize the console window     length:48  width:125
+        System.out.print("\033[8;48;125t");
+
         for (int i = 0; i < board.getArchipelagos().size(); i++) {
             DisplayBoard.printArchipelago(board.getArchipelago(i), i);
 
-            if (i == ((board.getArchipelagos().size())/2)-1)
-                System.out.print("\n\n");
-            else if (i == (board.getArchipelagos().size()-1))
-                System.out.print("\n\n\n");
-            else
-                System.out.print("\033[4A" + "\033[2C");
+            if (i < (board.getArchipelagos().size()/2 - 1))
+                System.out.print("\033[4A" + "\033[1C");
+
+            if (i == (board.getArchipelagos().size()/2 - 1))
+                System.out.print("\033[2B" + "\033[32D");
+
+            if (i > (board.getArchipelagos().size()/2 - 1)  &&  i != (board.getArchipelagos().size() - 2))
+                System.out.print("\033[32D" + "\033[1D" + "\033[32D" + "\033[4A");
+
+            if (i == (board.getArchipelagos().size() - 2))
+                System.out.print("\033[1B" + "\n");
         }
 
         for (int i = 0; i < board.getClouds().length; i++) {
             DisplayBoard.printCloud(board.getClouds()[i], i);
 
-            if (i != (board.getClouds().length)-1)
+            if (i < (board.getClouds().length)-1)
                 System.out.print("\033[3A" + "\033[2C");
             else
-                System.out.print("\n\n\n");
+                System.out.print("\n\n");
         }
 
         for (int i = 0; i < board.getSelectedCharacters().length; i++) {
             DisplayBoard.printCharacter(board.getSelectedCharacters()[i], i);
 
-            if (i != (board.getSelectedCharacters().length)-1)
+            if (i < (board.getSelectedCharacters().length)-1)
                 System.out.print("\n");
             else
-                System.out.print("\n\n\n");
+                System.out.print("\n\n");
         }
 
         for (int i = 0; i < board.getPlayerBoards().length; i++) {
             DisplayBoard.printSchoolBoard(board.getPlayerBoards()[i]);
 
-            if (i != (board.getPlayerBoards().length)-1)
+            if (i < (board.getPlayerBoards().length)-1)
                 System.out.print("\033[7A" + "\033[4C");
             else
                 System.out.print("\n\n");
