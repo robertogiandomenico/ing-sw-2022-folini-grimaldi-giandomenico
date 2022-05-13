@@ -63,7 +63,7 @@ public class MoveStudentsAction implements Action {
 
         if (msg.getType() == MessageType.STUDENT_REPLY){
             studentToBeMoved = b.getCurrentPlayerSchoolBoard().removeFromEntrance(((StudentReply) msg).getStudColor());
-            clientHandler.sendMsgToClient(new PlaceRequest());
+            clientHandler.sendMsgToClient(new PlaceRequest(b.getArchipelagos().size()));
         }
 
         if (msg.getType() == MessageType.PLACE_REPLY){

@@ -3,14 +3,35 @@ package it.polimi.ingsw.view.cli;
 import it.polimi.ingsw.controller.actions.ActionType;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.Client;
+import it.polimi.ingsw.network.messages.clientMessages.GameModeReply;
+import it.polimi.ingsw.network.messages.clientMessages.GameNameReply;
+import it.polimi.ingsw.network.messages.clientMessages.NicknameReply;
+import it.polimi.ingsw.network.messages.clientMessages.PlayerNumberReply;
 import it.polimi.ingsw.view.ViewInterface;
 import it.polimi.ingsw.view.utilities.IntegerReader;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 public class CLI implements ViewInterface {
     private final Scanner scanner = new Scanner(System.in);
+    private Client client;
+
+    public static void main(String[] args) {
+        new CLI().start();
+    }
+
+    private void start() {
+        boolean socketError = true;
+        while (socketError){
+            try {
+                client = askServerInfo();
+                client.init();
+                socketError = false;
+            } catch (IOException ignored){}
+        }
+    }
 
     @Override
     public Client askServerInfo() {
@@ -96,6 +117,8 @@ public class CLI implements ViewInterface {
         System.out.print("Enter your nickname: ");
         String nickname = scanner.nextLine();
 
+        client.sendMsgToServer(new NicknameReply(nickname));
+
         //TODO: notifyObserver(obs -> obs.onUpdateNickname(nickname));
     }
 
@@ -104,6 +127,7 @@ public class CLI implements ViewInterface {
         System.out.print("Enter the game name: ");
         String gameName = scanner.nextLine();
 
+        client.sendMsgToServer(new GameNameReply(gameName));
         //TODO: notifyObserver(obs -> obs.onUpdateGameName(gameName));
     }
 
@@ -120,6 +144,7 @@ public class CLI implements ViewInterface {
             gameMode = IntegerReader.readInput();
         }
 
+        client.sendMsgToServer(new GameModeReply(gameMode == 1));
         //TODO: notifyObserver(obs -> obs.onUpdateGameMode(gameMode));
     }
 
@@ -134,6 +159,7 @@ public class CLI implements ViewInterface {
             playerNumber = IntegerReader.readInput();
         }
 
+        client.sendMsgToServer(new PlayerNumberReply(playerNumber));
         //TODO: notifyObserver(obs -> obs.onUpdatePlayerNumber(Integer.parseInt(playerNumber)));
     }
 

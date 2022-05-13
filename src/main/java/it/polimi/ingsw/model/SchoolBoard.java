@@ -182,7 +182,7 @@ public class SchoolBoard {
      *                      -{@code false} otherwise.
      *                      </p>
      */
-    public Boolean checkCoinsPath(int dinIndex, int dinPosition){
+    public boolean checkCoinsPath(int dinIndex, int dinPosition){
         if( ((dinPosition == 3 && coinsPath[dinIndex] < 1) ||
                 (dinPosition == 6 && coinsPath[dinIndex] < 2) ||
                 (dinPosition == 9 && coinsPath[dinIndex] < 3)) ) {

@@ -212,6 +212,8 @@ class BoardTest {
             if (boards.indexOf(b) == 3) {
                 b.playCharacter("GrannyGrass", archiIndex, 0);
                 assertTrue(archi.isNoEntryTilePresent());
+                GrannyGrassEffect gge = (GrannyGrassEffect) b.getSelectedCharacters()[0].getEffect();
+                assertEquals(3, gge.getNoEntryTiles());
                 archi.setTowerColor(TowerColor.BLACK);
             }
 
@@ -296,4 +298,52 @@ class BoardTest {
 
     }
 
+    @Test
+    void testCoinsManagement() {
+        int boardIndex = 0;
+        SchoolBoard sb = boards.get(boardIndex).getCurrentPlayerSchoolBoard();
+        List<SchoolBoard> otherBoards = new ArrayList<>();
+
+        for (SchoolBoard s : boards.get(boardIndex).getPlayerBoards()){
+            if(!s.equals(sb)) otherBoards.add(s);
+        }
+
+        //players only have 1 coin in the beginning
+        assertEquals(1, sb.getPlayer().getCoins());
+        assertEquals(1, otherBoards.get(0).getPlayer().getCoins());
+        assertEquals(1, otherBoards.get(1).getPlayer().getCoins());
+
+        Color color = Color.YELLOW;
+        int index = boards.get(boardIndex).getColorsIndex().get(color);
+        for (int i = 0; i < 2; i++) {                           //adding 2 yellow students
+            sb.addToDiningRoom(index);
+        }
+        assertEquals(1, sb.getPlayer().getCoins());
+
+        sb.removeFromEntrance(sb.getEntrance()[0].getColor());
+        sb.addToEntrance(new Student(color));
+
+        boards.get(boardIndex).moveFromEntranceToDiningRoom(new Student(color));
+
+        //making sure that there's possibility of giving a coin and that only the current player gets one
+        assertEquals(sb.getCoinsPath()[index], 1);
+        assertFalse(sb.checkCoinsPath(index, sb.getDiningRoom()[index]));
+        assertEquals(2, sb.getPlayer().getCoins());
+        assertEquals(1, otherBoards.get(0).getPlayer().getCoins());
+        assertEquals(1, otherBoards.get(1).getPlayer().getCoins());
+
+        //removing the last student from the dining room and re-adding it to check that coins number stays the same
+        sb.removeFromDiningRoom(index);
+        sb.addToDiningRoom(index);
+        assertEquals(2, sb.getPlayer().getCoins());
+
+        //adding 6 more students
+        for(int i=0; i<6; i++) {
+            sb.addToEntrance(new Student(Color.YELLOW));
+            boards.get(boardIndex).moveFromEntranceToDiningRoom(new Student(Color.YELLOW));
+        }
+
+        assertEquals(4, sb.getPlayer().getCoins());
+        assertTrue(sb.getProfessorTable()[index]);
+    }
 }

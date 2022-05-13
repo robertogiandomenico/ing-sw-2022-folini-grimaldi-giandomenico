@@ -152,38 +152,4 @@ class SchoolBoardTest {
         assertTrue(otherBoards.get(1).isProfessorPresent(index));
         assertFalse(sb.isProfessorPresent(index));
     }
-
-    @Test
-    void testCoinsManagement() {
-        //players only have 1 coin in the beginning
-        assertEquals(1, sb.getPlayer().getCoins());
-        assertEquals(1, otherBoards.get(0).getPlayer().getCoins());
-        assertEquals(1, otherBoards.get(1).getPlayer().getCoins());
-
-        int index = 2;
-        for (int i = 0; i < 2; i++) {                           //adding 2 yellow students
-            sb.addToDiningRoom(index);
-        }
-        assertEquals(1, sb.getPlayer().getCoins());
-
-        sb.addToDiningRoom(index);
-        //making sure that there's possibility of giving a coin and that only the current player gets one
-        assertTrue(sb.getCoinsPath()[index]<1);
-        assertTrue(sb.checkCoinsPath(index, sb.getDiningRoom()[index]));
-        assertEquals(2, sb.getPlayer().getCoins());
-        assertEquals(1, otherBoards.get(0).getPlayer().getCoins());
-        assertEquals(1, otherBoards.get(1).getPlayer().getCoins());
-
-        //removing the last student from the dining room and re-adding it to check that coins number stays the same
-        sb.removeFromDiningRoom(index);
-        sb.addToDiningRoom(index);
-        assertEquals(2, sb.getPlayer().getCoins());
-
-        //adding 6 more students
-        for(int i=0; i<6; i++) {
-            sb.addToDiningRoom(index);
-        }
-        assertEquals(4, sb.getPlayer().getCoins());
-    }
-
 }

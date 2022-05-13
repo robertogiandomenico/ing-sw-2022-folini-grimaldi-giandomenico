@@ -11,7 +11,7 @@ public class NicknameRequest extends GenericServerMessage {
 
     @Override
     public void show(ViewInterface view) {
-
+        view.askNickname();
     }
 
     @Override

@@ -12,6 +12,7 @@ import it.polimi.ingsw.network.messages.serverMessages.PhaseEntering;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.Server;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -33,6 +34,7 @@ public class Controller {
         this.gameName = gameName;
         connectionLock = new ReentrantLock();
         gameStarted = false;
+        clientHandlers = new ArrayList<>();
     }
 
     public boolean isGameStarted() {
@@ -44,6 +46,7 @@ public class Controller {
 
     public void startGame(){
         if(game == null) game = new Game(expertMode);
+        game.initializeBoard();
         Server.SERVER_LOGGER.info("Starting a new game for these players : " + clientHandlers.stream().map(ClientHandler::getClientNickname).collect(Collectors.toList()));
         for (ClientHandler c : clientHandlers){
             c.setClientHandlerPhase(ClientHandlerPhases.WAITING_WIZARD);

@@ -126,7 +126,7 @@ public class Board {
 
         if(selectedCharacters!=null){
             //this means that expert mode was chosen
-            Boolean canTake = currentPlayerSB.checkCoinsPath(indexDR, currentPlayerSB.getDiningRoom()[indexDR]);
+            boolean canTake = currentPlayerSB.checkCoinsPath(indexDR, currentPlayerSB.getDiningRoom()[indexDR]);
             if (canTake && coinsSupply>0){
                 currentPlayerSB.getPlayer().addCoin();
                 removeFromCoinsSupply();

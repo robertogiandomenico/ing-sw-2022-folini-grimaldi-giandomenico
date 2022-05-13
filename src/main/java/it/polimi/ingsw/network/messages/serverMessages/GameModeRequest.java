@@ -11,7 +11,7 @@ public class GameModeRequest extends GenericServerMessage {
 
     @Override
     public void show(ViewInterface view) {
-
+        view.askGameMode();
     }
 
     @Override
