@@ -6,11 +6,12 @@ import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.GenericServerMessage;
 import it.polimi.ingsw.network.messages.serverMessages.NicknameRequest;
-import it.polimi.ingsw.network.messages.serverMessages.Ping;
+import it.polimi.ingsw.network.messages.connectionMessages.Ping;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable{
@@ -88,7 +89,8 @@ public class ClientHandler implements Runnable{
         this.chosenWizard = chosenWizard;
     }
 
-    public void sendMsgToClient(GenericServerMessage msg){
+    public void sendMsgToClient(Serializable msg){
+        assert (msg instanceof GenericServerMessage) || (msg instanceof Ping);
         try {
             outputStream.writeObject(msg);
             outputStream.flush();

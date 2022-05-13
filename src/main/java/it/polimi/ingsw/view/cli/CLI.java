@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.controller.actions.ActionType;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.view.ViewInterface;
 import it.polimi.ingsw.view.utilities.IntegerReader;
 
@@ -12,52 +13,82 @@ public class CLI implements ViewInterface {
     private final Scanner scanner = new Scanner(System.in);
 
     @Override
-    public void askServerInfo() {
-    /*  final String DEFAULT_PORT = "2807";
+    public Client askServerInfo() {
+      final int DEFAULT_PORT = 2807;
         final String DEFAULT_ADDRESS = "localhost";
-        final String MIN_PORT = "1024";
-        final String MAX_PORT = "65535";
-        Map<String, String> serverInfo = new HashMap<>();
-        boolean validInput;
-
-        System.out.println("Game connection setup. Follow the instructions.");
+        final int MIN_PORT = 1024;
+        final int MAX_PORT = 65535;
+        int port = DEFAULT_PORT;
+        String ip = DEFAULT_ADDRESS;
+        boolean validInput = false;
+        boolean firstTry = true;
+        boolean notAnInt = false;
+        boolean wrongPort = false;
 
         do {
-            System.out.print("Enter the server address [" + DEFAULT_ADDRESS + "]: ");
+            if(firstTry){
+                System.out.println("ERROR: Invalid address! (remember the syntax xxx.xxx.xxx.xxx)");
+            }
+            System.out.println("Please enter the server address");
+            System.out.print("Insert 'd' for the default value (" + DEFAULT_ADDRESS + "): ");
             String address = scanner.nextLine();
 
-            if (address.equals("")) {
-                serverInfo.put("address", DEFAULT_ADDRESS);
+            if (address.equals("d") || address.equalsIgnoreCase("localhost")) {
                 validInput = true;
-            } else if (ClientController.isValidIpAddress(address)) {
-                serverInfo.put("address", address);
+            } else if (validateIP(address)) {
+                ip = address;
                 validInput = true;
             } else {
                 System.out.println("Invalid address!");
                 clearCLI();
-                validInput = false;
+                firstTry = false;
             }
         } while (!validInput);
 
-        do {
-            System.out.print("Enter the server port [" + DEFAULT_PORT + "]: ");
-            String port = scanner.nextLine();
+        validInput = false;
 
-            if (port.equals("")) {
-                serverInfo.put("port", DEFAULT_PORT);
+        while (!validInput){
+            System.out.println("Select a valid port between [" + MIN_PORT + ", " + MAX_PORT + "]");
+            System.out.print("Insert 'd' for the default value (" + DEFAULT_PORT + "): ");
+            if(notAnInt){
+                notAnInt = false;
+                System.out.println("\nERROR: Please insert only numbers or \"d\"");
+                System.out.print("> ");
+            }
+            if(wrongPort){
+                wrongPort = false;
+                System.out.println("\nERROR: MIN_PORT = " + MIN_PORT + ", MAX_PORT = " + MAX_PORT);
+                System.out.print("> ");
+            }
+
+            String input = scanner.nextLine();
+
+            if(input.equalsIgnoreCase("d")){
                 validInput = true;
             } else {
-                if (ClientController.isValidPort(port)) {
-                    serverInfo.put("port", port);
-                    validInput = true;
-                } else {
-                    System.out.println("Invalid port!");
-                    validInput = false;
+                try {
+                    port = Integer.parseInt(input);
+                    if(MIN_PORT <= port && port <= MAX_PORT){
+                        validInput = true;
+                    } else {
+                        wrongPort = true;
+                    }
+                } catch (NumberFormatException e){
+                    notAnInt = true;
                 }
             }
-        } while (!validInput);   */
+            if (!validInput) {
+                System.out.print(CliColor.CLEAR_ALL);
+                System.out.flush();
+            }
+        }
+        return new Client(ip, port, this);
+    }
 
-        //TODO: notifyObserver(obs -> obs.onUpdateServerInfo(serverInfo));
+    private boolean validateIP(String address) {
+        String zeroTo255 = "(\\d{1, 2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])";
+        String IP_REGEX = zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255;
+        return address.matches(IP_REGEX);
     }
 
     @Override
