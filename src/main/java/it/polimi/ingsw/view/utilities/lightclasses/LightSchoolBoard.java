@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.Student;
  * school boards. (CLI/GUI)
  */
 public class LightSchoolBoard {
-    private final String player;
+    private final LightPlayer player;
     private final Student[] entrance;
     private final boolean[] professorTable;
     private int towersLeft;
@@ -20,7 +20,7 @@ public class LightSchoolBoard {
      * @param sb           the SchoolBoard to simplify.
      */
     LightSchoolBoard(SchoolBoard sb){
-        this.player = sb.getPlayer().getNickname();
+        this.player = new LightPlayer(sb.getPlayer());
         this.entrance = sb.getEntrance();
         this.professorTable = sb.getProfessorTable();
         this.towersLeft = sb.getTowersLeft();
@@ -33,7 +33,7 @@ public class LightSchoolBoard {
      *
      * @return             a String containing the nickname of the Player.
      */
-    public String getPlayer() {
+    public LightPlayer getPlayer() {
         return player;
     }
 

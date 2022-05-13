@@ -13,8 +13,9 @@ public class LightBoard {
     private List<LightArchi> archipelagos;
     private Student[][] clouds;
     private List<LightPlayer> players;
-    private List<LightSchoolBoard> playerBoards;
+    private List<LightSchoolBoard> schoolBoards;
     private int coinsSupply;
+    private LightCharacter[] selectedCharacters;
 
     /**
      * Class constructor.
@@ -26,6 +27,7 @@ public class LightBoard {
         initializeLightPlayers(b.getPlayers());
         initializeLightArchipelagos(b.getArchipelagos(), b.getColorsIndex());
         initializeLightSchoolBoards(b.getPlayerBoards());
+        initializeLightCharacters(b.getSelectedCharacters());
         this.coinsSupply = b.getCoinsSupply();
     }
 
@@ -66,7 +68,7 @@ public class LightBoard {
      */
     private void initializeLightSchoolBoards(SchoolBoard[] schoolBoards){
         for (SchoolBoard sb : schoolBoards){
-            this.playerBoards.add(new LightSchoolBoard(sb));
+            this.schoolBoards.add(new LightSchoolBoard(sb));
         }
     }
 
@@ -79,10 +81,22 @@ public class LightBoard {
      */
     private void initializeLightArchipelagos(List<Archipelago> archis, EnumMap<Color, Integer> colorsIndex){
         for (Archipelago a : archis){
-            this.archipelagos.add(new LightArchi(a, colorsIndex));
+            archipelagos.add(new LightArchi(a, colorsIndex));
         }
     }
 
+    private void initializeLightCharacters(GameCharacter[] characters){
+        int index = 0;
+
+        for (GameCharacter c : characters){
+            selectedCharacters[index] = new LightCharacter(c);
+            index++;
+        }
+    }
+
+    public LightCharacter[] getSelectedCharacters() {
+        return selectedCharacters;
+    }
 
     /**
      * Returns the archipelagos.
@@ -99,7 +113,7 @@ public class LightBoard {
      * @return       a LightSchoolBoard List.
      */
     public List<LightSchoolBoard> getSchoolBoards(){
-        return playerBoards;
+        return schoolBoards;
     }
 
     /**
@@ -121,4 +135,7 @@ public class LightBoard {
         return clouds[index];
     }
 
+    public int getCoinsSupply() {
+        return coinsSupply;
+    }
 }
