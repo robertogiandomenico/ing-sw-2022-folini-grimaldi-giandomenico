@@ -15,29 +15,32 @@ public class ServerMain {
         boolean valid = false;
         boolean notAnInt = false;
         boolean wrongPort = false;
+        Scanner scanner = new Scanner(System.in);
 
         System.out.print(CliColor.CLEAR_ALL);
 
         while (!valid){
             System.out.println("*************************");
             System.out.println("*    ERIANTYS SERVER    *");
-            System.out.println("*************************");
+            System.out.println("*************************\n");
+            System.out.println("Please select a valid port between [" + MIN + ", " + MAX + "]");
+            System.out.print("Insert 'd' for the default value (" + DEFAULT + "): ");
             if(notAnInt){
-                System.err.println("ERROR: Please insert only numbers");
+                System.out.println("\nERROR: Please insert only numbers or \"d\"");
+                System.out.print("> ");
                 notAnInt = false;
             }
             if(wrongPort){
-                System.err.println("ERROR: MIN_PORT = " + MIN + ", MAX_PORT = " + MAX);
+                System.out.println("\nERROR: MIN_PORT = " + MIN + ", MAX_PORT = " + MAX);
+                System.out.print("> ");
                 wrongPort = false;
             }
-            System.out.println("Please select a valid port between [" + MIN + ", " + MAX + "]");
-            System.out.print("Insert 'd' for the default value [" + DEFAULT + "]: ");
-            firstAttempt = false;
+
             input = scanner.nextLine();
 
-            if(input.equalsIgnoreCase("d") || input.equals("")){
+            if(input.equalsIgnoreCase("d")){
                 port = DEFAULT;
-                validInput = true;
+                valid = true;
             } else {
                 try {
                     port = Integer.parseInt(input);
@@ -50,7 +53,7 @@ public class ServerMain {
                     notAnInt = true;
                 }
             }
-            if (!validInput) {
+            if (!valid) {
                 System.out.print(CliColor.CLEAR_ALL);
                 System.out.flush();
             }
@@ -59,4 +62,3 @@ public class ServerMain {
         new Server(port).start();
     }
 }
-  

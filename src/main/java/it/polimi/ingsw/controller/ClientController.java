@@ -56,7 +56,7 @@ public class ClientController implements ViewObserver, Observer {
     @Override
     public void onUpdateNickname(String nickname) {
         this.nickname = nickname;
-        client.sendMessage(new NicknameReply(this.nickname));
+        client.sendMsgToServer(new NicknameReply(this.nickname));
     }
 
     /**
@@ -66,7 +66,7 @@ public class ClientController implements ViewObserver, Observer {
      */
     @Override
     public void onUpdateGameName(String gameName) {
-        client.sendMessage(new GameNameReply(gameName));
+        client.sendMsgToServer(new GameNameReply(gameName));
     }
 
     /**
@@ -76,7 +76,7 @@ public class ClientController implements ViewObserver, Observer {
      */
     @Override
     public void onUpdateGameMode(String gameMode) {
-        client.sendMessage(new GameNameReply(gameMode));
+        client.sendMsgToServer(new GameNameReply(gameMode));
     }
 
     /**
@@ -86,7 +86,7 @@ public class ClientController implements ViewObserver, Observer {
      */
     @Override
     public void onUpdatePlayersNumber(int playersNumber) {
-        client.sendMessage(new PlayerNumberReply(playersNumber));
+        client.sendMsgToServer(new PlayerNumberReply(playersNumber));
     }
 
     /**
@@ -96,7 +96,7 @@ public class ClientController implements ViewObserver, Observer {
      */
     @Override
     public void onUpdateWizard(Wizard wizard) {
-        client.sendMessage(new WizardReply(wizard));
+        client.sendMsgToServer(new WizardReply(wizard));
     }
 
     /**
@@ -106,7 +106,7 @@ public class ClientController implements ViewObserver, Observer {
      */
     @Override
     public void onUpdateAssistant(Assistant assistant) {
-        client.sendMessage(new ChooseAssistantReply(assistant));
+        client.sendMsgToServer(new ChooseAssistantReply(assistant));
     }
 
     /**
@@ -116,7 +116,7 @@ public class ClientController implements ViewObserver, Observer {
      */
     @Override
     public void onUpdateAction(ActionType action) {
-        client.sendMessage(new ActionReply(action));
+        client.sendMsgToServer(new ActionReply(action));
     }
 
     /**
@@ -126,7 +126,7 @@ public class ClientController implements ViewObserver, Observer {
      */
     @Override
     public void onUpdateColor(Color color) {
-        client.sendMessage(new StudentReply(color));
+        client.sendMsgToServer(new StudentReply(color));
     }
 
     /**
@@ -139,9 +139,9 @@ public class ClientController implements ViewObserver, Observer {
     public void onUpdatePlace(String place, int archiIndex) {
 
         if (archiIndex == -1)
-            client.sendMessage(new PlaceReply(place));
+            client.sendMsgToServer(new PlaceReply(place));
         else
-            client.sendMessage(new PlaceReply(place, archiIndex));
+            client.sendMsgToServer(new PlaceReply(place, archiIndex));
     }
 
     /**
@@ -151,7 +151,7 @@ public class ClientController implements ViewObserver, Observer {
      */
     @Override
     public void onUpdateCharacter(GameCharacter character, int archiIndex, int studentNumber, Color[] studColor) {
-        client.sendMessage(new CharacterReply(character, archiIndex, studentNumber, studColor));
+        client.sendMsgToServer(new CharacterReply(character, archiIndex, studentNumber, studColor));
     }
 
     /**
@@ -161,7 +161,7 @@ public class ClientController implements ViewObserver, Observer {
      */
     @Override
     public void onUpdateMNSteps(int mnSteps) {
-        client.sendMessage(new MNStepsReply(mnSteps));
+        client.sendMsgToServer(new MNStepsReply(mnSteps));
 
     }
 
@@ -172,7 +172,7 @@ public class ClientController implements ViewObserver, Observer {
      */
     @Override
     public void onUpdateCloud(int cloudIndex) {
-        client.sendMessage(new CloudReply(cloudIndex));
+        client.sendMsgToServer(new CloudReply(cloudIndex));
 
     }
 

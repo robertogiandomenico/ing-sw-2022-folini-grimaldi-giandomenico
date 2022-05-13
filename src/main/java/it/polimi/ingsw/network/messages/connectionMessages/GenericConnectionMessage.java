@@ -1,14 +1,13 @@
-package it.polimi.ingsw.network.messages.serverMessages;
+package it.polimi.ingsw.network.messages.connectionMessages;
 
 import it.polimi.ingsw.network.messages.MessageType;
-import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.Serializable;
 
-public abstract class GenericServerMessage implements Serializable {
+public abstract class GenericConnectionMessage implements Serializable {
     private final MessageType type;
 
-    public GenericServerMessage(MessageType type){
+    public GenericConnectionMessage(MessageType type){
         this.type = type;
     }
 
@@ -16,11 +15,9 @@ public abstract class GenericServerMessage implements Serializable {
         return type;
     }
 
-    public abstract void show(ViewInterface view);
-
     @Override
     public String toString() {
-        return "ServerMessage {" +
+        return "ConnectionMessage {" +
                 "type=" + type +
                 '}';
     }

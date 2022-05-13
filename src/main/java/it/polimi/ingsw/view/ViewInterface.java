@@ -2,6 +2,7 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.controller.actions.ActionType;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.network.client.Client;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface ViewInterface {
 
-    void askServerInfo();
+    Client askServerInfo();
     void askNickname();
     void askGameName();
     void askGameMode();

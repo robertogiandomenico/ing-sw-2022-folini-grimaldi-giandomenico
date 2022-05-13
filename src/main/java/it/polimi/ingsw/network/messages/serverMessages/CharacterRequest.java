@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.messages.serverMessages;
 
 import it.polimi.ingsw.model.GameCharacter;
 import it.polimi.ingsw.network.messages.MessageType;
+import it.polimi.ingsw.view.ViewInterface;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class CharacterRequest extends GenericServerMessage {
     }
 
     @Override
-    public void show() {
+    public void show(ViewInterface view) {
 
     }
 
