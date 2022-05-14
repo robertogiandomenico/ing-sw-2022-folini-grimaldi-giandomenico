@@ -29,6 +29,7 @@ public class LightCharacter {
             case "Jester":
                 this.students = ((JesterEffect)c.getEffect()).getStudents();
                 break;
+            default: break;
         }
     }
 

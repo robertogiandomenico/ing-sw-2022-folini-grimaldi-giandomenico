@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.view.ViewInterface;
 import it.polimi.ingsw.view.utilities.IntegerReader;
+import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
+import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 
 import java.util.List;
 import java.util.Scanner;
@@ -186,7 +188,7 @@ public class CLI implements ViewInterface {
         for (int i = 0; i < possibleActions.size(); i++) {
             System.out.println("[" + i + "| " + possibleActions.get(i).getAction());
         }
-        System.out.print("Enter the index of your next " + CliColor.BOLD + "action" + CliColor.RESET + ": ");
+        System.out.print("Enter the index of your next " + CliColor.BOLDCYAN + "action" + CliColor.RESET + ": ");
 
         int actionIndex = IntegerReader.readInput();
         while (actionIndex<0 || actionIndex>possibleActions.size()) {
@@ -223,7 +225,7 @@ public class CLI implements ViewInterface {
         }
 
         System.out.println(CliColor.RESET + "\n");
-        System.out.print("Which " + CliColor.BOLD + "student" + CliColor.RESET + " would you like to move?" +
+        System.out.print("Which " + CliColor.BOLDWHITE + "student" + CliColor.RESET + " would you like to move?" +
                          "Type the right color index: ");
 
         int colorIndex = IntegerReader.readInput();
@@ -238,7 +240,7 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askPlace(int maxArchis) {
-        System.out.println("Would you like to move the student in the " + CliColor.BOLD + "DINING ROOM" + CliColor.RESET +
+        System.out.println("Would you like to move the student in the " + CliColor.BOLDWHITE + "DINING ROOM" + CliColor.RESET +
                            "? [y/n]: ");
 
         String diningRoom = scanner.nextLine();
@@ -271,14 +273,14 @@ public class CLI implements ViewInterface {
     }
 
     @Override
-    public void askCharacter(Board board) {
+    public void askCharacter(LightBoard board) {
         boolean affordable;
-        GameCharacter selectedCharacter;
+        LightCharacter selectedCharacter;
         int archiIndex = -1;
         int studentNumber = 0;
         Color[] studColors = null;
 
-        System.out.print("Enter the index of the " + CliColor.BOLD + "character" + CliColor.RESET + " you would like to choose: ");
+        System.out.print("Enter the index of the " + CliColor.BOLDYELLOW + "character" + CliColor.RESET + " you would like to choose: ");
 
         int characterIndex = IntegerReader.readInput();
 
@@ -331,7 +333,7 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askCloud(List<Integer> availableClouds) {
-        System.out.println("Enter the index of the " + CliColor.BBLUE + "cloud" + CliColor.RESET + " you would like to choose: ");
+        System.out.println("Enter the index of the " + CliColor.BOLDCYAN + "cloud" + CliColor.RESET + " you would like to choose: ");
 
         int cloudIndex = IntegerReader.readInput();
         while (cloudIndex < 0 || cloudIndex > availableClouds.size()) {
@@ -381,12 +383,13 @@ public class CLI implements ViewInterface {
     }
 
     @Override
-    public void printBoard(Board board) {
+    public void printBoard(LightBoard board) {
         // to resize the console window     length:48  width:125
         System.out.print("\033[8;48;125t");
 
+        //print all the archipelagos clockwise
         for (int i = 0; i < board.getArchipelagos().size(); i++) {
-            DisplayBoard.printArchipelago(board.getArchipelago(i), i);
+            DisplayBoard.printArchipelago(board.getArchipelagos().get(i), i);
 
             if (i < (board.getArchipelagos().size()/2 - 1))
                 System.out.print("\033[4A" + "\033[1C");
@@ -398,31 +401,39 @@ public class CLI implements ViewInterface {
                 System.out.print("\033[32D" + "\033[1D" + "\033[32D" + "\033[4A");
 
             if (i == (board.getArchipelagos().size() - 2))
-                System.out.print("\033[1B" + "\n");
+                System.out.print("\033[2B" + CliColor.RESET_LINE);
         }
 
-        for (int i = 0; i < board.getClouds().length; i++) {
-            DisplayBoard.printCloud(board.getClouds()[i], i);
+        //print all the clouds
+        for (int i = 0; i < board.getCloudsNumber(); i++) {
+            DisplayBoard.printCloud(board, i);
 
-            if (i < (board.getClouds().length)-1)
+            if (i < (board.getCloudsNumber())-1)
                 System.out.print("\033[3A" + "\033[2C");
-            else
-                System.out.print("\n\n");
         }
 
-        for (int i = 0; i < board.getSelectedCharacters().length; i++) {
-            DisplayBoard.printCharacter(board.getSelectedCharacters()[i], i);
+        if (board.getSelectedCharacters() != null) {  //if it's expert mode
+            //print coins supply
+            DisplayBoard.printCoinsSupply(board);
 
-            if (i < (board.getSelectedCharacters().length)-1)
-                System.out.print("\n");
-            else
-                System.out.print("\n\n");
+            System.out.print("\033[2B" + CliColor.RESET_LINE);
+
+            //print all the characters
+            for (int i = 0; i < board.getSelectedCharacters().length; i++) {
+                DisplayBoard.printCharacter(board.getSelectedCharacters()[i], i);
+
+                if (i < (board.getSelectedCharacters().length) - 1)
+                    System.out.print("\n");
+                else
+                    System.out.print("\n\n");
+            }
         }
 
-        for (int i = 0; i < board.getPlayerBoards().length; i++) {
-            DisplayBoard.printSchoolBoard(board.getPlayerBoards()[i]);
+        //print all the schoolboards
+        for (int i = 0; i < board.getSchoolBoards().size(); i++) {
+            DisplayBoard.printSchoolBoard(board.getSchoolBoards().get(i), board.getSelectedCharacters() != null);
 
-            if (i < (board.getPlayerBoards().length)-1)
+            if (i < (board.getSchoolBoards().size() -1 ))
                 System.out.print("\033[7A" + "\033[4C");
             else
                 System.out.print("\n\n");

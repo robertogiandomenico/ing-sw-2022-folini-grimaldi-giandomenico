@@ -16,6 +16,7 @@ public class LightBoard {
     private List<LightSchoolBoard> schoolBoards;
     private int coinsSupply;
     private LightCharacter[] selectedCharacters;
+    private LightSchoolBoard currentPlayerSB;
 
     /**
      * Class constructor.
@@ -28,7 +29,8 @@ public class LightBoard {
         initializeLightArchipelagos(b.getArchipelagos(), b.getColorsIndex());
         initializeLightSchoolBoards(b.getPlayerBoards());
         initializeLightCharacters(b.getSelectedCharacters());
-        this.coinsSupply = b.getCoinsSupply();
+        currentPlayerSB = new LightSchoolBoard(b.getCurrentPlayerSchoolBoard());
+        coinsSupply = b.getCoinsSupply();
     }
 
     /**
@@ -116,6 +118,10 @@ public class LightBoard {
         return schoolBoards;
     }
 
+    public LightSchoolBoard getCurrentPlayerSchoolBoard() {
+        return currentPlayerSB;
+    }
+
     /**
      * Returns the players.
      *
@@ -133,6 +139,10 @@ public class LightBoard {
      */
     public Student[] getCloud(int index){
         return clouds[index];
+    }
+
+    public int getCloudsNumber() {
+        return clouds.length;
     }
 
     public int getCoinsSupply() {
