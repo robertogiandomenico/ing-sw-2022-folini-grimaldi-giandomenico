@@ -1,13 +1,18 @@
 package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.controller.actions.ActionType;
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Assistant;
+import it.polimi.ingsw.model.Color;
+import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.view.ViewInterface;
 import it.polimi.ingsw.view.utilities.IntegerReader;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -157,11 +162,11 @@ public class CLI implements ViewInterface {
     }
 
     @Override
-    public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
+    public void askAssistant(List<Assistant> availableAssistants, List<Assistant> chosenAssistants) {
 
-        if (!discardedAssistants.isEmpty()) {
+        if (!chosenAssistants.isEmpty()) {
             System.out.println("These are the assistant cards already chosen by the other player(s): ");
-            for (Assistant a : discardedAssistants) {
+            for (Assistant a : chosenAssistants) {
                 System.out.println("[ " + a.name() + "  W:" + a.getWeight() + " M:" + a.getMaxMNSteps() + " ]");
             }
         }
@@ -201,8 +206,9 @@ public class CLI implements ViewInterface {
     }
 
     @Override
-    public void askStudent(List<Color> availableColors) {
+    public Color askColor(List<Color> availableColors) {
         int i = 0;
+        Color selectedColor;
 
         if (availableColors.contains(Color.GREEN)) {
             System.out.println(CliColor.GREEN + "[" + i + " - GREEN]");
@@ -225,7 +231,7 @@ public class CLI implements ViewInterface {
         }
 
         System.out.println(CliColor.RESET + "\n");
-        System.out.print("Which " + CliColor.BOLDWHITE + "student" + CliColor.RESET + " would you like to move?" +
+        System.out.print("Which " + CliColor.BOLDWHITE + "color" + CliColor.RESET + " would you like to select?" +
                          "Type the right color index: ");
 
         int colorIndex = IntegerReader.readInput();
@@ -234,6 +240,8 @@ public class CLI implements ViewInterface {
             System.out.print("Invalid color index. Try again: ");
             colorIndex = IntegerReader.readInput();
         }
+
+        return availableColors.get(colorIndex);
 
         //TODO: notifyObserver(obs -> obs.onUpdateColor( availableColors.get(colorIndex) ));
     }
@@ -278,7 +286,7 @@ public class CLI implements ViewInterface {
         LightCharacter selectedCharacter;
         int archiIndex = -1;
         int studentNumber = 0;
-        Color[] studColors = null;
+        Color[] studColors = new Color[6];
 
         System.out.print("Enter the index of the " + CliColor.BOLDYELLOW + "character" + CliColor.RESET + " you would like to choose: ");
 
@@ -303,16 +311,130 @@ public class CLI implements ViewInterface {
         } while (!affordable);
 
         selectedCharacter = board.getSelectedCharacters()[characterIndex];
+        int maxArchis = board.getArchipelagos().size();
 
         //switch case of all characters to ask the proper values
         switch (selectedCharacter.getName()) {
+            case "Monk":
+                System.out.println(CliColor.BOLDYELLOW + "Monk effect" + CliColor.RESET + "activated!");
+
+                System.out.println("Select the student you would like to take from the character card.");
+                studentNumber = 1;
+                studColors[studentNumber-1] = askColor(getColorsByStudents(selectedCharacter.getStudents()));
+
+                System.out.print("\nEnter the index of the " + CliColor.YELLOW + "island" + CliColor.RESET + " where you would like to move the student on: ");
+                archiIndex = askArchipelago(maxArchis);
+                break;
+
+            case "Farmer":
+                System.out.println(CliColor.BOLDYELLOW + "Farmer effect" + CliColor.RESET + " activated for your whole turn!");
+                System.out.println("You take control of any professor if there's a tie between players' students in the dining rooms.");
+                break;
+
+            case "Herald":
+                System.out.println(CliColor.BOLDYELLOW + "Herald effect" + CliColor.RESET + " activated!");
+                System.out.print("\nEnter the index of the " + CliColor.YELLOW + "island" + CliColor.RESET + " you would like to be resolved: ");
+                archiIndex = askArchipelago(maxArchis);
+                break;
+
+            case "MagicMailman":
+                System.out.println(CliColor.BOLDYELLOW + "Magic Mailman effect" + CliColor.RESET + " activated!");
+                System.out.println("You may now move " + CliColor.YELLOW + "mother nature" + CliColor.RESET + " up to 2 additional islands.");
+                break;
+
+            case "GrannyGrass":
+                System.out.println(CliColor.BOLDYELLOW + "Granny Grass effect" + CliColor.RESET + " activated!");
+                System.out.print("\nEnter the index of the " + CliColor.YELLOW + "island" + CliColor.RESET + " where you would like to put the " + CliColor.RED + "No Entry Tile" + CliColor.RESET + " on: ");
+                archiIndex = askArchipelago(maxArchis);
+                break;
+
             case "Centaur":
-                System.out.print("Enter the index of the " + CliColor.BOLD + "island" + CliColor.RESET + " to cancel its towers influence: ");
-                    /*archiIndex = askArchipelago(maxArchis);
-                     should I give to askCharacter(..) ALL the parameters from which I can choose?
-                     */
+                System.out.println(CliColor.BOLDYELLOW + "Centaur effect" + CliColor.RESET + " activated!");
+                System.out.print("Enter the index of the " + CliColor.YELLOW + "island" + CliColor.RESET + " to cancel its " + CliColor.BOLD + "towers" + CliColor.RESET + " influence: ");
+                archiIndex = askArchipelago(maxArchis);
+                break;
+
+            case "Jester":
+                System.out.println(CliColor.BOLDYELLOW + "Jester effect" + CliColor.RESET + " activated!");
+
+                System.out.print("Enter the number of " + CliColor.BOLD + "students" + CliColor.RESET + " you would like to swap from the character card [up to 3]: ");
+                studentNumber = IntegerReader.readInput();
+                while (studentNumber<0 || studentNumber>3) {
+                    System.out.print("Invalid student number. You can take up to 3 students. Try again: ");
+                    studentNumber = IntegerReader.readInput();
+                }
+
+                System.out.println("Select the student(s) you would like to take from the character card.");
+                for (int i = 0; i < studentNumber; i++) {
+                    System.out.println((studentNumber-i) + " student(s) left.");
+                    studColors[i] = askColor(getColorsByStudents(selectedCharacter.getStudents()));
+                    System.out.print("\n");
+                }
+
+                System.out.println("\nSelect now the student(s) you would like to swap from your entrance.");
+                for (int i = 0; i < studentNumber; i++) {
+                    System.out.println((studentNumber - i) + " student(s) left.");
+                    studColors[3+i] = askColor(getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance()));
+                    System.out.print("\n");
+                }
+
+                break;
+
+            case "Knight":
+                System.out.println(CliColor.BOLDYELLOW + "Knight effect" + CliColor.RESET + " activated!");
+                System.out.println("You now have 2 more points of influence on islands during this turn.");
+                break;
+
+            case "MushroomMan":
+                System.out.println(CliColor.BOLDYELLOW + "Mushroom Man effect" + CliColor.RESET + " activated!");
+                studentNumber = 1;
+                System.out.println("Select a color. During this turn, that color add no influence.");
+                studColors[studentNumber-1] = askColor(new ArrayList<>(Arrays.asList(Color.values())));
+                break;
+
+            case "Mistrel":
+                System.out.println(CliColor.BOLDYELLOW + "Minstrel effect" + CliColor.RESET + " activated!");
+
+                System.out.print("Enter the number of " + CliColor.BOLD + "students" + CliColor.RESET + " you would like to swap from the character card [up to 2]: ");
+                studentNumber = IntegerReader.readInput();
+                while (studentNumber<0 || studentNumber>2) {
+                    System.out.print("Invalid student number. You can take up to 2 students. Try again: ");
+                    studentNumber = IntegerReader.readInput();
+                }
+
+                System.out.println("Select the student(s) you would like to take from the character card.");
+                for (int i = 0; i < studentNumber; i++) {
+                    System.out.println((studentNumber-i) + " student(s) left.");
+                    studColors[i] = askColor(getColorsByStudents(selectedCharacter.getStudents()));
+                    System.out.print("\n");
+                }
+
+                System.out.println("\nSelect now the student(s) you would like to swap from your entrance.");
+                for (int i = 0; i < studentNumber; i++) {
+                    System.out.println((studentNumber - i) + " student(s) left.");
+                    studColors[3+i] = askColor(getColorsByDR(board.getCurrentPlayerSchoolBoard().getDiningRoom()));
+                    System.out.print("\n");
+                }
+
+                break;
+
+            case "SpoiledPrincess":
+                System.out.println(CliColor.BOLDYELLOW + "Spoiled Princess effect" + CliColor.RESET + "activated!");
+                System.out.println("Select the student you would like to take from the character card and place in your dining room.");
+                studentNumber = 1;
+                studColors[studentNumber-1] = askColor(getColorsByStudents(selectedCharacter.getStudents()));
+                break;
+
+            case "Thief":
+                System.out.println(CliColor.BOLDYELLOW + "Thief effect" + CliColor.RESET + "activated!");
+                System.out.println("Select a color. Every player, including yourself, will return 3 students of that color from the dining room to the bag.");
+                studentNumber = 1;
+                studColors[studentNumber-1] = askColor(new ArrayList<>(Arrays.asList(Color.values())));
+                break;
+
+            default:
+                break;
         }
-        //TODO: switch case of all characters to ask the proper values
 
         //TODO: notifyObserver(obs -> obs.onUpdateCharacter( selectedCharacter, archiIndex, studentNumber, studColors ));
     }
@@ -451,5 +573,45 @@ public class CLI implements ViewInterface {
     public void clearCLI() {
         System.out.println(CliColor.CLEAR_ALL);
         System.out.flush();
+    }
+
+    public List<Color> getColorsByStudents(Student[] studentsArray) {
+        List<Color> availableColors = new ArrayList<>();
+
+        for (Student s : studentsArray) {
+            if (!availableColors.contains(s.getColor()))
+                availableColors.add(s.getColor());
+        }
+
+        return availableColors;
+    }
+
+    public List<Color> getColorsByDR(int[] drArray) {
+        List<Color> availableColors = new ArrayList<>();
+
+        for (int i = 0; i < drArray.length; i++) {
+            if (drArray[i] > 0) {
+                switch (i) {
+                    case 0:
+                        availableColors.add(Color.GREEN);
+                        break;
+                    case 1:
+                        availableColors.add(Color.RED);
+                        break;
+                    case 2:
+                        availableColors.add(Color.YELLOW);
+                        break;
+                    case 3:
+                        availableColors.add(Color.PINK);
+                        break;
+                    case 4:
+                        availableColors.add(Color.BLUE);
+                        break;
+                    default: break; //not reachable
+                }
+            }
+        }
+
+        return availableColors;
     }
 }
