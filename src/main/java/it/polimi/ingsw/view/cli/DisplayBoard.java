@@ -195,7 +195,7 @@ public class DisplayBoard {
 
     public static void printCloud(LightBoard board, int cloudIndex) {
         //print blank cloud
-        if (board.getCloud(cloudIndex)[0] == null)    //check is the cloud is empty
+        if (board.getCloud(cloudIndex)[0] == null)    //check if the cloud is empty
             System.out.print(CliColor.BOLDBLACK);
         else
             System.out.print(CliColor.BOLDCYAN);

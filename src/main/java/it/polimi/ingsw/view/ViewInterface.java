@@ -23,7 +23,7 @@ public interface ViewInterface {
     void askAssistant(List<Assistant> availableAssistants, List<Assistant> chosenAssistants);
 
     void askAction(List<ActionType> possibleActions);
-    Color askColor(List<Color> availableColors);
+    void askStudent(List<Color> availableColors);
     void askPlace(int maxArchis);
     int askArchipelago(int maxArchis);
     void askCharacter(LightBoard board);

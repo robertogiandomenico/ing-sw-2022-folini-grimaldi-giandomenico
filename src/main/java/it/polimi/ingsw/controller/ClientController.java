@@ -219,7 +219,7 @@ public class ClientController implements ViewObserver, Observer {
                 break;
             case STUDENT_REQUEST:
                 StudentRequest studentRequest = (StudentRequest) message;
-                taskQueue.execute(() -> view.askColor(((StudentRequest) message).getAvailableColors()));
+                taskQueue.execute(() -> view.askStudent(((StudentRequest) message).getAvailableColors()));
                 break;
             case PLACE_REQUEST:
                 PlaceRequest placeRequest = (PlaceRequest) message;

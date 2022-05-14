@@ -206,42 +206,10 @@ public class CLI implements ViewInterface {
     }
 
     @Override
-    public Color askColor(List<Color> availableColors) {
-        int i = 0;
-        Color selectedColor;
-
-        if (availableColors.contains(Color.GREEN)) {
-            System.out.println(CliColor.GREEN + "[" + i + " - GREEN]");
-            i++;
-        }
-        if (availableColors.contains(Color.RED)) {
-            System.out.println(CliColor.GREEN + "[" + i + " - RED]");
-            i++;
-        }
-        if (availableColors.contains(Color.YELLOW)) {
-            System.out.println(CliColor.YELLOW + "[" + i + " - YELLOW]");
-            i++;
-        }
-        if (availableColors.contains(Color.PINK)) {
-            System.out.println(CliColor.PINK + "[" + i + " - PINK]");
-            i++;
-        }
-        if (availableColors.contains(Color.BLUE)) {
-            System.out.println(CliColor.BLUE + "[" + i + " - BLUE]");
-        }
-
-        System.out.println(CliColor.RESET + "\n");
-        System.out.print("Which " + CliColor.BOLDWHITE + "color" + CliColor.RESET + " would you like to select?" +
-                         "Type the right color index: ");
-
-        int colorIndex = IntegerReader.readInput();
-        while (colorIndex<0 || colorIndex>availableColors.size()) {
-            System.out.println(CliColor.RESET_LINE);
-            System.out.print("Invalid color index. Try again: ");
-            colorIndex = IntegerReader.readInput();
-        }
-
-        return availableColors.get(colorIndex);
+    public void askStudent(List<Color> availableColors) {
+        Color studColor;
+        System.out.println("Select the color of the student you would like to move.");
+        studColor = askColor(availableColors);
 
         //TODO: notifyObserver(obs -> obs.onUpdateColor( availableColors.get(colorIndex) ));
     }
@@ -286,7 +254,7 @@ public class CLI implements ViewInterface {
         LightCharacter selectedCharacter;
         int archiIndex = -1;
         int studentNumber = 0;
-        Color[] studColors = new Color[6];
+        Color[] studColors = null;
 
         System.out.print("Enter the index of the " + CliColor.BOLDYELLOW + "character" + CliColor.RESET + " you would like to choose: ");
 
@@ -318,8 +286,9 @@ public class CLI implements ViewInterface {
             case "Monk":
                 System.out.println(CliColor.BOLDYELLOW + "Monk effect" + CliColor.RESET + "activated!");
 
-                System.out.println("Select the student you would like to take from the character card.");
                 studentNumber = 1;
+                studColors = new Color[studentNumber*2];
+                System.out.println("Select the student you would like to take from the character card.");
                 studColors[studentNumber-1] = askColor(getColorsByStudents(selectedCharacter.getStudents()));
 
                 System.out.print("\nEnter the index of the " + CliColor.YELLOW + "island" + CliColor.RESET + " where you would like to move the student on: ");
@@ -364,6 +333,7 @@ public class CLI implements ViewInterface {
                     studentNumber = IntegerReader.readInput();
                 }
 
+                studColors = new Color[studentNumber*2];
                 System.out.println("Select the student(s) you would like to take from the character card.");
                 for (int i = 0; i < studentNumber; i++) {
                     System.out.println((studentNumber-i) + " student(s) left.");
@@ -374,7 +344,7 @@ public class CLI implements ViewInterface {
                 System.out.println("\nSelect now the student(s) you would like to swap from your entrance.");
                 for (int i = 0; i < studentNumber; i++) {
                     System.out.println((studentNumber - i) + " student(s) left.");
-                    studColors[3+i] = askColor(getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance()));
+                    studColors[studentNumber+i] = askColor(getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance()));
                     System.out.print("\n");
                 }
 
@@ -388,6 +358,7 @@ public class CLI implements ViewInterface {
             case "MushroomMan":
                 System.out.println(CliColor.BOLDYELLOW + "Mushroom Man effect" + CliColor.RESET + " activated!");
                 studentNumber = 1;
+                studColors = new Color[studentNumber*2];
                 System.out.println("Select a color. During this turn, that color add no influence.");
                 studColors[studentNumber-1] = askColor(new ArrayList<>(Arrays.asList(Color.values())));
                 break;
@@ -402,6 +373,7 @@ public class CLI implements ViewInterface {
                     studentNumber = IntegerReader.readInput();
                 }
 
+                studColors = new Color[studentNumber*2];
                 System.out.println("Select the student(s) you would like to take from the character card.");
                 for (int i = 0; i < studentNumber; i++) {
                     System.out.println((studentNumber-i) + " student(s) left.");
@@ -412,7 +384,7 @@ public class CLI implements ViewInterface {
                 System.out.println("\nSelect now the student(s) you would like to swap from your entrance.");
                 for (int i = 0; i < studentNumber; i++) {
                     System.out.println((studentNumber - i) + " student(s) left.");
-                    studColors[3+i] = askColor(getColorsByDR(board.getCurrentPlayerSchoolBoard().getDiningRoom()));
+                    studColors[studentNumber+i] = askColor(getColorsByDR(board.getCurrentPlayerSchoolBoard().getDiningRoom()));
                     System.out.print("\n");
                 }
 
@@ -422,6 +394,7 @@ public class CLI implements ViewInterface {
                 System.out.println(CliColor.BOLDYELLOW + "Spoiled Princess effect" + CliColor.RESET + "activated!");
                 System.out.println("Select the student you would like to take from the character card and place in your dining room.");
                 studentNumber = 1;
+                studColors = new Color[studentNumber*2];
                 studColors[studentNumber-1] = askColor(getColorsByStudents(selectedCharacter.getStudents()));
                 break;
 
@@ -429,6 +402,7 @@ public class CLI implements ViewInterface {
                 System.out.println(CliColor.BOLDYELLOW + "Thief effect" + CliColor.RESET + "activated!");
                 System.out.println("Select a color. Every player, including yourself, will return 3 students of that color from the dining room to the bag.");
                 studentNumber = 1;
+                studColors = new Color[studentNumber*2];
                 studColors[studentNumber-1] = askColor(new ArrayList<>(Arrays.asList(Color.values())));
                 break;
 
@@ -614,4 +588,43 @@ public class CLI implements ViewInterface {
 
         return availableColors;
     }
+
+    public Color askColor(List<Color> availableColors) {
+        int i = 0;
+        Color selectedColor;
+
+        if (availableColors.contains(Color.GREEN)) {
+            System.out.println(CliColor.GREEN + "[" + i + " - GREEN]");
+            i++;
+        }
+        if (availableColors.contains(Color.RED)) {
+            System.out.println(CliColor.GREEN + "[" + i + " - RED]");
+            i++;
+        }
+        if (availableColors.contains(Color.YELLOW)) {
+            System.out.println(CliColor.YELLOW + "[" + i + " - YELLOW]");
+            i++;
+        }
+        if (availableColors.contains(Color.PINK)) {
+            System.out.println(CliColor.PINK + "[" + i + " - PINK]");
+            i++;
+        }
+        if (availableColors.contains(Color.BLUE)) {
+            System.out.println(CliColor.BLUE + "[" + i + " - BLUE]");
+        }
+
+        System.out.println(CliColor.RESET + "\n");
+        System.out.print("Which " + CliColor.BOLDWHITE + "color" + CliColor.RESET + " would you like to select?" +
+                "Type the right color index: ");
+
+        int colorIndex = IntegerReader.readInput();
+        while (colorIndex < 0 || colorIndex > availableColors.size()) {
+            System.out.println(CliColor.RESET_LINE);
+            System.out.print("Invalid color index. Try again: ");
+            colorIndex = IntegerReader.readInput();
+        }
+
+        return availableColors.get(colorIndex);
+    }
+
 }
