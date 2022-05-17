@@ -141,15 +141,15 @@ public class DisplayBoard {
         System.out.print("\033[1B" + "\033[6D");
 
         //print students in archipelago
-        System.out.print(CliColor.BGREEN + formatter.format(Integer.toString( arraySum(archipelago.getIslands()[0]) )));
+        System.out.print(CliColor.BGREEN + formatter.format(Integer.toString( columnSum(archipelago.getIslands(), 0) )));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BRED + formatter.format(Integer.toString( arraySum(archipelago.getIslands()[1]) )));
+        System.out.print(CliColor.BRED + formatter.format(Integer.toString( columnSum(archipelago.getIslands(), 1) )));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BYELLOW + formatter.format(Integer.toString( arraySum(archipelago.getIslands()[2]) )));
+        System.out.print(CliColor.BYELLOW + formatter.format(Integer.toString( columnSum(archipelago.getIslands(), 2) )));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BPINK + formatter.format(Integer.toString( arraySum(archipelago.getIslands()[3]) )));
+        System.out.print(CliColor.BPINK + formatter.format(Integer.toString( columnSum(archipelago.getIslands(),3 ) )));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BBLUE + formatter.format(Integer.toString( arraySum(archipelago.getIslands()[4])) ));
+        System.out.print(CliColor.BBLUE + formatter.format(Integer.toString( columnSum(archipelago.getIslands(), 4)) ));
         System.out.print(CliColor.RESET);
 
         System.out.print("\033[2B" + "\033[12D");
@@ -325,10 +325,11 @@ public class DisplayBoard {
         return Integer.toString(number);
     }
 
-    private static int arraySum(int[] array) {
+    private static int columnSum(int[][] matrix, int mapIndex) {
         int sum = 0;
-        for (int i : array)
-            sum += i;
+        for (int[] a : matrix) {
+            sum += a[mapIndex];
+        }
 
         return sum;
     }
