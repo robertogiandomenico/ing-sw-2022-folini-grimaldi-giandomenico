@@ -162,11 +162,11 @@ public class CLI implements ViewInterface {
     }
 
     @Override
-    public void askAssistant(List<Assistant> availableAssistants, List<Assistant> chosenAssistants) {
+    public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
 
-        if (!chosenAssistants.isEmpty()) {
+        if (!discardedAssistants.isEmpty()) {
             System.out.println("These are the assistant cards already chosen by the other player(s): ");
-            for (Assistant a : chosenAssistants) {
+            for (Assistant a : discardedAssistants) {
                 System.out.println("[ " + a.name() + "  W:" + a.getWeight() + " M:" + a.getMaxMNSteps() + " ]");
             }
         }
@@ -491,10 +491,10 @@ public class CLI implements ViewInterface {
                 System.out.print("\033[4A" + "\033[1C");
 
             if (i == (board.getArchipelagos().size()/2 - 1))
-                System.out.print("\033[2B" + "\033[32D");
+                System.out.print("\033[2B" + "\033[18D");
 
             if (i > (board.getArchipelagos().size()/2 - 1)  &&  i != (board.getArchipelagos().size() - 2))
-                System.out.print("\033[32D" + "\033[1D" + "\033[32D" + "\033[4A");
+                System.out.print("\033[18D" + "\033[1D" + "\033[18D" + "\033[4A");
 
             if (i == (board.getArchipelagos().size() - 2))
                 System.out.print("\033[2B" + CliColor.RESET_LINE);
@@ -510,7 +510,7 @@ public class CLI implements ViewInterface {
 
         if (board.getSelectedCharacters() != null) {  //if it's expert mode
             //print coins supply
-            DisplayBoard.printCoinsSupply(board);
+            DisplayBoard.printCoinsSupply(board.getCoinsSupply());
 
             System.out.print("\033[2B" + CliColor.RESET_LINE);
 

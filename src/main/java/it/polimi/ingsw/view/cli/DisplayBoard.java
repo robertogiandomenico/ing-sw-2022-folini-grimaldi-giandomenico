@@ -225,7 +225,7 @@ public class DisplayBoard {
         System.out.print("\033[3C" + "\033[1B");
     }
 
-    public static void printCoinsSupply(LightBoard board) {
+    public static void printCoinsSupply(int coinSupply) {
         //go at these coordinates
         System.out.print("\033[16;68H");
 
@@ -243,9 +243,9 @@ public class DisplayBoard {
         System.out.print("\033[1B" + "\033[9D");
 
         //print coins supply
-        System.out.print("\uD83D\uDCB0×" + board.getCoinsSupply());
+        System.out.print("\uD83D\uDCB0×" + coinSupply);
 
-        if (board.getCoinsSupply() < 10)
+        if (coinSupply < 10)
             System.out.print("\033[1B" + "\033[7C");
         else
             System.out.print("\033[1B" + "\033[6C");
