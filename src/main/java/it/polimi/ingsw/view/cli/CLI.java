@@ -122,7 +122,7 @@ public class CLI implements ViewInterface {
 
         int gameMode = IntegerReader.readInput();
         while (gameMode!=0 && gameMode!=1) {
-            System.out.println(CliColor.RESET_LINE);
+            System.out.print(CliColor.RESET_LINE);
             System.out.print("Invalid game mode. Try again: ");
             gameMode = IntegerReader.readInput();
         }
@@ -136,7 +136,7 @@ public class CLI implements ViewInterface {
 
         int playerNumber = IntegerReader.readInput();
         while (playerNumber!=2 && playerNumber!=3) {
-            System.out.println(CliColor.RESET_LINE);
+            System.out.print(CliColor.RESET_LINE);
             System.out.print("Match can only be started with 2 or 3 players. Try again: ");
             playerNumber = IntegerReader.readInput();
         }
@@ -153,9 +153,10 @@ public class CLI implements ViewInterface {
 
         int wizardIndex = IntegerReader.readInput();
         while (wizardIndex<0 || wizardIndex>availableWizards.size()) {
-            System.out.println(CliColor.RESET_LINE);
+            System.out.print(CliColor.RESET_LINE);
+            System.out.print("\033[1A" + CliColor.RESET_LINE);
             System.out.print("Invalid wizard index. Try again: ");
-            wizardIndex = scanner.nextInt();
+            wizardIndex = IntegerReader.readInput();
         }
 
         //TODO: notifyObserver(obs -> obs.onUpdateWizard( availableWizard.get(wizardIndex) ));
