@@ -26,8 +26,10 @@ public class SpoiledPrincessEffect implements Effect {
         }
 
         board.getCurrentPlayerSchoolBoard().addToDiningRoom(board.mapToIndex(students[selectedStudent].getColor()));
+        board.updatePlayerCoins(board.getCurrentPlayerSchoolBoard(), board.mapToIndex(students[selectedStudent].getColor()));
 
         students[selectedStudent] = board.getBag().draw();
+
     }
 
     /**

@@ -25,7 +25,7 @@ public class GrannyGrassEffect implements Effect {
             board.getArchipelago(archiIndex).setNoEntryTile(true);
             noEntryTiles--;
         } else {
-            //print("no more tiles available, impossible to activate the effect")
+            //TODO: print("no more tiles available, impossible to activate the effect")
         }
     }
 
@@ -36,4 +36,7 @@ public class GrannyGrassEffect implements Effect {
         noEntryTiles++;
     }
 
+    public int getNoEntryTiles() {
+        return noEntryTiles;
+    }
 }

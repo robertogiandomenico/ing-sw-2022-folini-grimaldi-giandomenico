@@ -43,13 +43,6 @@ public class Game {
     }
 
     /**
-     * Starts the game.
-     */
-    public void start() {
-        //TODO: implement start() method
-    }
-
-    /**
      * Adds a new player to the game.
      *
      * @param newPlayer     the Player to be added.

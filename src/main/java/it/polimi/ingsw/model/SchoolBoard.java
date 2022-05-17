@@ -19,6 +19,7 @@ public class SchoolBoard {
     private int additionalInfluence = 0;
     private boolean farmerEffect;
     private final List<SchoolBoard> otherBoards;
+    private int[] coinsPath;
 
     /**
      * Class constructor.
@@ -34,6 +35,8 @@ public class SchoolBoard {
         System.arraycopy(entrance, 0, this.entrance, 0, entrance.length);
 
         this.towersLeft = towersLeft;
+
+        coinsPath = new int[]{0, 0, 0, 0, 0};
 
         otherBoards = new ArrayList<>();
     }
@@ -141,17 +144,6 @@ public class SchoolBoard {
     }
 
     /**
-     * Adds a student to the dining room of this school board.
-     * Immediately checks if a professor has to be moved.
-     *
-     * @param index         the index corresponding to the Student Color.
-     */
-    public void addToDiningRoom(int index){
-        diningRoom[index]++;
-        checkProfessorMovement(index, "add");
-    }
-
-    /**
      * Removes a student from the dining room of this school board.
      * Immediately checks if a professor has to be moved.
      *
@@ -163,6 +155,70 @@ public class SchoolBoard {
             diningRoom[index]--;
             checkProfessorMovement(index, "remove");
         }
+    }
+
+    /**
+     * Adds a student to the dining room of this school board.
+     * Immediately checks if a professor has to be moved.
+     *
+     * @param index         the index corresponding to the Student Color.
+     */
+    public void addToDiningRoom(int index){
+        diningRoom[index]++;
+        checkProfessorMovement(index, "add");
+    }
+
+    /**
+     * Checks whether a student was put in the given dining room position for
+     * the first time, thus if the player is entitled to get an additional coin.
+     * (only in Expert Mode)
+     *
+     * @param dinIndex      the index corresponding to the Student Color.
+     * @param dinPosition   the number of Students in that dining room.
+     * @return              a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if the Player has to get a coin.
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
+     */
+    public Boolean checkCoinsPath(int dinIndex, int dinPosition){
+        if( ((dinPosition == 3 && coinsPath[dinIndex] < 1) ||
+                (dinPosition == 6 && coinsPath[dinIndex] < 2) ||
+                (dinPosition == 9 && coinsPath[dinIndex] < 3)) ) {
+            updateCoinsPath(dinIndex);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Updates the coins path of this school board. It increases every time the
+     * player puts a student for the first time in a dining room position
+     * containing a coin. (only in Expert Mode)
+     *
+     * @param index         the index corresponding to the Student Color.
+     */
+    public void updateCoinsPath(int index){
+        coinsPath[index]++;
+    }
+
+    /**
+     * Returns the coins path of this school board.
+     *
+     * @return              the Array representing coins path.
+     */
+    public int[] getCoinsPath(){
+        return coinsPath;
+    }
+
+    /**
+     * Returns the professor table.
+     *
+     * @return              the boolean Array representing the professor table.
+     */
+    public boolean[] getProfessorTable(){
+        return professorTable;
     }
 
     /**
@@ -185,7 +241,8 @@ public class SchoolBoard {
 
     /**
      * Sets the additional influence.
-     * This method is called twice, once to set to the extraInfluence and once to set it back to 0.
+     * This method is called twice, once to set to the extraInfluence and once
+     * to set it back to 0.
      *
      * @param additionalInfluence   the influence to be added.
      */
