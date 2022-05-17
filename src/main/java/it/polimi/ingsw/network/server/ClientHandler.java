@@ -38,7 +38,7 @@ public class ClientHandler implements Runnable{
                 try {
                     Thread.sleep(PING_TIME);
                     sendMsgToClient(new Ping());
-                } catch (InterruptedException ignored) {
+                } catch (InterruptedException e) {
                     break;
                 }
             }
@@ -48,8 +48,8 @@ public class ClientHandler implements Runnable{
     @Override
     public void run() {
         try{
-            inputStream = new ObjectInputStream(socket.getInputStream());
             outputStream = new ObjectOutputStream(socket.getOutputStream());
+            inputStream = new ObjectInputStream(socket.getInputStream());
             activeClient = true;
 
             pingThread.start();
@@ -59,16 +59,19 @@ public class ClientHandler implements Runnable{
 
             while(activeClient){
                 try{
-                    GenericClientMessage msg = (GenericClientMessage) inputStream.readObject();
-                    msg.execute(server, this);
+                    Object object = inputStream.readObject();
+                    if(!(object instanceof Ping)) {
+                        GenericClientMessage msg = (GenericClientMessage) object;
+                        msg.execute(server, this);
+                    }
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    manageDisconnection();
                 }
 
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            manageDisconnection();
         }
     }
 

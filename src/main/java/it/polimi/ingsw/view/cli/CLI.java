@@ -1,11 +1,9 @@
 package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.controller.actions.ActionType;
-import it.polimi.ingsw.model.Assistant;
-import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.Student;
-import it.polimi.ingsw.model.Wizard;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.Client;
+import it.polimi.ingsw.network.messages.clientMessages.*;
 import it.polimi.ingsw.view.ViewInterface;
 import it.polimi.ingsw.view.utilities.IntegerReader;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
@@ -13,16 +11,40 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 public class CLI implements ViewInterface {
     private final Scanner scanner = new Scanner(System.in);
+    private Client client;
+
+    public static void main(String[] args) {
+        new CLI().start();
+    }
+
+    private void start() {
+        System.out.print(CliColor.CLEAR_ALL + "" + CliColor.BOLDCYAN);
+        System.out.println("  ✹ ｡  .  ･ . ∴ * ███████╗ ██████╗  ██╗  █████╗  ███╗   ██╗ ████████╗ ██╗   ██╗ ███████╗. 　･ ∴　　｡ 　\n" +
+                           " ｡    ✦    *      ██╔════╝ ██╔══██╗ ██║ ██╔══██╗ ████╗  ██║ ╚══██╔══╝ ╚██╗ ██╔╝ ██╔════╝ ∴⋆  ˚  *   .\n" +
+                           "   ∴   *  ｡ .  ✹  █████╗   ██████╔╝ ██║ ███████║ ██╔██╗ ██║    ██║     ╚████╔╝  ███████╗ ｡ ·　 ✦   *  \n" +
+                           " .    ･  *   ｡  ∴ ██╔══╝   ██╔══██╗ ██║ ██╔══██║ ██║╚██╗██║    ██║      ╚██╔╝   ╚════██║　 ✹  ｡   ·  ✧\n" +
+                           "  ･  .    ✦     * ███████╗ ██║  ██║ ██║ ██║  ██║ ██║ ╚████║    ██║       ██║    ███████║ ✦ ∴ 　･ ｡· ∴ \n" +
+                           "   ✹   ｡ ∴.  ･   .╚══════╝ ╚═╝  ╚═╝ ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═══╝    ╚═╝       ╚═╝    ╚══════╝ ･　 *　　✹　 ˚\n" + CliColor.RESET);
+        boolean socketError = true;
+        while (socketError){
+            try {
+                client = askServerInfo();
+                client.init();
+                socketError = false;
+            } catch (IOException ignored){}
+        }
+    }
 
     @Override
     public Client askServerInfo() {
       final int DEFAULT_PORT = 2807;
-        final String DEFAULT_ADDRESS = "localhost";
+        final String DEFAULT_ADDRESS = "127.0.0.1";
         final int MIN_PORT = 1024;
         final int MAX_PORT = 65535;
         int port = DEFAULT_PORT;
@@ -33,14 +55,14 @@ public class CLI implements ViewInterface {
         boolean wrongPort = false;
 
         do {
-            if(firstTry){
-                System.out.println("ERROR: Invalid address! (remember the syntax xxx.xxx.xxx.xxx)");
+            if(!firstTry){
+                System.out.println(CliColor.RED + "ERROR: Invalid address! (remember the syntax xxx.xxx.xxx.xxx)" + CliColor.RESET);
             }
             System.out.println("Please enter the server address");
             System.out.print("Insert 'd' for the default value (" + DEFAULT_ADDRESS + "): ");
             String address = scanner.nextLine();
 
-            if (address.equals("d") || address.equalsIgnoreCase("localhost")) {
+            if (address.equals("d") || address.equalsIgnoreCase("localhost") || address.equals(DEFAULT_ADDRESS)) {
                 validInput = true;
             } else if (validateIP(address)) {
                 ip = address;
@@ -93,99 +115,106 @@ public class CLI implements ViewInterface {
     }
 
     private boolean validateIP(String address) {
-        String zeroTo255 = "(\\d{1, 2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])";
-        String IP_REGEX = zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255;
+        String zeroTo255 = "([01]?\\d{1,2}|2[0-4]\\d|25[0-5])";
+        String IP_REGEX = "^(" + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + ")$";
         return address.matches(IP_REGEX);
     }
 
     @Override
     public void askNickname() {
+        System.out.print(CliColor.CLEAR_ALL);
         System.out.print("Enter your nickname: ");
         String nickname = scanner.nextLine();
 
-        //TODO: notifyObserver(obs -> obs.onUpdateNickname(nickname));
+        client.sendMsgToServer(new NicknameReply(nickname));
     }
 
     @Override
     public void askGameName() {
+        System.out.print(CliColor.CLEAR_ALL);
         System.out.print("Enter the game name: ");
         String gameName = scanner.nextLine();
 
-        //TODO: notifyObserver(obs -> obs.onUpdateGameName(gameName));
+        client.sendMsgToServer(new GameNameReply(gameName));
     }
 
 
     @Override
     public void askGameMode() {
+        System.out.print(CliColor.CLEAR_ALL);
         System.out.println("Game difficulty:\n0 - Easy mode\n1 - Expert mode");
         System.out.print("Enter the game mode you would like to play: ");
 
-        int gameMode = IntegerReader.readInput();
-        while (gameMode!=0 && gameMode!=1) {
+        int gameMode = IntegerReader.readInput(scanner);
+        while(gameMode != 0 && gameMode != 1){
             System.out.print(CliColor.RESET_LINE);
+            System.out.print("\033[1A" + CliColor.RESET_LINE);
             System.out.print("Invalid game mode. Try again: ");
-            gameMode = IntegerReader.readInput();
+            gameMode = IntegerReader.readInput(scanner);
         }
-
-        //TODO: notifyObserver(obs -> obs.onUpdateGameMode(gameMode));
+        client.sendMsgToServer(new GameModeReply(gameMode == 1));
     }
 
     @Override
     public void askPlayerNumber() {
+        System.out.print(CliColor.CLEAR_ALL);
         System.out.print("How many players are going to play? [2/3]: ");
 
-        int playerNumber = IntegerReader.readInput();
-        while (playerNumber!=2 && playerNumber!=3) {
+        int playerNumber = IntegerReader.readInput(scanner);
+        while(playerNumber != 2 && playerNumber != 3){
             System.out.print(CliColor.RESET_LINE);
+            System.out.print("\033[1A" + CliColor.RESET_LINE);
             System.out.print("Match can only be started with 2 or 3 players. Try again: ");
-            playerNumber = IntegerReader.readInput();
+            playerNumber = IntegerReader.readInput(scanner);
         }
-
-        //TODO: notifyObserver(obs -> obs.onUpdatePlayerNumber(Integer.parseInt(playerNumber)));
+        client.sendMsgToServer(new PlayerNumberReply(playerNumber));
     }
 
     @Override
     public void askWizard(List<Wizard> availableWizards) {
+        System.out.print(CliColor.CLEAR_ALL);
         for (int i = 0; i < availableWizards.size(); i++) {
-            System.out.print("[ " + i + " | " + availableWizards.get(i).name() + "] \t");
+            System.out.print("[ " + (i+1) + " | " + availableWizards.get(i).name() + "] \t");
         }
         System.out.print("\nEnter the index of the " + CliColor.BOLDPINK + "wizard" + CliColor.RESET + " you would like to choose: ");
 
-        int wizardIndex = IntegerReader.readInput();
-        while (wizardIndex<0 || wizardIndex>availableWizards.size()) {
+        int wizardIndex = IntegerReader.readInput(scanner);
+        while(wizardIndex <= 0 || wizardIndex > availableWizards.size()){
             System.out.print(CliColor.RESET_LINE);
             System.out.print("\033[1A" + CliColor.RESET_LINE);
-            System.out.print("Invalid wizard index. Try again: ");
-            wizardIndex = IntegerReader.readInput();
+            System.out.print("Invalid wizard. Try again: ");
+            wizardIndex = IntegerReader.readInput(scanner);
         }
-
-        //TODO: notifyObserver(obs -> obs.onUpdateWizard( availableWizard.get(wizardIndex) ));
+        client.sendMsgToServer(new WizardReply(availableWizards.get(wizardIndex-1)));
     }
 
     @Override
     public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
+        System.out.print(CliColor.CLEAR_ALL);
 
         if (!discardedAssistants.isEmpty()) {
-            System.out.println("These are the assistant cards already chosen by the other player(s): ");
-            for (Assistant a : discardedAssistants) {
-                System.out.println("[ " + a.name() + "  W:" + a.getWeight() + " M:" + a.getMaxMNSteps() + " ]");
-            }
+            System.out.println("The " + CliColor.RED + "red cards" + CliColor.RESET +" are the assistant cards already chosen by the other player(s) so you can not play them in this round!");
+            System.out.println("Thus the white ones are your available assistant cards that you can choose between: \n");
+        } else {
+            System.out.println("You are the first player of this round!"+
+                    "\nThus you can choose any assistant card you want from your hand: \n");
         }
 
-        System.out.println("\nThus these are your available assistant cards that you can choose:");
+        CliColor color;
         for (int i = 0; i < availableAssistants.size(); i++) {
-            System.out.print("[ " + i + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() +" ] \t");
+            color = discardedAssistants.contains(availableAssistants.get(i)) ? CliColor.RED : CliColor.RESET;
+            System.out.println(color + "[ " + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() +" ]" + CliColor.RESET);
         }
-        System.out.print("Enter the index of the " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " you would like to choose: ");
+        System.out.print("\nEnter the index of the " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " you would like to choose: ");
 
-        int assistantIndex = IntegerReader.readInput();
-        while (assistantIndex<0 || assistantIndex>availableAssistants.size()) {
-            System.out.println(CliColor.RESET_LINE);
-            System.out.print("Invalid assistant index. Try again: ");
-            assistantIndex = IntegerReader.readInput();
+        int assistantIndex = IntegerReader.readInput(scanner);
+        while(assistantIndex <= 0 || assistantIndex > availableAssistants.size() || discardedAssistants.contains(availableAssistants.get(assistantIndex-1))){
+            System.out.print(CliColor.RESET_LINE);
+            System.out.print("\033[1A" + CliColor.RESET_LINE);
+            System.out.print("Invalid assistant. Try again: ");
+            assistantIndex = IntegerReader.readInput(scanner);
         }
-
-        //TODO: notifyObserver(obs -> obs.onUpdateAssistant( availableAssistant.get(AssistantIndex) ));
+        client.sendMsgToServer(new ChooseAssistantReply(availableAssistants.get(assistantIndex-1)));
     }
 
     @Override
@@ -196,14 +225,12 @@ public class CLI implements ViewInterface {
         }
         System.out.print("Enter the index of your next " + CliColor.BOLDCYAN + "action" + CliColor.RESET + ": ");
 
-        int actionIndex = IntegerReader.readInput();
+        int actionIndex = IntegerReader.readInput(scanner);
         while (actionIndex<0 || actionIndex>possibleActions.size()) {
             System.out.println(CliColor.RESET_LINE);
             System.out.print("Invalid action index. Try again: ");
-            actionIndex = IntegerReader.readInput();
+            actionIndex = IntegerReader.readInput(scanner);
         }
-
-        //TODO: notifyObserver(obs -> obs.onUpdateAction( possibleActions.get(actionIndex) ));
     }
 
     @Override
@@ -232,19 +259,17 @@ public class CLI implements ViewInterface {
             System.out.print("Enter the index of the " + CliColor.BOLDGREEN + "island" + CliColor.RESET + " you would like to place the student on : ");
             int archiIndex = askArchipelago(maxArchis);
         }
-
-        //TODO: notifyObserver(obs -> obs.onUpdatePlace(place, archiIndex));
     }
 
     @Override
     public int askArchipelago(int maxArchis) {
         int archiIndex;
 
-        archiIndex = IntegerReader.readInput();
+        archiIndex = IntegerReader.readInput(scanner);
         while (archiIndex<0 || archiIndex>maxArchis) {
             System.out.println(CliColor.RESET_LINE);
             System.out.print("Invalid island index. Try again: ");
-            archiIndex = IntegerReader.readInput();
+            archiIndex = IntegerReader.readInput(scanner);
         }
         return archiIndex;
     }
@@ -259,20 +284,20 @@ public class CLI implements ViewInterface {
 
         System.out.print("Enter the index of the " + CliColor.BOLDYELLOW + "character" + CliColor.RESET + " you would like to choose: ");
 
-        int characterIndex = IntegerReader.readInput();
+        int characterIndex = IntegerReader.readInput(scanner);
 
         do {
             while (characterIndex < 0 || characterIndex > 2) {
                 System.out.println(CliColor.RESET_LINE);
                 System.out.print("Invalid character index. Try again: ");
-                characterIndex = IntegerReader.readInput();
+                characterIndex = IntegerReader.readInput(scanner);
             }
 
             if (board.getSelectedCharacters()[characterIndex].getCost() > board.getCurrentPlayerSchoolBoard().getPlayer().getCoins()) {
                 affordable = false;
                 System.out.println(CliColor.RESET_LINE);
                 System.out.print("Cannot choose this character card since you do not have enough coins. Try again: ");
-                characterIndex = IntegerReader.readInput();
+                characterIndex = IntegerReader.readInput(scanner);
             } else {
                 affordable = true;
             }
@@ -411,35 +436,30 @@ public class CLI implements ViewInterface {
                 break;
         }
 
-        //TODO: notifyObserver(obs -> obs.onUpdateCharacter( selectedCharacter, archiIndex, studentNumber, studColors ));
     }
 
     @Override
     public void askMNSteps(int maxMNSteps) {
         System.out.println("Enter the number of steps " + CliColor.BBLUE + "Mother Nature" + CliColor.RESET + " will do: ");
 
-        int mnSteps = IntegerReader.readInput();
+        int mnSteps = IntegerReader.readInput(scanner);
         while (mnSteps == 0 || mnSteps > maxMNSteps) {
             System.out.println(CliColor.RESET_LINE);
             System.out.print("Invalid input. Mother Nature can do from 1 up to maximum " + maxMNSteps + " steps. Try again: ");
-            mnSteps = IntegerReader.readInput();
+            mnSteps = IntegerReader.readInput(scanner);
         }
-
-        //TODO: notifyObserver(obs -> obs.onUpdateMNSteps(mnSteps));
     }
 
     @Override
     public void askCloud(List<Integer> availableClouds) {
         System.out.println("Enter the index of the " + CliColor.BOLDCYAN + "cloud" + CliColor.RESET + " you would like to choose: ");
 
-        int cloudIndex = IntegerReader.readInput();
+        int cloudIndex = IntegerReader.readInput(scanner);
         while (cloudIndex < 0 || cloudIndex > availableClouds.size()) {
             System.out.println(CliColor.RESET_LINE);
             System.out.print("Invalid cloud index. Try again: ");
-            cloudIndex = IntegerReader.readInput();
+            cloudIndex = IntegerReader.readInput(scanner);
         }
-
-        //TODO: notifyObserver(obs -> obs.onUpdateCloud(cloudIndex));
     }
 
     @Override

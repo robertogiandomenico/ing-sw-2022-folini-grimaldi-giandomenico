@@ -19,6 +19,6 @@ public class WizardReply extends GenericClientMessage {
 
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
-
+        clientHandler.getController().receiveMessage(this);
     }
 }

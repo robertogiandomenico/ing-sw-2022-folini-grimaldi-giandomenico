@@ -77,6 +77,9 @@ public class Game {
      */
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+        for (Player p : players){
+            p.setCanMoveStudents(p.equals(currentPlayer));
+        }
     }
 
     /**

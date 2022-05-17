@@ -26,13 +26,11 @@ class CloudTest {
     void testIsEmpty() {
         //test for an empty cloud
         assertTrue(cloud.isEmpty());
-
+        for(int i = 0; i < cloud.getCloudContent().length; i++){
+            assertNull(cloud.getCloudContent()[i]);
+        }
         cloud.fill(students);
         assertFalse(cloud.isEmpty());
-    }
-
-    @Test
-    void TestGet() {
     }
 
     @Test

@@ -11,7 +11,7 @@ public class PlayerNumberRequest extends GenericServerMessage {
 
     @Override
     public void show(ViewInterface view) {
-
+        view.askPlayerNumber();
     }
 
     @Override

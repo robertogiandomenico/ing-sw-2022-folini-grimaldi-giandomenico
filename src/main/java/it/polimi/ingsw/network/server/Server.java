@@ -12,6 +12,7 @@ import java.net.Socket;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +29,7 @@ public class Server {
         this.port = port;
         lobbies = new ConcurrentHashMap<>();
         notAvailableNames = new HashSet<>();
+        this.executor = Executors.newCachedThreadPool();
     }
 
     public void start(){
@@ -60,10 +62,13 @@ public class Server {
         synchronized (lobbyLock){
             Controller gameController = lobbies.keySet().stream().filter(l -> l.getGameName().equalsIgnoreCase(gameName)).findFirst().get();
             gameController.addHandler(clientHandler);
+            clientHandler.setController(gameController);
             checkLobby(gameController);
         }
-        clientHandler.setClientHandlerPhase(ClientHandlerPhases.WAITING_IN_LOBBY);
-        clientHandler.sendMsgToClient(new TextMessage("Waiting for the other player(s) to join"));
+        if(clientHandler.getClientHandlerPhase() != ClientHandlerPhases.WAITING_GAMEMODE && clientHandler.getClientHandlerPhase() != ClientHandlerPhases.WAITING_PLAYERNUMBER) {
+            clientHandler.setClientHandlerPhase(ClientHandlerPhases.WAITING_IN_LOBBY);
+            clientHandler.sendMsgToClient(new TextMessage("Waiting for the other player(s) to join"));
+        }
     }
 
     public void checkLobby(Controller controller) {

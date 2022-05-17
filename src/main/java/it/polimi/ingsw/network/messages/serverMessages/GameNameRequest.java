@@ -11,7 +11,7 @@ public class GameNameRequest extends GenericServerMessage {
 
     @Override
     public void show(ViewInterface view) {
-
+        view.askGameName();
     }
 
     @Override
