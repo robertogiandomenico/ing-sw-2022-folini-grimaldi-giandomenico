@@ -30,13 +30,9 @@ public class LightArchi {
         this.towerColor = a.getTowerColor();
         this.size = a.getIslands().size();
 
-        int index = 0;
-        for (Island i : a.getIslands()){
-            for(Color c : Color.values()) {
-                this.islands[index][colorsIndex.get(c)] = i.getStudentNumber(c);
-            }
-            index++;
-        }
+        for (int i = 0; i < a.getIslands().size(); i++)
+            for(Color c : Color.values())
+                islands[i][colorsIndex.get(c)] = a.getIslands().get(i).getStudentNumber(c);
     }
 
     /**

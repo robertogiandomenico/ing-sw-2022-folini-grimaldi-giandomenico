@@ -13,21 +13,21 @@ public class LightCharacter {
     private Student[] students;
 
     LightCharacter(GameCharacter c){
-        this.cost = c.getCost();
-        this.name = c.getName();
+        cost = c.getCost();
+        name = c.getName();
 
-        switch (this.name){
+        switch (name){
             case "GrannyGrass":
-                this.noEntryTiles = ((GrannyGrassEffect)c.getEffect()).getNoEntryTiles();
+                noEntryTiles = ((GrannyGrassEffect)c.getEffect()).getNoEntryTiles();
                 break;
             case "SpoiledPrincess":
-                this.students = ((SpoiledPrincessEffect)c.getEffect()).getStudents();
+                students = ((SpoiledPrincessEffect)c.getEffect()).getStudents();
                 break;
             case "Monk":
-                this.students = ((MonkEffect)c.getEffect()).getStudents();
+                students = ((MonkEffect)c.getEffect()).getStudents();
                 break;
             case "Jester":
-                this.students = ((JesterEffect)c.getEffect()).getStudents();
+                students = ((JesterEffect)c.getEffect()).getStudents();
                 break;
             default: break;
         }

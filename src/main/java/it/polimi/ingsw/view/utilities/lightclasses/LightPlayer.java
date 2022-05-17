@@ -24,12 +24,12 @@ public class LightPlayer {
      * @param p            the Player to simplify.
      */
     LightPlayer(Player p){
-        this.nickname = p.getNickname();
-        this.coins = p.getCoins();
+        nickname = p.getNickname();
+        coins = p.getCoins();
         cards = new ArrayList<>(p.getCards());
-        this.towerColor = p.getTowerColor();
-        this.discardPile = p.getDiscardPile();
-        this.selectedWizard = p.getSelectedWizard();
+        towerColor = p.getTowerColor();
+        discardPile = p.getDiscardPile();
+        selectedWizard = p.getSelectedWizard();
     }
 
 

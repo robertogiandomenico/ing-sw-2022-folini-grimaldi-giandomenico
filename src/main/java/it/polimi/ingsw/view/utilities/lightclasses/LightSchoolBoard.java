@@ -20,11 +20,11 @@ public class LightSchoolBoard {
      * @param sb           the SchoolBoard to simplify.
      */
     LightSchoolBoard(SchoolBoard sb){
-        this.player = new LightPlayer(sb.getPlayer());
-        this.entrance = sb.getEntrance();
-        this.professorTable = sb.getProfessorTable();
-        this.towersLeft = sb.getTowersLeft();
-        this.diningRoom = sb.getDiningRoom();
+        player = new LightPlayer(sb.getPlayer());
+        entrance = sb.getEntrance();
+        professorTable = sb.getProfessorTable();
+        towersLeft = sb.getTowersLeft();
+        diningRoom = sb.getDiningRoom();
     }
 
 

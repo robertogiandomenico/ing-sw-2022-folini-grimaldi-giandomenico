@@ -23,7 +23,7 @@ public class LightBoard {
      *
      * @param b      the Board to simplify.
      */
-    LightBoard(Board b){
+    public LightBoard(Board b){
         initializeLightClouds(b.getClouds());
         initializeLightPlayers(b.getPlayers());
         initializeLightArchipelagos(b.getArchipelagos(), b.getColorsIndex());
@@ -41,13 +41,8 @@ public class LightBoard {
      * @param clouds the Clouds on the Board.
      */
     private void initializeLightClouds(Cloud[] clouds){
-        int index = 0;
-
-        for (Cloud c : clouds){
-            System.arraycopy(c.getCloudContent(), 0, this.clouds[index], 0, c.getCloudContent().length);
-            index++;
-        }
-
+        for (int i = 0; i<clouds.length; i++)
+            System.arraycopy(clouds[i].getCloudContent(), 0, this.clouds[i], 0, clouds[i].getCloudContent().length);
     }
 
     /**
@@ -57,9 +52,8 @@ public class LightBoard {
      * @param players the List of Players for this Game.
      */
     private void initializeLightPlayers(List<Player> players){
-        for (Player p : players){
+        for (Player p : players)
             this.players.add(new LightPlayer(p));
-        }
     }
 
     /**
@@ -69,9 +63,8 @@ public class LightBoard {
      * @param schoolBoards the SchoolBoard Array for this Game.
      */
     private void initializeLightSchoolBoards(SchoolBoard[] schoolBoards){
-        for (SchoolBoard sb : schoolBoards){
+        for (SchoolBoard sb : schoolBoards)
             this.schoolBoards.add(new LightSchoolBoard(sb));
-        }
     }
 
     /**
@@ -82,18 +75,13 @@ public class LightBoard {
      * @param colorsIndex the EnumMap associating Colors and Integers.
      */
     private void initializeLightArchipelagos(List<Archipelago> archis, EnumMap<Color, Integer> colorsIndex){
-        for (Archipelago a : archis){
+        for (Archipelago a : archis)
             archipelagos.add(new LightArchi(a, colorsIndex));
-        }
     }
 
     private void initializeLightCharacters(GameCharacter[] characters){
-        int index = 0;
-
-        for (GameCharacter c : characters){
-            selectedCharacters[index] = new LightCharacter(c);
-            index++;
-        }
+        for (int i = 0; i< characters.length; i++)
+            selectedCharacters[i] = new LightCharacter(characters[i]);
     }
 
     public LightCharacter[] getSelectedCharacters() {
