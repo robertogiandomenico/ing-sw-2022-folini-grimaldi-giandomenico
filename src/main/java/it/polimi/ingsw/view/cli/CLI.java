@@ -238,8 +238,6 @@ public class CLI implements ViewInterface {
         Color studColor;
         System.out.println("Select the color of the student you would like to move.");
         studColor = askColor(availableColors);
-
-        //TODO: notifyObserver(obs -> obs.onUpdateColor( availableColors.get(colorIndex) ));
     }
 
     @Override
@@ -353,10 +351,10 @@ public class CLI implements ViewInterface {
                 System.out.println(CliColor.BOLDYELLOW + "Jester effect" + CliColor.RESET + " activated!");
 
                 System.out.print("Enter the number of " + CliColor.BOLD + "students" + CliColor.RESET + " you would like to swap from the character card [up to 3]: ");
-                studentNumber = IntegerReader.readInput();
+                studentNumber = IntegerReader.readInput(scanner);
                 while (studentNumber<0 || studentNumber>3) {
                     System.out.print("Invalid student number. You can take up to 3 students. Try again: ");
-                    studentNumber = IntegerReader.readInput();
+                    studentNumber = IntegerReader.readInput(scanner);
                 }
 
                 studColors = new Color[studentNumber*2];
@@ -393,10 +391,10 @@ public class CLI implements ViewInterface {
                 System.out.println(CliColor.BOLDYELLOW + "Minstrel effect" + CliColor.RESET + " activated!");
 
                 System.out.print("Enter the number of " + CliColor.BOLD + "students" + CliColor.RESET + " you would like to swap from the character card [up to 2]: ");
-                studentNumber = IntegerReader.readInput();
+                studentNumber = IntegerReader.readInput(scanner);
                 while (studentNumber<0 || studentNumber>2) {
                     System.out.print("Invalid student number. You can take up to 2 students. Try again: ");
-                    studentNumber = IntegerReader.readInput();
+                    studentNumber = IntegerReader.readInput(scanner);
                 }
 
                 studColors = new Color[studentNumber*2];
@@ -619,7 +617,7 @@ public class CLI implements ViewInterface {
             i++;
         }
         if (availableColors.contains(Color.RED)) {
-            System.out.println(CliColor.GREEN + "[" + i + " - RED]");
+            System.out.println(CliColor.RED + "[" + i + " - RED]");
             i++;
         }
         if (availableColors.contains(Color.YELLOW)) {
@@ -638,11 +636,11 @@ public class CLI implements ViewInterface {
         System.out.print("Which " + CliColor.BOLDWHITE + "color" + CliColor.RESET + " would you like to select?" +
                 "Type the right color index: ");
 
-        int colorIndex = IntegerReader.readInput();
+        int colorIndex = IntegerReader.readInput(scanner);
         while (colorIndex < 0 || colorIndex > availableColors.size()) {
             System.out.println(CliColor.RESET_LINE);
             System.out.print("Invalid color index. Try again: ");
-            colorIndex = IntegerReader.readInput();
+            colorIndex = IntegerReader.readInput(scanner);
         }
 
         return availableColors.get(colorIndex);

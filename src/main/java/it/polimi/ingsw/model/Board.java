@@ -132,7 +132,7 @@ public class Board {
     }
 
     public void updatePlayerCoins(SchoolBoard currSB, int indexDR){
-        Boolean canTake = currSB.checkCoinsPath(indexDR, currSB.getDiningRoom()[indexDR]);
+        boolean canTake = currSB.checkCoinsPath(indexDR, currSB.getDiningRoom()[indexDR]);
         if (canTake && coinsSupply > 0) {
             currSB.getPlayer().addCoin();
             removeFromCoinsSupply();
