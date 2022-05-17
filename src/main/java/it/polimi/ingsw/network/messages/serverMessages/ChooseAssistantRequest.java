@@ -18,7 +18,7 @@ public class ChooseAssistantRequest extends GenericServerMessage {
 
     @Override
     public void show(ViewInterface view) {
-
+        view.askAssistant(availableAssistants, discardedAssistants);
     }
 
     @Override

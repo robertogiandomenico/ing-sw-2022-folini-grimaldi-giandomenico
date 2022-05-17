@@ -16,7 +16,7 @@ public class WizardRequest extends GenericServerMessage {
 
     @Override
     public void show(ViewInterface view) {
-
+        view.askWizard(availableWizards);
     }
 
     @Override

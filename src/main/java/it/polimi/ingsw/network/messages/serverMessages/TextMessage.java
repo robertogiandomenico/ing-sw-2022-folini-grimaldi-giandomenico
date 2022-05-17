@@ -14,7 +14,7 @@ public class TextMessage extends GenericServerMessage {
 
     @Override
     public void show(ViewInterface view) {
-
+        view.displayMessage(message);
     }
 
     public String getMessage() {

@@ -31,9 +31,10 @@ public class GameNameReply extends GenericClientMessage {
 
         if(!alreadyExists(gameName, server)){
             //if a game with that name doesn't already exist
-            server.getLobbies().put(new Controller(gameName), -1);
-            server.addToLobby(gameName, clientHandler);
+            Controller controller = new Controller(gameName);
+            server.getLobbies().put(controller, -1);
             clientHandler.setClientHandlerPhase(ClientHandlerPhases.WAITING_GAMEMODE);
+            server.addToLobby(gameName, clientHandler);
             clientHandler.sendMsgToClient(new GameModeRequest());
         } else {
             if(!server.getLobbies().keySet().stream().filter(c -> c.getGameName().equalsIgnoreCase(gameName)).findFirst().get().isGameStarted()){

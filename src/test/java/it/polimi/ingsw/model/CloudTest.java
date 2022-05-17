@@ -34,10 +34,6 @@ class CloudTest {
     }
 
     @Test
-    void TestGet() {
-    }
-
-    @Test
     void TestFill() {
 
         cloud.fill(students);

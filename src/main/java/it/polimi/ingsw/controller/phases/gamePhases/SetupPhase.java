@@ -17,8 +17,6 @@ public class SetupPhase implements GamePhase {
     private Controller controller;
     private List<Wizard> availableWizards;
 
-    private Player currentPlayer;
-
     private int playerIndex = 0;
 
     @Override
@@ -26,9 +24,6 @@ public class SetupPhase implements GamePhase {
         this.controller = controller;
 
         availableWizards = new ArrayList<>(controller.getGame().getAvailableWizards());
-        currentPlayer = controller.getGame().getPlayerOrder().get(playerIndex);
-        controller.getGame().setCurrentPlayer(currentPlayer);
-
 
         controller.getHandlers().get(playerIndex).sendMsgToClient(new WizardRequest(availableWizards));
     }
@@ -49,15 +44,14 @@ public class SetupPhase implements GamePhase {
             return;
         }
         Wizard wizard = ((WizardReply) msg).getWizard();
-        controller.getHandlerByNickname(currentPlayer.getNickname()).setChosenWizard(wizard);
-        controller.getHandlerByNickname(currentPlayer.getNickname()).setClientHandlerPhase(ClientHandlerPhases.WAITING_PHASE_CHANGE);
+        controller.getHandlers().get(playerIndex).setChosenWizard(wizard);
+        controller.getHandlers().get(playerIndex).setClientHandlerPhase(ClientHandlerPhases.WAITING_PHASE_CHANGE);
         availableWizards.remove(wizard);
         if (controller.getHandlers().stream().filter(c -> c.getClientHandlerPhase() == ClientHandlerPhases.WAITING_PHASE_CHANGE).count() == controller.getHandlers().size()){
             addPlayers();
             controller.setGamePhase(new PlanningPhase());
         } else {
             playerIndex++;
-            currentPlayer = controller.getGame().getPlayerOrder().get(playerIndex);
             controller.getHandlers().get(playerIndex).sendMsgToClient(new WizardRequest(availableWizards));
         }
     }

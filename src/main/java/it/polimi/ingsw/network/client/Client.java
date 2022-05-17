@@ -3,7 +3,6 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.controller.ClientController;
 import it.polimi.ingsw.network.messages.connectionMessages.Ping;
 import it.polimi.ingsw.network.messages.serverMessages.GenericServerMessage;
-import it.polimi.ingsw.observer.Observable;
 import it.polimi.ingsw.view.ViewInterface;
 
 import java.io.IOException;
@@ -16,7 +15,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class Client extends Observable {
+public class Client {
     private String ip;
     private int port;
     private ViewInterface view;
@@ -52,15 +51,25 @@ public class Client extends Observable {
     }
 
     public void sendMsgToServer(Serializable message){
-
+        if(clientConnected.get()){
+            try {
+                outputStream.writeObject(message);
+                outputStream.flush();
+            } catch (IOException e) {
+                disconnect();
+            }
+        }
     }
 
     public void init() throws IOException {
         clientSocket = new Socket();
         clientSocket.connect(new InetSocketAddress(ip, port));
-        inputStream = new ObjectInputStream(clientSocket.getInputStream());
         outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+        inputStream = new ObjectInputStream(clientSocket.getInputStream());
         clientConnected.set(true);
+        pingThread.start();
+        messageHandler.start();
+        messageListener.start();
     }
 
     public void readMessages(){
@@ -72,7 +81,7 @@ public class Client extends Observable {
                 }
             }
         } catch (IOException | ClassNotFoundException e){
-            e.printStackTrace();
+            disconnect();
         }
     }
 
@@ -80,12 +89,28 @@ public class Client extends Observable {
         while (clientConnected.get()){
             if(!messageQueue.isEmpty()){
                 GenericServerMessage msg = messageQueue.poll();
+                assert msg != null;
                 msg.show(view);
             }
         }
     }
 
     public void disconnect(){
+        if(messageListener.isAlive()) messageListener.interrupt();
+        if(messageHandler.isAlive()) messageHandler.interrupt();
 
+        try {
+            inputStream.close();
+        } catch (IOException ignored) {}
+
+        try {
+            outputStream.close();
+        } catch (IOException ignored) {}
+
+        try {
+            clientSocket.close();
+        } catch (IOException ignored) {}
+
+        view.displayErrorAndExit("An error occurred during the communication with the server, you're being disconnected! See ya!");
     }
 }

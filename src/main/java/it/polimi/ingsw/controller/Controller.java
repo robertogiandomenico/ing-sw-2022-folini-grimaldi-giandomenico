@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class Controller {
@@ -24,7 +23,7 @@ public class Controller {
     private final String gameName;
     private Boolean expertMode;
     private GamePhase gamePhase;
-    private List<ClientHandler> clientHandlers;
+    private final List<ClientHandler> clientHandlers;
     private Server server;
     private final Lock connectionLock;
 
@@ -51,8 +50,8 @@ public class Controller {
         for (ClientHandler c : clientHandlers){
             c.setClientHandlerPhase(ClientHandlerPhases.WAITING_WIZARD);
         }
-        setGamePhase(new SetupPhase());
         gameStarted = true;
+        setGamePhase(new SetupPhase());
     }
 
     public Game getGame() {
