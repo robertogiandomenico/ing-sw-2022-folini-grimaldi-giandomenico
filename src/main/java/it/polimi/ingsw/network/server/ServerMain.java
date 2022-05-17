@@ -18,29 +18,29 @@ public class ServerMain {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print(CliColor.CLEAR_ALL);
+        System.out.println("\n\t" + CliColor.BWHITE + "E R I A N T Y S  |  S E R V E R" + CliColor.RESET + "\n\n");
 
-        while (!valid){
-            System.out.println("*************************");
-            System.out.println("*    ERIANTYS SERVER    *");
-            System.out.println("*************************\n");
-            System.out.println("Please select a valid port between [" + MIN + ", " + MAX + "]");
-            System.out.print("Insert 'd' for the default value (" + DEFAULT + "): ");
-            if(notAnInt){
-                System.out.println("\nERROR: Please insert only numbers or \"d\"");
-                System.out.print("> ");
+        while (!valid) {
+
+            if (notAnInt) {
+                System.out.println(CliColor.RED + "\nERROR: Please insert numbers only or \"d\"" + CliColor.RESET);
                 notAnInt = false;
             }
-            if(wrongPort){
-                System.out.println("\nERROR: MIN_PORT = " + MIN + ", MAX_PORT = " + MAX);
-                System.out.print("> ");
+            if (wrongPort) {
+                System.out.println(CliColor.RED + "\nERROR: MIN PORT = " + MIN + ", MAX PORT = " + MAX + CliColor.RESET);
                 wrongPort = false;
             }
 
+            System.out.println("Please select a valid port between [" + MIN + ", " + MAX + "]");
+            System.out.print("Insert 'd' for the default value (" + DEFAULT + "): ");
+
             input = scanner.nextLine();
 
-            if(input.equalsIgnoreCase("d")){
+            if (input.equalsIgnoreCase("d")) {
                 port = DEFAULT;
                 valid = true;
+                System.out.print("\033[3A" + CliColor.RESET_LINE + "\033[3B");
+                System.out.println(CliColor.BOLDGREEN + "Port accepted successfully!" + CliColor.RESET);
             } else {
                 try {
                     port = Integer.parseInt(input);
@@ -53,9 +53,9 @@ public class ServerMain {
                     notAnInt = true;
                 }
             }
+
             if (!valid) {
-                System.out.print(CliColor.CLEAR_ALL);
-                System.out.flush();
+                System.out.print("\033[3A" + CliColor.RESET_DOWN);
             }
         }
 

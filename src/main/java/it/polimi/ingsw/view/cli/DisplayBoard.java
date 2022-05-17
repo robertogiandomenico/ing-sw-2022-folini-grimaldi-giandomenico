@@ -18,7 +18,7 @@ public class DisplayBoard {
         System.out.print(CliColor.BOLD + sB.getPlayer().getNickname() + CliColor.RESET);
 
         //print blank schoolboard
-        System.out.print("\033[1B");          //down 1 line
+        System.out.print("\033[1B");                //down 1 line
         for (int i = 0; i < nicknameLength; i++) {  //backward for -nicknameLength- lines
             System.out.print("\033[1D");
         }
@@ -149,7 +149,7 @@ public class DisplayBoard {
         System.out.print("\033[1C");
         System.out.print(CliColor.BPINK + formatter.format(Integer.toString( columnSum(archipelago.getIslands(),3 ) )));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BBLUE + formatter.format(Integer.toString( columnSum(archipelago.getIslands(), 4)) ));
+        System.out.print(CliColor.BBLUE + formatter.format(Integer.toString( columnSum(archipelago.getIslands(), 4) )));
         System.out.print(CliColor.RESET);
 
         System.out.print("\033[2B" + "\033[12D");

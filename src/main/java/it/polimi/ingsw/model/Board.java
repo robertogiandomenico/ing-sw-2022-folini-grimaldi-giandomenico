@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-
 import it.polimi.ingsw.model.effects.*;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 

@@ -24,13 +24,13 @@ public class CLI implements ViewInterface {
     }
 
     private void start() {
-        System.out.print(CliColor.CLEAR_ALL + "" + CliColor.BOLDCYAN);
-        System.out.println("  ✹ ｡  .  ･ . ∴ * ███████╗ ██████╗  ██╗  █████╗  ███╗   ██╗ ████████╗ ██╗   ██╗ ███████╗. 　･ ∴　　｡ 　\n" +
-                           " ｡    ✦    *      ██╔════╝ ██╔══██╗ ██║ ██╔══██╗ ████╗  ██║ ╚══██╔══╝ ╚██╗ ██╔╝ ██╔════╝ ∴⋆  ˚  *   .\n" +
-                           "   ∴   *  ｡ .  ✹  █████╗   ██████╔╝ ██║ ███████║ ██╔██╗ ██║    ██║     ╚████╔╝  ███████╗ ｡ ·　 ✦   *  \n" +
-                           " .    ･  *   ｡  ∴ ██╔══╝   ██╔══██╗ ██║ ██╔══██║ ██║╚██╗██║    ██║      ╚██╔╝   ╚════██║　 ✹  ｡   ·  ✧\n" +
-                           "  ･  .    ✦     * ███████╗ ██║  ██║ ██║ ██║  ██║ ██║ ╚████║    ██║       ██║    ███████║ ✦ ∴ 　･ ｡· ∴ \n" +
-                           "   ✹   ｡ ∴.  ･   .╚══════╝ ╚═╝  ╚═╝ ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═══╝    ╚═╝       ╚═╝    ╚══════╝ ･　 *　　✹　 ˚\n" + CliColor.RESET);
+        System.out.print("" + CliColor.CLEAR_ALL + CliColor.BOLDCYAN);
+        System.out.println(" ✹ ｡  .  ･ . ∴ * ███████╗ ██████╗  ██╗  █████╗  ███╗   ██╗ ████████╗ ██╗   ██╗ ███████╗. 　･ ∴　　｡ 　\n" +
+                           " ｡    ✦    *     ██╔════╝ ██╔══██╗ ██║ ██╔══██╗ ████╗  ██║ ╚══██╔══╝ ╚██╗ ██╔╝ ██╔════╝ ∴⋆  ˚  *   .\n" +
+                           "  ∴   *  ｡ .  ✹  █████╗   ██████╔╝ ██║ ███████║ ██╔██╗ ██║    ██║     ╚████╔╝  ███████╗ ｡ ·　 ✦   *  \n" +
+                           " .   ･  *   ｡  ∴ ██╔══╝   ██╔══██╗ ██║ ██╔══██║ ██║╚██╗██║    ██║      ╚██╔╝   ╚════██║　 ✹  ｡   ·  ✧\n" +
+                           "  ･  .   ✦     * ███████╗ ██║  ██║ ██║ ██║  ██║ ██║ ╚████║    ██║       ██║    ███████║ ✦ ∴ 　･ ｡· ∴ \n" +
+                           "  ✹   ｡ ∴.  ･   .╚══════╝ ╚═╝  ╚═╝ ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═══╝    ╚═╝       ╚═╝    ╚══════╝ ･　 *　　✹　 ˚\n" + CliColor.RESET);
         boolean socketError = true;
         while (socketError){
             try {
@@ -55,10 +55,11 @@ public class CLI implements ViewInterface {
         boolean wrongPort = false;
 
         do {
-            if(!firstTry){
-                System.out.println(CliColor.RED + "ERROR: Invalid address! (remember the syntax xxx.xxx.xxx.xxx)" + CliColor.RESET);
-            }
-            System.out.println("Please enter the server address");
+            if(!firstTry)
+                System.out.println(CliColor.RED + "ERROR: Invalid address! (remember the syntax xxx.xxx.xxx.xxx)" + CliColor.RESET + "Try again.");
+            else
+                System.out.println("Please enter the server address");
+
             System.out.print("Insert 'd' for the default value (" + DEFAULT_ADDRESS + "): ");
             String address = scanner.nextLine();
 
@@ -68,8 +69,7 @@ public class CLI implements ViewInterface {
                 ip = address;
                 validInput = true;
             } else {
-                System.out.println("Invalid address!");
-                clearCLI();
+                System.out.print("\033[2A" + CliColor.RESET_DOWN);
                 firstTry = false;
             }
         } while (!validInput);
@@ -77,18 +77,17 @@ public class CLI implements ViewInterface {
         validInput = false;
 
         while (!validInput){
+            if (notAnInt) {
+                notAnInt = false;
+                System.out.println(CliColor.RED + "ERROR: Please insert only numbers or \"d\"." + CliColor.RESET + "Try again.");
+            }
+            if (wrongPort) {
+                wrongPort = false;
+                System.out.println(CliColor.RED + "ERROR: MIN PORT = " + MIN_PORT + ", MAX PORT = " + MAX_PORT + "." + CliColor.RESET + "Try again.");
+            }
+
             System.out.println("Select a valid port between [" + MIN_PORT + ", " + MAX_PORT + "]");
             System.out.print("Insert 'd' for the default value (" + DEFAULT_PORT + "): ");
-            if(notAnInt){
-                notAnInt = false;
-                System.out.println("\nERROR: Please insert only numbers or \"d\"");
-                System.out.print("> ");
-            }
-            if(wrongPort){
-                wrongPort = false;
-                System.out.println("\nERROR: MIN_PORT = " + MIN_PORT + ", MAX_PORT = " + MAX_PORT);
-                System.out.print("> ");
-            }
 
             String input = scanner.nextLine();
 
@@ -107,8 +106,7 @@ public class CLI implements ViewInterface {
                 }
             }
             if (!validInput) {
-                System.out.print(CliColor.CLEAR_ALL);
-                System.out.flush();
+                System.out.print("\033[3A" + CliColor.RESET_DOWN);
             }
         }
         return new Client(ip, port, this);
@@ -123,7 +121,7 @@ public class CLI implements ViewInterface {
     @Override
     public void askNickname() {
         System.out.print(CliColor.CLEAR_ALL);
-        System.out.print("Enter your nickname: ");
+        System.out.print("Enter your " + CliColor.BOLD + "nickname" + CliColor.RESET + ": ");
         String nickname = scanner.nextLine();
 
         client.sendMsgToServer(new NicknameReply(nickname));
@@ -132,7 +130,7 @@ public class CLI implements ViewInterface {
     @Override
     public void askGameName() {
         System.out.print(CliColor.CLEAR_ALL);
-        System.out.print("Enter the game name: ");
+        System.out.print("Enter the " + CliColor.BOLD + "game name" + CliColor.RESET + ": ");
         String gameName = scanner.nextLine();
 
         client.sendMsgToServer(new GameNameReply(gameName));
@@ -143,13 +141,13 @@ public class CLI implements ViewInterface {
     public void askGameMode() {
         System.out.print(CliColor.CLEAR_ALL);
         System.out.println("Game difficulty:\n0 - Easy mode\n1 - Expert mode");
-        System.out.print("Enter the game mode you would like to play: ");
+        System.out.print("Enter the " + CliColor.BOLD + "game mode" + CliColor.RESET + " you would like to play: ");
 
         int gameMode = IntegerReader.readInput(scanner);
         while(gameMode != 0 && gameMode != 1){
             System.out.print(CliColor.RESET_LINE);
             System.out.print("\033[1A" + CliColor.RESET_LINE);
-            System.out.print("Invalid game mode. Try again: ");
+            System.out.print("Invalid " + CliColor.BOLD + "game mode" + CliColor.RESET + ". Try again: ");
             gameMode = IntegerReader.readInput(scanner);
         }
         client.sendMsgToServer(new GameModeReply(gameMode == 1));
@@ -158,7 +156,7 @@ public class CLI implements ViewInterface {
     @Override
     public void askPlayerNumber() {
         System.out.print(CliColor.CLEAR_ALL);
-        System.out.print("How many players are going to play? [2/3]: ");
+        System.out.print("How many " + CliColor.BOLD + "players" + CliColor.RESET + " are going to play? [2/3]: ");
 
         int playerNumber = IntegerReader.readInput(scanner);
         while(playerNumber != 2 && playerNumber != 3){
@@ -182,7 +180,7 @@ public class CLI implements ViewInterface {
         while(wizardIndex <= 0 || wizardIndex > availableWizards.size()){
             System.out.print(CliColor.RESET_LINE);
             System.out.print("\033[1A" + CliColor.RESET_LINE);
-            System.out.print("Invalid wizard. Try again: ");
+            System.out.print("Invalid " + CliColor.BOLDPINK + "wizard" + CliColor.RESET + " index. Try again: ");
             wizardIndex = IntegerReader.readInput(scanner);
         }
         client.sendMsgToServer(new WizardReply(availableWizards.get(wizardIndex-1)));
@@ -193,17 +191,17 @@ public class CLI implements ViewInterface {
         System.out.print(CliColor.CLEAR_ALL);
 
         if (!discardedAssistants.isEmpty()) {
-            System.out.println("The " + CliColor.RED + "red cards" + CliColor.RESET +" are the assistant cards already chosen by the other player(s) so you can not play them in this round!");
+            System.out.println("The " + CliColor.RED + "red cards" + CliColor.RESET + " are the assistant cards already chosen by the other player(s) so you can not play them in this round!");
             System.out.println("Thus the white ones are your available assistant cards that you can choose between: \n");
         } else {
-            System.out.println("You are the first player of this round!"+
-                    "\nThus you can choose any assistant card you want from your hand: \n");
+            System.out.println("You are the first player of this round!\n" +
+                               "You can choose any assistant card you want from your hand:\n");
         }
 
         CliColor color;
         for (int i = 0; i < availableAssistants.size(); i++) {
             color = discardedAssistants.contains(availableAssistants.get(i)) ? CliColor.RED : CliColor.RESET;
-            System.out.println(color + "[ " + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() +" ]" + CliColor.RESET);
+            System.out.println(color + "[ " + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() + " ]" + CliColor.RESET);
         }
         System.out.print("\nEnter the index of the " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " you would like to choose: ");
 
@@ -211,7 +209,7 @@ public class CLI implements ViewInterface {
         while(assistantIndex <= 0 || assistantIndex > availableAssistants.size() || discardedAssistants.contains(availableAssistants.get(assistantIndex-1))){
             System.out.print(CliColor.RESET_LINE);
             System.out.print("\033[1A" + CliColor.RESET_LINE);
-            System.out.print("Invalid assistant. Try again: ");
+            System.out.print("Invalid " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " index. Try again: ");
             assistantIndex = IntegerReader.readInput(scanner);
         }
         client.sendMsgToServer(new ChooseAssistantReply(availableAssistants.get(assistantIndex-1)));
@@ -438,7 +436,7 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askMNSteps(int maxMNSteps) {
-        System.out.println("Enter the number of steps " + CliColor.BBLUE + "Mother Nature" + CliColor.RESET + " will do: ");
+        System.out.println("Enter the number of steps " + CliColor.BOLDBLUE + "Mother Nature" + CliColor.RESET + " will do: ");
 
         int mnSteps = IntegerReader.readInput(scanner);
         while (mnSteps == 0 || mnSteps > maxMNSteps) {
@@ -483,7 +481,7 @@ public class CLI implements ViewInterface {
 
     @Override
     public void displayDisconnectionMessage(String disconnectedNickname, String message) {
-        //FIXME:    inputThread.interrupt();
+        //FIXME: inputThread.interrupt();
         System.out.println(disconnectedNickname + message);
         System.exit(-1);
     }
@@ -558,13 +556,13 @@ public class CLI implements ViewInterface {
     @Override
     public void displayEndgameResult(String winner) {
         System.out.println("Match ended.");
-        System.out.println(CliColor.BOLD + winner + CliColor.RESET + " WINS!");
+        System.out.println(CliColor.BOLDWHITE + winner + CliColor.RESET + " WINS!");
 
         System.exit(0);
     }
 
     public void clearCLI() {
-        System.out.println(CliColor.CLEAR_ALL);
+        System.out.print(CliColor.CLEAR_ALL);
         System.out.flush();
     }
 
@@ -600,7 +598,8 @@ public class CLI implements ViewInterface {
                     case 4:
                         availableColors.add(Color.BLUE);
                         break;
-                    default: break; //not reachable
+                    default:    //not reachable
+                        break;
                 }
             }
         }
@@ -610,7 +609,6 @@ public class CLI implements ViewInterface {
 
     public Color askColor(List<Color> availableColors) {
         int i = 0;
-        Color selectedColor;
 
         if (availableColors.contains(Color.GREEN)) {
             System.out.println(CliColor.GREEN + "[" + i + " - GREEN]");

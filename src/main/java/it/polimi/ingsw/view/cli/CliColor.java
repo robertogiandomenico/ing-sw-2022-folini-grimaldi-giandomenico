@@ -9,6 +9,7 @@ public enum CliColor {
     //Color string, color reset
     RESET("\033[0m"),
     RESET_LINE("\033[2K\r"),
+    RESET_DOWN("\r\033[0J"),
     CLEAR_ALL("\033[H\033[2J"),
 
     //Regular Colors
