@@ -8,7 +8,7 @@ package it.polimi.ingsw.view.cli;
 public enum CliColor {
     //Color string, color reset
     RESET("\033[0m"),
-    RESET_LINE("\033[<1000>D"),
+    RESET_LINE("\033[2K\r"),
     CLEAR_ALL("\033[H\033[2J"),
 
     //Regular Colors

@@ -26,7 +26,8 @@ public class NicknameReply extends GenericClientMessage {
         String REGEX = "^([a-zA-Z]+\\w{2,10})$";
         if(!nickname.matches(REGEX)){
             clientHandler.sendMsgToClient(new NicknameRequest());
+        } else {
+            clientHandler.setClientNickname(nickname);
         }
-        clientHandler.setClientNickname(nickname);
     }
 }

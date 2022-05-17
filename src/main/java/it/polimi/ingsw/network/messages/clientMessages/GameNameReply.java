@@ -27,9 +27,7 @@ public class GameNameReply extends GenericClientMessage {
         String REGEX = "^([a-zA-Z]+\\w{2,10})$";
         if(gameName == null || !gameName.matches(REGEX)){
             clientHandler.sendMsgToClient(new GameNameRequest());
-        }
-
-        if(!alreadyExists(gameName, server)){
+        } else if(!alreadyExists(gameName, server)){
             //if a game with that name doesn't already exist
             Controller controller = new Controller(gameName);
             server.getLobbies().put(controller, -1);
