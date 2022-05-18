@@ -52,7 +52,6 @@ public class Game {
         playerOrder.add(newPlayer);
         availableTowers.remove(newPlayer.getTowerColor());
         availableWizards.remove(newPlayer.getSelectedWizard());
-        numberOfPlayers++;
     }
 
     /**
@@ -259,5 +258,9 @@ public class Game {
      */
     public boolean isExpertMode() {
         return expertMode;
+    }
+
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
     }
 }

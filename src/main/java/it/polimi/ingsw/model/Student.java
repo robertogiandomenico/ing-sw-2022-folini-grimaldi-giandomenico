@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model;
 
+import java.io.Serializable;
+
 /**
  * This class represents the student discs of the game.
  */
-public class Student {
+public class Student implements Serializable {
     private final Color color;
 
     /**

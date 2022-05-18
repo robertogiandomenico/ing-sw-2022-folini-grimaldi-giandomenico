@@ -2,6 +2,8 @@ package it.polimi.ingsw.view.utilities.lightclasses;
 
 import it.polimi.ingsw.model.*;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 
@@ -9,7 +11,7 @@ import java.util.List;
  * This class is useful to contain the information needed to display the
  * board. (CLI/GUI)
  */
-public class LightBoard {
+public class LightBoard implements Serializable {
     private List<LightArchi> archipelagos;
     private Student[][] clouds;
     private List<LightPlayer> players;
@@ -24,13 +26,21 @@ public class LightBoard {
      * @param b      the Board to simplify.
      */
     public LightBoard(Board b){
-        initializeLightClouds(b.getClouds());
         initializeLightPlayers(b.getPlayers());
         initializeLightArchipelagos(b.getArchipelagos(), b.getColorsIndex());
         initializeLightSchoolBoards(b.getPlayerBoards());
-        initializeLightCharacters(b.getSelectedCharacters());
-        currentPlayerSB = new LightSchoolBoard(b.getCurrentPlayerSchoolBoard());
+        if(b.getSelectedCharacters() != null) {
+            initializeLightCharacters(b.getSelectedCharacters());
+        } else {
+            selectedCharacters = null;
+        }
+        if(b.getCurrentPlayerSchoolBoard() != null) {
+            currentPlayerSB = new LightSchoolBoard(b.getCurrentPlayerSchoolBoard());
+        } else {
+            currentPlayerSB = null;
+        }
         coinsSupply = b.getCoinsSupply();
+        initializeLightClouds(b.getClouds());
     }
 
     /**
@@ -41,6 +51,7 @@ public class LightBoard {
      * @param clouds the Clouds on the Board.
      */
     private void initializeLightClouds(Cloud[] clouds){
+        this.clouds = new Student[clouds.length][clouds[0].getCloudContent().length];
         for (int i = 0; i<clouds.length; i++)
             System.arraycopy(clouds[i].getCloudContent(), 0, this.clouds[i], 0, clouds[i].getCloudContent().length);
     }
@@ -52,6 +63,7 @@ public class LightBoard {
      * @param players the List of Players for this Game.
      */
     private void initializeLightPlayers(List<Player> players){
+        this.players = new ArrayList<>();
         for (Player p : players)
             this.players.add(new LightPlayer(p));
     }
@@ -63,6 +75,7 @@ public class LightBoard {
      * @param schoolBoards the SchoolBoard Array for this Game.
      */
     private void initializeLightSchoolBoards(SchoolBoard[] schoolBoards){
+        this.schoolBoards = new ArrayList<>();
         for (SchoolBoard sb : schoolBoards)
             this.schoolBoards.add(new LightSchoolBoard(sb));
     }
@@ -75,11 +88,13 @@ public class LightBoard {
      * @param colorsIndex the EnumMap associating Colors and Integers.
      */
     private void initializeLightArchipelagos(List<Archipelago> archis, EnumMap<Color, Integer> colorsIndex){
+        this.archipelagos = new ArrayList<>();
         for (Archipelago a : archis)
             archipelagos.add(new LightArchi(a, colorsIndex));
     }
 
     private void initializeLightCharacters(GameCharacter[] characters){
+        this.selectedCharacters = new LightCharacter[characters.length];
         for (int i = 0; i< characters.length; i++)
             selectedCharacters[i] = new LightCharacter(characters[i]);
     }

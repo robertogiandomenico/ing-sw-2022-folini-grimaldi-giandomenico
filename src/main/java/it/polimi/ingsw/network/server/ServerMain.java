@@ -23,11 +23,11 @@ public class ServerMain {
         while (!valid) {
 
             if (notAnInt) {
-                System.out.println(CliColor.RED + "\nERROR: Please insert numbers only or \"d\"" + CliColor.RESET);
+                System.out.println(CliColor.RED + "ERROR: Please insert numbers only or \"d\"" + CliColor.RESET);
                 notAnInt = false;
             }
             if (wrongPort) {
-                System.out.println(CliColor.RED + "\nERROR: MIN PORT = " + MIN + ", MAX PORT = " + MAX + CliColor.RESET);
+                System.out.println(CliColor.RED + "ERROR: MIN PORT = " + MIN + ", MAX PORT = " + MAX + CliColor.RESET);
                 wrongPort = false;
             }
 

@@ -6,7 +6,9 @@ import it.polimi.ingsw.model.effects.MonkEffect;
 import it.polimi.ingsw.model.effects.SpoiledPrincessEffect;
 import it.polimi.ingsw.model.effects.JesterEffect;
 
-public class LightCharacter {
+import java.io.Serializable;
+
+public class LightCharacter implements Serializable {
     private int cost;
     private final String name;
     private int noEntryTiles = -1;

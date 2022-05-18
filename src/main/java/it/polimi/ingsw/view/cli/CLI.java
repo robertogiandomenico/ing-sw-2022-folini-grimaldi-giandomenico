@@ -43,7 +43,7 @@ public class CLI implements ViewInterface {
 
     @Override
     public Client askServerInfo() {
-      final int DEFAULT_PORT = 2807;
+        final int DEFAULT_PORT = 2807;
         final String DEFAULT_ADDRESS = "127.0.0.1";
         final int MIN_PORT = 1024;
         final int MAX_PORT = 65535;
@@ -56,15 +56,18 @@ public class CLI implements ViewInterface {
 
         do {
             if(!firstTry)
-                System.out.println(CliColor.RED + "ERROR: Invalid address! (remember the syntax xxx.xxx.xxx.xxx)" + CliColor.RESET + "Try again.");
+                System.out.println(CliColor.RED + "ERROR: Invalid address! (remember the syntax xxx.xxx.xxx.xxx)" + CliColor.RESET + " Try again.");
             else
                 System.out.println("Please enter the server address");
 
             System.out.print("Insert 'd' for the default value (" + DEFAULT_ADDRESS + "): ");
             String address = scanner.nextLine();
 
-            if (address.equals("d") || address.equalsIgnoreCase("localhost") || address.equals(DEFAULT_ADDRESS)) {
+            if (address.equalsIgnoreCase("d") || address.equalsIgnoreCase("localhost") || address.equals(DEFAULT_ADDRESS)) {
                 validInput = true;
+                if(!firstTry) {
+                    System.out.print("\033[3A" + CliColor.RESET_LINE + "\033[3B");
+                }
             } else if (validateIP(address)) {
                 ip = address;
                 validInput = true;
@@ -75,11 +78,12 @@ public class CLI implements ViewInterface {
         } while (!validInput);
 
         validInput = false;
+        System.out.println("\033[2A" + CliColor.RESET_DOWN);
 
         while (!validInput){
             if (notAnInt) {
                 notAnInt = false;
-                System.out.println(CliColor.RED + "ERROR: Please insert only numbers or \"d\"." + CliColor.RESET + "Try again.");
+                System.out.println(CliColor.RED + "ERROR: Please insert only numbers or \"d\"." + CliColor.RESET + " Try again.");
             }
             if (wrongPort) {
                 wrongPort = false;
@@ -459,38 +463,19 @@ public class CLI implements ViewInterface {
     }
 
     @Override
-    public void displayLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname) {
-        clearCLI();
-
-        if (nicknameAccepted && connectionSuccessful) {
-            System.out.println("Hi, " + nickname + "! You are now connected to the server.");
-        } else if (connectionSuccessful) {
-            askNickname();
-        } else if (nicknameAccepted) {
-            System.out.println("Maximum number of players reached. Connection refused.\nEXIT");
-            System.exit(1);
-        } else {
-            displayErrorAndExit("Could not contact server.");
-        }
-    }
-
-    @Override
     public void displayMessage(String message) {
         System.out.println(message);
     }
 
     @Override
     public void displayDisconnectionMessage(String disconnectedNickname, String message) {
-        //FIXME: inputThread.interrupt();
         System.out.println(disconnectedNickname + message);
         System.exit(-1);
     }
 
     @Override
     public void displayErrorAndExit(String message) {
-        //FIXME: inputThread.interrupt();
-
-        System.out.println("\nERROR: " + message);
+        System.out.println("ERROR: " + message);
         System.out.println("EXIT.");
         System.exit(1);
     }

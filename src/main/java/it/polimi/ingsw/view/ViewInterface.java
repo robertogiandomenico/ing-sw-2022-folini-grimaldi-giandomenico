@@ -31,8 +31,6 @@ public interface ViewInterface {
     void askMNSteps(int maxMNSteps);
 
     void askCloud(List<Integer> availableClouds);
-
-    void displayLoginResult(boolean nicknameAccepted, boolean connectionSuccessful, String nickname);
     void displayMessage(String message);
     void displayDisconnectionMessage(String disconnectedNickname, String message);
     void displayErrorAndExit(String message);

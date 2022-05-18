@@ -5,13 +5,14 @@ import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Island;
 import it.polimi.ingsw.model.TowerColor;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 
 /**
  * This class is useful to contain the information needed to display the
  * archipelagos. (CLI/GUI)
  */
-public class LightArchi {
+public class LightArchi implements Serializable {
     private int[][] islands;
     private boolean motherNature;
     private boolean noEntryTile;
@@ -29,6 +30,7 @@ public class LightArchi {
         this.noEntryTile = a.isNoEntryTilePresent();
         this.towerColor = a.getTowerColor();
         this.size = a.getIslands().size();
+        this.islands = new int[a.getIslands().size()][5];
 
         for (int i = 0; i < a.getIslands().size(); i++)
             for(Color c : Color.values())

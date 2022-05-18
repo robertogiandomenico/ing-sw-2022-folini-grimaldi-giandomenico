@@ -1,6 +1,5 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.controller.ClientController;
 import it.polimi.ingsw.network.messages.connectionMessages.Ping;
 import it.polimi.ingsw.network.messages.serverMessages.GenericServerMessage;
 import it.polimi.ingsw.view.ViewInterface;
@@ -25,10 +24,9 @@ public class Client {
     private Socket clientSocket;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
-    private final Queue<GenericServerMessage> messageQueue = new LinkedList();
+    private final Queue<GenericServerMessage> messageQueue = new LinkedList<>();
     private Thread messageListener;
     private Thread messageHandler;
-    private ClientController clientController;
 
     public Client(String ip, int port, ViewInterface view) {
         this.ip = ip;

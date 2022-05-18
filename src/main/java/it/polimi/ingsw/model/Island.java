@@ -26,7 +26,7 @@ public class Island {
      * @param student          the Student to be added.
      */
     public void addStudent(Student student) {
-        if(students.get(0) == null) students.set(0, student);
+        if(hasNoStudents()) students.set(0, student);
         else students.add(student);
     }
 
@@ -53,6 +53,7 @@ public class Island {
      */
     public int getStudentNumber(Color color) {
         int count = 0;
+        if (hasNoStudents()) return 0;
         for (Student student : students) {
             if (student.getColor().equals(color)) count++;
         }

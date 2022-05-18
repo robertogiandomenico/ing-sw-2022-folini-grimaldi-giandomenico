@@ -3,11 +3,13 @@ package it.polimi.ingsw.view.utilities.lightclasses;
 import it.polimi.ingsw.model.SchoolBoard;
 import it.polimi.ingsw.model.Student;
 
+import java.io.Serializable;
+
 /**
  * This class is useful to contain the information needed to display the
  * school boards. (CLI/GUI)
  */
-public class LightSchoolBoard {
+public class LightSchoolBoard implements Serializable {
     private final LightPlayer player;
     private final Student[] entrance;
     private final boolean[] professorTable;

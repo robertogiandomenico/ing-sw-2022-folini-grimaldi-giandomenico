@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.*;
+import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -345,5 +346,14 @@ class BoardTest {
 
         assertEquals(4, sb.getPlayer().getCoins());
         assertTrue(sb.getProfessorTable()[index]);
+    }
+
+    @Test
+    void testLightBoard(){
+        for (Board b : boards){
+            LightBoard lb = b.getLightBoard();
+            assertNotNull(lb);
+            assertEquals(b.getArchipelagos().size(), lb.getArchipelagos().size());
+        }
     }
 }

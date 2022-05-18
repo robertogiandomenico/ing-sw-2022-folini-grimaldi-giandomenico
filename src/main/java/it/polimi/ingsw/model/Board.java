@@ -76,7 +76,7 @@ public class Board {
     /**
      * Puts students on the clouds.
      */
-    public void fillClouds() {
+    private void fillClouds() {
         for(int i = 0; i < TOTALCLOUDS; i++) {
             clouds[i].fill(drawStudentsArray(CLOUDSIZE));
         }
@@ -581,11 +581,9 @@ public class Board {
     /**
      * Returns the light version of the given board.
      *
-     * @param b the Board.
      * @return  the LightBoard.
      */
-    public LightBoard getLightBoard(Board b){
-        LightBoard lb;
-        return lb = new LightBoard(b);
+    public LightBoard getLightBoard(){
+        return new LightBoard(this);
     }
 }

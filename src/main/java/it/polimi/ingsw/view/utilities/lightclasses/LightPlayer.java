@@ -5,13 +5,14 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.TowerColor;
 import it.polimi.ingsw.model.Wizard;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This class is useful to contain player's information. (CLI/GUI)
  */
-public class LightPlayer {
+public class LightPlayer implements Serializable {
     private final String nickname;
     private int coins;
     private List<Assistant> cards;

@@ -58,10 +58,12 @@ class GameTest {
 
         for (Player p : players){
             games.get(0).addNewPlayer(p);
+            games.get(0).setNumberOfPlayers(games.get(0).getNumberOfPlayers() + 1);
         }
 
         for (int i = 0; i < 2; i++) {
             games.get(1).addNewPlayer(players.get(i));
+            games.get(1).setNumberOfPlayers(games.get(1).getNumberOfPlayers() + 1);
         }
 
         assertEquals(3, games.get(0).getNumberOfPlayers());
@@ -92,6 +94,7 @@ class GameTest {
 
     @Test
     void testUpdatePlayersOrder() {
+        games.get(0).setNumberOfPlayers(players.size());
         for (Player p : players){
             games.get(0).addNewPlayer(p);
         }
