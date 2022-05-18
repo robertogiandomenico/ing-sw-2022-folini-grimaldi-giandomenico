@@ -4,16 +4,14 @@ import it.polimi.ingsw.controller.actions.ActionType;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.messages.clientMessages.*;
+import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.view.ViewInterface;
 import it.polimi.ingsw.view.utilities.IntegerReader;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.io.IOException;
-import java.util.List;
-import java.util.Scanner;
 
 public class CLI implements ViewInterface {
     private final Scanner scanner = new Scanner(System.in);
@@ -192,8 +190,6 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
-        System.out.print(CliColor.CLEAR_ALL);
-
         if (!discardedAssistants.isEmpty()) {
             System.out.println("The " + CliColor.RED + "red cards" + CliColor.RESET + " are the assistant cards already chosen by the other player(s) so you can not play them in this round!");
             System.out.println("Thus the white ones are your available assistant cards that you can choose between: \n");
@@ -223,7 +219,7 @@ public class CLI implements ViewInterface {
     public void askAction(List<ActionType> possibleActions) {
 
         for (int i = 0; i < possibleActions.size(); i++) {
-            System.out.println("[" + i + "| " + possibleActions.get(i).getAction());
+            System.out.println("[" + i + "| " + possibleActions.get(i).getAction().replace("_", " ").replace("ACTION", ""));
         }
         System.out.print("Enter the index of your next " + CliColor.BOLDCYAN + "action" + CliColor.RESET + ": ");
 
@@ -233,6 +229,8 @@ public class CLI implements ViewInterface {
             System.out.print("Invalid action index. Try again: ");
             actionIndex = IntegerReader.readInput(scanner);
         }
+
+        client.sendMsgToServer(new ActionReply(actionIndex));
     }
 
     @Override
@@ -240,17 +238,18 @@ public class CLI implements ViewInterface {
         Color studColor;
         System.out.println("Select the color of the student you would like to move.");
         studColor = askColor(availableColors);
+        client.sendMsgToServer(new StudentReply(studColor));
     }
 
     @Override
     public void askPlace(int maxArchis) {
-        System.out.println("Would you like to move the student in the " + CliColor.BOLDWHITE + "DINING ROOM" + CliColor.RESET +
+        System.out.print("Would you like to move the student in the " + CliColor.BOLDWHITE + "DINING ROOM" + CliColor.RESET +
                            "? [y/n]: ");
 
         String diningRoom = scanner.nextLine();
 
         while (!diningRoom.equalsIgnoreCase("y") && !diningRoom.equalsIgnoreCase("n")) {
-            System.out.println(CliColor.RESET_LINE);
+            System.out.print(CliColor.RESET_LINE);
             System.out.print("Invalid input. Try again [y/n]: ");
             diningRoom = scanner.nextLine();
         }
@@ -258,7 +257,11 @@ public class CLI implements ViewInterface {
         if (diningRoom.equalsIgnoreCase("n")) {
             System.out.print("Enter the index of the " + CliColor.BOLDGREEN + "island" + CliColor.RESET + " you would like to place the student on : ");
             int archiIndex = askArchipelago(maxArchis);
+            client.sendMsgToServer(new PlaceReply("ARCHIPELAGO", archiIndex));
+        } else {
+            client.sendMsgToServer(new PlaceReply("DININGROOM"));
         }
+
     }
 
     @Override
@@ -483,7 +486,7 @@ public class CLI implements ViewInterface {
     @Override
         public void printBoard(LightBoard board) {
         // to resize the console window     length:48  width:125
-        System.out.print("\033[8;48;125t");
+        System.out.print("\033[8;48;125t" + CliColor.CLEAR_ALL);
 
         //print all the archipelagos clockwise
         for (int i = 0; i < board.getArchipelagos().size(); i++) {

@@ -16,4 +16,9 @@ public class SelectCloudPhase implements TurnPhase {
     public List<ActionType> getAvailableTurnActions() {
         return List.of(ActionType.SELECT_CLOUD_ACTION);
     }
+
+    @Override
+    public String toString() {
+        return "SelectCloudPhase";
+    }
 }

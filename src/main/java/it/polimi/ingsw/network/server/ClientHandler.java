@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.controller.actions.Action;
 import it.polimi.ingsw.controller.phases.ClientHandlerPhases;
 import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
@@ -29,6 +30,8 @@ public class ClientHandler implements Runnable{
     private Controller controller;
 
     private ClientHandlerPhases clientHandlerPhase;
+
+    private Action currentAction;
 
     public ClientHandler(Server server, Socket socket) {
         this.server = server;
@@ -121,5 +124,13 @@ public class ClientHandler implements Runnable{
 
     public void setController(Controller controller) {
         this.controller = controller;
+    }
+
+    public Action getCurrentAction() {
+        return currentAction;
+    }
+
+    public void setCurrentAction(Action currentAction) {
+        this.currentAction = currentAction;
     }
 }

@@ -13,7 +13,7 @@ public class MNStepsRequest extends GenericServerMessage {
 
     @Override
     public void show(ViewInterface view) {
-
+        view.askMNSteps(maxMNSteps);
     }
 
     @Override

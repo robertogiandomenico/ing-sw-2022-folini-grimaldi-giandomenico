@@ -73,11 +73,12 @@ public class MoveStudentsAction implements Action {
             if (place.equals("DININGROOM")){
                 int diningRoomIndex = b.mapToIndex(studentToBeMoved.getColor());
                 b.getCurrentPlayerSchoolBoard().addToDiningRoom(diningRoomIndex);
-            } else if (place.equals("ISLAND") || place.equals("ARCHIPELAGO")) {
+            } else if (place.equals("ARCHIPELAGO")) {
                 int archiIndex = ((PlaceReply) msg).getArchiIndex();
                 assert archiIndex != -1;
                 b.getArchipelago(archiIndex).getIslands().get(0).addStudent(studentToBeMoved);
             }
+            turnController.nextAction(this);
         }
     }
 }

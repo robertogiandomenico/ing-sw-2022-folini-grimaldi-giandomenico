@@ -8,8 +8,8 @@ import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.network.messages.clientMessages.ChooseAssistantReply;
 import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.ChooseAssistantRequest;
-import it.polimi.ingsw.network.messages.serverMessages.WizardRequest;
 import it.polimi.ingsw.network.server.ClientHandler;
+import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +21,12 @@ public class PlanningPhase implements GamePhase {
     private int playerIndex = 0;
     private List<Assistant> chosenAssistant;
 
+    private LightBoard lightBoard;
+
     @Override
     public void execute(Controller controller) {
         this.controller = controller;
+        lightBoard = controller.getGame().getBoard().getLightBoard();
         chosenAssistant = new ArrayList<>();
         currentPlayer = controller.getGame().getPlayerOrder().get(playerIndex);
         controller.getGame().setCurrentPlayer(currentPlayer);
@@ -31,8 +34,7 @@ public class PlanningPhase implements GamePhase {
         for(ClientHandler c : controller.getHandlers()){
             c.setClientHandlerPhase(ClientHandlerPhases.WAITING_ASSISTANT);
         }
-
-        controller.getHandlers().get(playerIndex).sendMsgToClient(new ChooseAssistantRequest(currentPlayer.getCards(), chosenAssistant));
+        controller.getHandlers().get(playerIndex).sendMsgToClient(new ChooseAssistantRequest(currentPlayer.getCards(), chosenAssistant, lightBoard));
     }
 
     @Override
@@ -50,7 +52,7 @@ public class PlanningPhase implements GamePhase {
         } else {
             playerIndex++;
             currentPlayer = controller.getGame().getPlayerOrder().get(playerIndex);
-            controller.getHandlers().get(playerIndex).sendMsgToClient(new ChooseAssistantRequest(currentPlayer.getCards(), chosenAssistant));
+            controller.getHandlers().get(playerIndex).sendMsgToClient(new ChooseAssistantRequest(currentPlayer.getCards(), chosenAssistant, lightBoard));
         }
     }
 

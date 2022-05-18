@@ -16,7 +16,7 @@ public class StudentRequest extends GenericServerMessage {
 
     @Override
     public void show(ViewInterface view) {
-
+        view.askStudent(availableColors);
     }
 
     @Override

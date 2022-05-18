@@ -19,4 +19,9 @@ public class MoveStudentsPhase implements TurnPhase {
                        ActionType.MOVE_STUDENT_ACTION,
                        ActionType.BUY_CHARACTER_ACTION);
     }
+
+    @Override
+    public String toString() {
+        return "MoveStudentsPhase";
+    }
 }

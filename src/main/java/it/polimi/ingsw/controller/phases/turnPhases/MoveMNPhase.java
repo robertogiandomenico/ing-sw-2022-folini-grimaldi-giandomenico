@@ -15,4 +15,9 @@ public class MoveMNPhase implements TurnPhase {
     public List<ActionType> getAvailableTurnActions() {
         return List.of(ActionType.MOVE_MN_ACTION, ActionType.BUY_CHARACTER_ACTION);
     }
+
+    @Override
+    public String toString() {
+        return "MoveMNPhase";
+    }
 }

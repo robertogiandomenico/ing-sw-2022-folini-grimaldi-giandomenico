@@ -6,19 +6,19 @@ import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.Server;
 
 public class ActionReply extends GenericClientMessage {
-    private ActionType action;
+    private int actionIndex;
 
-    public ActionReply(ActionType action) {
+    public ActionReply(int actionIndex) {
         super(MessageType.ACTION_REPLY);
-        this.action = action;
+        this.actionIndex = actionIndex;
     }
 
-    public ActionType getAction() {
-        return action;
+    public int getAction() {
+        return actionIndex;
     }
 
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
-
+        clientHandler.getController().receiveMessage(this);
     }
 }

@@ -45,7 +45,7 @@ public class Controller {
 
     public void startGame(){
         if(game == null) game = new Game(expertMode);
-        game.initializeBoard();
+        game.setNumberOfPlayers(clientHandlers.size());
         Server.SERVER_LOGGER.info("Starting a new game for these players : " + clientHandlers.stream().map(ClientHandler::getClientNickname).collect(Collectors.toList()));
         for (ClientHandler c : clientHandlers){
             c.setClientHandlerPhase(ClientHandlerPhases.WAITING_WIZARD);

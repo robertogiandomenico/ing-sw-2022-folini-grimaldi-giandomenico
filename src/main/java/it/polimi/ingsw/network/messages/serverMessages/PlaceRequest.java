@@ -13,7 +13,7 @@ public class PlaceRequest extends GenericServerMessage {
 
     @Override
     public void show(ViewInterface view) {
-
+        view.askPlace(maxArchis);
     }
 
     @Override

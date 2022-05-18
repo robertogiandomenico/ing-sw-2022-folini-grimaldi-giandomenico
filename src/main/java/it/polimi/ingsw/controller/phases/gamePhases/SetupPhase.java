@@ -31,8 +31,8 @@ public class SetupPhase implements GamePhase {
     private void addPlayers() {
         for (ClientHandler connection : controller.getHandlers()){
             Player p = new Player(connection.getClientNickname(),
-                                  controller.getGame().getAvailableTowers().get(0),
-                                  connection.getChosenWizard());
+                    controller.getGame().getAvailableTowers().get(0),
+                    connection.getChosenWizard());
 
             controller.getGame().addNewPlayer(p);
         }
@@ -49,6 +49,7 @@ public class SetupPhase implements GamePhase {
         availableWizards.remove(wizard);
         if (controller.getHandlers().stream().filter(c -> c.getClientHandlerPhase() == ClientHandlerPhases.WAITING_PHASE_CHANGE).count() == controller.getHandlers().size()){
             addPlayers();
+            controller.getGame().initializeBoard();
             controller.setGamePhase(new PlanningPhase());
         } else {
             playerIndex++;

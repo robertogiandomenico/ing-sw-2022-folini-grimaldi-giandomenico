@@ -29,5 +29,6 @@ public enum MessageType {
     //utility messages:
     PING,
     DISCONNECTION,
-    TEXT
+    TEXT,
+    BOARD_DATA
 }
