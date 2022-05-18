@@ -141,15 +141,15 @@ public class DisplayBoard {
         System.out.print("\033[1B" + "\033[6D");
 
         //print students in archipelago
-        System.out.print(CliColor.BGREEN + formatter.format(Integer.toString( columnSum(archipelago.getIslands(), 0) )));
+        System.out.print(CliColor.BGREEN + formatter.format(columnSum(archipelago.getIslands(), 0)));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BRED + formatter.format(Integer.toString( columnSum(archipelago.getIslands(), 1) )));
+        System.out.print(CliColor.BRED + formatter.format(columnSum(archipelago.getIslands(), 1)));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BYELLOW + formatter.format(Integer.toString( columnSum(archipelago.getIslands(), 2) )));
+        System.out.print(CliColor.BYELLOW + formatter.format(columnSum(archipelago.getIslands(), 2)));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BPINK + formatter.format(Integer.toString( columnSum(archipelago.getIslands(),3 ) )));
+        System.out.print(CliColor.BPINK + formatter.format(columnSum(archipelago.getIslands(), 3)));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BBLUE + formatter.format(Integer.toString( columnSum(archipelago.getIslands(), 4) )));
+        System.out.print(CliColor.BBLUE + formatter.format(columnSum(archipelago.getIslands(), 4)));
         System.out.print(CliColor.RESET);
 
         System.out.print("\033[2B" + "\033[12D");
@@ -227,7 +227,7 @@ public class DisplayBoard {
 
     public static void printCoinsSupply(int coinSupply) {
         //go at these coordinates
-        System.out.print("\033[16;68H");
+        System.out.print("\033[14;68H");
 
         //print blank box
         System.out.print("┌──────────────┐" + "\033[16D" + "\033[1B");

@@ -481,7 +481,7 @@ public class CLI implements ViewInterface {
     }
 
     @Override
-    public void printBoard(LightBoard board) {
+        public void printBoard(LightBoard board) {
         // to resize the console window     length:48  width:125
         System.out.print("\033[8;48;125t");
 
@@ -495,10 +495,10 @@ public class CLI implements ViewInterface {
             if (i == (board.getArchipelagos().size()/2 - 1))
                 System.out.print("\033[2B" + "\033[18D");
 
-            if (i > (board.getArchipelagos().size()/2 - 1)  &&  i != (board.getArchipelagos().size() - 2))
+            if (i > (board.getArchipelagos().size()/2 - 1)  &&  i != (board.getArchipelagos().size() - 1))
                 System.out.print("\033[18D" + "\033[1D" + "\033[18D" + "\033[4A");
 
-            if (i == (board.getArchipelagos().size() - 2))
+            if (i == (board.getArchipelagos().size() - 1))
                 System.out.print("\033[2B" + CliColor.RESET_LINE);
         }
 
