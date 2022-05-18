@@ -18,7 +18,7 @@ public class ServerMain {
         Scanner scanner = new Scanner(System.in);
 
         System.out.print(CliColor.CLEAR_ALL);
-        System.out.println("\n\t" + CliColor.BWHITE + "E R I A N T Y S  |  S E R V E R" + CliColor.RESET + "\n\n");
+        System.out.println("\n\t" + CliColor.BWHITE + " E R I A N T Y S  |  S E R V E R " + CliColor.RESET + "\n\n");
 
         while (!valid) {
 

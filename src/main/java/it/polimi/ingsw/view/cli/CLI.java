@@ -192,11 +192,11 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
-        System.out.print(CliColor.CLEAR_ALL);
+        System.out.print("\n");
 
         if (!discardedAssistants.isEmpty()) {
             System.out.println("The " + CliColor.RED + "red cards" + CliColor.RESET + " are the assistant cards already chosen by the other player(s) so you can not play them in this round!");
-            System.out.println("Thus the white ones are your available assistant cards that you can choose between: \n");
+            System.out.println("Thus the white ones are your available assistant cards that you can choose between:\n");
         } else {
             System.out.println("You are the first player of this round!\n" +
                                "You can choose any assistant card you want from your hand:\n");
@@ -205,9 +205,13 @@ public class CLI implements ViewInterface {
         CliColor color;
         for (int i = 0; i < availableAssistants.size(); i++) {
             color = discardedAssistants.contains(availableAssistants.get(i)) ? CliColor.RED : CliColor.RESET;
-            System.out.println(color + "[ " + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() + " ]" + CliColor.RESET);
+            System.out.print(color + "[ " + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() + " ]\t");
+
+            if (i==4)
+                System.out.print("\n\n");
         }
-        System.out.print("\nEnter the index of the " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " you would like to choose: ");
+        System.out.print(CliColor.RESET);
+        System.out.print("\n\nEnter the index of the " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " you would like to choose: ");
 
         int assistantIndex = IntegerReader.readInput(scanner);
         while(assistantIndex <= 0 || assistantIndex > availableAssistants.size() || discardedAssistants.contains(availableAssistants.get(assistantIndex-1))){
@@ -481,9 +485,9 @@ public class CLI implements ViewInterface {
     }
 
     @Override
-        public void printBoard(LightBoard board) {
-        // to resize the console window     length:48  width:125
-        System.out.print("\033[8;48;125t");
+    public void printBoard(LightBoard board) {
+        // to resize the console window     length:48  width:155
+        System.out.print("\033[8;48;155t");
 
         //print all the archipelagos clockwise
         for (int i = 0; i < board.getArchipelagos().size(); i++) {
@@ -521,11 +525,12 @@ public class CLI implements ViewInterface {
                 DisplayBoard.printCharacter(board.getSelectedCharacters()[i], i);
 
                 if (i < (board.getSelectedCharacters().length) - 1)
-                    System.out.print("\n");
+                    System.out.print("\033[1C" + "\033[2A");
                 else
-                    System.out.print("\n\n");
+                    System.out.print("\033[2B");
             }
-        }
+        } else
+            System.out.print("\033[2B");
 
         //print all the schoolboards
         for (int i = 0; i < board.getSchoolBoards().size(); i++) {
