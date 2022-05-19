@@ -205,7 +205,7 @@ public class CLI implements ViewInterface {
         CliColor color;
         for (int i = 0; i < availableAssistants.size(); i++) {
             color = discardedAssistants.contains(availableAssistants.get(i)) ? CliColor.RED : CliColor.RESET;
-            System.out.print(color + "[ " + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() + " ]\t");
+            System.out.print(color + "[ " + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() + " ]  \t");
 
             if (i==4)
                 System.out.print("\n\n");
