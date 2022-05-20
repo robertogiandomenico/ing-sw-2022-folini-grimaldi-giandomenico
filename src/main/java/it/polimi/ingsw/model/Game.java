@@ -140,10 +140,10 @@ public class Game {
     private void initializeWizards() {
         availableWizards = new ArrayList<>(
                 Arrays.asList(
-                        Wizard.WIZARD1,
-                        Wizard.WIZARD2,
-                        Wizard.WIZARD3,
-                        Wizard.WIZARD4
+                        Wizard.ARTICWIZARD,
+                        Wizard.DESERTWIZARD,
+                        Wizard.FORESTWIZARD,
+                        Wizard.SKYWIZARD
                 )
         );
     }

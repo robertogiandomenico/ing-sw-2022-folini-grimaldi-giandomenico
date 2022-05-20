@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="600.0" styleClass="mainPanel" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.NewGameController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="104.19998779296876" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="195.9999969482422" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="179.2000030517578" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="120.4000366210937" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="93.00001220703125" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="113.79998779296876" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="128.2" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="169.4000183105469" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" ellipsisString="" graphicTextGap="7.0" lineSpacing="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="510.0" styleClass="loadingText" text="How many players are going to play?" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="25.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="50.0" top="30.0" />
+         </GridPane.margin>
+      </Label>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#Create" prefHeight="51.0" prefWidth="138.0" styleClass="actionButton" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="actionButton" text="Create" textAlignment="CENTER" wrappingWidth="138.0" y="32.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+         <GridPane.margin>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="15.0" />
+         </GridPane.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </AnchorPane>
+      <AnchorPane layoutX="232.0" layoutY="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#Back" prefHeight="31.0" prefWidth="82.0" styleClass="actionButton" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+         <children>
+            <Text layoutX="-1.0" layoutY="-4.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="backButton" text="&lt; Back" textAlignment="CENTER" wrappingWidth="82.39999999999998" y="25.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="5.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets bottom="20.0" left="20.0" />
+         </GridPane.margin>
+      </AnchorPane>
+      <Label alignment="CENTER" contentDisplay="CENTER" ellipsisString="" graphicTextGap="7.0" lineSpacing="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="46.0" prefWidth="284.0" styleClass="loadingText" text="Creating a new game" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+         <font>
+            <Font size="25.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="30.0" top="20.0" />
+         </GridPane.margin>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" ellipsisString="" graphicTextGap="7.0" lineSpacing="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="510.0" styleClass="loadingText" text="Select the game mode:" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <font>
+            <Font size="25.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="50.0" top="30.0" />
+         </GridPane.margin>
+      </Label>
+      <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <children>
+            <RadioButton fx:id="easyMode" mnemonicParsing="false" selected="true" styleClass="radio-field" text="Easy Mode">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="gameMode" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="expertMode" mnemonicParsing="false" styleClass="radio-field" text="Expert mode" toggleGroup="$gameMode">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </RadioButton>
+         </children>
+         <GridPane.margin>
+            <Insets left="20.0" top="40.0" />
+         </GridPane.margin>
+      </VBox>
+      <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <RadioButton fx:id="n2Players" mnemonicParsing="false" selected="true" styleClass="radio-field" text="2">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <toggleGroup>
+                  <ToggleGroup fx:id="nPlayers" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="n3Players" mnemonicParsing="false" styleClass="radio-field" text="3" toggleGroup="$nPlayers">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </RadioButton>
+         </children>
+         <GridPane.margin>
+            <Insets left="50.0" top="30.0" />
+         </GridPane.margin>
+      </VBox>
+   </children>
+</GridPane>

@@ -36,9 +36,9 @@ class PlayerTest {
         ));
 
         wizards = new ArrayList<>(Arrays.asList(
-                Wizard.WIZARD1,
-                Wizard.WIZARD2,
-                Wizard.WIZARD3
+                Wizard.ARTICWIZARD,
+                Wizard.DESERTWIZARD,
+                Wizard.FORESTWIZARD
         ));
 
         assistants = new ArrayList<>(
