@@ -22,9 +22,9 @@ public class JavaFXGUI extends Application {
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/css/setup.css");
 
-            Font.loadFont(getClass().getResourceAsStream("/fonts/Dumbledor.ttf"), 14);
+        //  Font.loadFont(getClass().getResourceAsStream("/fonts/Dumbledor.ttf"), 14);
             Font.loadFont(getClass().getResourceAsStream("/fonts/Roboto.ttf"), 13);
-            Font.loadFont(getClass().getResourceAsStream("/fonts/Magical World.ttf"), 13);
+            Font.loadFont(getClass().getResourceAsStream("/fonts/Metamorphous.ttf"), 13);
 
             Image icon = new Image("/img/icon.png");
             stage.getIcons().add(icon);

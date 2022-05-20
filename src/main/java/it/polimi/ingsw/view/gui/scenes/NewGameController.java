@@ -16,12 +16,13 @@ public class NewGameController {
 
 
     @FXML
-    private void Create() {
+    private void next() {
         System.out.println("Creating...");
     }
 
-    public void Back() {
-        System.out.println("Going Back...");
+    @FXML
+    public void exit() {
+        System.out.println("Exit");
         System.exit(0);
     }
 }

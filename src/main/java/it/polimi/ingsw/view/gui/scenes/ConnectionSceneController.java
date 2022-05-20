@@ -14,10 +14,10 @@ public class ConnectionSceneController {
     @FXML
     private AnchorPane connect;
     @FXML
-    private AnchorPane back;
+    private AnchorPane exit;
 
     @FXML
-    public void Connect() {
+    public void connect() {
         BooleanBinding booleanBinding = ipAddress.textProperty().isEmpty().or(port.textProperty().isEmpty());
         if (ipAddress.getCharacters().toString().isEmpty() || port.getCharacters().toString().isEmpty()) {
             System.out.println("Fields are empty, insert values");
@@ -27,8 +27,8 @@ public class ConnectionSceneController {
         }
     }
 
-    public void Back() {
-        System.out.println("Going Back...");
+    public void exit() {
+        System.out.println("Exit");
         System.exit(0);
     }
 }

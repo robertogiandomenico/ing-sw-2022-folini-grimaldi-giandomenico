@@ -14,12 +14,12 @@ public class LoginSceneController {
     @FXML
     private AnchorPane confirm;
     @FXML
-    private AnchorPane back;
+    private AnchorPane exit;
 
 
 
     @FXML
-    private void Confirm() {
+    private void confirm() {
         BooleanBinding booleanBinding = nickname.textProperty().isEmpty().or(gameName.textProperty().isEmpty());
         if (nickname.getCharacters().toString().isEmpty() || gameName.getCharacters().toString().isEmpty()) {
             System.out.println("Fields are empty, insert values");
@@ -29,8 +29,9 @@ public class LoginSceneController {
         }
     }
 
-    public void Back() {
-        System.out.println("Going Back...");
+    @FXML
+    public void exit() {
+        System.out.println("Exit");
         System.exit(0);
     }
 }
