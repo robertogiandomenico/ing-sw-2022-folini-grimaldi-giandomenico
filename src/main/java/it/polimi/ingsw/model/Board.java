@@ -379,7 +379,7 @@ public class Board {
      * @param size                  the number of Students to draw.
      * @return                      the Student Array of drawn students.
      */
-    private Student[] drawStudentsArray(int size) {
+    public Student[] drawStudentsArray(int size) {
         Student[] tmp = new Student[size];
         for (int i = 0; i < size; i++) {
             tmp[i] = bag.draw();

@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class TurnController {
     private Player currentPlayer;
@@ -35,7 +34,9 @@ public class TurnController {
     public void setTurnPhase(TurnPhase turnPhase) {
         this.turnPhase = turnPhase;
         availableActions = turnPhase.getAvailableTurnActions();
-        availableActions.removeIf(a -> a == ActionType.BUY_CHARACTER_ACTION && !controller.getGame().isExpertMode());
+        if(controller.getGame().isExpertMode() && !turnPhase.toString().equals("SelectCloudPhase") ){
+            availableActions.add(ActionType.BUY_CHARACTER_ACTION);
+        }
         updatePossibleActions();
         clientHandler.sendMsgToClient(new ActionRequest(availableActions, controller.getGame().getBoard().getLightBoard()));
     }

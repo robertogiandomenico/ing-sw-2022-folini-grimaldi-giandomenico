@@ -24,11 +24,11 @@ public class CLI implements ViewInterface {
     private void start() {
         System.out.print("" + CliColor.CLEAR_ALL + CliColor.BOLDCYAN);
         System.out.println(" ✹ ｡  .  ･ . ∴ * ███████╗ ██████╗  ██╗  █████╗  ███╗   ██╗ ████████╗ ██╗   ██╗ ███████╗. 　･ ∴　　｡ 　\n" +
-                           " ｡    ✦    *     ██╔════╝ ██╔══██╗ ██║ ██╔══██╗ ████╗  ██║ ╚══██╔══╝ ╚██╗ ██╔╝ ██╔════╝ ∴⋆  ˚  *   .\n" +
-                           "  ∴   *  ｡ .  ✹  █████╗   ██████╔╝ ██║ ███████║ ██╔██╗ ██║    ██║     ╚████╔╝  ███████╗ ｡ ·　 ✦   *  \n" +
-                           " .   ･  *   ｡  ∴ ██╔══╝   ██╔══██╗ ██║ ██╔══██║ ██║╚██╗██║    ██║      ╚██╔╝   ╚════██║　 ✹  ｡   ·  ✧\n" +
-                           "  ･  .   ✦     * ███████╗ ██║  ██║ ██║ ██║  ██║ ██║ ╚████║    ██║       ██║    ███████║ ✦ ∴ 　･ ｡· ∴ \n" +
-                           "  ✹   ｡ ∴.  ･   .╚══════╝ ╚═╝  ╚═╝ ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═══╝    ╚═╝       ╚═╝    ╚══════╝ ･　 *　　✹　 ˚\n" + CliColor.RESET);
+                " ｡    ✦    *     ██╔════╝ ██╔══██╗ ██║ ██╔══██╗ ████╗  ██║ ╚══██╔══╝ ╚██╗ ██╔╝ ██╔════╝ ∴⋆  ˚  *   .\n" +
+                "  ∴   *  ｡ .  ✹  █████╗   ██████╔╝ ██║ ███████║ ██╔██╗ ██║    ██║     ╚████╔╝  ███████╗ ｡ ·　 ✦   *  \n" +
+                " .   ･  *   ｡  ∴ ██╔══╝   ██╔══██╗ ██║ ██╔══██║ ██║╚██╗██║    ██║      ╚██╔╝   ╚════██║　 ✹  ｡   ·  ✧\n" +
+                "  ･  .   ✦     * ███████╗ ██║  ██║ ██║ ██║  ██║ ██║ ╚████║    ██║       ██║    ███████║ ✦ ∴ 　･ ｡· ∴ \n" +
+                "  ✹   ｡ ∴.  ･   .╚══════╝ ╚═╝  ╚═╝ ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═══╝    ╚═╝       ╚═╝    ╚══════╝ ･　 *　　✹　 ˚\n" + CliColor.RESET);
         boolean socketError = true;
         while (socketError){
             try {
@@ -190,20 +190,24 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
+        System.out.print("\n");
         if (!discardedAssistants.isEmpty()) {
             System.out.println("The " + CliColor.RED + "red cards" + CliColor.RESET + " are the assistant cards already chosen by the other player(s) so you can not play them in this round!");
             System.out.println("Thus the white ones are your available assistant cards that you can choose between: \n");
         } else {
             System.out.println("You are the first player of this round!\n" +
-                               "You can choose any assistant card you want from your hand:\n");
+                    "You can choose any assistant card you want from your hand: \n");
         }
 
         CliColor color;
         for (int i = 0; i < availableAssistants.size(); i++) {
             color = discardedAssistants.contains(availableAssistants.get(i)) ? CliColor.RED : CliColor.RESET;
-            System.out.println(color + "[ " + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() + " ]" + CliColor.RESET);
+            System.out.print(color + "[ " + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() + " ]\t");
+
+            if (i==4) System.out.print("\n\n");
         }
-        System.out.print("\nEnter the index of the " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " you would like to choose: ");
+        System.out.print(CliColor.RESET);
+        System.out.print("\n\nEnter the index of the " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " you would like to choose: ");
 
         int assistantIndex = IntegerReader.readInput(scanner);
         while(assistantIndex <= 0 || assistantIndex > availableAssistants.size() || discardedAssistants.contains(availableAssistants.get(assistantIndex-1))){
@@ -217,6 +221,7 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askAction(List<ActionType> possibleActions) {
+        System.out.print("\n");
 
         for (int i = 0; i < possibleActions.size(); i++) {
             System.out.println("[" + i + "| " + possibleActions.get(i).getAction().replace("_", " ").replace("ACTION", ""));
@@ -224,17 +229,17 @@ public class CLI implements ViewInterface {
         System.out.print("Enter the index of your next " + CliColor.BOLDCYAN + "action" + CliColor.RESET + ": ");
 
         int actionIndex = IntegerReader.readInput(scanner);
-        while (actionIndex<0 || actionIndex>possibleActions.size()) {
+        while (actionIndex<0 || actionIndex>=possibleActions.size()) {
             System.out.println(CliColor.RESET_LINE);
             System.out.print("Invalid action index. Try again: ");
             actionIndex = IntegerReader.readInput(scanner);
         }
-
         client.sendMsgToServer(new ActionReply(actionIndex));
     }
 
     @Override
     public void askStudent(List<Color> availableColors) {
+        System.out.print("\n");
         Color studColor;
         System.out.println("Select the color of the student you would like to move.");
         studColor = askColor(availableColors);
@@ -243,16 +248,14 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askPlace(int maxArchis) {
-        System.out.print("Would you like to move the student in the " + CliColor.BOLDWHITE + "DINING ROOM" + CliColor.RESET +
-                           "? [y/n]: ");
-
-        String diningRoom = scanner.nextLine();
-
-        while (!diningRoom.equalsIgnoreCase("y") && !diningRoom.equalsIgnoreCase("n")) {
-            System.out.print(CliColor.RESET_LINE);
-            System.out.print("Invalid input. Try again [y/n]: ");
+        System.out.print("\n");
+        scanner.nextLine();
+        String diningRoom;
+        do {
+            System.out.print("Would you like to move the student in the " + CliColor.BOLDWHITE + "DINING ROOM" + CliColor.RESET +
+                    "? [y/n]: ");
             diningRoom = scanner.nextLine();
-        }
+        } while (!diningRoom.equalsIgnoreCase("y") && !diningRoom.equalsIgnoreCase("n"));
 
         if (diningRoom.equalsIgnoreCase("n")) {
             System.out.print("Enter the index of the " + CliColor.BOLDGREEN + "island" + CliColor.RESET + " you would like to place the student on : ");
@@ -269,7 +272,7 @@ public class CLI implements ViewInterface {
         int archiIndex;
 
         archiIndex = IntegerReader.readInput(scanner);
-        while (archiIndex<0 || archiIndex>maxArchis) {
+        while (archiIndex<0 || archiIndex>=maxArchis) {
             System.out.println(CliColor.RESET_LINE);
             System.out.print("Invalid island index. Try again: ");
             archiIndex = IntegerReader.readInput(scanner);
@@ -392,7 +395,7 @@ public class CLI implements ViewInterface {
                 studColors[studentNumber-1] = askColor(new ArrayList<>(Arrays.asList(Color.values())));
                 break;
 
-            case "Mistrel":
+            case "Minstrel":
                 System.out.println(CliColor.BOLDYELLOW + "Minstrel effect" + CliColor.RESET + " activated!");
 
                 System.out.print("Enter the number of " + CliColor.BOLD + "students" + CliColor.RESET + " you would like to swap from the character card [up to 2]: ");
@@ -443,14 +446,16 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askMNSteps(int maxMNSteps) {
-        System.out.println("Enter the number of steps " + CliColor.BOLDBLUE + "Mother Nature" + CliColor.RESET + " will do: ");
+        System.out.println("Enter the number of steps " + CliColor.BOLDBLUE + "Mother Nature" + CliColor.RESET + " will do (between 1 - " + maxMNSteps + ") : ");
 
         int mnSteps = IntegerReader.readInput(scanner);
-        while (mnSteps == 0 || mnSteps > maxMNSteps) {
+        while (mnSteps <= 0 || mnSteps > maxMNSteps) {
             System.out.println(CliColor.RESET_LINE);
             System.out.print("Invalid input. Mother Nature can do from 1 up to maximum " + maxMNSteps + " steps. Try again: ");
             mnSteps = IntegerReader.readInput(scanner);
         }
+
+        client.sendMsgToServer(new MNStepsReply(mnSteps));
     }
 
     @Override
@@ -458,11 +463,12 @@ public class CLI implements ViewInterface {
         System.out.println("Enter the index of the " + CliColor.BOLDCYAN + "cloud" + CliColor.RESET + " you would like to choose: ");
 
         int cloudIndex = IntegerReader.readInput(scanner);
-        while (cloudIndex < 0 || cloudIndex > availableClouds.size()) {
+        while (cloudIndex < 0 || cloudIndex >= availableClouds.size()) {
             System.out.println(CliColor.RESET_LINE);
             System.out.print("Invalid cloud index. Try again: ");
             cloudIndex = IntegerReader.readInput(scanner);
         }
+        client.sendMsgToServer(new CloudReply(cloudIndex));
     }
 
     @Override
@@ -484,9 +490,9 @@ public class CLI implements ViewInterface {
     }
 
     @Override
-        public void printBoard(LightBoard board) {
-        // to resize the console window     length:48  width:125
-        System.out.print("\033[8;48;125t" + CliColor.CLEAR_ALL);
+    public void printBoard(LightBoard board) {
+        // to resize the console window     length:48  width:155
+        System.out.print("\033[8;48;146t" + CliColor.CLEAR_ALL);
 
         //print all the archipelagos clockwise
         for (int i = 0; i < board.getArchipelagos().size(); i++) {
@@ -524,11 +530,12 @@ public class CLI implements ViewInterface {
                 DisplayBoard.printCharacter(board.getSelectedCharacters()[i], i);
 
                 if (i < (board.getSelectedCharacters().length) - 1)
-                    System.out.print("\n");
+                    System.out.print("\033[1C" + "\033[2A");
                 else
-                    System.out.print("\n\n");
+                    System.out.print("\033[2B");
             }
-        }
+        } else
+            System.out.print("\033[2B");
 
         //print all the schoolboards
         for (int i = 0; i < board.getSchoolBoards().size(); i++) {
@@ -623,7 +630,7 @@ public class CLI implements ViewInterface {
                 "Type the right color index: ");
 
         int colorIndex = IntegerReader.readInput(scanner);
-        while (colorIndex < 0 || colorIndex > availableColors.size()) {
+        while (colorIndex < 0 || colorIndex >= availableColors.size()) {
             System.out.println(CliColor.RESET_LINE);
             System.out.print("Invalid color index. Try again: ");
             colorIndex = IntegerReader.readInput(scanner);

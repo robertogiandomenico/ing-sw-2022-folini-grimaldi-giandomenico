@@ -38,6 +38,6 @@ public class CharacterReply extends GenericClientMessage{
 
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
-
+        clientHandler.getCurrentAction().receiveMessage(this);
     }
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.phases.ClientHandlerPhases;
+import it.polimi.ingsw.network.messages.connectionMessages.DisconnectionMessage;
 import it.polimi.ingsw.network.messages.serverMessages.GameNameRequest;
 import it.polimi.ingsw.network.messages.serverMessages.NicknameRequest;
 import it.polimi.ingsw.network.messages.serverMessages.TextMessage;
@@ -87,6 +88,20 @@ public class Server {
         } else {
             clientHandler.setClientHandlerPhase(ClientHandlerPhases.WAITING_NICKNAME);
             clientHandler.sendMsgToClient(new NicknameRequest());
+        }
+    }
+
+    public void removeClient(ClientHandler clientHandler) {
+        Optional<Controller> controller = lobbies.keySet().stream().filter(c -> c.getHandlers().contains(clientHandler)).findFirst();
+        if (controller.isPresent()){
+            for (ClientHandler c : controller.get().getHandlers()){
+                notAvailableNames.remove(c.getClientNickname());
+            }
+            controller.get().getHandlers().remove(clientHandler);
+            controller.get().broadcastMessage(new DisconnectionMessage(clientHandler.getClientNickname()));
+            synchronized (lobbyLock){
+                lobbies.remove(controller.get());
+            }
         }
     }
 }

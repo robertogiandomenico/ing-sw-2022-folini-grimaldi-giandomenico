@@ -1,21 +1,20 @@
 package it.polimi.ingsw.controller.actions;
 
 import it.polimi.ingsw.controller.TurnController;
-import it.polimi.ingsw.model.Board;
-import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
 import it.polimi.ingsw.network.messages.clientMessages.PlaceReply;
 import it.polimi.ingsw.network.messages.clientMessages.StudentReply;
 import it.polimi.ingsw.network.messages.serverMessages.PlaceRequest;
 import it.polimi.ingsw.network.messages.serverMessages.StudentRequest;
+import it.polimi.ingsw.network.messages.serverMessages.TextMessage;
 import it.polimi.ingsw.network.server.ClientHandler;
+import it.polimi.ingsw.network.server.Server;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class MoveStudentsAction implements Action {
     private final ActionType type = ActionType.MOVE_STUDENT_ACTION;
@@ -24,29 +23,37 @@ public class MoveStudentsAction implements Action {
     private final TurnController turnController;
 
     private Student studentToBeMoved;
+    private Map<Color, Integer> availableColors;
 
     public MoveStudentsAction(TurnController turnController) {
         this.turnController = turnController;
         currentPlayer = turnController.getCurrentPlayer();
         clientHandler = turnController.getClientHandler();
+        availableColors = new HashMap<>();
+        for (Color c : Color.values()){
+            int num = (int) Arrays.stream(turnController.getController().getGame().getBoard().getCurrentPlayerSchoolBoard().getEntrance()).filter(s -> s.getColor() == c).count();
+            availableColors.put(c, num);
+        }
     }
 
     @Override
     public void execute() {
-        List<Color> availableColors = new ArrayList<>();
-
-        for (Color c : Color.values()){
-            if(Arrays.stream(turnController.getController().getGame().getBoard().getCurrentPlayerSchoolBoard().getEntrance()).anyMatch(s -> s.getColor() == c)) {
-                availableColors.add(c);
-            }
+        if (studentToBeMoved != null) {
+            int num = availableColors.get(studentToBeMoved.getColor());
+            availableColors.replace(studentToBeMoved.getColor(), num - 1);
         }
-        clientHandler.sendMsgToClient(new StudentRequest(availableColors));
+        clientHandler.sendMsgToClient(new StudentRequest(availableColors.keySet().stream().filter(c -> availableColors.get(c) > 0).sorted(Comparator.comparingInt(Enum::ordinal)).collect(Collectors.toList())));
     }
 
     @Override
     public void resetAction(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
         clientHandler = turnController.getController().getHandlerByNickname(currentPlayer.getNickname());
+        availableColors = new HashMap<>();
+        for (Color c : Color.values()){
+            int num = (int) Arrays.stream(turnController.getController().getGame().getBoard().getCurrentPlayerSchoolBoard().getEntrance()).filter(s -> s.getColor() == c).count();
+            availableColors.put(c, num);
+        }
     }
 
     @Override
@@ -69,7 +76,7 @@ public class MoveStudentsAction implements Action {
         if (msg.getType() == MessageType.PLACE_REPLY){
             assert studentToBeMoved != null;
 
-            String place = ((PlaceReply) msg).getPlace().toUpperCase().replace(" ", "");
+            String place = ((PlaceReply) msg).getPlace();
             if (place.equals("DININGROOM")){
                 int diningRoomIndex = b.mapToIndex(studentToBeMoved.getColor());
                 b.getCurrentPlayerSchoolBoard().addToDiningRoom(diningRoomIndex);

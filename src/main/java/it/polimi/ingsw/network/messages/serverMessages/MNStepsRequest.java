@@ -4,7 +4,7 @@ import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.view.ViewInterface;
 
 public class MNStepsRequest extends GenericServerMessage {
-    int maxMNSteps;
+    private final int maxMNSteps;
 
     public MNStepsRequest(int maxMNSteps) {
         super(MessageType.MNSTEPS_REQUEST);
@@ -21,9 +21,5 @@ public class MNStepsRequest extends GenericServerMessage {
         return "ServerMessage {" +
                 "type=" + getType() +
                 '}';
-    }
-
-    public int getMaxMNSteps() {
-        return maxMNSteps;
     }
 }

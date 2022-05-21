@@ -5,13 +5,16 @@ import it.polimi.ingsw.controller.phases.gamePhases.ActionPhase;
 import it.polimi.ingsw.controller.phases.gamePhases.GamePhase;
 import it.polimi.ingsw.controller.phases.gamePhases.PlanningPhase;
 import it.polimi.ingsw.controller.phases.gamePhases.SetupPhase;
+import it.polimi.ingsw.model.Cloud;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.GenericServerMessage;
 import it.polimi.ingsw.network.messages.serverMessages.PhaseEntering;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.Server;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
@@ -69,7 +72,7 @@ public class Controller {
     public void setGamePhase(GamePhase gamePhase) {
         this.gamePhase = gamePhase;
         if(gamePhase instanceof PlanningPhase || gamePhase instanceof ActionPhase){
-            broadcastMessage(new PhaseEntering(gamePhase.getClass().getName()));
+            broadcastMessage(new PhaseEntering(gamePhase.toString()));
         }
         gamePhase.execute(this);
     }
@@ -105,7 +108,7 @@ public class Controller {
         return null;
     }
 
-    public void broadcastMessage(GenericServerMessage msg){
+    public void broadcastMessage(Serializable msg){
         connectionLock.lock();
         try {
             for (ClientHandler c : clientHandlers){
@@ -119,5 +122,19 @@ public class Controller {
 
     public void receiveMessage(GenericClientMessage msg){
         gamePhase.receiveMessage(msg);
+    }
+
+    public void nextTurn() {
+        Player currentPlayer = game.getCurrentPlayer();
+        List<Player> playersOrder = game.getPlayerOrder();
+        if (gamePhase.toString().equals("ActionPhase") && playersOrder.indexOf(currentPlayer) < playersOrder.size() - 1){
+            game.setCurrentPlayer(playersOrder.get(playersOrder.indexOf(currentPlayer)+1));
+            gamePhase.execute(this);
+        } else {
+            for(Cloud c : game.getBoard().getClouds()){
+                c.fill(game.getBoard().drawStudentsArray(c.getCloudContent().length));
+            }
+            setGamePhase(new PlanningPhase());
+        }
     }
 }

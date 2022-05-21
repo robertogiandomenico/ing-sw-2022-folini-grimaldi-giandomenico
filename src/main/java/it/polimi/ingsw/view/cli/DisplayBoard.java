@@ -68,7 +68,7 @@ public class DisplayBoard {
         printStudentsTable(sB, 4);
 
         System.out.print(CliColor.RESET);
-        System.out.println("\033[13C" + "\033[5A");
+        System.out.print("\033[13C" + "\033[5A");
 
         //print professor table
         if (sB.getProfessorTable()[0]) {
@@ -96,8 +96,8 @@ public class DisplayBoard {
         System.out.print("\033[5C" + "\033[4A");
 
         //print tower section
-        int towerNameLength = sB.getPlayer().getTowerColor().getClass().getName().length();
-        System.out.print(sB.getPlayer().getTowerColor().getClass().getName());
+        int towerNameLength = sB.getPlayer().getTowerColor().name().length();
+        System.out.print(sB.getPlayer().getTowerColor().name());
         for (int i = 0; i < towerNameLength; i++)
             System.out.print("\033[1D");
         System.out.print("\033[1B" + "\033[1C");
@@ -112,9 +112,9 @@ public class DisplayBoard {
             System.out.print("\033[4C");
 
         if (sB.getPlayer().getCoins() < 10)
-            System.out.println("\033[1B" + "\033[4C");
+            System.out.print("\033[1B" + "\033[4C");
         else
-            System.out.println("\033[1B" + "\033[3C");
+            System.out.print("\033[1B" + "\033[3C");
 
     }
 
@@ -138,7 +138,7 @@ public class DisplayBoard {
         else
             System.out.print("\033[D" + CliColor.BOLD + " " + archiIndex + " " + CliColor.RESET);
 
-        System.out.print("\033[1B" + "\033[6D");
+        System.out.print("\033[1B" + "\033[9D");
 
         //print students in archipelago
         System.out.print(CliColor.BGREEN + formatter.format(columnSum(archipelago.getIslands(), 0)));
@@ -266,8 +266,11 @@ public class DisplayBoard {
 
         //print name
         System.out.print(character.getName());
+        int nameLength = character.getName().length();
+        for (int i = 0; i < nameLength; i++)
+            System.out.print("\033[1D");
 
-        System.out.print("\033[60D" + "\033[24C");
+        System.out.print("\033[18C");
 
         //print cost
         System.out.print(CliColor.BOLDYELLOW + "C" + CliColor.RESET + ":" + character.getCost());
@@ -288,15 +291,15 @@ public class DisplayBoard {
             case("Jester"):
             case("SpoiledPrincess"):
                 System.out.print("S:" +
-                                    CliColor.BGREEN  + numByColor(character.getStudents(), Color.GREEN)  +
+                        CliColor.BGREEN  + numByColor(character.getStudents(), Color.GREEN)  +
                         "\033[1C" + CliColor.BRED    + numByColor(character.getStudents(), Color.RED)    +
                         "\033[1C" + CliColor.BYELLOW + numByColor(character.getStudents(), Color.YELLOW) +
                         "\033[1C" + CliColor.BPINK   + numByColor(character.getStudents(), Color.PINK)   +
                         "\033[1C" + CliColor.BBLUE   + numByColor(character.getStudents(), Color.BLUE)   +
-                                    CliColor.RESET);
+                        "\033[1C" + CliColor.RESET);
                 break;
             default:
-                System.out.print("\033[11C");
+                System.out.print("\033[12C");
         }
 
         System.out.print("\033[2C" + "\033[1B");
@@ -319,7 +322,7 @@ public class DisplayBoard {
         int number = 0;
 
         for (Student s : studentsArray) {
-            if (s.getColor() == color)
+            if (s != null && s.getColor() == color)
                 number++;
         }
         return Integer.toString(number);

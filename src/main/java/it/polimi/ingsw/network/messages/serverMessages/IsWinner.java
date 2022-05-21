@@ -4,7 +4,7 @@ import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.view.ViewInterface;
 
 public class IsWinner extends GenericServerMessage {
-    private boolean result;
+    private final boolean result;
 
     public IsWinner(boolean isWinner) {
         super(MessageType.RESULT);
@@ -21,9 +21,5 @@ public class IsWinner extends GenericServerMessage {
         return "ServerMessage {" +
                 "type=" + getType() +
                 '}';
-    }
-
-    public boolean isWinner() {
-        return result;
     }
 }

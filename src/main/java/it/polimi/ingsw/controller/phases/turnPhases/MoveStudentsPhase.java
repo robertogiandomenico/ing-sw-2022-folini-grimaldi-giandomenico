@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller.phases.turnPhases;
 import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.controller.actions.ActionType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MoveStudentsPhase implements TurnPhase {
@@ -14,10 +15,11 @@ public class MoveStudentsPhase implements TurnPhase {
 
     @Override
     public List<ActionType> getAvailableTurnActions() {
-        return List.of(ActionType.MOVE_STUDENT_ACTION,
-                       ActionType.MOVE_STUDENT_ACTION,
-                       ActionType.MOVE_STUDENT_ACTION,
-                       ActionType.BUY_CHARACTER_ACTION);
+        List<ActionType> actions = new ArrayList<>();
+        actions.add(ActionType.MOVE_STUDENT_ACTION);
+        actions.add(ActionType.MOVE_STUDENT_ACTION);
+        actions.add(ActionType.MOVE_STUDENT_ACTION);
+        return actions;
     }
 
     @Override

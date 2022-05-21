@@ -8,9 +8,9 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import java.util.List;
 
 public class ChooseAssistantRequest extends GenericServerMessage {
-    private List<Assistant> availableAssistants;
-    private List<Assistant> discardedAssistants;
-    private LightBoard lightBoard;
+    private final List<Assistant> availableAssistants;
+    private final List<Assistant> discardedAssistants;
+    private final LightBoard lightBoard;
 
     public ChooseAssistantRequest(List<Assistant> availableAssistants, List<Assistant> discardedAssistants, LightBoard lightBoard) {
         super(MessageType.CHOOSE_ASSISTANT_REQUEST);
@@ -30,13 +30,5 @@ public class ChooseAssistantRequest extends GenericServerMessage {
         return "ServerMessage {" +
                 "type=" + getType() +
                 '}';
-    }
-
-    public List<Assistant> getAvailableAssistants() {
-        return availableAssistants;
-    }
-
-    public List<Assistant> getDiscardedAssistants() {
-        return discardedAssistants;
     }
 }

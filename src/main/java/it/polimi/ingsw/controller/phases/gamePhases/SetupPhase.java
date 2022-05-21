@@ -50,6 +50,7 @@ public class SetupPhase implements GamePhase {
         if (controller.getHandlers().stream().filter(c -> c.getClientHandlerPhase() == ClientHandlerPhases.WAITING_PHASE_CHANGE).count() == controller.getHandlers().size()){
             addPlayers();
             controller.getGame().initializeBoard();
+            controller.getGame().setCurrentPlayer(controller.getGame().getPlayerByNickname(controller.getHandlers().get(0).getClientNickname()));
             controller.setGamePhase(new PlanningPhase());
         } else {
             playerIndex++;

@@ -6,7 +6,7 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 
 public class BoardData extends GenericServerMessage {
 
-    LightBoard lightBoard;
+    private final LightBoard lightBoard;
 
     public BoardData(LightBoard lightBoard) {
         super(MessageType.BOARD_DATA);

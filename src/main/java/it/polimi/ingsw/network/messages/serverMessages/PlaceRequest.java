@@ -4,7 +4,7 @@ import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.view.ViewInterface;
 
 public class PlaceRequest extends GenericServerMessage {
-    private int maxArchis;
+    private final int maxArchis;
 
     public PlaceRequest(int maxArchis) {
         super(MessageType.PLACE_REQUEST);
@@ -21,9 +21,5 @@ public class PlaceRequest extends GenericServerMessage {
         return "ServerMessage {" +
                 "type=" + getType() +
                 '}';
-    }
-
-    public int getMaxArchis() {
-        return maxArchis;
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.network.messages.connectionMessages.DisconnectionMessage;
 import it.polimi.ingsw.network.messages.connectionMessages.Ping;
 import it.polimi.ingsw.network.messages.serverMessages.GenericServerMessage;
 import it.polimi.ingsw.view.ViewInterface;
@@ -54,7 +55,7 @@ public class Client {
                 outputStream.writeObject(message);
                 outputStream.flush();
             } catch (IOException e) {
-                disconnect();
+                disconnect(true);
             }
         }
     }
@@ -76,10 +77,14 @@ public class Client {
                 Object msg = inputStream.readObject();
                 if(msg instanceof GenericServerMessage){
                     messageQueue.add((GenericServerMessage) msg);
+                } else if (msg instanceof DisconnectionMessage) {
+                    messageQueue.clear();
+                    ((DisconnectionMessage) msg).show(view);
+                    disconnect(false);
                 }
             }
         } catch (IOException | ClassNotFoundException e){
-            disconnect();
+            disconnect(true);
         }
     }
 
@@ -93,7 +98,7 @@ public class Client {
         }
     }
 
-    public void disconnect(){
+    public void disconnect(boolean error){
         if(messageListener.isAlive()) messageListener.interrupt();
         if(messageHandler.isAlive()) messageHandler.interrupt();
 
@@ -109,6 +114,6 @@ public class Client {
             clientSocket.close();
         } catch (IOException ignored) {}
 
-        view.displayErrorAndExit("An error occurred during the communication with the server, you're being disconnected! See ya!");
+        if(error) view.displayErrorAndExit("An error occurred during the communication with the server, you're being disconnected! See ya!");
     }
 }

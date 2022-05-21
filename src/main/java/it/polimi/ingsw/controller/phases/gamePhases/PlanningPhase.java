@@ -28,8 +28,8 @@ public class PlanningPhase implements GamePhase {
         this.controller = controller;
         lightBoard = controller.getGame().getBoard().getLightBoard();
         chosenAssistant = new ArrayList<>();
-        currentPlayer = controller.getGame().getPlayerOrder().get(playerIndex);
-        controller.getGame().setCurrentPlayer(currentPlayer);
+        playerIndex = controller.getGame().getPlayerOrder().indexOf(controller.getGame().getCurrentPlayer());
+        currentPlayer = controller.getGame().getCurrentPlayer();
 
         for(ClientHandler c : controller.getHandlers()){
             c.setClientHandlerPhase(ClientHandlerPhases.WAITING_ASSISTANT);
@@ -50,7 +50,7 @@ public class PlanningPhase implements GamePhase {
             controller.getGame().updatePlayersOrder();
             controller.setGamePhase(new ActionPhase());
         } else {
-            playerIndex++;
+            playerIndex = (playerIndex + 1) % controller.getGame().getNumberOfPlayers();
             currentPlayer = controller.getGame().getPlayerOrder().get(playerIndex);
             controller.getHandlers().get(playerIndex).sendMsgToClient(new ChooseAssistantRequest(currentPlayer.getCards(), chosenAssistant, lightBoard));
         }

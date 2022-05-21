@@ -6,7 +6,7 @@ import it.polimi.ingsw.view.ViewInterface;
 import java.util.List;
 
 public class CloudRequest extends GenericServerMessage {
-    private List<Integer> indexesAvailableClouds;
+    private final List<Integer> indexesAvailableClouds;
 
     public CloudRequest(List<Integer> indexesAvailableClouds) {
         super(MessageType.CLOUD_REQUEST);
@@ -15,7 +15,7 @@ public class CloudRequest extends GenericServerMessage {
 
     @Override
     public void show(ViewInterface view) {
-
+        view.askCloud(indexesAvailableClouds);
     }
 
     @Override
@@ -23,9 +23,5 @@ public class CloudRequest extends GenericServerMessage {
         return "ServerMessage {" +
                 "type=" + getType() +
                 '}';
-    }
-
-    public List<Integer> getIndexesAvailableClouds() {
-        return indexesAvailableClouds;
     }
 }

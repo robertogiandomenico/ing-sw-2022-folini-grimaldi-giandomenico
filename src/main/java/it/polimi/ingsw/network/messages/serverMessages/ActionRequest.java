@@ -8,8 +8,8 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import java.util.List;
 
 public class ActionRequest extends GenericServerMessage {
-    private List<ActionType> possibleActions;
-    private LightBoard lightBoard;
+    private final List<ActionType> possibleActions;
+    private final LightBoard lightBoard;
     public ActionRequest(List<ActionType> possibleActions, LightBoard lightBoard) {
         super(MessageType.ACTION_REQUEST);
         this.possibleActions = possibleActions;
@@ -27,9 +27,5 @@ public class ActionRequest extends GenericServerMessage {
         return "ServerMessage {" +
                 "type=" + getType() +
                 '}';
-    }
-
-    public List<ActionType> getPossibleActions() {
-        return possibleActions;
     }
 }

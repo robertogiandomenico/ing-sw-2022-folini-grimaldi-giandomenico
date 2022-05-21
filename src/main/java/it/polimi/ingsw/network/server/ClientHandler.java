@@ -14,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.util.logging.Level;
 
 public class ClientHandler implements Runnable{
     private final int PING_TIME = 5000;
@@ -107,7 +108,18 @@ public class ClientHandler implements Runnable{
     }
 
     public void manageDisconnection() {
-
+        activeClient = false;
+        Server.SERVER_LOGGER.log(Level.INFO, "DISCONNECTION: client " + socket.getInetAddress().getHostAddress() + " has disconnected");
+        server.removeClient(this);
+        try {
+            inputStream.close();
+        } catch (IOException ignored){}
+        try {
+            outputStream.close();
+        } catch (IOException ignored){}
+        try {
+            socket.close();
+        } catch (IOException ignored){}
     }
 
     public ClientHandlerPhases getClientHandlerPhase() {
