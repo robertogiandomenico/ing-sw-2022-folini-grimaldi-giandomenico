@@ -15,10 +15,10 @@ public class JavaFXGUI extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/ConnectionScene.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/WizardScene.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/css/setup.css");
 

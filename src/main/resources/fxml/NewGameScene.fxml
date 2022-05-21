@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="600.0" styleClass="mainPanel" stylesheets="@../css/setup.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.NewGameController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="600.0" styleClass="mainPanel" stylesheets="@../css/setup.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scenes.NewGameSceneController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="104.19998779296876" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="195.9999969482422" />
@@ -39,7 +39,7 @@
       </Label>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#next" prefHeight="51.0" prefWidth="138.0" styleClass="actionButton" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="actionButton" text="Create" textAlignment="CENTER" wrappingWidth="138.0" y="32.0">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="actionButton" text="Next" textAlignment="CENTER" wrappingWidth="138.0" y="32.0">
                <font>
                   <Font size="24.0" />
                </font>
@@ -85,7 +85,7 @@
       </Label>
       <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
-            <RadioButton fx:id="easyMode" mnemonicParsing="false" selected="true" styleClass="radio-field" text="Easy Mode">
+            <RadioButton fx:id="easyMode" mnemonicParsing="false" selected="true" styleClass="radio-field" stylesheets="@../css/setup.css" text="Easy Mode">
                <font>
                   <Font size="15.0" />
                </font>
@@ -93,7 +93,7 @@
                   <ToggleGroup fx:id="gameMode" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="expertMode" mnemonicParsing="false" styleClass="radio-field" text="Expert mode" toggleGroup="$gameMode">
+            <RadioButton fx:id="expertMode" mnemonicParsing="false" styleClass="radio-field" stylesheets="@../css/setup.css" text="Expert mode" toggleGroup="$gameMode">
                <font>
                   <Font size="15.0" />
                </font>
@@ -105,7 +105,7 @@
       </VBox>
       <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <children>
-            <RadioButton fx:id="n2Players" mnemonicParsing="false" selected="true" styleClass="radio-field" text="2">
+            <RadioButton fx:id="n2Players" mnemonicParsing="false" selected="true" styleClass="radio-field" stylesheets="@../css/setup.css" text="2">
                <font>
                   <Font size="15.0" />
                </font>
@@ -113,7 +113,7 @@
                   <ToggleGroup fx:id="nPlayers" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton fx:id="n3Players" mnemonicParsing="false" styleClass="radio-field" text="3" toggleGroup="$nPlayers">
+            <RadioButton fx:id="n3Players" mnemonicParsing="false" styleClass="radio-field" stylesheets="@../css/setup.css" text="3" toggleGroup="$nPlayers">
                <font>
                   <Font size="15.0" />
                </font>
