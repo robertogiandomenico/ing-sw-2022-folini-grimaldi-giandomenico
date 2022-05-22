@@ -18,7 +18,7 @@ public class JavaFXGUI extends Application {
     public void start(Stage stage) {
 
         try {
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/WizardScene.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/BoardScene.fxml"));
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/css/setup.css");
 
