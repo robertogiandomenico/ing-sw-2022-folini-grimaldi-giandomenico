@@ -484,7 +484,7 @@ public class CLI implements ViewInterface {
         System.out.println("Enter the index of the " + CliColor.BOLDCYAN + "cloud" + CliColor.RESET + " you would like to choose: ");
 
         int cloudIndex = IntegerReader.readInput(scanner);
-        while (cloudIndex < 0 || cloudIndex >= availableClouds.size()) {
+        while (!availableClouds.contains(cloudIndex)) {
             System.out.println(CliColor.RESET_LINE);
             System.out.print("Invalid cloud index. Try again: ");
             cloudIndex = IntegerReader.readInput(scanner);

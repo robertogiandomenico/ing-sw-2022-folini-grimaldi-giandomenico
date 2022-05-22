@@ -131,6 +131,7 @@ public class Board {
     }
 
     public void updatePlayerCoins(SchoolBoard currSB, int indexDR){
+        //TODO: resolve a bug that doesn't allow to receive coins from the DR
         boolean canTake = currSB.checkCoinsPath(indexDR, currSB.getDiningRoom()[indexDR]);
         if (canTake && coinsSupply > 0) {
             currSB.getPlayer().addCoin();
@@ -200,6 +201,8 @@ public class Board {
                     if (currentInfluence > topInfluence || (currentInfluence == topInfluence && currentTowerColor == s.getPlayer().getTowerColor())) {
                         topInfluence = currentInfluence;
                         topInfluencer = s;
+                    } else if(currentInfluence == topInfluence && currentTowerColor == null) {
+                        topInfluencer = null;
                     }
                 }
 
