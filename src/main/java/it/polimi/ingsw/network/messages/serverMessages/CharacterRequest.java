@@ -8,21 +8,16 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import java.util.List;
 
 public class CharacterRequest extends GenericServerMessage {
-    private final List<GameCharacter> availableCharacters;
-    private final int playerCoins;
     private final LightBoard lightBoard;
 
 
-    public CharacterRequest(List<GameCharacter> availableCharacters, int playerCoins, LightBoard lightBoard) {
+    public CharacterRequest(LightBoard lightBoard) {
         super(MessageType.CHARACTER_REQUEST);
-        this.availableCharacters = availableCharacters;
-        this.playerCoins = playerCoins;
         this.lightBoard = lightBoard;
     }
 
     @Override
     public void show(ViewInterface view) {
-        view.printBoard(lightBoard);
         view.askCharacter(lightBoard);
     }
 

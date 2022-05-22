@@ -15,12 +15,13 @@ import java.util.List;
 import java.util.Map;
 
 public class TurnController {
-    private Player currentPlayer;
-    private ClientHandler clientHandler;
+    private final Player currentPlayer;
+    private final ClientHandler clientHandler;
     private TurnPhase turnPhase;
     private final Controller controller;
     private List<ActionType> availableActions;
     private final Map<Action, Boolean> possibleActions;
+    private boolean alreadyBoughtCharacter = false;
 
     public TurnController(Player currentPlayer, Controller controller) {
         this.currentPlayer = currentPlayer;
@@ -34,7 +35,7 @@ public class TurnController {
     public void setTurnPhase(TurnPhase turnPhase) {
         this.turnPhase = turnPhase;
         availableActions = turnPhase.getAvailableTurnActions();
-        if(controller.getGame().isExpertMode() && !turnPhase.toString().equals("SelectCloudPhase") ){
+        if(controller.getGame().isExpertMode() && !turnPhase.toString().equals("SelectCloudPhase") && !alreadyBoughtCharacter){
             availableActions.add(ActionType.BUY_CHARACTER_ACTION);
         }
         updatePossibleActions();
@@ -112,5 +113,9 @@ public class TurnController {
             return new MoveMNPhase();
         }
         return new SelectCloudPhase();
+    }
+
+    public void setAlreadyBoughtCharacter(boolean alreadyBoughtCharacter) {
+        this.alreadyBoughtCharacter = alreadyBoughtCharacter;
     }
 }

@@ -5,14 +5,15 @@ import it.polimi.ingsw.model.GameCharacter;
 import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.Server;
+import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 
 public class CharacterReply extends GenericClientMessage{
-    private GameCharacter character;
-    private int archiIndex;
-    private int studentNumber;
-    private Color[] studColor;
+    private final LightCharacter character;
+    private final int archiIndex;
+    private final int studentNumber;
+    private final Color[] studColor;
 
-    public CharacterReply(GameCharacter character, int archiIndex, int studentNumber, Color[] studColor) {
+    public CharacterReply(LightCharacter character, int archiIndex, int studentNumber, Color[] studColor) {
         super(MessageType.CHARACTER_REPLY);
         this.character = character;
         this.archiIndex = archiIndex;
@@ -20,7 +21,7 @@ public class CharacterReply extends GenericClientMessage{
         this.studColor = studColor;
     }
 
-    public GameCharacter getCharacter() {
+    public LightCharacter getCharacter() {
         return character;
     }
 

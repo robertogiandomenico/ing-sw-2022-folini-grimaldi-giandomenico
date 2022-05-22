@@ -12,6 +12,7 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 
 import java.util.*;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 public class CLI implements ViewInterface {
     private final Scanner scanner = new Scanner(System.in);
@@ -312,11 +313,12 @@ public class CLI implements ViewInterface {
 
         selectedCharacter = board.getSelectedCharacters()[characterIndex];
         int maxArchis = board.getArchipelagos().size();
+        List<Color> availableColors;
 
         //switch case of all characters to ask the proper values
         switch (selectedCharacter.getName()) {
             case "Monk":
-                System.out.println(CliColor.BOLDYELLOW + "Monk effect" + CliColor.RESET + "activated!");
+                System.out.println(CliColor.BOLDYELLOW + "Monk effect" + CliColor.RESET + " activated!");
 
                 studentNumber = 1;
                 studColors = new Color[studentNumber*2];
@@ -366,19 +368,17 @@ public class CLI implements ViewInterface {
                 }
 
                 studColors = new Color[studentNumber*2];
+                availableColors = getColorsByStudents(selectedCharacter.getStudents());
                 System.out.println("Select the student(s) you would like to take from the character card.");
                 for (int i = 0; i < studentNumber; i++) {
                     System.out.println((studentNumber-i) + " student(s) left.");
-                    studColors[i] = askColor(getColorsByStudents(selectedCharacter.getStudents()));
+                    studColors[i] = askColor(availableColors);
+                    checkColorNumber(selectedCharacter.getStudents(), studColors, i, availableColors);
                     System.out.print("\n");
                 }
 
-                System.out.println("\nSelect now the student(s) you would like to swap from your entrance.");
-                for (int i = 0; i < studentNumber; i++) {
-                    System.out.println((studentNumber - i) + " student(s) left.");
-                    studColors[studentNumber+i] = askColor(getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance()));
-                    System.out.print("\n");
-                }
+                availableColors = getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
+                askEntranceStudents(board, studentNumber, studColors, availableColors);
 
                 break;
 
@@ -398,32 +398,30 @@ public class CLI implements ViewInterface {
             case "Minstrel":
                 System.out.println(CliColor.BOLDYELLOW + "Minstrel effect" + CliColor.RESET + " activated!");
 
-                System.out.print("Enter the number of " + CliColor.BOLD + "students" + CliColor.RESET + " you would like to swap from the character card [up to 2]: ");
+                System.out.print("Enter the number of " + CliColor.BOLD + "students" + CliColor.RESET + " you would like to swap from the dining room [up to 2]: ");
                 studentNumber = IntegerReader.readInput(scanner);
-                while (studentNumber<0 || studentNumber>2) {
+                while (studentNumber<=0 || studentNumber>2) {
                     System.out.print("Invalid student number. You can take up to 2 students. Try again: ");
                     studentNumber = IntegerReader.readInput(scanner);
                 }
 
                 studColors = new Color[studentNumber*2];
-                System.out.println("Select the student(s) you would like to take from the character card.");
+                availableColors = getColorsByDR(board.getCurrentPlayerSchoolBoard().getDiningRoom());
+                System.out.println("Select the student(s) you would like to take from the dining room.");
                 for (int i = 0; i < studentNumber; i++) {
                     System.out.println((studentNumber-i) + " student(s) left.");
-                    studColors[i] = askColor(getColorsByStudents(selectedCharacter.getStudents()));
+                    studColors[i] = askColor(availableColors);
+                    checkColorNumberDR(board.getCurrentPlayerSchoolBoard().getDiningRoom(), studColors, i, availableColors);
                     System.out.print("\n");
                 }
 
-                System.out.println("\nSelect now the student(s) you would like to swap from your entrance.");
-                for (int i = 0; i < studentNumber; i++) {
-                    System.out.println((studentNumber - i) + " student(s) left.");
-                    studColors[studentNumber+i] = askColor(getColorsByDR(board.getCurrentPlayerSchoolBoard().getDiningRoom()));
-                    System.out.print("\n");
-                }
+                availableColors = getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
+                askEntranceStudents(board, studentNumber, studColors, availableColors);
 
                 break;
 
             case "SpoiledPrincess":
-                System.out.println(CliColor.BOLDYELLOW + "Spoiled Princess effect" + CliColor.RESET + "activated!");
+                System.out.println(CliColor.BOLDYELLOW + "Spoiled Princess effect" + CliColor.RESET + " activated!");
                 System.out.println("Select the student you would like to take from the character card and place in your dining room.");
                 studentNumber = 1;
                 studColors = new Color[studentNumber*2];
@@ -431,7 +429,7 @@ public class CLI implements ViewInterface {
                 break;
 
             case "Thief":
-                System.out.println(CliColor.BOLDYELLOW + "Thief effect" + CliColor.RESET + "activated!");
+                System.out.println(CliColor.BOLDYELLOW + "Thief effect" + CliColor.RESET + " activated!");
                 System.out.println("Select a color. Every player, including yourself, will return 3 students of that color from the dining room to the bag.");
                 studentNumber = 1;
                 studColors = new Color[studentNumber*2];
@@ -442,6 +440,29 @@ public class CLI implements ViewInterface {
                 break;
         }
 
+        client.sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
+    }
+
+    private void askEntranceStudents(LightBoard board, int studentNumber, Color[] studColors, List<Color> availableColors) {
+        System.out.println("\nSelect now the student(s) you would like to swap from your entrance.");
+        for (int i = 0; i < studentNumber; i++) {
+            System.out.println((studentNumber - i) + " student(s) left.");
+            studColors[studentNumber+i] = askColor(availableColors);
+            checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, i, availableColors);
+            System.out.print("\n");
+        }
+    }
+
+    private void checkColorNumberDR(int[] dr, Color[] studColors, int i, List<Color> availableColors) {
+        if (dr[i] - Arrays.stream(studColors).filter(color -> color.ordinal() == i).count() == 0){
+            availableColors.remove(studColors[i]);
+        }
+    }
+
+    private void checkColorNumber(Student[] studArray, Color[] studColors, int i, List<Color> availableColors){
+        if(Arrays.stream(studArray).filter(s -> s.getColor() == studColors[i]).count() - Arrays.stream(studColors).filter(c -> c == studColors[i]).count() == 0){
+            availableColors.remove(studColors[i]);
+        }
     }
 
     @Override
@@ -569,7 +590,7 @@ public class CLI implements ViewInterface {
                 availableColors.add(s.getColor());
         }
 
-        return availableColors;
+        return availableColors.stream().sorted(Comparator.comparing(Enum::ordinal)).collect(Collectors.toList());
     }
 
     public List<Color> getColorsByDR(int[] drArray) {
@@ -599,7 +620,7 @@ public class CLI implements ViewInterface {
             }
         }
 
-        return availableColors;
+        return availableColors.stream().sorted(Comparator.comparing(Enum::ordinal)).collect(Collectors.toList());
     }
 
     public Color askColor(List<Color> availableColors) {

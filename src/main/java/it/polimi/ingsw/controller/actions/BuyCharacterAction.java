@@ -9,6 +9,7 @@ import it.polimi.ingsw.network.messages.clientMessages.CharacterReply;
 import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.CharacterRequest;
 import it.polimi.ingsw.network.server.ClientHandler;
+import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -27,9 +28,7 @@ public class BuyCharacterAction implements Action{
 
     @Override
     public void execute() {
-        GameCharacter[] characters = turnController.getController().getGame().getBoard().getSelectedCharacters();
-        int playerCoins = turnController.getController().getGame().getCurrentPlayer().getCoins();
-        clientHandler.sendMsgToClient(new CharacterRequest(Arrays.stream(characters).collect(Collectors.toList()), playerCoins, clientHandler.getController().getGame().getBoard().getLightBoard()));
+        clientHandler.sendMsgToClient(new CharacterRequest(turnController.getController().getGame().getBoard().getLightBoard()));
     }
 
     @Override
@@ -49,11 +48,13 @@ public class BuyCharacterAction implements Action{
             return;
         }
 
-        GameCharacter character = ((CharacterReply) msg).getCharacter();
+        LightCharacter character = ((CharacterReply) msg).getCharacter();
         int archiIndex = ((CharacterReply) msg).getArchiIndex();
         int studentNumber = ((CharacterReply) msg).getStudentNumber();
         Color[] studColors = ((CharacterReply) msg).getStudColor();
         turnController.getController().getGame().getBoard().playCharacter(character.getName(), archiIndex, studentNumber, studColors);
+        turnController.setAlreadyBoughtCharacter(true);
+        turnController.nextAction(this);
     }
 
 }
