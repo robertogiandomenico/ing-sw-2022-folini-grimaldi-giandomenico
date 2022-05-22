@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.actions.*;
 import it.polimi.ingsw.controller.phases.turnPhases.MoveMNPhase;
 import it.polimi.ingsw.controller.phases.turnPhases.SelectCloudPhase;
 import it.polimi.ingsw.controller.phases.turnPhases.TurnPhase;
+import it.polimi.ingsw.model.GameCharacter;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.network.messages.serverMessages.ActionRequest;
 import it.polimi.ingsw.network.messages.serverMessages.BoardData;
@@ -35,11 +36,18 @@ public class TurnController {
     public void setTurnPhase(TurnPhase turnPhase) {
         this.turnPhase = turnPhase;
         availableActions = turnPhase.getAvailableTurnActions();
-        if(controller.getGame().isExpertMode() && !turnPhase.toString().equals("SelectCloudPhase") && !alreadyBoughtCharacter){
+        if(controller.getGame().isExpertMode() && !turnPhase.toString().equals("SelectCloudPhase") && !alreadyBoughtCharacter && canBuyCharacter()){
             availableActions.add(ActionType.BUY_CHARACTER_ACTION);
         }
         updatePossibleActions();
         clientHandler.sendMsgToClient(new ActionRequest(availableActions, controller.getGame().getBoard().getLightBoard()));
+    }
+
+    private boolean canBuyCharacter() {
+        for (GameCharacter c : controller.getGame().getBoard().getSelectedCharacters()){
+            if (currentPlayer.getCoins() >= c.getCost()) return true;
+        }
+        return false;
     }
 
     private void fillPossibleActions() {
@@ -88,6 +96,10 @@ public class TurnController {
     }
 
     public void executeAction(int actionIndex) {
+        if(availableActions.get(actionIndex) == ActionType.NEXT_PHASE_ACTION){
+            setTurnPhase(calculateNextTurnPhase());
+            return;
+        }
         Action chosenAction = possibleActions.keySet().stream().filter(a -> a.getType() == availableActions.get(actionIndex)).findFirst().get();
         clientHandler.setCurrentAction(chosenAction);
         chosenAction.execute();
@@ -95,13 +107,24 @@ public class TurnController {
 
     public void nextAction(Action endedAction) {
         availableActions.remove(endedAction.getType());
+
+        boolean alreadyExistsAction = availableActions.stream().anyMatch(a -> a == ActionType.BUY_CHARACTER_ACTION);
+        if(!alreadyExistsAction && controller.getGame().isExpertMode() && !alreadyBoughtCharacter && canBuyCharacter()){
+            availableActions.add(ActionType.BUY_CHARACTER_ACTION);
+        }
+
         updatePossibleActions();
+
         for (ClientHandler ch : controller.getHandlers()){
             if (!ch.equals(clientHandler)){
                 ch.sendMsgToClient(new BoardData(controller.getGame().getBoard().getLightBoard()));
             }
         }
+
         if(!availableActions.isEmpty()) {
+            if (availableActions.size() == 1 && availableActions.get(0) == ActionType.BUY_CHARACTER_ACTION){
+                availableActions.add(ActionType.NEXT_PHASE_ACTION);
+            }
             clientHandler.sendMsgToClient(new ActionRequest(availableActions, controller.getGame().getBoard().getLightBoard()));
         } else {
             setTurnPhase(calculateNextTurnPhase());

@@ -21,7 +21,7 @@ public class ClientHandler implements Runnable{
 
     private final Server server;
     private final Socket socket;
-    private Thread pingThread;
+    private final Thread pingThread;
     private boolean activeClient;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
@@ -111,15 +111,7 @@ public class ClientHandler implements Runnable{
         activeClient = false;
         Server.SERVER_LOGGER.log(Level.INFO, "DISCONNECTION: client " + socket.getInetAddress().getHostAddress() + " has disconnected");
         server.removeClient(this);
-        try {
-            inputStream.close();
-        } catch (IOException ignored){}
-        try {
-            outputStream.close();
-        } catch (IOException ignored){}
-        try {
-            socket.close();
-        } catch (IOException ignored){}
+        disconnect();
     }
 
     public ClientHandlerPhases getClientHandlerPhase() {
@@ -144,5 +136,17 @@ public class ClientHandler implements Runnable{
 
     public void setCurrentAction(Action currentAction) {
         this.currentAction = currentAction;
+    }
+
+    public void disconnect() {
+        try {
+            inputStream.close();
+        } catch (IOException ignored){}
+        try {
+            outputStream.close();
+        } catch (IOException ignored){}
+        try {
+            socket.close();
+        } catch (IOException ignored){}
     }
 }

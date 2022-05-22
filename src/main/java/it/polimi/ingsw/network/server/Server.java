@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.phases.ClientHandlerPhases;
+import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.messages.connectionMessages.DisconnectionMessage;
 import it.polimi.ingsw.network.messages.serverMessages.GameNameRequest;
 import it.polimi.ingsw.network.messages.serverMessages.NicknameRequest;
@@ -21,8 +22,8 @@ public class Server {
     private final int port;
     private ServerSocket serverSocket;
     private final Map<Controller, Integer> lobbies;
-    private ExecutorService executor;
-    private Set<String> notAvailableNames;
+    private final ExecutorService executor;
+    private final Set<String> notAvailableNames;
     private final Object lobbyLock = new Object();
     public static final Logger SERVER_LOGGER = Logger.getLogger(Server.class.getName() + "Logger");
 
@@ -74,7 +75,24 @@ public class Server {
 
     public void checkLobby(Controller controller) {
         synchronized (lobbyLock){
-            if(lobbies.get(controller) == controller.getHandlers().size()){
+            if(lobbies.get(controller) == controller.getHandlers().size()) {
+                controller.startGame();
+                return;
+            }
+            if (lobbies.get(controller)!= -1 && (lobbies.get(controller) < controller.getHandlers().size())){
+                List<ClientHandler> removed = new ArrayList<>();
+                for (ClientHandler c : controller.getHandlers()){
+                    if (controller.getHandlers().indexOf(c) >= lobbies.get(controller)){
+                        removed.add(c);
+                    }
+                }
+
+                for (ClientHandler c : removed){
+                    controller.getHandlers().remove(c);
+                    c.sendMsgToClient(new TextMessage("The game is full, you're being disconnected"));
+                    notAvailableNames.remove(c.getClientNickname());
+                    c.disconnect();
+                }
                 controller.startGame();
             }
         }

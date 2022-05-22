@@ -283,7 +283,7 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askCharacter(LightBoard board) {
-        boolean affordable;
+        boolean canBuy;
         LightCharacter selectedCharacter;
         int archiIndex = -1;
         int studentNumber = 0;
@@ -301,15 +301,20 @@ public class CLI implements ViewInterface {
             }
 
             if (board.getSelectedCharacters()[characterIndex].getCost() > board.getCurrentPlayerSchoolBoard().getPlayer().getCoins()) {
-                affordable = false;
+                canBuy = false;
                 System.out.println(CliColor.RESET_LINE);
                 System.out.print("Cannot choose this character card since you do not have enough coins. Try again: ");
                 characterIndex = IntegerReader.readInput(scanner);
+            } else if(board.getSelectedCharacters()[characterIndex].getName().equals("Minstrel") && Arrays.stream(board.getCurrentPlayerSchoolBoard().getDiningRoom()).allMatch(t -> t == 0)){
+                canBuy = false;
+                System.out.println(CliColor.RESET_LINE);
+                System.out.print("Cannot choose this character card since you do not have any students in your dining room. Try again: ");
+                characterIndex = IntegerReader.readInput(scanner);
             } else {
-                affordable = true;
+                canBuy = true;
             }
 
-        } while (!affordable);
+        } while (!canBuy);
 
         selectedCharacter = board.getSelectedCharacters()[characterIndex];
         int maxArchis = board.getArchipelagos().size();
@@ -400,8 +405,8 @@ public class CLI implements ViewInterface {
 
                 System.out.print("Enter the number of " + CliColor.BOLD + "students" + CliColor.RESET + " you would like to swap from the dining room [up to 2]: ");
                 studentNumber = IntegerReader.readInput(scanner);
-                while (studentNumber<=0 || studentNumber>2) {
-                    System.out.print("Invalid student number. You can take up to 2 students. Try again: ");
+                while (studentNumber<=0 || studentNumber>2 || studentNumber > Arrays.stream(board.getCurrentPlayerSchoolBoard().getDiningRoom()).sum()) {
+                    System.out.print("Invalid student number. Select a valid number of students. Try again: ");
                     studentNumber = IntegerReader.readInput(scanner);
                 }
 
@@ -586,7 +591,7 @@ public class CLI implements ViewInterface {
         List<Color> availableColors = new ArrayList<>();
 
         for (Student s : studentsArray) {
-            if (!availableColors.contains(s.getColor()))
+            if (s != null && !availableColors.contains(s.getColor()))
                 availableColors.add(s.getColor());
         }
 
