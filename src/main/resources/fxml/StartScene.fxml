@@ -48,7 +48,7 @@
             <String fx:value="exitButton" />
          </styleClass>
       </AnchorPane>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="creditsText" text="by Alessandro Folini, Francesca Grimaldi, Roberto Giandomenico" textAlignment="CENTER" wrappingWidth="600.5368118286133" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+      <Text onMouseClicked="#onCreditsClick" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="creditsText" text="by Alessandro Folini, Francesca Grimaldi, Roberto Giandomenico" textAlignment="CENTER" wrappingWidth="600.5368118286133" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <GridPane.margin>
             <Insets bottom="15.0" />
          </GridPane.margin>

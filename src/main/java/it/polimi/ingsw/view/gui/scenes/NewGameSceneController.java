@@ -51,6 +51,8 @@ public class NewGameSceneController {
         if (validNPlayers) {
             System.out.println("Sending nPlayers of 3 = " + num3OfPlayers);
             System.out.println("Creating...");
+            n2Players.setDisable(true);
+            n3Players.setDisable(true);
         } //FIXME: unable to read the toggle value, it returns null but it should return the actual value of the toggle
 
         validNPlayers = true;

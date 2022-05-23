@@ -12,8 +12,8 @@
 
 .island:pressed {
     -fx-opacity: 0.85;
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
     -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
 }
 
@@ -26,8 +26,8 @@
 
 .cloud:pressed {
     -fx-opacity: 0.85;
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
     -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
 }
 
@@ -40,7 +40,7 @@
 
 .card:pressed {
     -fx-opacity: 0.85;
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
     -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
 }

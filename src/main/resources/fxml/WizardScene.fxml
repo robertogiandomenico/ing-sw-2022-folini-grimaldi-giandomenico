@@ -104,7 +104,7 @@
             <Insets bottom="70.0" left="30.0" right="30.0" top="90.0" />
          </GridPane.margin>
       </HBox>
-      <AnchorPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#go" prefHeight="45.0" prefWidth="20.0" styleClass="actionButton" stylesheets="@../css/setup.css" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <AnchorPane fx:id="goButton" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#go" prefHeight="45.0" prefWidth="20.0" styleClass="actionButton" stylesheets="@../css/setup.css" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="actionButton" text="Go!" textAlignment="CENTER" wrappingWidth="160.0" y="30.0" />
          </children>
@@ -112,7 +112,7 @@
             <Insets bottom="50.0" left="220.0" right="220.0" top="20.0" />
          </GridPane.margin>
       </AnchorPane>
-      <AnchorPane fx:id="exit" focusTraversable="true" layoutX="323.0" layoutY="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#exit" prefHeight="31.0" prefWidth="82.0" styleClass="exitButton" stylesheets="@../css/setup.css" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+      <AnchorPane fx:id="exitButton" focusTraversable="true" layoutX="323.0" layoutY="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#exit" prefHeight="31.0" prefWidth="82.0" styleClass="exitButton" stylesheets="@../css/setup.css" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <children>
             <Text layoutX="-1.0" layoutY="-4.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="exitButton" text="Exit" textAlignment="CENTER" wrappingWidth="82.39999999999998" y="25.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="5.0">
                <font>

@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.scenes;
 
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -17,19 +18,33 @@ public class WizardSceneController {
     private VBox forestWizard;
     @FXML
     private VBox skyWizard;
+    @FXML
+    private AnchorPane goButton;
+    @FXML
+    private AnchorPane exitButton;
     String chosenWizardID;
-    @FXML
-    private AnchorPane go;
-    @FXML
-    private AnchorPane exit;
 
     private static final PseudoClass focusedElement = PseudoClass.getPseudoClass("focused");
 
     @FXML
-    private void handleOnMouseClicked (MouseEvent event) {
+    private void initialize() {
+        goButton.setDisable(true);
+    }
 
-        if(event.getButton().equals(MouseButton.PRIMARY)) {
-            event.getPickResult().getIntersectedNode().getParent().pseudoClassStateChanged(focusedElement, !event.getPickResult().getIntersectedNode().getParent().getPseudoClassStates().contains(focusedElement));
+    @FXML
+    private void handleOnMouseClicked(MouseEvent event) {
+
+        Node selectedWizardNode = event.getPickResult().getIntersectedNode().getParent();
+
+        if (event.getButton().equals(MouseButton.PRIMARY)) {
+
+            if (selectedWizardNode.getPseudoClassStates().contains(focusedElement)) {
+                selectedWizardNode.pseudoClassStateChanged(focusedElement, false);
+                goButton.setDisable(true);
+            } else {
+                selectedWizardNode.pseudoClassStateChanged(focusedElement, true);
+                goButton.setDisable(false);
+            }
 
             chosenWizardID = event.getPickResult().getIntersectedNode().getParent().getId();
 
@@ -66,7 +81,7 @@ public class WizardSceneController {
                     default:
                         break;
                 }
-            } catch (Exception ingnored) {}
+            } catch (Exception ignored) {}
         }
     }
 
@@ -79,7 +94,6 @@ public class WizardSceneController {
         } catch (Exception e) {
             System.out.println("No wizard is selected");
         }
-
     }
 
     @FXML

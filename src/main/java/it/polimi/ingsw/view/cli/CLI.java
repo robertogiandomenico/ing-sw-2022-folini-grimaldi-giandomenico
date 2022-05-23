@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.messages.clientMessages.*;
 import it.polimi.ingsw.view.ViewInterface;
+import it.polimi.ingsw.view.utilities.IPvalidator;
 import it.polimi.ingsw.view.utilities.IntegerReader;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
@@ -68,7 +69,7 @@ public class CLI implements ViewInterface {
                 if(!firstTry) {
                     System.out.print("\033[3A" + CliColor.RESET_LINE + "\033[3B");
                 }
-            } else if (validateIP(address)) {
+            } else if (IPvalidator.validateIP(address)) {
                 ip = address;
                 validInput = true;
             } else {
@@ -114,12 +115,6 @@ public class CLI implements ViewInterface {
             }
         }
         return new Client(ip, port, this);
-    }
-
-    private boolean validateIP(String address) {
-        String zeroTo255 = "([01]?\\d{1,2}|2[0-4]\\d|25[0-5])";
-        String IP_REGEX = "^(" + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + ")$";
-        return address.matches(IP_REGEX);
     }
 
     @Override

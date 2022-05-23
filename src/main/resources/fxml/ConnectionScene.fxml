@@ -28,7 +28,7 @@
       <Insets />
    </opaqueInsets>
    <children>
-      <TextField fx:id="ipAddress" alignment="CENTER" onAction="#connect" prefHeight="46.0" prefWidth="397.0" promptText="127.0.0.1" styleClass="text-field" text="127.0.0.1" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <TextField fx:id="ipAddressField" alignment="CENTER" onKeyReleased="#ipCheckProperty" prefHeight="46.0" prefWidth="397.0" promptText="127.0.0.1" styleClass="text-field" text="127.0.0.1" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
@@ -44,7 +44,7 @@
             <Insets top="100.0" />
          </GridPane.margin>
       </Label>
-      <AnchorPane fx:id="connect" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#connect" prefHeight="51.0" prefWidth="138.0" styleClass="actionButton" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BASELINE">
+      <AnchorPane fx:id="connectButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#connect" prefHeight="51.0" prefWidth="138.0" styleClass="actionButton" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BASELINE">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="actionButton" text="Connect" textAlignment="CENTER" wrappingWidth="138.0" y="32.0">
                <font>
@@ -82,7 +82,7 @@
             <Insets top="100.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="port" alignment="CENTER" onAction="#connect" prefHeight="46.0" prefWidth="397.0" promptText="2807" styleClass="text-field" text="2807" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+      <TextField fx:id="portField" alignment="CENTER" onAction="#connect" onKeyReleased="#portCheckProperty" prefHeight="46.0" prefWidth="397.0" promptText="2807" styleClass="text-field" text="2807" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>

@@ -22,6 +22,8 @@
 
 .actionButton:pressed {
     -fx-background-image: url("../img/buttons/cold_pressed.png");
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
 }
 
 .actionButton:disabled {
@@ -43,6 +45,8 @@
 
 .exitButton:pressed {
     -fx-background-image: url("../img/buttons/warm_pressed.png");
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
 }
 
 .loadingText {
@@ -84,6 +88,8 @@
 
 .wizardPane:pressed {
     -fx-opacity: 0.8;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
 }
 
 

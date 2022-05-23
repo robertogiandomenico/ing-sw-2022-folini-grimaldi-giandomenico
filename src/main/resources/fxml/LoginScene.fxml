@@ -27,7 +27,7 @@
       <Insets />
    </opaqueInsets>
    <children>
-      <TextField fx:id="nickname" alignment="CENTER" onAction="#confirm" prefHeight="46.0" prefWidth="397.0" promptText="Nickname" styleClass="text-field" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+      <TextField fx:id="nicknameField" alignment="CENTER" onKeyReleased="#nicknameCheckProperty" prefHeight="46.0" prefWidth="397.0" promptText="Nickname" styleClass="text-field" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
          <font>
             <Font size="16.0" />
          </font>
@@ -43,7 +43,7 @@
             <Insets top="100.0" />
          </GridPane.margin>
       </Label>
-      <AnchorPane fx:id="confirm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#confirm" prefHeight="51.0" prefWidth="138.0" styleClass="actionButton" stylesheets="@../css/setup.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
+      <AnchorPane fx:id="confirmButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#confirm" prefHeight="51.0" prefWidth="138.0" styleClass="actionButton" stylesheets="@../css/setup.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="BASELINE">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="actionButton" text="Confirm" textAlignment="CENTER" wrappingWidth="138.0" y="32.0">
                <font>
@@ -81,7 +81,7 @@
             <Insets top="100.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="gameName" alignment="CENTER" onAction="#confirm" prefHeight="46.0" prefWidth="162.0" promptText="Game Name" styleClass="text-field" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
+      <TextField fx:id="gameNameField" alignment="CENTER" onKeyReleased="#gameNameCheckProperty" prefHeight="46.0" prefWidth="162.0" promptText="Game Name" styleClass="text-field" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP">
          <font>
             <Font size="16.0" />
          </font>
