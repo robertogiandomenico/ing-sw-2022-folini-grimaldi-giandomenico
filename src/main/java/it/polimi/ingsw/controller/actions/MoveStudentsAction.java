@@ -69,7 +69,7 @@ public class MoveStudentsAction implements Action {
         }
 
         if (msg.getType() == MessageType.STUDENT_REPLY){
-            studentToBeMoved = b.getCurrentPlayerSchoolBoard().removeFromEntrance(((StudentReply) msg).getStudColor());
+            studentToBeMoved = new Student(((StudentReply) msg).getStudColor());
             clientHandler.sendMsgToClient(new PlaceRequest(b.getArchipelagos().size()));
         }
 
@@ -78,12 +78,11 @@ public class MoveStudentsAction implements Action {
 
             String place = ((PlaceReply) msg).getPlace();
             if (place.equals("DININGROOM")){
-                int diningRoomIndex = b.mapToIndex(studentToBeMoved.getColor());
-                b.getCurrentPlayerSchoolBoard().addToDiningRoom(diningRoomIndex);
+                b.moveFromEntranceToDiningRoom(studentToBeMoved);
             } else if (place.equals("ARCHIPELAGO")) {
                 int archiIndex = ((PlaceReply) msg).getArchiIndex();
                 assert archiIndex != -1;
-                b.getArchipelago(archiIndex).getIslands().get(0).addStudent(studentToBeMoved);
+                b.moveFromEntranceToArchipelago(studentToBeMoved, archiIndex);
             }
             turnController.nextAction(this);
         }
