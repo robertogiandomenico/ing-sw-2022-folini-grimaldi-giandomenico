@@ -16,18 +16,18 @@ import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Client {
-    private String ip;
-    private int port;
-    private ViewInterface view;
+    private final String ip;
+    private final int port;
+    private final ViewInterface view;
     private final int PING_TIME = 5000;
-    private Thread pingThread;
-    private AtomicBoolean clientConnected = new AtomicBoolean(false);
+    private final Thread pingThread;
+    private final AtomicBoolean clientConnected = new AtomicBoolean(false);
     private Socket clientSocket;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
     private final Queue<GenericServerMessage> messageQueue = new LinkedList<>();
-    private Thread messageListener;
-    private Thread messageHandler;
+    private final Thread messageListener;
+    private final Thread messageHandler;
 
     public Client(String ip, int port, ViewInterface view) {
         this.ip = ip;
@@ -54,6 +54,7 @@ public class Client {
             try {
                 outputStream.writeObject(message);
                 outputStream.flush();
+                outputStream.reset();
             } catch (IOException e) {
                 disconnect(true);
             }

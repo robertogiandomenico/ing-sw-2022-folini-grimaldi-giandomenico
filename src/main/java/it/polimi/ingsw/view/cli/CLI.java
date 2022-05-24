@@ -459,7 +459,7 @@ public class CLI implements ViewInterface {
     }
 
     private void checkColorNumberDR(int[] dr, Color[] studColors, int i, List<Color> availableColors) {
-        if (dr[i] - Arrays.stream(studColors).filter(color -> color.ordinal() == i).count() == 0){
+        if (dr[i] - Arrays.stream(studColors).filter(color -> color != null && color.ordinal() == i).count() == 0){
             availableColors.remove(studColors[i]);
         }
     }
