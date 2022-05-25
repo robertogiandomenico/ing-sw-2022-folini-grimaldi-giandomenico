@@ -22,7 +22,7 @@ public class LoginSceneController {
 
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         confirmButton.setDisable(true);
         gameNameField.setDisable(true);
     }
@@ -50,8 +50,10 @@ public class LoginSceneController {
             if (gameName.isEmpty() && !firstGameName)
                 System.out.println("gameName is missing");
 
-            if (!gameName.isEmpty())
+            if (!gameName.isEmpty()) {
                 System.out.println("Sending gameName '" + gameName + "' for checking");
+                confirmButton.setDisable(true);
+            }
 
             firstGameName = false;
         }
@@ -76,7 +78,7 @@ public class LoginSceneController {
     }
 
     @FXML
-    public void exit() {
+    private void exit() {
         System.out.println("Exit");
         System.exit(0);
     }

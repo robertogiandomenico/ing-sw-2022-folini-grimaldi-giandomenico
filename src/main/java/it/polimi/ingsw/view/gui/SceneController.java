@@ -1,9 +1,18 @@
 package it.polimi.ingsw.view.gui;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class SceneController {
-    private Scene currentScene;
+    private static Scene scene;
+    private static Parent root;
+    private static Stage stage;
     private SceneController currentController;
 
     /**
@@ -24,8 +33,11 @@ public class SceneController {
      * Switches between scenes.
      * Takes different parameters based on the specific situation.
      */
-    public void switchScene() {
-        //TODO: implement switchScene method
+    public static void switchScene(MouseEvent event, String fxmlFile) throws IOException {
+        root = FXMLLoader.load(SceneController.class.getResource("/fxml/" + fxmlFile));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
     }
 
     /**
@@ -34,7 +46,7 @@ public class SceneController {
      * @return              the current Scene.
      */
     public Scene getCurrentScene(){
-        return currentScene;
+        return scene;
     }
 
     /**
