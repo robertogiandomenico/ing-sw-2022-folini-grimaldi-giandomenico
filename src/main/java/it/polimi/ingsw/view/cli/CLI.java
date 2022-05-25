@@ -525,10 +525,10 @@ public class CLI implements ViewInterface {
                 if (i < (board.getSelectedCharacters().length) - 1)
                     System.out.print("\033[1C" + "\033[2A");
                 else
-                    System.out.print("\033[2B\r");
+                    System.out.print("\033[2B" + CliColor.RESET_LINE);
             }
         } else
-            System.out.print("\033[2B\r");
+            System.out.print("\033[2B" + CliColor.RESET_LINE);
 
         //print all the schoolboards
         for (int i = 0; i < board.getSchoolBoards().size(); i++) {

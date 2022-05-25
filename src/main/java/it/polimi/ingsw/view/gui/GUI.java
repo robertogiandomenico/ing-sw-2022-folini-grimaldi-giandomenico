@@ -28,7 +28,7 @@ public class GUI extends Application implements ViewInterface {
     public void start(Stage stage) {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/BoardScene.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoadingScene.fxml"));
             Scene scene = new Scene(root);
             this.stage = stage;
 
