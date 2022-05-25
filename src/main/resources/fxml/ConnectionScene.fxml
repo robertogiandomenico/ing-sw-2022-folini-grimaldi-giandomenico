@@ -82,7 +82,7 @@
             <Insets top="100.0" />
          </GridPane.margin>
       </Label>
-      <TextField fx:id="portField" alignment="CENTER" onAction="#connect" onKeyReleased="#portCheckProperty" prefHeight="46.0" prefWidth="397.0" promptText="2807" styleClass="text-field" text="2807" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+      <TextField fx:id="portField" alignment="CENTER" onKeyReleased="#portCheckProperty" prefHeight="46.0" prefWidth="397.0" promptText="2807" styleClass="text-field" text="2807" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>

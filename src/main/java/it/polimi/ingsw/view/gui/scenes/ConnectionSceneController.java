@@ -20,7 +20,7 @@ public class ConnectionSceneController {
     private String port;
     final int MIN_PORT = 1024;
     final int MAX_PORT = 65535;
-    boolean portTyped = false;
+    boolean validPort;
 
     @FXML
     private void connect() {
@@ -30,9 +30,11 @@ public class ConnectionSceneController {
     @FXML
     private void ipCheckProperty(KeyEvent e) {
         ipAddress = ipAddressField.getText();
-        connectButton.setDisable(!IPvalidator.validateIP(ipAddress));
+        port = portField.getText();
+        validPort = port.matches("^\\d{4,5}$") && Integer.parseInt(port)>=MIN_PORT && Integer.parseInt(port)<=MAX_PORT;
+        connectButton.setDisable( !validPort || !IPvalidator.validateIP(ipAddress) );
 
-        if (e.getCode().toString().equals("ENTER")) {
+        if (e.getCode().toString().equals("ENTER") && !connectButton.isDisable()) {
             portField.requestFocus();
         }
     }
@@ -40,8 +42,8 @@ public class ConnectionSceneController {
     @FXML
     private void portCheckProperty(KeyEvent e) {
         port = portField.getText();
-        boolean isValid = port.matches("^\\d{4,5}$") && Integer.parseInt(port)>=MIN_PORT && Integer.parseInt(port)<=MAX_PORT;
-        connectButton.setDisable( !isValid );
+        validPort = port.matches("^\\d{4,5}$") && Integer.parseInt(port)>=MIN_PORT && Integer.parseInt(port)<=MAX_PORT;
+        connectButton.setDisable( !validPort || !IPvalidator.validateIP(ipAddress) );
 
         if (e.getCode().toString().equals("ENTER") && !connectButton.isDisable()) {
             connectButton.requestFocus();

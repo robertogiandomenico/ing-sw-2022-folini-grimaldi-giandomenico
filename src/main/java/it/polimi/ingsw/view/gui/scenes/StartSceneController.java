@@ -46,11 +46,11 @@ public class StartSceneController {
     private void onAudioClick() {
         if (muted) {
             audioButton.setImage(new javafx.scene.image.Image(getClass().getResourceAsStream("/img/audio/audio_on.png")));
-            GUI.getMediaPlayer().setVolume(40);
+            GUI.getMediaPlayer().play();
             muted = false;
         } else {
             audioButton.setImage(new javafx.scene.image.Image(getClass().getResourceAsStream("/img/audio/audio_off.png")));
-            GUI.getMediaPlayer().setVolume(0);
+            GUI.getMediaPlayer().stop();
             muted = true;
         }
     }

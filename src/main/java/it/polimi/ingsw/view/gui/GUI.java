@@ -18,7 +18,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.util.List;
 
 public class GUI extends Application implements ViewInterface {
@@ -33,14 +32,14 @@ public class GUI extends Application implements ViewInterface {
     public void start(Stage stage) {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/ConnectionScene.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/StartScene.fxml"));
             Scene scene = new Scene(root);
             this.stage = stage;
 
             Font.loadFont(getClass().getResourceAsStream("/fonts/Roboto.ttf"), 13);
             Font.loadFont(getClass().getResourceAsStream("/fonts/Metamorphous.ttf"), 13);
 
-            Media media = new Media(new File("src/main/resources/audio/Warm_Light.mp3").toURI().toString());
+            Media media = new Media(getClass().getClassLoader().getResource("audio/Warm_Light.mp3").toString());
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setVolume(40);
             mediaPlayer.setAutoPlay(true);
