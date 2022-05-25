@@ -24,7 +24,7 @@ public class NewGameSceneController {
     private boolean num3OfPlayers = false;
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         n2Players.setDisable(true);
         n3Players.setDisable(true);
     }
@@ -59,7 +59,7 @@ public class NewGameSceneController {
     }
 
     @FXML
-    public void exit() {
+    private void exit() {
         System.out.println("Exit");
         System.exit(0);
     }

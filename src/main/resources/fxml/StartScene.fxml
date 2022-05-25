@@ -20,16 +20,16 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#play" prefHeight="60.0" prefWidth="145.0" styleClass="actionButton" stylesheets="@../css/setup.css" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onRulesClick" prefHeight="60.0" prefWidth="145.0" styleClass="exitButton" stylesheets="@../css/setup.css" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <children>
-            <Text layoutX="3.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="actionButton" text="Play" textAlignment="CENTER" wrappingWidth="140.0">
+            <Text layoutX="3.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="actionButton" text="Rules" textAlignment="CENTER" wrappingWidth="140.0">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
          </children>
          <GridPane.margin>
-            <Insets bottom="60.0" left="80.0" right="80.0" top="70.0" />
+            <Insets bottom="60.0" left="80.0" right="80.0" top="90.0" />
          </GridPane.margin>
       </AnchorPane>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#exit" prefHeight="60.0" prefWidth="145.0" stylesheets="@../css/setup.css" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
@@ -41,7 +41,7 @@
             </Text>
          </children>
          <GridPane.margin>
-            <Insets bottom="60.0" left="80.0" right="80.0" top="70.0" />
+            <Insets bottom="60.0" left="80.0" right="80.0" top="90.0" />
          </GridPane.margin>
          <styleClass>
             <String fx:value="actionButton" />
@@ -53,5 +53,14 @@
             <Insets bottom="15.0" />
          </GridPane.margin>
       </Text>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#play" prefHeight="70.0" prefWidth="160.0" styleClass="actionButton" stylesheets="@../css/setup.css" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+         <children>
+            <Text layoutX="3.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="actionButton" text="Play" textAlignment="CENTER" wrappingWidth="153.5999755859375">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
    </children>
 </GridPane>

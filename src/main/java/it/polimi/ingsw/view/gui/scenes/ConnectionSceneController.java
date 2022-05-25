@@ -20,6 +20,7 @@ public class ConnectionSceneController {
     private String port;
     final int MIN_PORT = 1024;
     final int MAX_PORT = 65535;
+    boolean portTyped = false;
 
     @FXML
     private void initialize() {
@@ -27,8 +28,17 @@ public class ConnectionSceneController {
     }
 
     @FXML
-    public void connect() {
+    private void connect() {
         System.out.println("Connection...");
+        portField.setDisable(false);
+        ipAddressField.setDisable(true);
+
+        if (!portTyped) {
+            portTyped = true;
+        } else {
+            portField.setDisable(true);
+            connectButton.setDisable(true);
+        }
     }
 
     @FXML
@@ -38,8 +48,6 @@ public class ConnectionSceneController {
 
         if (e.getCode().toString().equals("ENTER") && !connectButton.isDisable()) {
             connect(); //should be    registerIP();
-            portField.setDisable(false);
-            ipAddressField.setDisable(true);
         }
     }
 
@@ -51,7 +59,6 @@ public class ConnectionSceneController {
 
         if (e.getCode().toString().equals("ENTER") && !connectButton.isDisable()) {
             connect(); //should be    registerPort();
-            portField.setDisable(true);
         }
     }
 

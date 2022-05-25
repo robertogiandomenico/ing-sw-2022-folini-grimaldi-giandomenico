@@ -7,10 +7,50 @@ import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.view.ViewInterface;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.util.List;
 
-public class GUI implements ViewInterface {
+public class GUI extends Application implements ViewInterface {
+    private Client client;
+    private Stage stage;
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) {
+
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/BoardScene.fxml"));
+            Scene scene = new Scene(root);
+            this.stage = stage;
+
+            Font.loadFont(getClass().getResourceAsStream("/fonts/Roboto.ttf"), 13);
+            Font.loadFont(getClass().getResourceAsStream("/fonts/Metamorphous.ttf"), 13);
+
+            Image icon = new Image("/img/icon.png");
+            stage.getIcons().add(icon);
+            stage.setTitle("Eriantys");
+            stage.setResizable(true);
+            stage.setMinHeight(630);
+            stage.setMinWidth(610);
+            stage.setResizable(false);
+
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
+    }
 
     @Override
     public Client askServerInfo() {
@@ -39,7 +79,11 @@ public class GUI implements ViewInterface {
 
     @Override
     public void askWizard(List<Wizard> availableWizards) {
+        /*
+            do things...
+         */
 
+        stage.setFullScreen(true);
     }
 
     @Override

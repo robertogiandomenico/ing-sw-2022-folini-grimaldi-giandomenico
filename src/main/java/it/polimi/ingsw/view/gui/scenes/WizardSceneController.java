@@ -22,7 +22,7 @@ public class WizardSceneController {
     private AnchorPane goButton;
     @FXML
     private AnchorPane exitButton;
-    String chosenWizardID;
+    private String chosenWizardID;
 
     private static final PseudoClass focusedElement = PseudoClass.getPseudoClass("focused");
 
@@ -87,17 +87,19 @@ public class WizardSceneController {
 
 
     @FXML
-    public void go() {
+    private void go() {
         try {
-            if(!chosenWizardID.isEmpty())
+            if(!chosenWizardID.isEmpty()) {
                 System.out.println("Go! Selected wizard: " + chosenWizardID.toUpperCase());
+                goButton.setDisable(true);
+            }
         } catch (Exception e) {
             System.out.println("No wizard is selected");
         }
     }
 
     @FXML
-    public void exit() {
+    private void exit() {
         System.out.println("Exit");
         System.exit(0);
     }

@@ -33,14 +33,59 @@
 
 .card:hover,
 .card:focused {
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.5;
+    -fx-scale-y: 1.5;
+    -fx-translate-y: -35;
+    -fx-translate-x: -10;
     -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
 }
 
 .card:pressed {
     -fx-opacity: 0.85;
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.4;
+    -fx-scale-y: 1.4;
+    -fx-translate-y: -35;
+    -fx-translate-x: -10;
     -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
+}
+
+.characterCard:hover,
+.characterCard:focused {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-translate-y: +17;
+    -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
+}
+
+.characterCard:pressed {
+    -fx-opacity: 0.9;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-translate-y: +17;
+    -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
+}
+
+.switchButton {
+    -fx-background-image: url("../img/buttons/yellow.png");
+    -fx-background-size: stretch;
+    -fx-background-color: transparent;
+    -fx-font-family: "Metamorphous";
+    -fx-font-size: 13px;
+}
+
+.switchButton:hover {
+    -fx-opacity: 0.9;
+}
+
+.switchButton:pressed {
+    -fx-background-image: url("../img/buttons/yellow_pressed.png");
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-font-family: "Metamorphous";
+    -fx-font-size: 13px;
+}
+
+.switchButton:disabled {
+    -fx-background-image: url("../img/buttons/disabled.png");
+    -fx-focus-traversable: false;
 }
