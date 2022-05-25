@@ -2,6 +2,8 @@
 
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -62,5 +64,13 @@
             </Text>
          </children>
       </AnchorPane>
+      <ImageView fx:id="audioButton" fitHeight="104.0" fitWidth="48.0" onMouseClicked="#onAudioClick" pickOnBounds="true" preserveRatio="true" styleClass="audioButton" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+         <image>
+            <Image url="@../img/audio/audio_on.png" />
+         </image>
+         <GridPane.margin>
+            <Insets right="10.0" top="10.0" />
+         </GridPane.margin>
+      </ImageView>
    </children>
 </GridPane>

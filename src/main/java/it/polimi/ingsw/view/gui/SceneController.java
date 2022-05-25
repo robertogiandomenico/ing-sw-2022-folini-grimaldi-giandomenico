@@ -12,7 +12,7 @@ import java.io.IOException;
 public class SceneController {
     private static Scene scene;
     private static Parent root;
-    private static Stage stage;
+    private static Stage window;
     private SceneController currentController;
 
     /**
@@ -35,9 +35,11 @@ public class SceneController {
      */
     public static void switchScene(MouseEvent event, String fxmlFile) throws IOException {
         root = FXMLLoader.load(SceneController.class.getResource("/fxml/" + fxmlFile));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
-        stage.setScene(scene);
+
+        window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        //window.show();
     }
 
     /**

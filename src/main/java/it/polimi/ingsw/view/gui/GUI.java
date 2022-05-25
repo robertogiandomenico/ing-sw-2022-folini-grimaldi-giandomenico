@@ -12,14 +12,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
+import java.io.File;
 import java.util.List;
 
 public class GUI extends Application implements ViewInterface {
     private Client client;
     private Stage stage;
+    protected static MediaPlayer mediaPlayer;
     public static void main(String[] args) {
         launch(args);
     }
@@ -28,12 +33,21 @@ public class GUI extends Application implements ViewInterface {
     public void start(Stage stage) {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoadingScene.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/ConnectionScene.fxml"));
             Scene scene = new Scene(root);
             this.stage = stage;
 
             Font.loadFont(getClass().getResourceAsStream("/fonts/Roboto.ttf"), 13);
             Font.loadFont(getClass().getResourceAsStream("/fonts/Metamorphous.ttf"), 13);
+
+            Media media = new Media(new File("src/main/resources/audio/Warm_Light.mp3").toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setVolume(40);
+            mediaPlayer.setAutoPlay(true);
+            mediaPlayer.setOnEndOfMedia(() -> {
+                mediaPlayer.seek(Duration.ZERO);
+                mediaPlayer.play();
+            });
 
             Image icon = new Image("/img/icon.png");
             stage.getIcons().add(icon);
@@ -149,5 +163,9 @@ public class GUI extends Application implements ViewInterface {
     @Override
     public void displayEndgameResult(String winner) {
 
+    }
+
+    public static MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 }

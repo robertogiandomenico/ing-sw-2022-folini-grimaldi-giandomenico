@@ -1,7 +1,9 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.view.gui.GUI;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.awt.*;
@@ -10,6 +12,12 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class StartSceneController {
+
+    @FXML
+    private ImageView audioButton;
+    private boolean muted = false;
+
+
     @FXML
     private void play(MouseEvent onClick) throws IOException {
         System.out.println("play");
@@ -31,6 +39,19 @@ public class StartSceneController {
             Desktop.getDesktop().browse(new URL("https://craniointernational.com/2021/wp-content/uploads/2021/06/Eriantys_rules_small.pdf").toURI());
         } catch (IOException | URISyntaxException e) {
             System.out.println("Error in opening the URL.");
+        }
+    }
+
+    @FXML
+    private void onAudioClick() {
+        if (muted) {
+            audioButton.setImage(new javafx.scene.image.Image(getClass().getResourceAsStream("/img/audio/audio_on.png")));
+            GUI.getMediaPlayer().setVolume(40);
+            muted = false;
+        } else {
+            audioButton.setImage(new javafx.scene.image.Image(getClass().getResourceAsStream("/img/audio/audio_off.png")));
+            GUI.getMediaPlayer().setVolume(0);
+            muted = true;
         }
     }
 

@@ -120,3 +120,9 @@
 .loadingBar {
     -fx-accent: #15a0eb;
 }
+
+.audioButton:pressed {
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
+    -fx-opacity: 0.9;
+}

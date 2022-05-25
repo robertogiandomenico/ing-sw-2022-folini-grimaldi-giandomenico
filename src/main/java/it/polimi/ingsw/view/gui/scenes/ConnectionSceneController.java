@@ -23,22 +23,8 @@ public class ConnectionSceneController {
     boolean portTyped = false;
 
     @FXML
-    private void initialize() {
-        portField.setDisable(true);
-    }
-
-    @FXML
     private void connect() {
         System.out.println("Connection...");
-        portField.setDisable(false);
-        ipAddressField.setDisable(true);
-
-        if (!portTyped) {
-            portTyped = true;
-        } else {
-            portField.setDisable(true);
-            connectButton.setDisable(true);
-        }
     }
 
     @FXML
@@ -46,8 +32,8 @@ public class ConnectionSceneController {
         ipAddress = ipAddressField.getText();
         connectButton.setDisable(!IPvalidator.validateIP(ipAddress));
 
-        if (e.getCode().toString().equals("ENTER") && !connectButton.isDisable()) {
-            connect(); //should be    registerIP();
+        if (e.getCode().toString().equals("ENTER")) {
+            portField.requestFocus();
         }
     }
 
@@ -58,11 +44,12 @@ public class ConnectionSceneController {
         connectButton.setDisable( !isValid );
 
         if (e.getCode().toString().equals("ENTER") && !connectButton.isDisable()) {
-            connect(); //should be    registerPort();
+            connectButton.requestFocus();
         }
     }
 
-    public void exit() {
+    @FXML
+    private void exit() {
         System.out.println("Exit");
         System.exit(0);
     }
