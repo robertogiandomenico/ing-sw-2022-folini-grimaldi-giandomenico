@@ -83,7 +83,7 @@ public class GUI extends Application implements ViewInterface {
 
         Platform.runLater(() -> {
             try {
-                SceneController.switchScene(stage, "ConnectionScene");
+                SceneController.switchScene(stage, "ConnectionScene", csc);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -36,11 +36,11 @@ public class SceneController implements SceneControllerInterface {
      * Switches between scenes.
      * Takes different parameters based on the specific situation.
      */
-    public static void switchScene(MouseEvent event, String fxmlFile) throws IOException {
+    public static void switchScene(Stage stage, String fxmlFile, SceneControllerInterface sci) throws IOException {
         loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxmlFile + ".fxml"));
+        loader.setController(sci);
         scene = new Scene(loader.load());
-
-        window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window = stage;
         window.setScene(scene);
         //window.show();
     }
