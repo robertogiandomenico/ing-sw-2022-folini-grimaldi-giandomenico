@@ -4,7 +4,6 @@ import it.polimi.ingsw.controller.actions.ActionType;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.messages.clientMessages.*;
-import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.view.ViewInterface;
 import it.polimi.ingsw.view.utilities.IntegerReader;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
@@ -30,6 +29,9 @@ public class CLI implements ViewInterface {
                 " .   ･  *   ｡  ∴ ██╔══╝   ██╔══██╗ ██║ ██╔══██║ ██║╚██╗██║    ██║      ╚██╔╝   ╚════██║　 ✹  ｡   ·  ✧\n" +
                 "  ･  .   ✦     * ███████╗ ██║  ██║ ██║ ██║  ██║ ██║ ╚████║    ██║       ██║    ███████║ ✦ ∴ 　･ ｡· ∴ \n" +
                 "  ✹   ｡ ∴.  ･   .╚══════╝ ╚═╝  ╚═╝ ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚═══╝    ╚═╝       ╚═╝    ╚══════╝ ･　 *　　✹　 ˚\n" + CliColor.RESET);
+
+        System.out.println("Complete rules are available here: " + CliColor.BOLDPINK + "https://craniointernational.com/2021/wp-content/uploads/2021/06/Eriantys_rules_small.pdf\n" + CliColor.RESET);
+
         boolean socketError = true;
         while (socketError){
             try {
@@ -558,10 +560,10 @@ public class CLI implements ViewInterface {
                 if (i < (board.getSelectedCharacters().length) - 1)
                     System.out.print("\033[1C" + "\033[2A");
                 else
-                    System.out.print("\033[2B");
+                    System.out.print("\033[2B\r");
             }
         } else
-            System.out.print("\033[2B");
+            System.out.print("\033[2B\r");
 
         //print all the schoolboards
         for (int i = 0; i < board.getSchoolBoards().size(); i++) {
