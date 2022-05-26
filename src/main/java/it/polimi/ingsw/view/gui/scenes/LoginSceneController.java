@@ -1,11 +1,12 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.view.gui.GUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class LoginSceneController {
+public class LoginSceneController implements SceneControllerInterface {
 
     @FXML
     private TextField nicknameField;
@@ -19,6 +20,7 @@ public class LoginSceneController {
     private boolean firstGameName = true;
     private String nickname;
     private String gameName;
+    private GUI gui;
 
 
     @FXML
@@ -29,33 +31,16 @@ public class LoginSceneController {
 
     @FXML
     private void confirm() {
-        nickname = nicknameField.getText();
+        if (!nicknameField.isDisable() && gameNameField.isDisable()) {
+            nickname = nicknameField.getText();
 
-        if(!validNickname) {
-            if (nickname.isEmpty()) {
-                System.out.println("Nickname is missing");
-            } else {
-                System.out.println("Sending nickname '" + nickname + "' for checking");
-                validNickname = true;
-            }
+            gui.getClient().sendMsgToServer(nickname);
         }
 
-        if (validNickname) {
-            confirmButton.setDisable(true);
-            nicknameField.setDisable(true);
-            gameNameField.setDisable(false);
-
+        if (nicknameField.isDisable() && !gameNameField.isDisable()) {
             gameName = gameNameField.getText();
 
-            if (gameName.isEmpty() && !firstGameName)
-                System.out.println("gameName is missing");
-
-            if (!gameName.isEmpty()) {
-                System.out.println("Sending gameName '" + gameName + "' for checking");
-                confirmButton.setDisable(true);
-            }
-
-            firstGameName = false;
+            gui.getClient().sendMsgToServer(gameName);
         }
     }
 
@@ -81,5 +66,18 @@ public class LoginSceneController {
     private void exit() {
         System.out.println("Exit");
         System.exit(0);
+    }
+
+    /**
+     * @param gui
+     */
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui= gui;
+    }
+
+    public void enableNextField() {
+        nicknameField.setDisable(true);
+        gameNameField.setDisable(false);
     }
 }

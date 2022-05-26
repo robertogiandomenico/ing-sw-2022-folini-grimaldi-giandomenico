@@ -6,11 +6,14 @@ import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.view.ViewInterface;
+import it.polimi.ingsw.view.gui.scenes.*;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -18,6 +21,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.List;
 
 public class GUI extends Application implements ViewInterface {
@@ -32,16 +36,17 @@ public class GUI extends Application implements ViewInterface {
     public void start(Stage stage) {
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/StartScene.fxml"));
-            Scene scene = new Scene(root);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StartScene.fxml"));
+            Scene scene = new Scene(loader.load());
             this.stage = stage;
+            ((SceneControllerInterface) loader.getController()).setGUI(this);
 
             Font.loadFont(getClass().getResourceAsStream("/fonts/Roboto.ttf"), 13);
             Font.loadFont(getClass().getResourceAsStream("/fonts/Metamorphous.ttf"), 13);
 
             Media media = new Media(getClass().getClassLoader().getResource("audio/Warm_Light.mp3").toString());
             mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.setVolume(40);
+            mediaPlayer.setVolume(30);
             mediaPlayer.setAutoPlay(true);
             mediaPlayer.setOnEndOfMedia(() -> {
                 mediaPlayer.seek(Duration.ZERO);
@@ -59,6 +64,11 @@ public class GUI extends Application implements ViewInterface {
             stage.setScene(scene);
             stage.show();
 
+            stage.setOnCloseRequest(event -> {
+                event.consume();
+                closeWindow(stage);
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);
@@ -67,21 +77,64 @@ public class GUI extends Application implements ViewInterface {
 
     @Override
     public Client askServerInfo() {
+        SceneControllerInterface csc = new ConnectionSceneController();
+        SceneController.setCurrentController(csc);
+        csc.setGUI(this);
+
+        Platform.runLater(() -> {
+            try {
+                SceneController.switchScene(stage, "ConnectionScene");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         return null;
     }
 
     @Override
     public void askNickname() {
+        SceneControllerInterface lsc = new LoginSceneController();
+        SceneController.setCurrentController(lsc);
+        lsc.setGUI(this);
+
+        //is it okay to have all this static class and methods? Others made an instance (GUI, SceneController, CLI???)
+
+//should I set lsc as current scene controller in SceneController in order to get this one controller in the next askGameName()?
+        //SceneController.setCurrentController(lsc);     should i cast the variable? is it possible?
+    /*    Platform.runLater(() -> {
+            try {
+                SceneController.switchScene(stage, "NicknameScene");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });       */
+        //what happens when i click "next" button? how do decide to pass variables here on that click? (listeners?)
+        //client.sendMsgToServer(new NicknameReply( lsc.getNickname() ));
 
     }
 
     @Override
     public void askGameName() {
+        SceneControllerInterface lsc = SceneController.getCurrentController();
+        lsc.setGUI(this);
 
+        //lsc = SceneController.getCurrentController();
+        //lsc.disable(nickname);
+        //lsc.enable(gameName);
     }
 
     @Override
     public void askGameMode() {
+        NewGameSceneController ngsc = new NewGameSceneController();
+        //sceneController.setController(ngsc);
+        //ngsc.disable(nPlayers)
+        //ngsc.enable(expertModeSection)
+        try {
+            SceneController.switchScene(stage, "NewGameScene");
+        } catch (IOException e) {
+            System.out.println("Error in opening this scene");
+        }
 
     }
 
@@ -166,5 +219,33 @@ public class GUI extends Application implements ViewInterface {
 
     public static MediaPlayer getMediaPlayer() {
         return mediaPlayer;
+    }
+
+    private void errorDialog(String error) {
+        Alert errorDialog = new Alert(Alert.AlertType.ERROR);
+        errorDialog.setTitle("Game Error");
+        errorDialog.setHeaderText("Error!");
+        errorDialog.setContentText(error);
+        errorDialog.showAndWait();
+    }
+
+    private void closeWindow(Stage stage) {
+        Alert alertDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        alertDialog.setTitle("Exiting");
+        alertDialog.setHeaderText("You're about to exit");
+        alertDialog.setContentText("Do you want to close the game?");
+
+        if (alertDialog.showAndWait().get() == ButtonType.OK) {
+            System.out.println("Exit confirmed.");
+            stage.close();
+        }
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Client getClient() {
+        return client;
     }
 }

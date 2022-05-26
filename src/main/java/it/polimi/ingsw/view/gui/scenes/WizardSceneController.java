@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.view.gui.GUI;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -8,7 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class WizardSceneController {
+public class WizardSceneController implements SceneControllerInterface {
 
     @FXML
     private VBox articWizard;
@@ -25,6 +26,7 @@ public class WizardSceneController {
     private String chosenWizardID;
 
     private static final PseudoClass focusedElement = PseudoClass.getPseudoClass("focused");
+    private GUI gui;
 
     @FXML
     private void initialize() {
@@ -102,5 +104,13 @@ public class WizardSceneController {
     private void exit() {
         System.out.println("Exit");
         System.exit(0);
+    }
+
+    /**
+     * @param gui
+     */
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui = gui;
     }
 }

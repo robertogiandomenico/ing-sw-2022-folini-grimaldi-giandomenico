@@ -1,10 +1,11 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.view.gui.GUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
-public class NewGameSceneController {
+public class NewGameSceneController implements SceneControllerInterface {
 
     @FXML
     private RadioButton easyMode;
@@ -22,6 +23,7 @@ public class NewGameSceneController {
     private boolean validNPlayers = false;
     private boolean expertModeBool = false;
     private boolean num3OfPlayers = false;
+    private GUI gui;
 
     @FXML
     private void initialize() {
@@ -62,5 +64,13 @@ public class NewGameSceneController {
     private void exit() {
         System.out.println("Exit");
         System.exit(0);
+    }
+
+    /**
+     * @param gui
+     */
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui = gui;
     }
 }

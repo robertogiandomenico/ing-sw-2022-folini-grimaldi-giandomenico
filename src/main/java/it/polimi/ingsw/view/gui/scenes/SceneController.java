@@ -1,5 +1,6 @@
-package it.polimi.ingsw.view.gui;
+package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.view.gui.GUI;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -9,23 +10,25 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class SceneController {
+public class SceneController implements SceneControllerInterface {
+    private GUI gui;
     private static Scene scene;
     private static Parent root;
     private static Stage window;
-    private SceneController currentController;
+    private static FXMLLoader loader;
+    private static SceneControllerInterface currentController;
 
     /**
      * Displays an error in a popup.
      */
-    public void displayError() {
+    public static void displayError() {
         //TODO: implement displayError method
     }
 
     /**
      * Displays who won the game.
      */
-    public void displayWinner() {
+    public static void displayWinner() {
         //TODO: implement displayWinner method
     }
 
@@ -34,10 +37,18 @@ public class SceneController {
      * Takes different parameters based on the specific situation.
      */
     public static void switchScene(MouseEvent event, String fxmlFile) throws IOException {
-        root = FXMLLoader.load(SceneController.class.getResource("/fxml/" + fxmlFile));
-        scene = new Scene(root);
+        loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxmlFile + ".fxml"));
+        scene = new Scene(loader.load());
 
         window = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        //window.show();
+    }
+
+    public static void switchScene(Stage window, String fxmlFile) throws IOException {
+        loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxmlFile + ".fxml"));
+        scene = new Scene(loader.load());
+
         window.setScene(scene);
         //window.show();
     }
@@ -47,7 +58,7 @@ public class SceneController {
      *
      * @return              the current Scene.
      */
-    public Scene getCurrentScene(){
+    public static Scene getCurrentScene() {
         return scene;
     }
 
@@ -56,8 +67,16 @@ public class SceneController {
      *
      * @return              the current SceneController.
      */
-    public SceneController getCurrentController(){
+    public static SceneControllerInterface getCurrentController() {
         return currentController;
     }
 
+    public static void setCurrentController(SceneControllerInterface currentController) {
+        SceneController.currentController = currentController;
+    }
+
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui = gui;
+    }
 }
