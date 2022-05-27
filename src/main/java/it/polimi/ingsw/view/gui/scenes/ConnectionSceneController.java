@@ -33,9 +33,11 @@ public class ConnectionSceneController implements SceneControllerInterface {
         port = portField.getText();
 
         gui.setClient(new Client(ipAddress, Integer.parseInt(port), gui));
-        gui.getClient().init();
-
-        System.out.println("Connection...");
+        try {
+            gui.getClient().init();
+        } catch (IOException e) {
+            gui.errorDialog("Server is closed. Please, run the server and try again.");
+        }
     }
 
     @FXML
@@ -63,16 +65,8 @@ public class ConnectionSceneController implements SceneControllerInterface {
 
     @FXML
     private void exit() {
-        System.out.println("Exit");
+        gui.closeWindow(gui.getStage());
         System.exit(0);
-    }
-
-    public String getIpAddress() {
-        return ipAddress;
-    }
-
-    public String getPort() {
-        return port;
     }
 
     @Override

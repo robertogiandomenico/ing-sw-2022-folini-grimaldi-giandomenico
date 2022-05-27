@@ -12,7 +12,7 @@ public class LoadingSceneController implements SceneControllerInterface {
 
     //when receiving a textMessage
     @FXML
-    private void changeLabel(String textMessage) {
+    public void changeLabel(String textMessage) {
         label.setText(textMessage);
     }
 

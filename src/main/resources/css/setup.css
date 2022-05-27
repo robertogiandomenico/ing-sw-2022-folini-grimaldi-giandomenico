@@ -78,6 +78,15 @@
     -fx-font-size: 15;
 }
 
+.wizardPane:disabled {
+    -fx-focus-traversable: false;
+    -fx-block-increment: true;
+    -fx-opacity: 0.6;
+    -fx-scale-x: 0.85;
+    -fx-scale-y: 0.85;
+    -fx-effect: innershadow(gaussian, #606060, 60, 0.5, 0.0, 0.0);
+}
+
 .wizardPane:hover,
 .wizardPane:focused {
     -fx-scale-x: 1.2;
@@ -90,14 +99,6 @@
     -fx-opacity: 0.8;
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
-}
-
-
-.wizardPane:disabled {
-    -fx-focus-traversable: false;
-    -fx-opacity: 0.6;
-    -fx-scale-x: 0.85;
-    -fx-scale-y: 0.85;
 }
 
 .creditsText {

@@ -21,8 +21,7 @@ public class StartSceneController implements SceneControllerInterface {
 
     @FXML
     private void play() {
-        System.out.println("play");
-        gui.askServerInfo();   //it was     gui.setClient(gui.askServerInfo());    but it was null anyway
+        gui.askServerInfo();
     }
 
     @FXML

@@ -2,10 +2,7 @@ package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.view.gui.GUI;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,8 +10,6 @@ import java.io.IOException;
 public class SceneController implements SceneControllerInterface {
     private GUI gui;
     private static Scene scene;
-    private static Parent root;
-    private static Stage window;
     private static FXMLLoader loader;
     private static SceneControllerInterface currentController;
 
@@ -40,17 +35,13 @@ public class SceneController implements SceneControllerInterface {
         loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxmlFile + ".fxml"));
         loader.setController(sci);
         scene = new Scene(loader.load());
-        window = stage;
-        window.setScene(scene);
-        //window.show();
+        stage.setScene(scene);
+        //stage.show();
     }
 
-    public static void switchScene(Stage window, String fxmlFile) throws IOException {
-        loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxmlFile + ".fxml"));
-        scene = new Scene(loader.load());
-
-        window.setScene(scene);
-        //window.show();
+    public static void switchScene(Stage stage) {
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**

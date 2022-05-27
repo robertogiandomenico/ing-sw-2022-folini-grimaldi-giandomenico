@@ -39,7 +39,7 @@ public class GUI extends Application implements ViewInterface {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StartScene.fxml"));
             Scene scene = new Scene(loader.load());
             this.stage = stage;
-            ((SceneControllerInterface) loader.getController()).setGUI(this);
+            ( (SceneControllerInterface)loader.getController() ).setGUI(this);
 
             Font.loadFont(getClass().getResourceAsStream("/fonts/Roboto.ttf"), 13);
             Font.loadFont(getClass().getResourceAsStream("/fonts/Metamorphous.ttf"), 13);
@@ -88,7 +88,6 @@ public class GUI extends Application implements ViewInterface {
                 throw new RuntimeException(e);
             }
         });
-
         return null;
     }
 
@@ -98,58 +97,58 @@ public class GUI extends Application implements ViewInterface {
         SceneController.setCurrentController(lsc);
         lsc.setGUI(this);
 
-        //is it okay to have all this static class and methods? Others made an instance (GUI, SceneController, CLI???)
-
-//should I set lsc as current scene controller in SceneController in order to get this one controller in the next askGameName()?
-        //SceneController.setCurrentController(lsc);     should i cast the variable? is it possible?
-    /*    Platform.runLater(() -> {
+        Platform.runLater(() -> {
             try {
-                SceneController.switchScene(stage, "NicknameScene");
+                SceneController.switchScene(stage, "LoginScene", lsc);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        });       */
-        //what happens when i click "next" button? how do decide to pass variables here on that click? (listeners?)
-        //client.sendMsgToServer(new NicknameReply( lsc.getNickname() ));
-
+        });
     }
 
     @Override
     public void askGameName() {
-        SceneControllerInterface lsc = SceneController.getCurrentController();
-        lsc.setGUI(this);
-
-        //lsc = SceneController.getCurrentController();
-        //lsc.disable(nickname);
-        //lsc.enable(gameName);
+        Platform.runLater(() -> {
+            SceneController.switchScene(stage);
+        });
     }
 
     @Override
     public void askGameMode() {
-        NewGameSceneController ngsc = new NewGameSceneController();
-        //sceneController.setController(ngsc);
-        //ngsc.disable(nPlayers)
-        //ngsc.enable(expertModeSection)
-        try {
-            SceneController.switchScene(stage, "NewGameScene");
-        } catch (IOException e) {
-            System.out.println("Error in opening this scene");
-        }
+        SceneControllerInterface ngsc = new NewGameSceneController();
+        SceneController.setCurrentController(ngsc);
+        ngsc.setGUI(this);
 
+        Platform.runLater(() -> {
+            try {
+                SceneController.switchScene(stage, "NewGameScene", ngsc);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @Override
     public void askPlayerNumber() {
-
+        Platform.runLater(() -> {
+            SceneController.switchScene(stage);
+        });
     }
 
     @Override
     public void askWizard(List<Wizard> availableWizards) {
-        /*
-            do things...
-         */
+        SceneControllerInterface wsc = new WizardSceneController();
+        SceneController.setCurrentController(wsc);
+        wsc.setGUI(this);
 
-        stage.setFullScreen(true);
+        Platform.runLater(() -> {
+            try {
+                SceneController.switchScene(stage, "WizardScene", wsc);
+                ((WizardSceneController) wsc).setAvailableWizards(availableWizards);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @Override
@@ -194,17 +193,28 @@ public class GUI extends Application implements ViewInterface {
 
     @Override
     public void displayMessage(String message) {
+        SceneControllerInterface lsc = new LoadingSceneController();
+        SceneController.setCurrentController(lsc);
+        lsc.setGUI(this);
 
+        Platform.runLater(() -> {
+            try {
+                SceneController.switchScene(stage, "LoadingScene", lsc);
+                ((LoadingSceneController)lsc).changeLabel(message);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @Override
     public void displayDisconnectionMessage(String disconnectedNickname, String message) {
-
+        errorDialog(disconnectedNickname + "disconnected from the game. The game will now close.");
     }
 
     @Override
     public void displayErrorAndExit(String message) {
-
+        errorDialog(message);
     }
 
     @Override
@@ -221,7 +231,7 @@ public class GUI extends Application implements ViewInterface {
         return mediaPlayer;
     }
 
-    private void errorDialog(String error) {
+    public void errorDialog(String error) {
         Alert errorDialog = new Alert(Alert.AlertType.ERROR);
         errorDialog.setTitle("Game Error");
         errorDialog.setHeaderText("Error!");
@@ -229,7 +239,7 @@ public class GUI extends Application implements ViewInterface {
         errorDialog.showAndWait();
     }
 
-    private void closeWindow(Stage stage) {
+    public void closeWindow(Stage stage) {
         Alert alertDialog = new Alert(Alert.AlertType.CONFIRMATION);
         alertDialog.setTitle("Exiting");
         alertDialog.setHeaderText("You're about to exit");
@@ -238,6 +248,7 @@ public class GUI extends Application implements ViewInterface {
         if (alertDialog.showAndWait().get() == ButtonType.OK) {
             System.out.println("Exit confirmed.");
             stage.close();
+            System.exit(0);                 //FIXME: idk if this is necessary
         }
     }
 
@@ -247,5 +258,9 @@ public class GUI extends Application implements ViewInterface {
 
     public Client getClient() {
         return client;
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 }
