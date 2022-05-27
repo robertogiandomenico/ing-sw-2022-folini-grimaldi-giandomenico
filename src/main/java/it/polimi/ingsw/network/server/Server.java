@@ -45,7 +45,7 @@ public class Server {
         try {
             while (true){
                 Socket clientSocket = serverSocket.accept();
-                SERVER_LOGGER.log(Level.INFO,"New client connected from ( " + clientSocket.getInetAddress().getHostAddress() + ")");
+                SERVER_LOGGER.log(Level.INFO,"New client connected from (" + clientSocket.getInetAddress().getHostAddress() + ")");
                 ClientHandler clientConnection= new ClientHandler(this, clientSocket);
                 executor.submit(clientConnection);
             }

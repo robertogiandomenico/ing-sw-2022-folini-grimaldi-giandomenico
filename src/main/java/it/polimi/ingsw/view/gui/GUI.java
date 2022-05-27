@@ -28,6 +28,7 @@ public class GUI extends Application implements ViewInterface {
     private Client client;
     private Stage stage;
     protected static MediaPlayer mediaPlayer;
+    private boolean firstPrintBoard = true;
     public static void main(String[] args) {
         launch(args);
     }
@@ -56,7 +57,6 @@ public class GUI extends Application implements ViewInterface {
             Image icon = new Image("/img/icon.png");
             stage.getIcons().add(icon);
             stage.setTitle("Eriantys");
-            stage.setResizable(true);
             stage.setMinHeight(630);
             stage.setMinWidth(610);
             stage.setResizable(false);
@@ -209,17 +209,27 @@ public class GUI extends Application implements ViewInterface {
 
     @Override
     public void displayDisconnectionMessage(String disconnectedNickname, String message) {
-        errorDialog(disconnectedNickname + "disconnected from the game. The game will now close.");
+        errorDialog(disconnectedNickname + message);
     }
 
     @Override
     public void displayErrorAndExit(String message) {
         errorDialog(message);
+        System.exit(1);
     }
 
     @Override
     public void printBoard(LightBoard board) {
+        if (firstPrintBoard) {
+            stage.setFullScreen(true);
+            stage.setFullScreenExitHint("Press ESC to exit fullscreen");
+            stage.setMinHeight(720);
+            stage.setMinWidth(1280);
+            stage.setResizable(true);
+            firstPrintBoard = false;
+        }
 
+        //...
     }
 
     @Override
