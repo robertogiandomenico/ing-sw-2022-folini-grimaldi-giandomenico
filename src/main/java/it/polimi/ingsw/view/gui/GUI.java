@@ -229,7 +229,18 @@ public class GUI extends Application implements ViewInterface {
             firstPrintBoard = false;
         }
 
-        //...
+        SceneControllerInterface bsc = new BoardSceneController();
+        SceneController.setCurrentController(bsc);
+        bsc.setGUI(this);
+        ((BoardSceneController) bsc).setLightBoard(board);
+
+        Platform.runLater(() -> {
+            try {
+                SceneController.switchScene(stage, "BoardScene", bsc);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @Override

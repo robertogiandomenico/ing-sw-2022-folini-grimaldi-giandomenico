@@ -107,7 +107,7 @@ public class WizardSceneController implements SceneControllerInterface {
                 gui.getClient().sendMsgToServer(new WizardReply(availableWizards.get(getWizardIndex())));
             }
         } catch (Exception e) {
-            System.out.println("No wizard is selected");
+            gui.errorDialog("No wizard is selected. Try again.");
         }
     }
 
