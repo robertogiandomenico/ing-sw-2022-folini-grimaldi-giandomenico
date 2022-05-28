@@ -1,5 +1,8 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.model.Wizard;
+import it.polimi.ingsw.network.messages.clientMessages.WizardReply;
+import it.polimi.ingsw.view.gui.GUI;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -8,7 +11,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class WizardSceneController {
+import java.util.List;
+
+public class WizardSceneController implements SceneControllerInterface {
 
     @FXML
     private VBox articWizard;
@@ -23,12 +28,19 @@ public class WizardSceneController {
     @FXML
     private AnchorPane exitButton;
     private String chosenWizardID;
+    List<Wizard> availableWizards;
 
     private static final PseudoClass focusedElement = PseudoClass.getPseudoClass("focused");
+    private GUI gui;
 
     @FXML
     private void initialize() {
         goButton.setDisable(true);
+
+        articWizard.setDisable(true);
+        skyWizard.setDisable(true);
+        desertWizard.setDisable(true);
+        forestWizard.setDisable(true);
     }
 
     @FXML
@@ -92,15 +104,63 @@ public class WizardSceneController {
             if(!chosenWizardID.isEmpty()) {
                 System.out.println("Go! Selected wizard: " + chosenWizardID.toUpperCase());
                 goButton.setDisable(true);
+                gui.getClient().sendMsgToServer(new WizardReply(availableWizards.get(getWizardIndex())));
             }
         } catch (Exception e) {
-            System.out.println("No wizard is selected");
+            gui.errorDialog("No wizard is selected. Try again.");
         }
     }
 
     @FXML
     private void exit() {
-        System.out.println("Exit");
+        gui.closeWindow(gui.getStage());
         System.exit(0);
+    }
+
+    /**
+     * @param gui
+     */
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui = gui;
+    }
+
+    public void setAvailableWizards(List<Wizard> availableWizards) {
+        this.availableWizards = availableWizards;
+
+        for(Wizard w : availableWizards) {
+            switch (w.name().toUpperCase()) {
+                case "ARTICWIZARD":
+                    articWizard.setDisable(false);
+                    break;
+                case "SKYWIZARD":
+                    skyWizard.setDisable(false);
+                    break;
+                case "DESERTWIZARD":
+                    desertWizard.setDisable(false);
+                    break;
+                case "FORESTWIZARD":
+                    forestWizard.setDisable(false);
+                    break;
+                default: break;
+            }
+        }
+    }
+
+
+    private int getWizardIndex() {
+        switch (chosenWizardID.toUpperCase()) {
+            case "ARTICWIZARD":
+                return 0;
+            case "DESERTWIZARD":
+                return 1;
+            case "FORESTWIZARD":
+                return 2;
+            case "SKYWIZARD":
+                return 3;
+            default:
+                break;
+        }
+        return -1;
     }
 }

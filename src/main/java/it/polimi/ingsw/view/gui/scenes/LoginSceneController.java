@@ -1,11 +1,14 @@
 package it.polimi.ingsw.view.gui.scenes;
 
+import it.polimi.ingsw.network.messages.clientMessages.GameNameReply;
+import it.polimi.ingsw.network.messages.clientMessages.NicknameReply;
+import it.polimi.ingsw.view.gui.GUI;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class LoginSceneController {
+public class LoginSceneController implements SceneControllerInterface {
 
     @FXML
     private TextField nicknameField;
@@ -15,10 +18,11 @@ public class LoginSceneController {
     private AnchorPane confirmButton;
     @FXML
     private AnchorPane exitButton;
-    private boolean validNickname = false;
     private boolean firstGameName = true;
+    private boolean firstNickname = true;
     private String nickname;
     private String gameName;
+    private GUI gui;
 
 
     @FXML
@@ -29,33 +33,19 @@ public class LoginSceneController {
 
     @FXML
     private void confirm() {
-        nickname = nicknameField.getText();
+        if (!nicknameField.isDisable() && gameNameField.isDisable()) {
+            nickname = nicknameField.getText();
+            gameNameField.setDisable(false);
+            nicknameField.setDisable(true);
+            confirmButton.setDisable(true);
 
-        if(!validNickname) {
-            if (nickname.isEmpty()) {
-                System.out.println("Nickname is missing");
-            } else {
-                System.out.println("Sending nickname '" + nickname + "' for checking");
-                validNickname = true;
-            }
+            gui.getClient().sendMsgToServer(new NicknameReply(nickname));
+            return;
         }
 
-        if (validNickname) {
-            confirmButton.setDisable(true);
-            nicknameField.setDisable(true);
-            gameNameField.setDisable(false);
-
+        if (nicknameField.isDisable() && !gameNameField.isDisable()) {
             gameName = gameNameField.getText();
-
-            if (gameName.isEmpty() && !firstGameName)
-                System.out.println("gameName is missing");
-
-            if (!gameName.isEmpty()) {
-                System.out.println("Sending gameName '" + gameName + "' for checking");
-                confirmButton.setDisable(true);
-            }
-
-            firstGameName = false;
+            gui.getClient().sendMsgToServer(new GameNameReply(gameName));
         }
     }
 
@@ -79,7 +69,15 @@ public class LoginSceneController {
 
     @FXML
     private void exit() {
-        System.out.println("Exit");
+        gui.closeWindow(gui.getStage());
         System.exit(0);
+    }
+
+    /**
+     * @param gui
+     */
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui= gui;
     }
 }
