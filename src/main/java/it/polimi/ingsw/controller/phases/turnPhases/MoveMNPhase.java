@@ -7,10 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoveMNPhase implements TurnPhase {
-    @Override
-    public void execute(TurnController controller) {
-
-    }
 
     @Override
     public List<ActionType> getAvailableTurnActions() {

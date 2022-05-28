@@ -122,4 +122,10 @@ public class Server {
             }
         }
     }
+
+    public void endGame(Controller controller) {
+        synchronized (lobbyLock){
+            lobbies.remove(controller);
+        }
+    }
 }

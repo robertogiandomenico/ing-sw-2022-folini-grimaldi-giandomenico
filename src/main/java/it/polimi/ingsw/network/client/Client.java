@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.network.messages.connectionMessages.DisconnectionMessage;
 import it.polimi.ingsw.network.messages.connectionMessages.Ping;
 import it.polimi.ingsw.network.messages.serverMessages.GenericServerMessage;
@@ -28,6 +29,7 @@ public class Client {
     private final Queue<GenericServerMessage> messageQueue = new LinkedList<>();
     private final Thread messageListener;
     private final Thread messageHandler;
+    private String nickname;
 
     public Client(String ip, int port, ViewInterface view) {
         this.ip = ip;
@@ -77,6 +79,11 @@ public class Client {
             while (clientConnected.get()) {
                 Object msg = inputStream.readObject();
                 if(msg instanceof GenericServerMessage){
+                    if (((GenericServerMessage) msg).getType() == MessageType.RESULT){
+                        messageQueue.clear();
+                        ((GenericServerMessage) msg).show(view);
+                        disconnect(false);
+                    }
                     messageQueue.add((GenericServerMessage) msg);
                 } else if (msg instanceof DisconnectionMessage) {
                     messageQueue.clear();
@@ -116,5 +123,13 @@ public class Client {
         } catch (IOException ignored) {}
 
         if(error) view.displayErrorAndExit("An error occurred during the communication with the server, you're being disconnected! See ya!");
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 }

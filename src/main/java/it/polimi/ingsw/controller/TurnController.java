@@ -108,6 +108,8 @@ public class TurnController {
     public void nextAction(Action endedAction) {
         availableActions.remove(endedAction.getType());
 
+        if(endedAction.getType() == ActionType.MOVE_MN_ACTION) controller.checkTowerConditionsWin();
+
         boolean alreadyExistsAction = availableActions.stream().anyMatch(a -> a == ActionType.BUY_CHARACTER_ACTION);
         if(!alreadyExistsAction && controller.getGame().isExpertMode() && !alreadyBoughtCharacter && canBuyCharacter()){
             availableActions.add(ActionType.BUY_CHARACTER_ACTION);

@@ -2,18 +2,24 @@ package it.polimi.ingsw.network.messages.serverMessages;
 
 import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.view.ViewInterface;
+import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 
 public class IsWinner extends GenericServerMessage {
-    private final boolean result;
+    private final String winner;
+    private final String condition;
+    private final LightBoard lightBoard;
 
-    public IsWinner(boolean isWinner) {
+    public IsWinner(String winner, String condition, LightBoard lightBoard) {
         super(MessageType.RESULT);
-        this.result = isWinner;
+        this.winner = winner;
+        this.condition = condition;
+        this.lightBoard = lightBoard;
     }
 
     @Override
     public void show(ViewInterface view) {
-
+        view.printBoard(lightBoard);
+        view.displayEndgameResult(winner, condition);
     }
 
     @Override

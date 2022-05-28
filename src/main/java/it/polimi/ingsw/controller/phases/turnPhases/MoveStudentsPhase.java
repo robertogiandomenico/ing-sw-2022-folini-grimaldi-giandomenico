@@ -7,12 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoveStudentsPhase implements TurnPhase {
-
-    @Override
-    public void execute(TurnController controller) {
-
-    }
-
     @Override
     public List<ActionType> getAvailableTurnActions() {
         List<ActionType> actions = new ArrayList<>();

@@ -35,6 +35,6 @@ public interface ViewInterface {
     void displayDisconnectionMessage(String disconnectedNickname, String message);
     void displayErrorAndExit(String message);
     void printBoard(LightBoard board);
-    void displayEndgameResult(String winner);
+    void displayEndgameResult(String winner, String condition);
 
 }

@@ -125,16 +125,16 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askNickname() {
-        System.out.print(CliColor.CLEAR_ALL);
+        clearCLI();
         System.out.print("Enter your " + CliColor.BOLD + "nickname" + CliColor.RESET + ": ");
         String nickname = scanner.nextLine();
-
+        client.setNickname(nickname);
         client.sendMsgToServer(new NicknameReply(nickname));
     }
 
     @Override
     public void askGameName() {
-        System.out.print(CliColor.CLEAR_ALL);
+        clearCLI();
         System.out.print("Enter the " + CliColor.BOLD + "game name" + CliColor.RESET + ": ");
         String gameName = scanner.nextLine();
 
@@ -144,7 +144,7 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askGameMode() {
-        System.out.print(CliColor.CLEAR_ALL);
+        clearCLI();
         System.out.println("Game difficulty:\n0 - Easy mode\n1 - Expert mode");
         System.out.print("Enter the " + CliColor.BOLD + "game mode" + CliColor.RESET + " you would like to play: ");
 
@@ -160,7 +160,7 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askPlayerNumber() {
-        System.out.print(CliColor.CLEAR_ALL);
+        clearCLI();
         System.out.print("How many " + CliColor.BOLD + "players" + CliColor.RESET + " are going to play? [2/3]: ");
 
         int playerNumber = IntegerReader.readInput(scanner);
@@ -175,7 +175,7 @@ public class CLI implements ViewInterface {
 
     @Override
     public void askWizard(List<Wizard> availableWizards) {
-        System.out.print(CliColor.CLEAR_ALL);
+        clearCLI();
         for (int i = 0; i < availableWizards.size(); i++) {
             System.out.print("[ " + (i+1) + " | " + availableWizards.get(i).name() + "] \t");
         }
@@ -520,22 +520,24 @@ public class CLI implements ViewInterface {
     @Override
     public void printBoard(LightBoard board) {
         // to resize the console window     length:48  width:155
-        System.out.print("\033[8;48;146t" + CliColor.CLEAR_ALL);
+        clearCLI();
+        System.out.print("\033[8;48;155t");
 
         //print all the archipelagos clockwise
+        int dim = board.getArchipelagos().size() % 2 == 0 ? (board.getArchipelagos().size()/2 - 1) : (board.getArchipelagos().size()/2);
         for (int i = 0; i < board.getArchipelagos().size(); i++) {
             DisplayBoard.printArchipelago(board.getArchipelagos().get(i), i);
 
-            if (i < (board.getArchipelagos().size()/2 - 1))
+            if (i < dim)
                 System.out.print("\033[4A" + "\033[1C");
 
-            if (i == (board.getArchipelagos().size()/2 - 1))
+            if (i == dim)
                 System.out.print("\033[2B" + "\033[18D");
 
-            if (i > (board.getArchipelagos().size()/2 - 1)  &&  i != (board.getArchipelagos().size() - 1))
+            if (i > dim  &&  i != (board.getArchipelagos().size() - 1))
                 System.out.print("\033[18D" + "\033[1D" + "\033[18D" + "\033[4A");
 
-            if (i == (board.getArchipelagos().size() - 1))
+            if (i == board.getArchipelagos().size() - 1)
                 System.out.print("\033[2B" + CliColor.RESET_LINE);
         }
 
@@ -577,10 +579,9 @@ public class CLI implements ViewInterface {
     }
 
     @Override
-    public void displayEndgameResult(String winner) {
+    public void displayEndgameResult(String winner, String condition) {
         System.out.println("Match ended.");
-        System.out.println(CliColor.BOLDWHITE + winner + CliColor.RESET + " WINS!");
-
+        System.out.println((client.getNickname().equals(winner) ? CliColor.GREEN + "Congratulations, you WON!" : CliColor.RED + "You lost!\n" + CliColor.BOLDWHITE + winner + " WINS! " + condition) + CliColor.RESET);
         System.exit(0);
     }
 
