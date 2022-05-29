@@ -460,7 +460,7 @@
       </GridPane>
       <TabPane fx:id="othersPlayerPane" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/setup.css" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="2">
         <tabs>
-          <Tab text="gor">
+          <Tab text="player2">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -474,7 +474,7 @@
                               <Image url="@../img/wizards/f_icon.png" />
                            </image>
                         </ImageView>
-                        <Label contentDisplay="RIGHT" layoutX="57.0" prefHeight="35.0" prefWidth="523.0" styleClass="playersLabel" stylesheets="@../css/board.css" text="gor">
+                        <Label contentDisplay="RIGHT" layoutX="57.0" prefHeight="35.0" prefWidth="523.0" styleClass="playersLabel" stylesheets="@../css/board.css" text="player2">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -488,7 +488,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="wanda">
+          <Tab text="player3">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -502,7 +502,7 @@
                               <Image url="@../img/wizards/d_icon.png" />
                            </image>
                         </ImageView>
-                        <Label contentDisplay="RIGHT" layoutX="57.0" prefHeight="35.0" prefWidth="523.0" styleClass="playersLabel" stylesheets="@../css/board.css" text="wanda">
+                        <Label contentDisplay="RIGHT" layoutX="57.0" prefHeight="35.0" prefWidth="523.0" styleClass="playersLabel" stylesheets="@../css/board.css" text="player3">
                            <font>
                               <Font size="24.0" />
                            </font>

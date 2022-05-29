@@ -11,7 +11,7 @@
 }
 
 .island:pressed {
-    -fx-opacity: 0.85;
+    -fx-opacity: 0.9;
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
     -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
@@ -25,7 +25,7 @@
 }
 
 .cloud:pressed {
-    -fx-opacity: 0.85;
+    -fx-opacity: 0.9;
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
     -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
@@ -35,16 +35,16 @@
 .card:focused {
     -fx-scale-x: 1.5;
     -fx-scale-y: 1.5;
-    -fx-translate-y: -35;
+    -fx-translate-y: -33;
     -fx-translate-x: -10;
     -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
 }
 
 .card:pressed {
-    -fx-opacity: 0.85;
+    -fx-opacity: 0.9;
     -fx-scale-x: 1.4;
     -fx-scale-y: 1.4;
-    -fx-translate-y: -35;
+    -fx-translate-y: -26;
     -fx-translate-x: -10;
     -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
 }
@@ -61,11 +61,11 @@
     -fx-opacity: 0.9;
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
-    -fx-translate-y: +17;
+    -fx-translate-y: +9;
     -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
 }
 
-.switchButton {
+.yellowButton {
     -fx-background-image: url("../img/buttons/yellow.png");
     -fx-background-size: stretch;
     -fx-background-color: transparent;
@@ -73,11 +73,11 @@
     -fx-font-size: 13px;
 }
 
-.switchButton:hover {
+.yellowButton:hover {
     -fx-opacity: 0.9;
 }
 
-.switchButton:pressed {
+.yellowButton:pressed {
     -fx-background-image: url("../img/buttons/yellow_pressed.png");
     -fx-scale-x: 0.95;
     -fx-scale-y: 0.95;
@@ -85,7 +85,7 @@
     -fx-font-size: 13px;
 }
 
-.switchButton:disabled {
+.yellowButton:disabled {
     -fx-background-image: url("../img/buttons/disabled.png");
     -fx-focus-traversable: false;
 }
@@ -146,7 +146,7 @@
 
 .pawn:pressed {
     -fx-opacity: 0.9;
-    -fx-scale-x: 1;
-    -fx-scale-y: 1;
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
     -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
 }

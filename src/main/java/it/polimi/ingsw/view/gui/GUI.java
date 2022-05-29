@@ -108,9 +108,7 @@ public class GUI extends Application implements ViewInterface {
 
     @Override
     public void askGameName() {
-        Platform.runLater(() -> {
-            SceneController.switchScene(stage);
-        });
+        Platform.runLater(() -> SceneController.switchScene(stage));
     }
 
     @Override
@@ -130,9 +128,7 @@ public class GUI extends Application implements ViewInterface {
 
     @Override
     public void askPlayerNumber() {
-        Platform.runLater(() -> {
-            SceneController.switchScene(stage);
-        });
+        Platform.runLater(() -> SceneController.switchScene(stage));
     }
 
     @Override
@@ -152,8 +148,10 @@ public class GUI extends Application implements ViewInterface {
     }
 
     @Override
-    public void askAssistant(List<Assistant> availableAssistants, List<Assistant> chosenAssistants) {
-
+    public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
+        Platform.runLater(() -> SceneController.switchScene(stage));
+        ((BoardSceneController)SceneController.getCurrentController()).setAssistants(availableAssistants, discardedAssistants);
+        ((BoardSceneController)SceneController.getCurrentController()).enableAssistantBox();
     }
 
     @Override
@@ -163,7 +161,9 @@ public class GUI extends Application implements ViewInterface {
 
     @Override
     public void askStudent(List<Color> availableColors) {
-
+        Platform.runLater(() -> SceneController.switchScene(stage));
+        ((BoardSceneController)SceneController.getCurrentController()).enableSchoolBoard();
+        //...
     }
 
     @Override
@@ -173,12 +173,16 @@ public class GUI extends Application implements ViewInterface {
 
     @Override
     public int askArchipelago(int maxArchis) {
-        return 0;
+        Platform.runLater(() -> SceneController.switchScene(stage));
+        ((BoardSceneController)SceneController.getCurrentController()).enableWorld();
+        //...
+        return -1;
     }
 
     @Override
     public void askCharacter(LightBoard board) {
-
+        Platform.runLater(() -> SceneController.switchScene(stage));
+        ((BoardSceneController)SceneController.getCurrentController()).enableCharactersBox();
     }
 
     @Override
