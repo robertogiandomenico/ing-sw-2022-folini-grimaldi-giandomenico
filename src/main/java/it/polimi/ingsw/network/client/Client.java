@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.network.messages.MessageType;
+import it.polimi.ingsw.network.messages.connectionMessages.DisconnectionMessage;
 import it.polimi.ingsw.network.messages.connectionMessages.Ping;
 import it.polimi.ingsw.network.messages.serverMessages.GenericServerMessage;
 import it.polimi.ingsw.view.ViewInterface;
@@ -15,18 +17,19 @@ import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Client {
-    private String ip;
-    private int port;
-    private ViewInterface view;
+    private final String ip;
+    private final int port;
+    private final ViewInterface view;
     private final int PING_TIME = 5000;
-    private Thread pingThread;
-    private AtomicBoolean clientConnected = new AtomicBoolean(false);
+    private final Thread pingThread;
+    private final AtomicBoolean clientConnected = new AtomicBoolean(false);
     private Socket clientSocket;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
     private final Queue<GenericServerMessage> messageQueue = new LinkedList<>();
-    private Thread messageListener;
-    private Thread messageHandler;
+    private final Thread messageListener;
+    private final Thread messageHandler;
+    private String nickname;
 
     public Client(String ip, int port, ViewInterface view) {
         this.ip = ip;
@@ -53,8 +56,9 @@ public class Client {
             try {
                 outputStream.writeObject(message);
                 outputStream.flush();
+                outputStream.reset();
             } catch (IOException e) {
-                disconnect();
+                disconnect(true);
             }
         }
     }
@@ -75,11 +79,20 @@ public class Client {
             while (clientConnected.get()) {
                 Object msg = inputStream.readObject();
                 if(msg instanceof GenericServerMessage){
+                    if (((GenericServerMessage) msg).getType() == MessageType.RESULT){
+                        messageQueue.clear();
+                        ((GenericServerMessage) msg).show(view);
+                        disconnect(false);
+                    }
                     messageQueue.add((GenericServerMessage) msg);
+                } else if (msg instanceof DisconnectionMessage) {
+                    messageQueue.clear();
+                    ((DisconnectionMessage) msg).show(view);
+                    disconnect(false);
                 }
             }
         } catch (IOException | ClassNotFoundException e){
-            disconnect();
+            disconnect(true);
         }
     }
 
@@ -93,7 +106,7 @@ public class Client {
         }
     }
 
-    public void disconnect(){
+    public void disconnect(boolean error){
         if(messageListener.isAlive()) messageListener.interrupt();
         if(messageHandler.isAlive()) messageHandler.interrupt();
 
@@ -109,6 +122,14 @@ public class Client {
             clientSocket.close();
         } catch (IOException ignored) {}
 
-        view.displayErrorAndExit("An error occurred during the communication with the server, you're being disconnected! See ya!");
+        if(error) view.displayErrorAndExit("An error occurred during the communication with the server, you're being disconnected! See ya!");
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getNickname() {
+        return nickname;
     }
 }

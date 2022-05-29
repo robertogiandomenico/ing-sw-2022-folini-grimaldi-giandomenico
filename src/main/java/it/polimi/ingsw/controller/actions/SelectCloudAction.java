@@ -62,5 +62,7 @@ public class SelectCloudAction implements Action{
         for (Student s : cloudContent){
             b.getCurrentPlayerSchoolBoard().addToEntrance(s);
         }
+
+        turnController.getController().nextTurn();
     }
 }

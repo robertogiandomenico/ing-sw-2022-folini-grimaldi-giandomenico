@@ -7,7 +7,7 @@ import it.polimi.ingsw.view.ViewInterface;
 import java.util.List;
 
 public class WizardRequest extends GenericServerMessage {
-    private List<Wizard> availableWizards;
+    private final List<Wizard> availableWizards;
 
     public WizardRequest(List<Wizard> availableWizards) {
         super(MessageType.WIZARD_REQUEST);
@@ -24,9 +24,5 @@ public class WizardRequest extends GenericServerMessage {
         return "ServerMessage {" +
                 "type=" + getType() +
                 '}';
-    }
-
-    public List<Wizard> getAvailableWizards() {
-        return availableWizards;
     }
 }

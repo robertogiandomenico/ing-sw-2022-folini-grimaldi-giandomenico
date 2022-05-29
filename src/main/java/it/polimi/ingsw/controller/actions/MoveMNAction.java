@@ -46,5 +46,6 @@ public class MoveMNAction implements Action{
         int selectedSteps = ((MNStepsReply) msg).getMnSteps();
         currentPlayer.setSelectedSteps(selectedSteps);
         turnController.getController().getGame().getBoard().moveMotherNature(selectedSteps);
+        turnController.nextAction(this);
     }
 }

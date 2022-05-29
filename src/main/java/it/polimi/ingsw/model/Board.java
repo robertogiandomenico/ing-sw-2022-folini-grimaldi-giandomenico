@@ -131,6 +131,7 @@ public class Board {
     }
 
     public void updatePlayerCoins(SchoolBoard currSB, int indexDR){
+        //TODO: resolve a bug that doesn't allow to receive coins from the DR
         boolean canTake = currSB.checkCoinsPath(indexDR, currSB.getDiningRoom()[indexDR]);
         if (canTake && coinsSupply > 0) {
             currSB.getPlayer().addCoin();
@@ -200,6 +201,8 @@ public class Board {
                     if (currentInfluence > topInfluence || (currentInfluence == topInfluence && currentTowerColor == s.getPlayer().getTowerColor())) {
                         topInfluence = currentInfluence;
                         topInfluencer = s;
+                    } else if(currentInfluence == topInfluence && currentTowerColor == null) {
+                        topInfluencer = null;
                     }
                 }
 
@@ -379,7 +382,7 @@ public class Board {
      * @param size                  the number of Students to draw.
      * @return                      the Student Array of drawn students.
      */
-    private Student[] drawStudentsArray(int size) {
+    public Student[] drawStudentsArray(int size) {
         Student[] tmp = new Student[size];
         for (int i = 0; i < size; i++) {
             tmp[i] = bag.draw();

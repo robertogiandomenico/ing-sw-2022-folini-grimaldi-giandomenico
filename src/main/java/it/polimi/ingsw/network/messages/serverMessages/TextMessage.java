@@ -16,8 +16,4 @@ public class TextMessage extends GenericServerMessage {
     public void show(ViewInterface view) {
         view.displayMessage(message);
     }
-
-    public String getMessage() {
-        return message;
-    }
 }

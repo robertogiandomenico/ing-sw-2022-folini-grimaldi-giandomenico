@@ -19,6 +19,6 @@ public class StudentReply extends GenericClientMessage {
 
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
-
+        clientHandler.getCurrentAction().receiveMessage(this);
     }
 }

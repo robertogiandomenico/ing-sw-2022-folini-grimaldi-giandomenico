@@ -22,8 +22,4 @@ public class PhaseEntering extends GenericServerMessage {
                 "type=" + getType() +
                 '}';
     }
-
-    public String getPhaseName() {
-        return phaseName;
-    }
 }

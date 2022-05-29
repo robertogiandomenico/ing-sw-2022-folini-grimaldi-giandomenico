@@ -291,7 +291,7 @@ public class DisplayBoard {
             case("Jester"):
             case("SpoiledPrincess"):
                 System.out.print("S:" +
-                                    CliColor.BGREEN  + numByColor(character.getStudents(), Color.GREEN)  +
+                        CliColor.BGREEN  + numByColor(character.getStudents(), Color.GREEN)  +
                         "\033[1C" + CliColor.BRED    + numByColor(character.getStudents(), Color.RED)    +
                         "\033[1C" + CliColor.BYELLOW + numByColor(character.getStudents(), Color.YELLOW) +
                         "\033[1C" + CliColor.BPINK   + numByColor(character.getStudents(), Color.PINK)   +
@@ -322,7 +322,7 @@ public class DisplayBoard {
         int number = 0;
 
         for (Student s : studentsArray) {
-            if (s.getColor() == color)
+            if (s != null && s.getColor() == color)
                 number++;
         }
         return Integer.toString(number);
