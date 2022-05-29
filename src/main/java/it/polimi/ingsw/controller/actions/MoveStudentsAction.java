@@ -31,7 +31,7 @@ public class MoveStudentsAction implements Action {
         clientHandler = turnController.getClientHandler();
         availableColors = new HashMap<>();
         for (Color c : Color.values()){
-            int num = (int) Arrays.stream(turnController.getController().getGame().getBoard().getCurrentPlayerSchoolBoard().getEntrance()).filter(s -> s.getColor() == c).count();
+            int num = (int) Arrays.stream(turnController.getController().getGame().getBoard().getCurrentPlayerSchoolBoard().getEntrance()).filter(s -> s!= null && s.getColor() == c).count();
             availableColors.put(c, num);
         }
     }
@@ -51,7 +51,7 @@ public class MoveStudentsAction implements Action {
         clientHandler = turnController.getController().getHandlerByNickname(currentPlayer.getNickname());
         availableColors = new HashMap<>();
         for (Color c : Color.values()){
-            int num = (int) Arrays.stream(turnController.getController().getGame().getBoard().getCurrentPlayerSchoolBoard().getEntrance()).filter(s -> s.getColor() == c).count();
+            int num = (int) Arrays.stream(turnController.getController().getGame().getBoard().getCurrentPlayerSchoolBoard().getEntrance()).filter(s -> s != null && s.getColor() == c).count();
             availableColors.put(c, num);
         }
     }

@@ -22,7 +22,7 @@ public class SpoiledPrincessEffect implements Effect {
     public void applyEffect(Board board, int archiIndex, int numOfStudents, Color...studColors) {
         int selectedStudent;
         for(selectedStudent = 0; selectedStudent < students.length; selectedStudent++){
-            if(students[selectedStudent].getColor() == studColors[numOfStudents-1]) break;
+            if(students[selectedStudent] != null && students[selectedStudent].getColor() == studColors[numOfStudents-1]) break;
         }
 
         board.getCurrentPlayerSchoolBoard().addToDiningRoom(board.mapToIndex(students[selectedStudent].getColor()));

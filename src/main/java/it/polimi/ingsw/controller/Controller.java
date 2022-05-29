@@ -134,21 +134,68 @@ public class Controller {
             game.setCurrentPlayer(playersOrder.get(playersOrder.indexOf(currentPlayer)+1));
             gamePhase.execute(this);
         } else {
-            for(Cloud c : game.getBoard().getClouds()){
-                c.fill(game.getBoard().drawStudentsArray(c.getCloudContent().length));
+            if(playersOrder.stream().filter(p -> p.getCards().size() == 0).count() == playersOrder.size() ||
+               game.getBoard().getBag().getSize() == 0) {
+                calculateWinner();
             }
-            setGamePhase(new PlanningPhase());
+            else {
+                for(Cloud c : game.getBoard().getClouds()){
+                    c.fill(game.getBoard().drawStudentsArray(c.getCloudContent().length));
+                }
+                setGamePhase(new PlanningPhase());
+            }
         }
     }
 
     public void checkTowerConditionsWin() {
         Optional<SchoolBoard> winner = Arrays.stream(game.getBoard().getPlayerBoards()).filter(b -> b.getTowersLeft() == 0).findFirst();
-        if (winner.isPresent()){
-            for (ClientHandler c : clientHandlers){
-                c.sendMsgToClient(new IsWinner(winner.get().getPlayer().getNickname(), "They built all of their towers!", game.getBoard().getLightBoard()));
-                c.disconnect();
-            }
-            server.endGame(this);
+        winner.ifPresent(schoolBoard -> warnPlayersAboutGameEnd(schoolBoard.getPlayer().getNickname(), "They built all of their towers!"));
+    }
+
+    public void checkIslandConditionsWin() {
+        if (game.getBoard().getArchipelagos().size() == 3){
+            calculateWinner();
         }
+    }
+
+    private void calculateWinner() {
+        Player winner = null;
+        SchoolBoard[] psb = game.getBoard().getPlayerBoards();
+        String condition;
+        int minTowers = Arrays.stream(psb).map(SchoolBoard::getTowersLeft).sorted().collect(Collectors.toList()).get(0);
+        if(Arrays.stream(psb).filter(sb -> sb.getTowersLeft() == minTowers).count() == 1){
+            winner = Arrays.stream(psb).filter(sb -> sb.getTowersLeft() == minTowers).findFirst().get().getPlayer();
+            condition = "They built the largest number of towers!";
+        } else {
+            List<SchoolBoard> eligibleWinners = Arrays.stream(psb).filter(sb -> sb.getTowersLeft() == minTowers).collect(Collectors.toList());
+            int maxProfNumber = 0;
+            for (SchoolBoard sb : eligibleWinners){
+                int currentProfNumber = countProfessors(sb.getProfessorTable());
+                if (currentProfNumber > maxProfNumber){
+                    maxProfNumber = currentProfNumber;
+                    winner = sb.getPlayer();
+                }
+            }
+            condition = "They control the largest number of professors!";
+        }
+
+        assert winner != null;
+        warnPlayersAboutGameEnd(winner.getNickname(), condition);
+    }
+
+    private int countProfessors(boolean[] professorTable) {
+        int count = 0;
+        for (boolean p : professorTable){
+            if(p) count++;
+        }
+        return count;
+    }
+
+    public void warnPlayersAboutGameEnd(String winnerNickname, String condition){
+        for (ClientHandler c : clientHandlers){
+            c.sendMsgToClient(new IsWinner(winnerNickname, condition, game.getBoard().getLightBoard()));
+            c.disconnect();
+        }
+        server.endGame(this);
     }
 }
