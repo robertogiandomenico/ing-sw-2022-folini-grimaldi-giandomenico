@@ -141,38 +141,52 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <VBox layoutX="492.0" layoutY="82.0" prefHeight="205.0" prefWidth="35.0" spacing="18.0">
+            <VBox layoutX="494.0" layoutY="78.0" prefHeight="205.0" prefWidth="35.0" spacing="17.0">
                <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/pawns/profgreen.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/pawns/profred.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/pawns/profyellow.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/pawns/profpink.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/pawns/profblue.png" />
                      </image>
                   </ImageView>
                </children>
-               <padding>
-                  <Insets left="3.0" />
-               </padding>
             </VBox>
+            <AnchorPane fx:id="coinsSupplyBox1" layoutY="277.0" prefHeight="31.0" prefWidth="61.0">
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/coin.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="31.0" text="x1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </AnchorPane>
          </children>
          <GridPane.margin>
             <Insets bottom="3.0" right="10.0" />
@@ -194,87 +208,6 @@
             <RowConstraints maxHeight="192.33332519531245" minHeight="10.0" prefHeight="185.93333129882808" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <AnchorPane styleClass="cloud" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <children>
-                  <ImageView fitHeight="100.0" fitWidth="200.0" layoutX="-2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/clouds/cloud1.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="6.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/pawns/studentblue.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="46.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/pawns/studentgreen.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="36.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/pawns/studentred.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <GridPane.margin>
-                  <Insets bottom="15.0" left="40.0" right="40.0" top="15.0" />
-               </GridPane.margin>
-            </AnchorPane>
-            <AnchorPane styleClass="cloud" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <children>
-                  <ImageView fitHeight="100.0" fitWidth="200.0" layoutX="-4.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/clouds/cloud2.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="5.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/pawns/studentblue.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="45.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/pawns/studentred.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="35.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/pawns/studentpink.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <GridPane.margin>
-                  <Insets bottom="13.0" left="24.0" right="24.0" top="13.0" />
-               </GridPane.margin>
-            </AnchorPane>
-            <AnchorPane styleClass="cloud" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <children>
-                  <ImageView fitHeight="100.0" fitWidth="200.0" layoutX="1.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/clouds/cloud3.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="9.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/pawns/studentpink.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="49.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/pawns/studentyellow.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="39.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/pawns/studentyellow.png" />
-                     </image>
-                  </ImageView>
-               </children>
-               <GridPane.margin>
-                  <Insets bottom="15.0" left="40.0" right="40.0" top="15.0" />
-               </GridPane.margin>
-            </AnchorPane>
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../img/islands/island1.png" />
@@ -341,22 +274,26 @@
                   <Image url="@../img/islands/island1.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="86.0" fitWidth="64.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BASELINE">
-               <image>
-                  <Image url="@../img/tiles/bag.png" />
-               </image>
+            <AnchorPane fx:id="coinsSupplyBox" prefHeight="64.0" prefWidth="116.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <GridPane.margin>
-                  <Insets top="20.0" />
+                  <Insets bottom="10.0" left="150.0" right="120.0" top="80.0" />
                </GridPane.margin>
-            </ImageView>
-            <ImageView fitHeight="88.0" fitWidth="32.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="5" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-               <image>
-                  <Image url="@../img/tiles/coinssupply.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets bottom="20.0" />
-               </GridPane.margin>
-            </ImageView>
+               <children>
+                  <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/coinssupply.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="44.0" text="x20">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </AnchorPane>
          </children>
          <GridPane.margin>
             <Insets bottom="10.0" right="30.0" top="20.0" />
@@ -469,21 +406,160 @@
                               <Image url="@../img/schoolboard/schoolboard.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="44.0" fitWidth="150.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/wizards/f_icon.png" />
-                           </image>
-                        </ImageView>
                         <Label contentDisplay="RIGHT" layoutX="57.0" prefHeight="35.0" prefWidth="523.0" styleClass="playersLabel" stylesheets="@../css/board.css" text="player2">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
+                        <ImageView fitHeight="44.0" fitWidth="150.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/wizards/f_icon.png" />
+                           </image>
+                        </ImageView>
                         <ImageView fitHeight="88.0" fitWidth="51.0" layoutX="600.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/assistants/lizard.png" />
                            </image>
                         </ImageView>
+                        <AnchorPane layoutX="475.0" layoutY="85.0">
+                           <children>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upwhite.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upwhite.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upwhite.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upwhite.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upwhite.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="50.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upwhite.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="50.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upwhite.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="50.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upwhite.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="20.0" layoutY="70.0" prefHeight="190.0" prefWidth="66.0">
+                           <children>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentpink.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="36.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentblue.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="36.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentred.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="36.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentgreen.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="36.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentgreen.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentpink.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentyellow.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentpink.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentblue.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <VBox layoutX="414.0" layoutY="65.0" prefHeight="205.0" prefWidth="35.0" spacing="16.0">
+                           <children>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/profgreen.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/profred.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/profyellow.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/profpink.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/profblue.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                        <AnchorPane fx:id="coinsSupplyBox11" layoutX="600.0" layoutY="245.0" prefHeight="31.0" prefWidth="61.0">
+                           <children>
+                              <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/tiles/coin.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="31.0" text="x1">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
             </content>
@@ -497,26 +573,244 @@
                               <Image url="@../img/schoolboard/schoolboard.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="44.0" fitWidth="150.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/wizards/d_icon.png" />
-                           </image>
-                        </ImageView>
                         <Label contentDisplay="RIGHT" layoutX="57.0" prefHeight="35.0" prefWidth="523.0" styleClass="playersLabel" stylesheets="@../css/board.css" text="player3">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
+                        <ImageView fitHeight="44.0" fitWidth="150.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/wizards/d_icon.png" />
+                           </image>
+                        </ImageView>
                         <ImageView fitHeight="88.0" fitWidth="51.0" layoutX="600.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/assistants/cat.png" />
                            </image>
                         </ImageView>
+                        <AnchorPane layoutX="475.0" layoutY="85.0">
+                           <children>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upgrey.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upgrey.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upgrey.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upgrey.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="50.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upgrey.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="50.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upgrey.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="50.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upgrey.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="50.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/towers/upgrey.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="20.0" layoutY="70.0" prefHeight="190.0" prefWidth="66.0">
+                           <children>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentred.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="36.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentpink.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="36.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentblue.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="36.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentred.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="36.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentgreen.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentyellow.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentyellow.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentblue.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="26.0" fitWidth="26.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentpink.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <VBox layoutX="414.0" layoutY="65.0" prefHeight="205.0" prefWidth="35.0" spacing="16.0">
+                           <children>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/profgreen.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/profred.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/profyellow.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/profpink.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/profblue.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                        <AnchorPane fx:id="coinsSupplyBox12" layoutX="600.0" layoutY="245.0" prefHeight="31.0" prefWidth="61.0">
+                           <children>
+                              <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/tiles/coin.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="31.0" text="x1">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
         </tabs>
       </TabPane>
+      <HBox fx:id="cloudsBox" spacing="65.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <children>
+            <AnchorPane styleClass="cloud" stylesheets="@../css/board.css">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="200.0" layoutX="-2.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/clouds/cloud1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="6.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/studentblue.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="46.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/studentgreen.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="36.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/studentred.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane styleClass="cloud" stylesheets="@../css/board.css">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="200.0" layoutX="-4.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/clouds/cloud2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="5.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/studentblue.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="45.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/studentred.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="35.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/studentpink.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane styleClass="cloud" stylesheets="@../css/board.css">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="200.0" layoutX="1.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/clouds/cloud3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="9.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/studentpink.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="49.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/studentyellow.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="39.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/studentyellow.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+         <GridPane.margin>
+            <Insets bottom="185.0" left="305.0" right="310.0" top="20.0" />
+         </GridPane.margin>
+      </HBox>
    </children>
 </GridPane>

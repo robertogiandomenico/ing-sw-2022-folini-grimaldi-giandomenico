@@ -2,11 +2,15 @@ package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.model.Assistant;
 import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.TowerColor;
+import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.messages.clientMessages.ChooseAssistantReply;
 import it.polimi.ingsw.view.gui.GUI;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
+import it.polimi.ingsw.view.utilities.lightclasses.LightSchoolBoard;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 import java.util.List;
 
@@ -25,18 +30,25 @@ public class BoardSceneController implements SceneControllerInterface {
     @FXML
     private GridPane worldBox;
     @FXML
+    private HBox cloudsBox;
+    @FXML
+    private AnchorPane coinsSupplyBox;
+    @FXML
     private AnchorPane thisPlayerPane;
     @FXML
     private TabPane othersPlayerPane;
     private MouseEvent event;
     private GUI gui;
     private LightBoard lightBoard;
+    private LightSchoolBoard thisPlayer;
 
     @FXML
     private void initialize() {
         initializeCharacters(lightBoard.getSelectedCharacters());
-        //initializeThisPlayer();       how can I get access to exactly this player???
-        initializeClouds(lightBoard);
+        initializeThisPlayer();
+        initializeOtherPlayers();
+        initializeClouds();
+        initializeCoinsSupply(lightBoard.getCoinsSupply());
     }
 
     private void initializeCharacters(LightCharacter[] selectedCharacters) {
@@ -47,34 +59,138 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
-    private void initializeClouds(LightBoard lightBoard) {
+    private void initializeThisPlayer() {
+        for (LightSchoolBoard lsb : lightBoard.getSchoolBoards()) {
+            if (lsb.getPlayer().getNickname().equals(gui.getClient().getNickname())) {
+                thisPlayer = lsb;
+                break;
+            }
+        }
+
+        ((Label) thisPlayerPane.getChildren().get(1)).setText(thisPlayer.getPlayer().getNickname());
+        ((ImageView) thisPlayerPane.getChildren().get(2)).setImage(getWizardIcon(thisPlayer.getPlayer().getSelectedWizard()));
+
+        try {
+            ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistant/" + thisPlayer.getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
+        } catch (NullPointerException e) {
+            ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/blank.png")));
+        }
+
+        for (int i = 0; i < thisPlayer.getEntrance().length; i++) {
+            ((ImageView)((AnchorPane) thisPlayerPane.getChildren().get(4)).getChildren().get(i)).setImage(displayStudent(thisPlayer.getEntrance()[i]));
+        }
+
+        for (int i = 0; i < thisPlayer.getTowersLeft(); i++) {
+            ((ImageView)((AnchorPane) thisPlayerPane.getChildren().get(5)).getChildren().get(i)).setImage(getTowerIcon(thisPlayer.getPlayer().getTowerColor()));
+        }
+
+        for (int i = 0; i < thisPlayer.getProfessorTable().length; i++) {
+            ((VBox) thisPlayerPane.getChildren().get(6)).getChildren().get(i).setVisible(thisPlayer.getProfessorTable()[i]);
+        }
+
+        ((Label)((AnchorPane)thisPlayerPane.getChildren().get(7)).getChildren().get(1)).setText("x" + thisPlayer.getPlayer().getCoins());
+
+    }
+
+    private Image getTowerIcon(TowerColor towerColor) {
+        switch (towerColor) {
+            case GREY:
+                return new Image(getClass().getResourceAsStream("/img/towers/upgrey.png"));
+            case BLACK:
+                return new Image(getClass().getResourceAsStream("/img/towers/upblack.png"));
+            case WHITE:
+                return new Image(getClass().getResourceAsStream("/img/towers/upwhite.png"));
+            default:
+                return new Image(getClass().getResourceAsStream("/img/blank.png"));
+        }
+    }
+
+    private Image getWizardIcon(Wizard wizard) {
+        switch (wizard) {
+            case SKYWIZARD:
+                return new Image(getClass().getResourceAsStream("/img/wizards/s_icon.png"));
+            case ARTICWIZARD:
+                return new Image(getClass().getResourceAsStream("/img/wizards/a_icon.png"));
+            case DESERTWIZARD:
+                return new Image(getClass().getResourceAsStream("/img/wizards/d_icon.png"));
+            case FORESTWIZARD:
+                return new Image(getClass().getResourceAsStream("/img/wizards/f_icon.png"));
+            default:
+                return new Image(getClass().getResourceAsStream("/img/blank.png"));
+        }
+    }
+
+    private void initializeClouds() {
         int cloudsNumber = lightBoard.getCloudsNumber();
         if (cloudsNumber == 2) {
-            worldBox.getChildren().get(2).setDisable(true);
-            worldBox.getChildren().get(2).setVisible(false);
+            cloudsBox.getChildren().get(2).setDisable(true);
+            cloudsBox.getChildren().get(2).setVisible(false);
         }
 
         for (int i = 0; i < cloudsNumber; i++) {
             for (int j = 0; j < 3; j++) {
-                ((ImageView) ((AnchorPane) worldBox.getChildren().get(i)).getChildren().get(j+1)).setImage(new Image(getClass().getResourceAsStream(displayStudent(lightBoard.getCloud(i)[j]))));
+                ((ImageView) ((AnchorPane) worldBox.getChildren().get(i)).getChildren().get(j+1)).setImage(displayStudent(lightBoard.getCloud(i)[j]));
             }
         }
     }
 
-    private String displayStudent(Student student) {
+    private void initializeCoinsSupply(int coinsSupply) {
+        ((Label) coinsSupplyBox.getChildren().get(1)).setText("x" + coinsSupply);
+    }
+
+    private void initializeOtherPlayers() {
+        LightSchoolBoard[] otherPlayers = new LightSchoolBoard[lightBoard.getSchoolBoards().size()-1];
+
+        for (int i = 0; i < lightBoard.getSchoolBoards().size(); i++) {
+            if (!lightBoard.getSchoolBoards().get(i).getPlayer().getNickname().equals(gui.getClient().getNickname())) {
+                otherPlayers[i] = lightBoard.getSchoolBoards().get(i);
+            }
+        }
+
+        for (int i = 0; i < otherPlayers.length; i++) {
+
+            othersPlayerPane.getTabs().get(i).setText(otherPlayers[i].getPlayer().getNickname());
+
+            ((Label)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(1)).setText(otherPlayers[i].getPlayer().getNickname());
+            ((ImageView)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(2)).setImage(getWizardIcon(otherPlayers[i].getPlayer().getSelectedWizard()));
+
+            try {
+                ((ImageView)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistant/" + otherPlayers[i].getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
+            } catch (NullPointerException e){
+                ((ImageView)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/blank.png")));
+            }
+
+            for (int j = 0; j < otherPlayers[i].getEntrance().length; j++) {
+                ((ImageView)((AnchorPane)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(5)).getChildren().get(j)).setImage(displayStudent(otherPlayers[i].getEntrance()[j]));
+            }
+
+            for (int j = 0; j < otherPlayers[i].getTowersLeft(); j++) {
+                ((ImageView)((AnchorPane)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(4)).getChildren().get(j)).setImage(getTowerIcon(otherPlayers[i].getPlayer().getTowerColor()));
+            }
+
+            for (int j = 0; j < otherPlayers[i].getProfessorTable().length; j++) {
+                ((VBox)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(6)).getChildren().get(j).setVisible(otherPlayers[i].getProfessorTable()[j]);
+            }
+
+            ((Label)((AnchorPane)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(7)).getChildren().get(1)).setText("x" + otherPlayers[i].getPlayer().getCoins());
+
+        }
+    }
+
+    private Image displayStudent(Student student) {
         switch (student.getColor()) {
             case RED:
-                return "/img/pawns/studentred.png";
+                return new Image(getClass().getResourceAsStream("/img/pawns/studentred.png"));
             case BLUE:
-                return "/img/pawns/studentblue.png";
+                return new Image(getClass().getResourceAsStream("/img/pawns/studentblue.png"));
             case YELLOW:
-                return "/img/pawns/studentyellow.png";
+                return new Image(getClass().getResourceAsStream("/img/pawns/studentyellow.png"));
             case GREEN:
-                return "/img/pawns/studentgreen.png";
+                return new Image(getClass().getResourceAsStream("/img/pawns/studentgreen.png"));
             case PINK:
-                return "/img/pawns/studentpink.png";
+                return new Image(getClass().getResourceAsStream("/img/pawns/studentpink.png"));
             default:
-                return "/img/blank.png";
+                return new Image(getClass().getResourceAsStream("/img/blank.png"));
         }
     }
 

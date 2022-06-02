@@ -102,7 +102,7 @@ public class WizardSceneController implements SceneControllerInterface {
     private void go() {
         try {
             if(!chosenWizardID.isEmpty()) {
-                System.out.println("Go! Selected wizard: " + chosenWizardID.toUpperCase());
+                //System.out.println("Go! Selected wizard: " + chosenWizardID.toUpperCase());
                 goButton.setDisable(true);
                 gui.getClient().sendMsgToServer(new WizardReply(availableWizards.get(getWizardIndex())));
             }
@@ -151,13 +151,13 @@ public class WizardSceneController implements SceneControllerInterface {
     private int getWizardIndex() {
         switch (chosenWizardID.toUpperCase()) {
             case "ARTICWIZARD":
-                return 0;
+                return availableWizards.indexOf(Wizard.ARTICWIZARD);
             case "DESERTWIZARD":
-                return 1;
+                return availableWizards.indexOf(Wizard.DESERTWIZARD);
             case "FORESTWIZARD":
-                return 2;
+                return availableWizards.indexOf(Wizard.FORESTWIZARD);
             case "SKYWIZARD":
-                return 3;
+                return availableWizards.indexOf(Wizard.SKYWIZARD);
             default:
                 break;
         }

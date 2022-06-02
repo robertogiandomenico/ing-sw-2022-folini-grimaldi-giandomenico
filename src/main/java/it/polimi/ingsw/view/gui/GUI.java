@@ -224,6 +224,11 @@ public class GUI extends Application implements ViewInterface {
 
     @Override
     public void printBoard(LightBoard board) {
+        SceneControllerInterface bsc = new BoardSceneController();
+        SceneController.setCurrentController(bsc);
+        bsc.setGUI(this);
+        ((BoardSceneController) bsc).setLightBoard(board);
+
         if (firstPrintBoard) {
             stage.setFullScreen(true);
             stage.setFullScreenExitHint("Press ESC to exit fullscreen");
@@ -232,11 +237,6 @@ public class GUI extends Application implements ViewInterface {
             stage.setResizable(true);
             firstPrintBoard = false;
         }
-
-        SceneControllerInterface bsc = new BoardSceneController();
-        SceneController.setCurrentController(bsc);
-        bsc.setGUI(this);
-        ((BoardSceneController) bsc).setLightBoard(board);
 
         Platform.runLater(() -> {
             try {
@@ -248,7 +248,7 @@ public class GUI extends Application implements ViewInterface {
     }
 
     @Override
-    public void displayEndgameResult(String winner) {
+    public void displayEndgameResult(String winner, String condition) {
 
     }
 
