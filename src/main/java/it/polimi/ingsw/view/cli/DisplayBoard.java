@@ -10,8 +10,24 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightSchoolBoard;
 
 import java.text.DecimalFormat;
 
+/**
+ * This class is used to properly display the board's features to the user.
+ * Its methods are used in {@link CLI#printBoard(LightBoard) printBoard}.
+ */
 public class DisplayBoard {
 
+    /**
+     * Displays the school board (entrance, dining room, professor table,
+     * tower section and, if expert mode, coin spots and supply).
+     *
+     * @param sB            a LightSchoolBoard to access all the information.
+     * @param expertMode    a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if expert mode was chosen;
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
+     */
     public static void printSchoolBoard(LightSchoolBoard sB, boolean expertMode) {
         int nicknameLength = sB.getPlayer().getNickname().length();
 
@@ -118,6 +134,13 @@ public class DisplayBoard {
 
     }
 
+    /**
+     * Displays an archipelago (with students and towers on it and, if present,
+     * Mother Nature or No Entry Tiles).
+     *
+     * @param archipelago   a LightArchi to access all its information.
+     * @param archiIndex    the index of the Archipelago.
+     */
     public static void printArchipelago(LightArchi archipelago, int archiIndex) {
         DecimalFormat formatter = new DecimalFormat("00");
 
@@ -193,6 +216,12 @@ public class DisplayBoard {
         System.out.print("\033[1C");
     }
 
+    /**
+     * Displays the cloud (with students on it).
+     *
+     * @param board         the LightBoard to access the Cloud.
+     * @param cloudIndex    the index of the Cloud.
+     */
     public static void printCloud(LightBoard board, int cloudIndex) {
         //print blank cloud
         if (board.getCloud(cloudIndex)[0] == null)    //check if the cloud is empty
@@ -225,6 +254,11 @@ public class DisplayBoard {
         System.out.print("\033[3C" + "\033[1B");
     }
 
+    /**
+     * Displays the coin supply on the board (if expert mode).
+     *
+     * @param coinSupply    the quantity of coins in the supply.
+     */
     public static void printCoinsSupply(int coinSupply) {
         //go at these coordinates
         System.out.print("\033[14;68H");
@@ -251,6 +285,13 @@ public class DisplayBoard {
             System.out.print("\033[1B" + "\033[6C");
     }
 
+    /**
+     * Displays the character (name, cost and, if present, students or No Entry
+     * Tiles on it).
+     *
+     * @param character     the LightCharacter.
+     * @param charIndex     the index of the character.
+     */
     public static void printCharacter(LightCharacter character, int charIndex) {
         //print blank box
         System.out.print("╓───╥─────────────────╥───────────────────────╖" + "\033[1B" + "\033[47D");
@@ -305,6 +346,13 @@ public class DisplayBoard {
         System.out.print("\033[2C" + "\033[1B");
     }
 
+    /**
+     * Displays the students table in a school board.
+     * Called in {@link CLI#printBoard printBoard} for each color.
+     *
+     * @param sB            the LightSchoolBoard.
+     * @param tableIndex    the index of the dining room.
+     */
     private static void printStudentsTable(LightSchoolBoard sB, int tableIndex) {
         //print students
         for (int i = 0; i < sB.getDiningRoom()[tableIndex]; i++) {
@@ -318,6 +366,14 @@ public class DisplayBoard {
         }
     }
 
+    /**
+     * Returns the number of students of the given color in the given array.
+     * Utility for {@link CLI} methods.
+     *
+     * @param studentsArray a Student Array.
+     * @param color         a Color.
+     * @return              the String representing the number of Students of that Color.
+     */
     private static String numByColor(Student[] studentsArray, Color color) {
         int number = 0;
 
@@ -328,6 +384,14 @@ public class DisplayBoard {
         return Integer.toString(number);
     }
 
+    /**
+     * Sums the elements present in the column of a matrix.
+     * Utility for {@link CLI} methods.
+     *
+     * @param matrix        a matrix.
+     * @param mapIndex      the index of a column.
+     * @return              the sum of the elements in that column.
+     */
     private static int columnSum(int[][] matrix, int mapIndex) {
         int sum = 0;
         for (int[] a : matrix) {

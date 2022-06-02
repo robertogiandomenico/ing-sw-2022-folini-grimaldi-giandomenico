@@ -1,10 +1,9 @@
 package it.polimi.ingsw.view.cli;
 
 /**
- * This enumeration lists the colors that can be used
- * to print text and backgrounds in the CLI.
+ * This enumeration lists the colors that can be used to print text
+ * and backgrounds in the CLI.
  */
-
 public enum CliColor {
     //Color string, color reset
     RESET("\033[0m"),

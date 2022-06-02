@@ -14,6 +14,11 @@ import java.util.*;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
+/**
+ * This class is an implementation of the {@link ViewInterface}, used to give
+ * the user the possibility to play the game via terminal (Command-Line
+ * Interface).
+ */
 public class CLI implements ViewInterface {
     private final Scanner scanner = new Scanner(System.in);
     private Client client;
@@ -22,6 +27,9 @@ public class CLI implements ViewInterface {
         new CLI().start();
     }
 
+    /**
+     * Starts the command-line interface.
+     */
     private void start() {
         System.out.print("" + CliColor.CLEAR_ALL + CliColor.BOLDCYAN);
         System.out.println(" ✹ ｡  .  ･ . ∴ * ███████╗ ██████╗  ██╗  █████╗  ███╗   ██╗ ████████╗ ██╗   ██╗ ███████╗. 　･ ∴　　｡ 　\n" +
@@ -43,6 +51,12 @@ public class CLI implements ViewInterface {
         }
     }
 
+    /**
+     * Asks server information (address and port) to the user and checks their
+     * validity.
+     *
+     * @return                    the Client created.
+     */
     @Override
     public Client askServerInfo() {
         final int DEFAULT_PORT = 2807;
@@ -118,6 +132,9 @@ public class CLI implements ViewInterface {
         return new Client(ip, port, this);
     }
 
+    /**
+     * Asks a nickname to the user.
+     */
     @Override
     public void askNickname() {
         clearCLI();
@@ -127,6 +144,9 @@ public class CLI implements ViewInterface {
         client.sendMsgToServer(new NicknameReply(nickname));
     }
 
+    /**
+     * Asks the name of a game to the user.
+     */
     @Override
     public void askGameName() {
         clearCLI();
@@ -136,7 +156,9 @@ public class CLI implements ViewInterface {
         client.sendMsgToServer(new GameNameReply(gameName));
     }
 
-
+    /**
+     * Asks the game mode (easy/expert) to the user.
+     */
     @Override
     public void askGameMode() {
         clearCLI();
@@ -153,6 +175,9 @@ public class CLI implements ViewInterface {
         client.sendMsgToServer(new GameModeReply(gameMode == 1));
     }
 
+    /**
+     * Asks the number of players for the game to the user.
+     */
     @Override
     public void askPlayerNumber() {
         clearCLI();
@@ -168,6 +193,11 @@ public class CLI implements ViewInterface {
         client.sendMsgToServer(new PlayerNumberReply(playerNumber));
     }
 
+    /**
+     * Asks the user to choose a wizard among the available ones.
+     *
+     * @param availableWizards    a Wizard List of Wizards not taken yet.
+     */
     @Override
     public void askWizard(List<Wizard> availableWizards) {
         clearCLI();
@@ -186,6 +216,12 @@ public class CLI implements ViewInterface {
         client.sendMsgToServer(new WizardReply(availableWizards.get(wizardIndex-1)));
     }
 
+    /**
+     * Asks the user to choose the assistant they want to play.
+     *
+     * @param availableAssistants an Assistant List of available cards for the Player.
+     * @param discardedAssistants an Assistant List containing the cards chosen by others.
+     */
     @Override
     public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
         System.out.print("\n");
@@ -218,6 +254,11 @@ public class CLI implements ViewInterface {
         client.sendMsgToServer(new ChooseAssistantReply(availableAssistants.get(assistantIndex-1)));
     }
 
+    /**
+     * Asks the user to declare which action they want to go for next.
+     *
+     * @param possibleActions     an ActionType List of possible actions for the Player.
+     */
     @Override
     public void askAction(List<ActionType> possibleActions) {
         System.out.print("\n");
@@ -236,6 +277,11 @@ public class CLI implements ViewInterface {
         client.sendMsgToServer(new ActionReply(actionIndex));
     }
 
+    /**
+     * Asks the user which student they want to move.
+     *
+     * @param availableColors     a Color List representing the Students that can be moved.
+     */
     @Override
     public void askStudent(List<Color> availableColors) {
         System.out.print("\n");
@@ -245,6 +291,11 @@ public class CLI implements ViewInterface {
         client.sendMsgToServer(new StudentReply(studColor));
     }
 
+    /**
+     * Asks the user where they want to move the student.
+     *
+     * @param maxArchis           the number of Archipelagos.
+     */
     @Override
     public void askPlace(int maxArchis) {
         System.out.print("\n");
@@ -266,6 +317,13 @@ public class CLI implements ViewInterface {
 
     }
 
+    /**
+     * Asks the user the index of the archipelago they want to move the
+     * student on.
+     *
+     * @param maxArchis           the number of Archipelagos.
+     * @return                    the index of the chosen Archipelago.
+     */
     @Override
     public int askArchipelago(int maxArchis) {
         int archiIndex;
@@ -279,6 +337,12 @@ public class CLI implements ViewInterface {
         return archiIndex;
     }
 
+    /**
+     * Asks the user the character they want to play. Then, based on the selected
+     * one, asks the proper values in order to activate their effect.
+     *
+     * @param board               a LightBoard to access the available characters.
+     */
     @Override
     public void askCharacter(LightBoard board) {
         boolean canBuy;
@@ -446,6 +510,17 @@ public class CLI implements ViewInterface {
         client.sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
     }
 
+    /**
+     * Asks the user which students they want to swap from their entrance.
+     * Used in {@link CLI#askCharacter(LightBoard) askCharacter method} in order to
+     * activate {@link it.polimi.ingsw.model.effects.JesterEffect JesterEffect} and
+     * {@link it.polimi.ingsw.model.effects.MinstrelEffect MinstrelEffect}.
+     *
+     * @param board               the LightBoard to access the entrance of the current Player.
+     * @param studentNumber       the number of Students the user can move.
+     * @param studColors          the Color Array of Students chosen by the user.
+     * @param availableColors     the Color List of Students present in the entrance.
+     */
     private void askEntranceStudents(LightBoard board, int studentNumber, Color[] studColors, List<Color> availableColors) {
         System.out.println("\nSelect now the student(s) you would like to swap from your entrance.");
         for (int i = 0; i < studentNumber; i++) {
@@ -456,18 +531,41 @@ public class CLI implements ViewInterface {
         }
     }
 
+    /**
+     * Checks the color number in the dining room.
+     * Used in {@link CLI#askCharacter(LightBoard) askCharacter method} in order to
+     * activate {@link it.polimi.ingsw.model.effects.MinstrelEffect MinstrelEffect}.
+     *
+     * @param dr                  the Array representing the current Player's dining room.
+     * @param studColors          the Color Array of colors chosen by the user.
+     * @param i                   the index of the Arrays.
+     * @param availableColors     the Color List of available Colors.
+     */
     private void checkColorNumberDR(int[] dr, Color[] studColors, int i, List<Color> availableColors) {
         if (dr[i] - Arrays.stream(studColors).filter(color -> color != null && color.ordinal() == i).count() == 0){
             availableColors.remove(studColors[i]);
         }
     }
 
+    /**
+     * Checks the color number.
+     *
+     * @param studArray           a Student Array.
+     * @param studColors          a Color Array of colors chosen by the user.
+     * @param i                   the index of the Arrays.
+     * @param availableColors     the Color List of available Colors.
+     */
     private void checkColorNumber(Student[] studArray, Color[] studColors, int i, List<Color> availableColors){
         if(Arrays.stream(studArray).filter(s -> (s != null && s.getColor() == studColors[i])).count() - Arrays.stream(studColors).filter(c -> c == studColors[i]).count() == 0){
             availableColors.remove(studColors[i]);
         }
     }
 
+    /**
+     * Asks the user the number of steps they want Mother Nature to take.
+     *
+     * @param maxMNSteps          the limit of steps.
+     */
     @Override
     public void askMNSteps(int maxMNSteps) {
         System.out.println("Enter the number of steps " + CliColor.BOLDBLUE + "Mother Nature" + CliColor.RESET + " will do (between 1 - " + maxMNSteps + ") : ");
@@ -482,6 +580,11 @@ public class CLI implements ViewInterface {
         client.sendMsgToServer(new MNStepsReply(mnSteps));
     }
 
+    /**
+     * Asks the user the cloud they want to draw from.
+     *
+     * @param availableClouds       a List of available Clouds.
+     */
     @Override
     public void askCloud(List<Integer> availableClouds) {
         System.out.println("Enter the index of the " + CliColor.BOLDCYAN + "cloud" + CliColor.RESET + " you would like to choose: ");
@@ -495,17 +598,33 @@ public class CLI implements ViewInterface {
         client.sendMsgToServer(new CloudReply(cloudIndex));
     }
 
+    /**
+     * Displays a message to the user.
+     *
+     * @param message             the message to be displayed.
+     */
     @Override
     public void displayMessage(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Displays a message stating that some player disconnected.
+     *
+     * @param disconnectedNickname the nickname of the disconnected Player.
+     * @param message              the message to be displayed.
+     */
     @Override
     public void displayDisconnectionMessage(String disconnectedNickname, String message) {
         System.out.println(disconnectedNickname + message);
         System.exit(-1);
     }
 
+    /**
+     * Displays an error message and exits.
+     *
+     * @param message             the error message to be displayed.
+     */
     @Override
     public void displayErrorAndExit(String message) {
         System.out.println("ERROR: " + message);
@@ -513,6 +632,11 @@ public class CLI implements ViewInterface {
         System.exit(1);
     }
 
+    /**
+     * Prints the current board (archipelagos, clouds, characters, school boards).
+     *
+     * @param board               the LightBoard representing the current status.
+     */
     @Override
     public void printBoard(LightBoard board) {
         // to resize the console window     length:48  width:155
@@ -574,6 +698,12 @@ public class CLI implements ViewInterface {
         }
     }
 
+    /**
+     * Displays the results of the game.
+     *
+     * @param winner              the nickname of the winner.
+     * @param condition           the condition to print.
+     */
     @Override
     public void displayEndgameResult(String winner, String condition) {
         System.out.println("Match ended.");
@@ -581,11 +711,21 @@ public class CLI implements ViewInterface {
         System.exit(0);
     }
 
+    /**
+     * Clears the terminal's window.
+     */
     public void clearCLI() {
         System.out.print(CliColor.CLEAR_ALL);
         System.out.flush();
     }
 
+    /**
+     * Returns the colors corresponding to those of the students present in the
+     * given array.
+     *
+     * @param studentsArray       a Student Array.
+     * @return                    the Color List of the Students in the Array.
+     */
     public List<Color> getColorsByStudents(Student[] studentsArray) {
         List<Color> availableColors = new ArrayList<>();
 
@@ -597,6 +737,13 @@ public class CLI implements ViewInterface {
         return availableColors.stream().sorted(Comparator.comparing(Enum::ordinal)).collect(Collectors.toList());
     }
 
+    /**
+     * Returns the colors corresponding to those of the students present in the
+     * given dining room.
+     *
+     * @param drArray             the Array representing the dining room.
+     * @return                    the Color List of the Students in the dining room.
+     */
     public List<Color> getColorsByDR(int[] drArray) {
         List<Color> availableColors = new ArrayList<>();
 
@@ -627,6 +774,12 @@ public class CLI implements ViewInterface {
         return availableColors.stream().sorted(Comparator.comparing(Enum::ordinal)).collect(Collectors.toList());
     }
 
+    /**
+     * Asks a color to the user.
+     *
+     * @param availableColors     the Color List of available Colors.
+     * @return                    the chosen Color.
+     */
     public Color askColor(List<Color> availableColors) {
         int i = 0;
 
