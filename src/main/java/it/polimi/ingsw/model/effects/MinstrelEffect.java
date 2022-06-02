@@ -2,6 +2,9 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * This class implements the {@link Effect} of the Minstrel character.
  * Up to 2 students can be exchanged between player's dining room and entrance.
@@ -43,8 +46,12 @@ public class MinstrelEffect implements Effect {
 
         //Switching the removed students between the dining room and the entrance
         for (int i = 0; i < numOfStudents; i++) {
-            currentPlayerSB.addToEntrance(studentsFromDR[i]);
-            currentPlayerSB.addToDiningRoom(board.mapToIndex(studentsFromEntrance[i].getColor()));
+            if(studentsFromEntrance[i] != null){
+                currentPlayerSB.addToEntrance(studentsFromDR[i]);
+                currentPlayerSB.addToDiningRoom(board.mapToIndex(studentsFromEntrance[i].getColor()));
+            } else {
+                currentPlayerSB.addToDiningRoom(board.mapToIndex(studentsFromDR[i].getColor()));
+            }
         }
     }
 

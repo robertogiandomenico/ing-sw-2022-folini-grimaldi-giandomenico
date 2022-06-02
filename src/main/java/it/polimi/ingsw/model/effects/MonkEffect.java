@@ -35,7 +35,7 @@ public class MonkEffect implements Effect {
         //In the end I decided to treat the selectedStudent like an index this to simplify the replacing operation
         int selectedStudent;
         for(selectedStudent = 0; selectedStudent < students.length; selectedStudent++){
-            if(students[selectedStudent].getColor() == studColors[numOfStudents-1]) break;
+            if(students[selectedStudent] != null && students[selectedStudent].getColor() == studColors[numOfStudents-1]) break;
         }
 
         Archipelago selectedArchipelago = board.getArchipelago(archiIndex);

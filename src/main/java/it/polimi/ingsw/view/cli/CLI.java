@@ -203,13 +203,13 @@ public class CLI implements ViewInterface {
             color = discardedAssistants.contains(availableAssistants.get(i)) ? CliColor.RED : CliColor.RESET;
             System.out.print(color + "[ " + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() + " ] \t");
 
-            if (i==4)  System.out.print("\n\n");
+            if (i==4) System.out.print("\n\n");
         }
         System.out.print(CliColor.RESET);
         System.out.print("\n\nEnter the index of the " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " you would like to choose: ");
 
         int assistantIndex = IntegerReader.readInput(scanner);
-        while(assistantIndex <= 0 || assistantIndex > availableAssistants.size() || discardedAssistants.contains(availableAssistants.get(assistantIndex-1))){
+        while(assistantIndex <= 0 || assistantIndex > availableAssistants.size() || (availableAssistants.size() > 1 && discardedAssistants.contains(availableAssistants.get(assistantIndex-1)))){
             System.out.print(CliColor.RESET_LINE);
             System.out.print("\033[1A" + CliColor.RESET_LINE);
             System.out.print("Invalid " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " index. Try again: ");
@@ -463,7 +463,7 @@ public class CLI implements ViewInterface {
     }
 
     private void checkColorNumber(Student[] studArray, Color[] studColors, int i, List<Color> availableColors){
-        if(Arrays.stream(studArray).filter(s -> s.getColor() == studColors[i]).count() - Arrays.stream(studColors).filter(c -> c == studColors[i]).count() == 0){
+        if(Arrays.stream(studArray).filter(s -> (s != null && s.getColor() == studColors[i])).count() - Arrays.stream(studColors).filter(c -> c == studColors[i]).count() == 0){
             availableColors.remove(studColors[i]);
         }
     }
