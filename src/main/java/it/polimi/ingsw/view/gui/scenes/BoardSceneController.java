@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.TowerColor;
 import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.messages.clientMessages.ChooseAssistantReply;
 import it.polimi.ingsw.view.gui.GUI;
+import it.polimi.ingsw.view.utilities.MatrixOperations;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 import it.polimi.ingsw.view.utilities.lightclasses.LightSchoolBoard;
@@ -14,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -28,7 +30,7 @@ public class BoardSceneController implements SceneControllerInterface {
     @FXML
     private GridPane assistantBox;
     @FXML
-    private GridPane worldBox;
+    private GridPane archipelagosBox;
     @FXML
     private HBox cloudsBox;
     @FXML
@@ -47,6 +49,7 @@ public class BoardSceneController implements SceneControllerInterface {
         initializeCharacters(lightBoard.getSelectedCharacters());
         initializeThisPlayer();
         initializeOtherPlayers();
+        initializeArchipelagos();
         initializeClouds();
         initializeCoinsSupply(lightBoard.getCoinsSupply());
     }
@@ -120,6 +123,35 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    private void initializeArchipelagos() {
+        for (int i = 0; i < lightBoard.getArchipelagos().size(); i++) {
+
+            //set tower
+            try {
+                ((ImageView) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(1)).setImage(new Image(getClass().getResourceAsStream("/img/towers/" + lightBoard.getArchipelagos().get(i).getTowerColor().name().toLowerCase() + ".png")));
+            } catch (NullPointerException e) {
+                ((ImageView) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(1)).setImage(new Image(getClass().getResourceAsStream("/img/blank.png")));
+            }
+
+            //set mother nature
+            ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(2).setVisible(lightBoard.getArchipelagos().get(i).isMNPresent());
+
+            //set no entry tile
+            ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(8).setVisible(lightBoard.getArchipelagos().get(i).isNoEntryTilePresent());
+
+            //set students number and visibility
+            for (int j = 0; j < 5; j++) {
+                ((Label)((AnchorPane)((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(j+3)).getChildren().get(1)).setText(Integer.toString(MatrixOperations.columnSum(lightBoard.getArchipelagos().get(i).getIslands(), j)));
+
+                if (((Label)((AnchorPane)((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(j+3)).getChildren().get(1)).getText().equals("0"))
+                    ((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(j+3).setVisible(false);
+                else
+                    ((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(j+3).setVisible(true);
+            }
+
+        }
+    }
+
     private void initializeClouds() {
         int cloudsNumber = lightBoard.getCloudsNumber();
         if (cloudsNumber == 2) {
@@ -129,7 +161,7 @@ public class BoardSceneController implements SceneControllerInterface {
 
         for (int i = 0; i < cloudsNumber; i++) {
             for (int j = 0; j < 3; j++) {
-                ((ImageView) ((AnchorPane) worldBox.getChildren().get(i)).getChildren().get(j+1)).setImage(displayStudent(lightBoard.getCloud(i)[j]));
+                ((ImageView) ((AnchorPane) cloudsBox.getChildren().get(i)).getChildren().get(j+1)).setImage(displayStudent(lightBoard.getCloud(i)[j]));
             }
         }
     }
@@ -225,13 +257,15 @@ public class BoardSceneController implements SceneControllerInterface {
         thisPlayerPane.setDisable(false);
     }
 
-    public void enableWorld() {
-        worldBox.setDisable(false);
+    public void enableArchipelagos() {
+        archipelagosBox.setDisable(false);
     }
 
     private void chooseAssistant() {
-        String selectedAssistant = event.getPickResult().getIntersectedNode().getId();
-        gui.getClient().sendMsgToServer(new ChooseAssistantReply(getAssistantByName(selectedAssistant)));
+        if (event.getButton().equals(MouseButton.PRIMARY)) {
+            String selectedAssistant = event.getPickResult().getIntersectedNode().getId();
+            gui.getClient().sendMsgToServer(new ChooseAssistantReply(getAssistantByName(selectedAssistant)));
+        }
     }
 
     private Assistant getAssistantByName(String name) {
@@ -262,9 +296,11 @@ public class BoardSceneController implements SceneControllerInterface {
     }
 
     private void chooseCharacter() {
-        String selectedCharacter = event.getPickResult().getIntersectedNode().getId();
-        //....
-        //gui.getClient().sendMsgToServer(new CharacterReply( , , , ,));
+        if (event.getButton().equals(MouseButton.PRIMARY)) {
+            String selectedCharacter = event.getPickResult().getIntersectedNode().getId();
+            //....
+            //gui.getClient().sendMsgToServer(new CharacterReply( , , , ,));
+        }
     }
 
 

@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.cli;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Student;
 import it.polimi.ingsw.model.TowerColor;
+import it.polimi.ingsw.view.utilities.MatrixOperations;
 import it.polimi.ingsw.view.utilities.lightclasses.LightArchi;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
@@ -164,15 +165,15 @@ public class DisplayBoard {
         System.out.print("\033[1B" + "\033[9D");
 
         //print students in archipelago
-        System.out.print(CliColor.BGREEN + formatter.format(columnSum(archipelago.getIslands(), 0)));
+        System.out.print(CliColor.BGREEN + formatter.format(MatrixOperations.columnSum(archipelago.getIslands(), 0)));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BRED + formatter.format(columnSum(archipelago.getIslands(), 1)));
+        System.out.print(CliColor.BRED + formatter.format(MatrixOperations.columnSum(archipelago.getIslands(), 1)));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BYELLOW + formatter.format(columnSum(archipelago.getIslands(), 2)));
+        System.out.print(CliColor.BYELLOW + formatter.format(MatrixOperations.columnSum(archipelago.getIslands(), 2)));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BPINK + formatter.format(columnSum(archipelago.getIslands(), 3)));
+        System.out.print(CliColor.BPINK + formatter.format(MatrixOperations.columnSum(archipelago.getIslands(), 3)));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BBLUE + formatter.format(columnSum(archipelago.getIslands(), 4)));
+        System.out.print(CliColor.BBLUE + formatter.format(MatrixOperations.columnSum(archipelago.getIslands(), 4)));
         System.out.print(CliColor.RESET);
 
         System.out.print("\033[2B" + "\033[12D");
@@ -382,23 +383,6 @@ public class DisplayBoard {
                 number++;
         }
         return Integer.toString(number);
-    }
-
-    /**
-     * Sums the elements present in the column of a matrix.
-     * Utility for {@link CLI} methods.
-     *
-     * @param matrix        a matrix.
-     * @param mapIndex      the index of a column.
-     * @return              the sum of the elements in that column.
-     */
-    private static int columnSum(int[][] matrix, int mapIndex) {
-        int sum = 0;
-        for (int[] a : matrix) {
-            sum += a[mapIndex];
-        }
-
-        return sum;
     }
 
 }

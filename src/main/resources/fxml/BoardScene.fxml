@@ -26,6 +26,26 @@
     <RowConstraints maxHeight="450.4000244140625" minHeight="10.0" prefHeight="319.4666809082031" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
+      <AnchorPane fx:id="coinsSupplyBox" prefHeight="64.0" prefWidth="116.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="190.0" left="50.0" right="220.0" top="80.0" />
+         </GridPane.margin>
+         <children>
+            <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/tiles/coinssupply.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="44.0" styleClass="numbersText" text="x18">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="thisPlayerPane" prefHeight="307.0" prefWidth="678.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <children>
             <ImageView fitHeight="269.0" fitWidth="622.0" layoutX="58.0" layoutY="50.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
@@ -170,14 +190,14 @@
                   </ImageView>
                </children>
             </VBox>
-            <AnchorPane fx:id="coinsSupplyBox1" layoutY="277.0" prefHeight="31.0" prefWidth="61.0">
+            <AnchorPane layoutY="277.0" prefHeight="31.0" prefWidth="61.0">
                <children>
                   <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/tiles/coin.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="31.0" text="x1">
+                  <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="31.0" styleClass="numbersText" text="x1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -192,130 +212,35 @@
             <Insets bottom="3.0" right="10.0" />
          </GridPane.margin>
       </AnchorPane>
-      <GridPane fx:id="worldBox" prefHeight="554.0" prefWidth="727.0" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowSpan="2" GridPane.valignment="CENTER">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.4000244140625" minWidth="10.0" prefWidth="135.3999450683594" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="209.800048828125" minWidth="10.0" prefWidth="158.6000549316406" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.20000000000005" minWidth="10.0" prefWidth="186.66661376953124" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.60004882812507" minWidth="10.0" prefWidth="153.46668701171882" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="223.20002441406257" minWidth="10.0" prefWidth="190.26665039062505" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.3999023437501" minWidth="10.0" prefWidth="178.9334716796875" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.0" minWidth="10.0" prefWidth="92.26652832031243" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="202.66664428710936" minHeight="10.0" prefHeight="181.86667175292968" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="184.53333740234376" minHeight="10.0" prefHeight="145.66666870117191" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="192.33332519531245" minHeight="10.0" prefHeight="185.93333129882808" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <HBox fx:id="charactersBox" alignment="CENTER" prefHeight="122.0" prefWidth="448.0" spacing="27.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../img/islands/island1.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets right="80.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <image>
-                  <Image url="@../img/islands/island2.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-               <image>
-                  <Image url="@../img/islands/island3.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../img/islands/island3.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../img/islands/island2.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-               <image>
-                  <Image url="@../img/islands/island1.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-               <image>
-                  <Image url="@../img/islands/island3.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-               <image>
-                  <Image url="@../img/islands/island2.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../img/islands/island1.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="50.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-               <image>
-                  <Image url="@../img/islands/island3.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <image>
-                  <Image url="@../img/islands/island2.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="island" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-               <image>
-                  <Image url="@../img/islands/island1.png" />
-               </image>
-            </ImageView>
-            <AnchorPane fx:id="coinsSupplyBox" prefHeight="64.0" prefWidth="116.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-               <GridPane.margin>
-                  <Insets bottom="10.0" left="150.0" right="120.0" top="80.0" />
-               </GridPane.margin>
+            <AnchorPane>
                <children>
-                  <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="characterCard">
                      <image>
-                        <Image url="@../img/tiles/coinssupply.png" />
+                        <Image url="@../img/characters/centaur.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="44.0" text="x20">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <padding>
-                        <Insets left="5.0" />
-                     </padding>
-                  </Label>
                </children>
             </AnchorPane>
-         </children>
-         <GridPane.margin>
-            <Insets bottom="10.0" right="30.0" top="20.0" />
-         </GridPane.margin>
-      </GridPane>
-      <HBox fx:id="availableCharactersBox" alignment="CENTER" prefHeight="122.0" prefWidth="448.0" spacing="30.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="characterCard">
-               <image>
-                  <Image url="@../img/characters/centaur.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="characterCard">
-               <image>
-                  <Image url="@../img/characters/farmer.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="characterCard">
-               <image>
-                  <Image url="@../img/characters/herald.png" />
-               </image>
-            </ImageView>
+            <AnchorPane>
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="characterCard">
+                     <image>
+                        <Image url="@../img/characters/farmer.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane>
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="characterCard">
+                     <image>
+                        <Image url="@../img/characters/herald.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
          </children>
          <opaqueInsets>
             <Insets />
@@ -324,7 +249,7 @@
             <Insets top="10.0" />
          </GridPane.margin>
       </HBox>
-      <GridPane fx:id="availableAssistantBox" alignment="CENTER_RIGHT" vgap="5.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <GridPane fx:id="assistantBox" alignment="CENTER_RIGHT" vgap="5.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -543,14 +468,14 @@
                               </ImageView>
                            </children>
                         </VBox>
-                        <AnchorPane fx:id="coinsSupplyBox11" layoutX="600.0" layoutY="245.0" prefHeight="31.0" prefWidth="61.0">
+                        <AnchorPane layoutX="600.0" layoutY="245.0" prefHeight="31.0" prefWidth="61.0">
                            <children>
                               <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../img/tiles/coin.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="31.0" text="x1">
+                              <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="31.0" styleClass="numbersText" text="x1">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -710,7 +635,7 @@
                               </ImageView>
                            </children>
                         </VBox>
-                        <AnchorPane fx:id="coinsSupplyBox12" layoutX="600.0" layoutY="245.0" prefHeight="31.0" prefWidth="61.0">
+                        <AnchorPane layoutX="600.0" layoutY="245.0" prefHeight="31.0" prefWidth="61.0">
                            <children>
                               <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -733,7 +658,950 @@
           </Tab>
         </tabs>
       </TabPane>
-      <HBox fx:id="cloudsBox" spacing="65.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <GridPane fx:id="archipelagosBox" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowSpan="2" GridPane.valignment="TOP">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.20001220703125" minWidth="10.0" prefWidth="151.60000610351562" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.39999389648438" minWidth="10.0" prefWidth="188.39999389648438" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <GridPane.margin>
+            <Insets bottom="5.0" left="10.0" right="30.0" top="5.0" />
+         </GridPane.margin>
+         <children>
+            <AnchorPane styleClass="island" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="15.0">
+                     <image>
+                        <Image url="@../img/islands/island1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="43.0" layoutX="119.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/towers/black.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="19.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/mothernature.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="40.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/greenplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="85.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/redplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/yellowplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/pinkplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="115.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/blueplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/noEntryTile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="15.0" top="55.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane styleClass="island" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="15.0">
+                     <image>
+                        <Image url="@../img/islands/island2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="43.0" layoutX="119.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/towers/black.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="19.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/mothernature.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="40.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/greenplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="85.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/redplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/yellowplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/pinkplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="115.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/blueplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/noEntryTile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="50.0" left="15.0" right="10.0" top="15.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane styleClass="island" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="15.0">
+                     <image>
+                        <Image url="@../img/islands/island3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="43.0" layoutX="119.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/towers/black.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="19.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/mothernature.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="40.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/greenplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="85.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/redplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/yellowplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/pinkplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="115.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/blueplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/noEntryTile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="60.0" top="5.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane styleClass="island" GridPane.columnIndex="3">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="15.0">
+                     <image>
+                        <Image url="@../img/islands/island1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="43.0" layoutX="119.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/towers/black.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="19.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/mothernature.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="40.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/greenplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="85.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/redplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/yellowplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/pinkplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="115.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/blueplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/noEntryTile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="55.0" top="10.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane styleClass="island" GridPane.columnIndex="4">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="15.0">
+                     <image>
+                        <Image url="@../img/islands/island2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="43.0" layoutX="119.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/towers/black.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="19.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/mothernature.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="40.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/greenplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="85.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/redplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/yellowplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/pinkplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="115.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/blueplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/noEntryTile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="65.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane styleClass="island" GridPane.columnIndex="5">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="15.0">
+                     <image>
+                        <Image url="@../img/islands/island3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="43.0" layoutX="119.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/towers/black.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="19.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/mothernature.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="40.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/greenplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="85.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/redplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/yellowplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/pinkplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="115.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/blueplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/noEntryTile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="15.0" top="50.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane styleClass="island" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="15.0">
+                     <image>
+                        <Image url="@../img/islands/island2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="43.0" layoutX="119.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/towers/black.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="19.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/mothernature.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="40.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/greenplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="85.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/redplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/yellowplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/pinkplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="115.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/blueplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/noEntryTile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="60.0" top="10.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane styleClass="island" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="15.0">
+                     <image>
+                        <Image url="@../img/islands/island3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="43.0" layoutX="119.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/towers/black.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="19.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/mothernature.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="40.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/greenplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="85.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/redplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/yellowplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/pinkplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="115.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/blueplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/noEntryTile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets left="15.0" right="10.0" top="70.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane styleClass="island" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="15.0">
+                     <image>
+                        <Image url="@../img/islands/island1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="43.0" layoutX="119.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/towers/black.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="19.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/mothernature.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="40.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/greenplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="85.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/redplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/yellowplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/pinkplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="115.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/blueplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/noEntryTile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" top="60.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane styleClass="island" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="15.0">
+                     <image>
+                        <Image url="@../img/islands/island2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="43.0" layoutX="119.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/towers/black.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="19.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/mothernature.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="40.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/greenplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="85.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/redplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/yellowplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/pinkplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="115.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/blueplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/noEntryTile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets top="75.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane styleClass="island" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="15.0">
+                     <image>
+                        <Image url="@../img/islands/island3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="43.0" layoutX="119.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/towers/black.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="19.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/mothernature.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="40.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/greenplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="85.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/redplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/yellowplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/pinkplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="115.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/blueplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/noEntryTile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="10.0" top="60.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <AnchorPane styleClass="island" GridPane.columnIndex="5" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" y="15.0">
+                     <image>
+                        <Image url="@../img/islands/island1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="89.0" fitWidth="43.0" layoutX="119.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/towers/black.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="40.0" layoutX="19.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/pawns/mothernature.png" />
+                     </image>
+                  </ImageView>
+                  <AnchorPane layoutX="40.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/greenplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="85.0" layoutY="35.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/redplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="25.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/yellowplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="70.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/pinkplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="115.0" layoutY="75.0">
+                     <children>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/blueplace.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="9.0" text="0" />
+                     </children>
+                  </AnchorPane>
+                  <ImageView fitHeight="39.0" fitWidth="41.0" layoutX="113.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/tiles/noEntryTile.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="65.0" top="5.0" />
+               </GridPane.margin>
+            </AnchorPane>
+         </children>
+      </GridPane>
+      <HBox fx:id="cloudsBox" spacing="70.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <children>
             <AnchorPane styleClass="cloud" stylesheets="@../css/board.css">
                <children>
@@ -800,7 +1668,7 @@
                         <Image url="@../img/pawns/studentyellow.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="39.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="52.0" fitWidth="36.0" layoutX="39.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../img/pawns/studentyellow.png" />
                      </image>
@@ -809,7 +1677,7 @@
             </AnchorPane>
          </children>
          <GridPane.margin>
-            <Insets bottom="185.0" left="305.0" right="310.0" top="20.0" />
+            <Insets bottom="178.0" left="305.0" right="310.0" top="27.0" />
          </GridPane.margin>
       </HBox>
    </children>

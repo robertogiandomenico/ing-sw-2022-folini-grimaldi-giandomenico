@@ -149,9 +149,12 @@ public class GUI extends Application implements ViewInterface {
 
     @Override
     public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
-        Platform.runLater(() -> SceneController.switchScene(stage));
-        ((BoardSceneController)SceneController.getCurrentController()).setAssistants(availableAssistants, discardedAssistants);
-        ((BoardSceneController)SceneController.getCurrentController()).enableAssistantBox();
+        SceneControllerInterface bsc = getBoardSceneController();
+
+        Platform.runLater(() -> {
+                ((BoardSceneController) bsc).setAssistants(availableAssistants, discardedAssistants);
+                ((BoardSceneController) bsc).enableAssistantBox();
+            });
     }
 
     @Override
@@ -174,7 +177,7 @@ public class GUI extends Application implements ViewInterface {
     @Override
     public int askArchipelago(int maxArchis) {
         Platform.runLater(() -> SceneController.switchScene(stage));
-        ((BoardSceneController)SceneController.getCurrentController()).enableWorld();
+        ((BoardSceneController)SceneController.getCurrentController()).enableArchipelagos();
         //...
         return -1;
     }
@@ -224,7 +227,7 @@ public class GUI extends Application implements ViewInterface {
 
     @Override
     public void printBoard(LightBoard board) {
-        SceneControllerInterface bsc = new BoardSceneController();
+        SceneControllerInterface bsc = getBoardSceneController();
         SceneController.setCurrentController(bsc);
         bsc.setGUI(this);
         ((BoardSceneController) bsc).setLightBoard(board);
@@ -276,6 +279,25 @@ public class GUI extends Application implements ViewInterface {
             System.exit(0);                 //FIXME: idk if this is necessary
         }
     }
+
+    private BoardSceneController getBoardSceneController() {
+        BoardSceneController bsc;
+        try {
+            bsc = (BoardSceneController) SceneController.getCurrentController();
+        } catch (ClassCastException e) {
+            bsc = new BoardSceneController();
+            BoardSceneController finalBsc = bsc;
+            Platform.runLater(() -> {
+                try {
+                    SceneController.switchScene(stage, "BoardScene", finalBsc);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+        }
+        return bsc;
+    }
+
 
     public void setClient(Client client) {
         this.client = client;
