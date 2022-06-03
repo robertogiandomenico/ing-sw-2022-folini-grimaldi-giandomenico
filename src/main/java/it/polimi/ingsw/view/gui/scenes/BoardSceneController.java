@@ -56,9 +56,73 @@ public class BoardSceneController implements SceneControllerInterface {
 
     private void initializeCharacters(LightCharacter[] selectedCharacters) {
         for (int i = 0; i < 3; i++) {
-            ((ImageView)charactersBox.getChildren().get(i)).setImage(new Image(getClass().getResourceAsStream("/img/characters/" + selectedCharacters[i].getName().toLowerCase() + ".png")));
+            ((ImageView)((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(0)).setImage(new Image(getClass().getResourceAsStream("/img/characters/" + selectedCharacters[i].getName().toLowerCase() + ".png")));
 
-            charactersBox.getChildren().get(i).setId(selectedCharacters[i].getName().toLowerCase());
+            charactersBox.getChildren().get(i).setId(selectedCharacters[i].getName());
+
+            switch (selectedCharacters[i].getName()) {
+                case "GrannyGrass":
+                    ImageView noEntryTile = new ImageView("/img/tiles/noEntryTile.png");
+                    Label noEntryTileLeft = new Label();
+                    noEntryTileLeft.setText("x" + selectedCharacters[i].getNoEntryTiles());
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(noEntryTile);
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(noEntryTileLeft);
+                    break;
+
+                case "Monk":
+                    ImageView s1 = new ImageView(),
+                              s2 = new ImageView(),
+                              s3 = new ImageView(),
+                              s4 = new ImageView();
+                    s1.setImage(displayStudent(selectedCharacters[i].getStudents()[0]));
+                    s2.setImage(displayStudent(selectedCharacters[i].getStudents()[1]));
+                    s3.setImage(displayStudent(selectedCharacters[i].getStudents()[2]));
+                    s4.setImage(displayStudent(selectedCharacters[i].getStudents()[3]));
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s1);
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s2);
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s3);
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s4);
+                    break;
+
+                case "Jester":
+                    ImageView s5 = new ImageView(),
+                              s6 = new ImageView(),
+                              s7 = new ImageView(),
+                              s8 = new ImageView(),
+                              s9 = new ImageView(),
+                              s10 = new ImageView();
+                    s5.setImage(displayStudent(selectedCharacters[i].getStudents()[0]));
+                    s6.setImage(displayStudent(selectedCharacters[i].getStudents()[1]));
+                    s7.setImage(displayStudent(selectedCharacters[i].getStudents()[2]));
+                    s8.setImage(displayStudent(selectedCharacters[i].getStudents()[3]));
+                    s9.setImage(displayStudent(selectedCharacters[i].getStudents()[4]));
+                    s10.setImage(displayStudent(selectedCharacters[i].getStudents()[5]));
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s5);
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s6);
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s7);
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s8);
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s9);
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s10);
+                    break;
+
+                case "SpoiledPrincess":
+                    ImageView s11 = new ImageView(),
+                              s12 = new ImageView(),
+                              s13 = new ImageView(),
+                              s14 = new ImageView();
+                    s11.setImage(displayStudent(selectedCharacters[i].getStudents()[0]));
+                    s12.setImage(displayStudent(selectedCharacters[i].getStudents()[1]));
+                    s13.setImage(displayStudent(selectedCharacters[i].getStudents()[2]));
+                    s14.setImage(displayStudent(selectedCharacters[i].getStudents()[3]));
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s11);
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s12);
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s13);
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s14);
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 
