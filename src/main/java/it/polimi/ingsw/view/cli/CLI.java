@@ -1,7 +1,10 @@
 package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.controller.actions.ActionType;
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Assistant;
+import it.polimi.ingsw.model.Color;
+import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.messages.clientMessages.*;
 import it.polimi.ingsw.view.ViewInterface;
@@ -9,9 +12,10 @@ import it.polimi.ingsw.view.utilities.IPvalidator;
 import it.polimi.ingsw.view.utilities.IntegerReader;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
+import it.polimi.ingsw.view.utilities.lightclasses.LightSchoolBoard;
 
-import java.util.*;
 import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -103,7 +107,7 @@ public class CLI implements ViewInterface {
             }
             if (wrongPort) {
                 wrongPort = false;
-                System.out.println(CliColor.RED + "ERROR: MIN PORT = " + MIN_PORT + ", MAX PORT = " + MAX_PORT + "." + CliColor.RESET + "Try again.");
+                System.out.println(CliColor.RED + "ERROR: MIN PORT = " + MIN_PORT + ", MAX PORT = " + MAX_PORT + "." + CliColor.RESET + " Try again.");
             }
 
             System.out.println("Select a valid port between [" + MIN_PORT + ", " + MAX_PORT + "]");
@@ -202,7 +206,7 @@ public class CLI implements ViewInterface {
     public void askWizard(List<Wizard> availableWizards) {
         clearCLI();
         for (int i = 0; i < availableWizards.size(); i++) {
-            System.out.print("[ " + (i+1) + " | " + availableWizards.get(i).name() + "] \t");
+            System.out.print("[" + (i+1) + " | " + availableWizards.get(i).name() + "] \t");
         }
         System.out.print("\nEnter the index of the " + CliColor.BOLDPINK + "wizard" + CliColor.RESET + " you would like to choose: ");
 
@@ -237,7 +241,7 @@ public class CLI implements ViewInterface {
         CliColor color;
         for (int i = 0; i < availableAssistants.size(); i++) {
             color = discardedAssistants.contains(availableAssistants.get(i)) ? CliColor.RED : CliColor.RESET;
-            System.out.print(color + "[ " + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() + " ] \t");
+            System.out.print(color + "[" + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() + " ] \t");
 
             if (i==4) System.out.print("\n\n");
         }
@@ -264,13 +268,13 @@ public class CLI implements ViewInterface {
         System.out.print("\n");
 
         for (int i = 0; i < possibleActions.size(); i++) {
-            System.out.println("[" + i + "| " + possibleActions.get(i).getAction().replace("_", " ").replace("ACTION", ""));
+            System.out.println("[" + i + " | " + possibleActions.get(i).getAction().replace("_", " ").replace("ACTION", ""));
         }
         System.out.print("Enter the index of your next " + CliColor.BOLDCYAN + "action" + CliColor.RESET + ": ");
 
         int actionIndex = IntegerReader.readInput(scanner);
         while (actionIndex<0 || actionIndex>=possibleActions.size()) {
-            System.out.println(CliColor.RESET_LINE);
+            System.out.print(CliColor.RESET_LINE);
             System.out.print("Invalid action index. Try again: ");
             actionIndex = IntegerReader.readInput(scanner);
         }
@@ -330,7 +334,7 @@ public class CLI implements ViewInterface {
 
         archiIndex = IntegerReader.readInput(scanner);
         while (archiIndex<0 || archiIndex>=maxArchis) {
-            System.out.println(CliColor.RESET_LINE);
+            System.out.print(CliColor.RESET_LINE);
             System.out.print("Invalid island index. Try again: ");
             archiIndex = IntegerReader.readInput(scanner);
         }
@@ -357,19 +361,19 @@ public class CLI implements ViewInterface {
 
         do {
             while (characterIndex < 0 || characterIndex > 2) {
-                System.out.println(CliColor.RESET_LINE);
+                System.out.print(CliColor.RESET_LINE);
                 System.out.print("Invalid character index. Try again: ");
                 characterIndex = IntegerReader.readInput(scanner);
             }
 
             if (board.getSelectedCharacters()[characterIndex].getCost() > board.getCurrentPlayerSchoolBoard().getPlayer().getCoins()) {
                 canBuy = false;
-                System.out.println(CliColor.RESET_LINE);
+                System.out.print(CliColor.RESET_LINE);
                 System.out.print("Cannot choose this character card since you do not have enough coins. Try again: ");
                 characterIndex = IntegerReader.readInput(scanner);
             } else if(board.getSelectedCharacters()[characterIndex].getName().equals("Minstrel") && Arrays.stream(board.getCurrentPlayerSchoolBoard().getDiningRoom()).allMatch(t -> t == 0)){
                 canBuy = false;
-                System.out.println(CliColor.RESET_LINE);
+                System.out.print(CliColor.RESET_LINE);
                 System.out.print("Cannot choose this character card since you do not have any students in your dining room. Try again: ");
                 characterIndex = IntegerReader.readInput(scanner);
             } else {
@@ -572,7 +576,7 @@ public class CLI implements ViewInterface {
 
         int mnSteps = IntegerReader.readInput(scanner);
         while (mnSteps <= 0 || mnSteps > maxMNSteps) {
-            System.out.println(CliColor.RESET_LINE);
+            System.out.print(CliColor.RESET_LINE);
             System.out.print("Invalid input. Mother Nature can do from 1 up to maximum " + maxMNSteps + " steps. Try again: ");
             mnSteps = IntegerReader.readInput(scanner);
         }
@@ -587,11 +591,11 @@ public class CLI implements ViewInterface {
      */
     @Override
     public void askCloud(List<Integer> availableClouds) {
-        System.out.println("Enter the index of the " + CliColor.BOLDCYAN + "cloud" + CliColor.RESET + " you would like to choose: ");
+        System.out.print("Enter the index of the " + CliColor.BOLDCYAN + "cloud" + CliColor.RESET + " you would like to choose: ");
 
         int cloudIndex = IntegerReader.readInput(scanner);
         while (!availableClouds.contains(cloudIndex)) {
-            System.out.println(CliColor.RESET_LINE);
+            System.out.print(CliColor.RESET_LINE);
             System.out.print("Invalid cloud index. Try again: ");
             cloudIndex = IntegerReader.readInput(scanner);
         }
@@ -687,13 +691,22 @@ public class CLI implements ViewInterface {
         } else
             System.out.print("\033[2B" + CliColor.RESET_LINE);
 
-        //print all the schoolboards
-        for (int i = 0; i < board.getSchoolBoards().size(); i++) {
-            DisplayBoard.printSchoolBoard(board.getSchoolBoards().get(i), board.getSelectedCharacters() != null);
 
-            if (i < (board.getSchoolBoards().size() -1 ))
+        //find this client's schoolboard and print it
+        for (LightSchoolBoard lsb : board.getSchoolBoards()) {
+            if (lsb.getPlayer().getNickname().equals(client.getNickname())) {
+                DisplayBoard.printSchoolBoard(lsb, board.getSelectedCharacters() != null);
+                break;
+            }
+        }
+        //print all the other schoolboards
+        for (int i = 0; i < board.getSchoolBoards().size(); i++) {
+            if (!board.getSchoolBoards().get(i).getPlayer().getNickname().equals(client.getNickname())) {
                 System.out.print("\033[7A" + "\033[4C");
-            else
+                DisplayBoard.printSchoolBoard(board.getSchoolBoards().get(i), board.getSelectedCharacters() != null);
+            }
+
+            if (i == (board.getSchoolBoards().size() -1) )
                 System.out.print("\n\n");
         }
     }
@@ -804,8 +817,7 @@ public class CLI implements ViewInterface {
         }
 
         System.out.println(CliColor.RESET + "\n");
-        System.out.print("Which " + CliColor.BOLDWHITE + "color" + CliColor.RESET + " would you like to select?" +
-                "Type the right color index: ");
+        System.out.print("Which " + CliColor.BOLDWHITE + "color" + CliColor.RESET + " would you like to select? Type the right color index: ");
 
         int colorIndex = IntegerReader.readInput(scanner);
         while (colorIndex < 0 || colorIndex >= availableColors.size()) {

@@ -41,7 +41,7 @@ public class BoardSceneController implements SceneControllerInterface {
     private TabPane othersPlayerPane;
     private GUI gui;
     private LightBoard lightBoard;
-    private LightSchoolBoard thisPlayer;
+    private LightSchoolBoard thisPlayerBoard;
 
     @FXML
     public void initialize() {
@@ -149,33 +149,33 @@ public class BoardSceneController implements SceneControllerInterface {
     public void initializeThisPlayer() {
         for (LightSchoolBoard lsb : lightBoard.getSchoolBoards()) {
             if (lsb.getPlayer().getNickname().equals(gui.getClient().getNickname())) {
-                thisPlayer = lsb;
+                thisPlayerBoard = lsb;
                 break;
             }
         }
 
-        ((Label) thisPlayerPane.getChildren().get(1)).setText(thisPlayer.getPlayer().getNickname());
-        ((ImageView) thisPlayerPane.getChildren().get(2)).setImage(getWizardIcon(thisPlayer.getPlayer().getSelectedWizard()));
+        ((Label) thisPlayerPane.getChildren().get(1)).setText(thisPlayerBoard.getPlayer().getNickname());
+        ((ImageView) thisPlayerPane.getChildren().get(2)).setImage(getWizardIcon(thisPlayerBoard.getPlayer().getSelectedWizard()));
 
         try {
-            ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistant/" + thisPlayer.getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
+            ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistant/" + thisPlayerBoard.getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
         } catch (NullPointerException e) {
             ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/blank.png")));
         }
 
-        for (int i = 0; i < thisPlayer.getEntrance().length; i++) {
-            ((ImageView)((AnchorPane) thisPlayerPane.getChildren().get(4)).getChildren().get(i)).setImage(displayStudent(thisPlayer.getEntrance()[i]));
+        for (int i = 0; i < thisPlayerBoard.getEntrance().length; i++) {
+            ((ImageView)((AnchorPane) thisPlayerPane.getChildren().get(4)).getChildren().get(i)).setImage(displayStudent(thisPlayerBoard.getEntrance()[i]));
         }
 
-        for (int i = 0; i < thisPlayer.getTowersLeft(); i++) {
-            ((ImageView)((AnchorPane) thisPlayerPane.getChildren().get(5)).getChildren().get(i)).setImage(getTowerIcon(thisPlayer.getPlayer().getTowerColor()));
+        for (int i = 0; i < thisPlayerBoard.getTowersLeft(); i++) {
+            ((ImageView)((AnchorPane) thisPlayerPane.getChildren().get(5)).getChildren().get(i)).setImage(getTowerIcon(thisPlayerBoard.getPlayer().getTowerColor()));
         }
 
-        for (int i = 0; i < thisPlayer.getProfessorTable().length; i++) {
-            ((VBox) thisPlayerPane.getChildren().get(6)).getChildren().get(i).setVisible(thisPlayer.getProfessorTable()[i]);
+        for (int i = 0; i < thisPlayerBoard.getProfessorTable().length; i++) {
+            ((VBox) thisPlayerPane.getChildren().get(6)).getChildren().get(i).setVisible(thisPlayerBoard.getProfessorTable()[i]);
         }
 
-        ((Label)((AnchorPane)thisPlayerPane.getChildren().get(7)).getChildren().get(1)).setText("x" + thisPlayer.getPlayer().getCoins());
+        ((Label)((AnchorPane)thisPlayerPane.getChildren().get(7)).getChildren().get(1)).setText("x" + thisPlayerBoard.getPlayer().getCoins());
 
     }
 
@@ -252,7 +252,12 @@ public class BoardSceneController implements SceneControllerInterface {
     }
 
     public void initializeCoinsSupply() {
-        ((Label) coinsSupplyBox.getChildren().get(1)).setText("x" + lightBoard.getCoinsSupply());
+        if (lightBoard.getSelectedCharacters() != null) {  //if it's expert mode
+            ((Label) coinsSupplyBox.getChildren().get(1)).setText("x" + lightBoard.getCoinsSupply());
+        } else {
+            coinsSupplyBox.setDisable(true);
+            coinsSupplyBox.setVisible(false);
+        }
     }
 
     public void initializeOtherPlayers() {
