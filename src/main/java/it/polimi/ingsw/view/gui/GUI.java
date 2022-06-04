@@ -232,18 +232,26 @@ public class GUI extends Application implements ViewInterface {
         bsc.setGUI(this);
         ((BoardSceneController) bsc).setLightBoard(board);
 
-        if (firstPrintBoard) {
-            stage.setFullScreen(true);
-            stage.setFullScreenExitHint("Press ESC to exit fullscreen");
-            stage.setMinHeight(720);
-            stage.setMinWidth(1280);
-            stage.setResizable(true);
-            firstPrintBoard = false;
-        }
-
         Platform.runLater(() -> {
             try {
+                if (firstPrintBoard) {
+                    stage.setMaximized(true);
+                    //stage.setFullScreenExitHint("Press ESC to exit fullscreen");
+                    stage.setMinHeight(720);
+                    stage.setMinWidth(1280);
+                    stage.setResizable(true);
+                    firstPrintBoard = false;
+                }
+
                 SceneController.switchScene(stage, "BoardScene", bsc);
+
+                //((BoardSceneController) bsc).initializeCharacters();
+                ((BoardSceneController) bsc).initializeThisPlayer();
+                ((BoardSceneController) bsc).initializeOtherPlayers();
+                ((BoardSceneController) bsc).initializeArchipelagos();
+                ((BoardSceneController) bsc).initializeClouds();
+                ((BoardSceneController) bsc).initializeCoinsSupply();
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

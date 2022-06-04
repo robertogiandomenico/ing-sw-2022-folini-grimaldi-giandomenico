@@ -131,8 +131,23 @@
     -fx-font-family: "Metamorphous";
 }
 
+.audioButton:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
 .audioButton:pressed {
-    -fx-scale-x: 0.9;
-    -fx-scale-y: 0.9;
-    -fx-opacity: 0.9;
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-opacity: 0.95;
+}
+
+.cranioLogo:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.cranioLogo:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
 }

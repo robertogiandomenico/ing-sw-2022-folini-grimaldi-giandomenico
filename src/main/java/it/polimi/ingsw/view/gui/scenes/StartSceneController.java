@@ -43,6 +43,15 @@ public class StartSceneController implements SceneControllerInterface {
     }
 
     @FXML
+    private void onLogoClick() {
+        try {
+            Desktop.getDesktop().browse(new URL("https://www.craniocreations.it/prodotto/eriantys").toURI());
+        } catch (IOException | URISyntaxException e) {
+            System.out.println("Error in opening the URL.");
+        }
+    }
+
+    @FXML
     private void onAudioClick() {
         if (muted) {
             audioButton.setImage(new javafx.scene.image.Image(getClass().getResourceAsStream("/img/audio/audio_on.png")));
