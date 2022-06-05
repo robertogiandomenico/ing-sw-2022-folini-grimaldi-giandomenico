@@ -38,7 +38,7 @@ public class BoardSceneController implements SceneControllerInterface {
     @FXML
     private AnchorPane thisPlayerPane;
     @FXML
-    private TabPane othersPlayerPane;
+    private TabPane otherPlayersPane;
     private GUI gui;
     private LightBoard lightBoard;
     private LightSchoolBoard thisPlayerBoard;
@@ -70,18 +70,12 @@ public class BoardSceneController implements SceneControllerInterface {
 
                 switch (selectedCharacters[i].getName()) {
                     case "GrannyGrass":
-                        ImageView noEntryTile = new ImageView("/img/tiles/noEntryTile.png");
                         Label noEntryTileLeft = new Label();
 
-                        noEntryTile.setFitHeight(28);
-                        noEntryTile.setFitWidth(28);
-                        noEntryTile.setY(30);
-                        noEntryTile.setX(10);
-                        noEntryTileLeft.setLayoutX(45);
-                        noEntryTileLeft.setLayoutY(30);
-
+                        noEntryTileLeft.setLayoutX(43);
+                        noEntryTileLeft.setLayoutY(108);
                         noEntryTileLeft.setText("x" + selectedCharacters[i].getNoEntryTiles());
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(noEntryTile);
+
                         ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(noEntryTileLeft);
                         break;
 
@@ -149,6 +143,8 @@ public class BoardSceneController implements SceneControllerInterface {
     public void initializeThisPlayer() {
         for (LightSchoolBoard lsb : lightBoard.getSchoolBoards()) {
             if (lsb.getPlayer().getNickname().equals(gui.getClient().getNickname())) {
+                // FIXME: gui.getClient().getNickname() returns   null
+                // if i change the nickname with the debugger it works tho
                 thisPlayerBoard = lsb;
                 break;
             }
@@ -246,7 +242,6 @@ public class BoardSceneController implements SceneControllerInterface {
         for (int i = 0; i < cloudsNumber; i++) {
             for (int j = 0; j < cloudsNumber+1; j++) {
                 ((ImageView) ((AnchorPane) cloudsBox.getChildren().get(i)).getChildren().get(j+1)).setImage(displayStudent(lightBoard.getCloud(i)[j]));
-                //TODO: fix the 4th pawn (in scenebuilder) in case this works fine
             }
         }
     }
@@ -263,6 +258,9 @@ public class BoardSceneController implements SceneControllerInterface {
     public void initializeOtherPlayers() {
         LightSchoolBoard[] otherPlayers = new LightSchoolBoard[lightBoard.getSchoolBoards().size()-1];
 
+        if (lightBoard.getSchoolBoards().size() == 2)
+            otherPlayersPane.getTabs().get(1).setDisable(true);
+
         for (int i = 0; i < lightBoard.getSchoolBoards().size(); i++) {
             if (!lightBoard.getSchoolBoards().get(i).getPlayer().getNickname().equals(gui.getClient().getNickname())) {
                 otherPlayers[i] = lightBoard.getSchoolBoards().get(i);
@@ -271,30 +269,30 @@ public class BoardSceneController implements SceneControllerInterface {
 
         for (int i = 0; i < otherPlayers.length; i++) {
 
-            othersPlayerPane.getTabs().get(i).setText(otherPlayers[i].getPlayer().getNickname());
+            otherPlayersPane.getTabs().get(i).setText(otherPlayers[i].getPlayer().getNickname());
 
-            ((Label)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(1)).setText(otherPlayers[i].getPlayer().getNickname());
-            ((ImageView)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(2)).setImage(getWizardIcon(otherPlayers[i].getPlayer().getSelectedWizard()));
+            ((Label)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(1)).setText(otherPlayers[i].getPlayer().getNickname());
+            ((ImageView)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(2)).setImage(getWizardIcon(otherPlayers[i].getPlayer().getSelectedWizard()));
 
             try {
-                ((ImageView)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistant/" + otherPlayers[i].getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
+                ((ImageView)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistant/" + otherPlayers[i].getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
             } catch (NullPointerException e){
-                ((ImageView)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/blank.png")));
+                ((ImageView)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/blank.png")));
             }
 
             for (int j = 0; j < otherPlayers[i].getEntrance().length; j++) {
-                ((ImageView)((AnchorPane)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(5)).getChildren().get(j)).setImage(displayStudent(otherPlayers[i].getEntrance()[j]));
+                ((ImageView)((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(5)).getChildren().get(j)).setImage(displayStudent(otherPlayers[i].getEntrance()[j]));
             }
 
             for (int j = 0; j < otherPlayers[i].getTowersLeft(); j++) {
-                ((ImageView)((AnchorPane)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(4)).getChildren().get(j)).setImage(getTowerIcon(otherPlayers[i].getPlayer().getTowerColor()));
+                ((ImageView)((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(4)).getChildren().get(j)).setImage(getTowerIcon(otherPlayers[i].getPlayer().getTowerColor()));
             }
 
             for (int j = 0; j < otherPlayers[i].getProfessorTable().length; j++) {
-                ((VBox)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(6)).getChildren().get(j).setVisible(otherPlayers[i].getProfessorTable()[j]);
+                ((VBox)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(6)).getChildren().get(j).setVisible(otherPlayers[i].getProfessorTable()[j]);
             }
 
-            ((Label)((AnchorPane)((AnchorPane)othersPlayerPane.getTabs().get(i).getContent()).getChildren().get(7)).getChildren().get(1)).setText("x" + otherPlayers[i].getPlayer().getCoins());
+            ((Label)((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7)).getChildren().get(1)).setText("x" + otherPlayers[i].getPlayer().getCoins());
 
         }
     }
