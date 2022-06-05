@@ -214,31 +214,113 @@
       </AnchorPane>
       <HBox fx:id="charactersBox" alignment="CENTER" prefHeight="122.0" prefWidth="448.0" spacing="27.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
          <children>
-            <AnchorPane>
+            <AnchorPane styleClass="characterCard" stylesheets="@../css/board.css">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="characterCard">
+                  <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/characters/centaur.png" />
+                        <Image url="@../img/characters/monk.png" />
                      </image>
                   </ImageView>
+                  <AnchorPane layoutX="19.0" layoutY="88.0">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="36.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="36.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane>
+            <AnchorPane styleClass="characterCard" stylesheets="@../css/board.css">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="characterCard">
+                  <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/characters/farmer.png" />
+                        <Image url="@../img/characters/spoiledprincess.png" />
                      </image>
                   </ImageView>
+                  <AnchorPane layoutX="19.0" layoutY="88.0">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="36.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="36.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane>
+            <AnchorPane styleClass="characterCard" stylesheets="@../css/board.css">
                <children>
-                  <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="characterCard">
+                  <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../img/characters/herald.png" />
+                        <Image url="@../img/characters/jester.png" />
                      </image>
                   </ImageView>
+                  <AnchorPane layoutX="6.0" layoutY="88.0">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="31.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="61.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="31.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="61.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>
@@ -1543,52 +1625,52 @@
             <RowConstraints maxHeight="157.33334503173828" minHeight="10.0" prefHeight="131.73330078125" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+            <ImageView fitHeight="150.0" fitWidth="90.0" onMouseClicked="#chooseAssistant" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                <image>
                   <Image url="@../img/assistants/cat.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+            <ImageView fitHeight="150.0" fitWidth="90.0" onMouseClicked="#chooseAssistant" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                <image>
                   <Image url="@../img/assistants/cheetah.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+            <ImageView fitHeight="150.0" fitWidth="90.0" onMouseClicked="#chooseAssistant" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                <image>
                   <Image url="@../img/assistants/dog.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+            <ImageView fitHeight="150.0" fitWidth="90.0" onMouseClicked="#chooseAssistant" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                <image>
                   <Image url="@../img/assistants/eagle.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+            <ImageView fitHeight="150.0" fitWidth="90.0" onMouseClicked="#chooseAssistant" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="4" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
                <image>
                   <Image url="@../img/assistants/elephant.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <ImageView fitHeight="150.0" fitWidth="90.0" onMouseClicked="#chooseAssistant" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <image>
                   <Image url="@../img/assistants/fox.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <ImageView fitHeight="150.0" fitWidth="90.0" onMouseClicked="#chooseAssistant" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <image>
                   <Image url="@../img/assistants/lizard.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <ImageView fitHeight="150.0" fitWidth="90.0" onMouseClicked="#chooseAssistant" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <image>
                   <Image url="@../img/assistants/octopus.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <ImageView fitHeight="150.0" fitWidth="90.0" onMouseClicked="#chooseAssistant" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <image>
                   <Image url="@../img/assistants/ostrich.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <ImageView fitHeight="150.0" fitWidth="90.0" onMouseClicked="#chooseAssistant" pickOnBounds="true" preserveRatio="true" styleClass="card" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                <image>
                   <Image url="@../img/assistants/turtle.png" />
                </image>

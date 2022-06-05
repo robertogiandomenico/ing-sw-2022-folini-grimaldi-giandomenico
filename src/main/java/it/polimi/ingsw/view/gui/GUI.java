@@ -234,6 +234,8 @@ public class GUI extends Application implements ViewInterface {
 
         Platform.runLater(() -> {
             try {
+                SceneController.switchScene(stage, "BoardScene", bsc);
+
                 if (firstPrintBoard) {
                     stage.setMaximized(true);
                     //stage.setFullScreenExitHint("Press ESC to exit fullscreen");
@@ -242,15 +244,6 @@ public class GUI extends Application implements ViewInterface {
                     stage.setResizable(true);
                     firstPrintBoard = false;
                 }
-
-                SceneController.switchScene(stage, "BoardScene", bsc);
-
-                //((BoardSceneController) bsc).initializeCharacters();
-                ((BoardSceneController) bsc).initializeThisPlayer();
-                ((BoardSceneController) bsc).initializeOtherPlayers();
-                ((BoardSceneController) bsc).initializeArchipelagos();
-                ((BoardSceneController) bsc).initializeClouds();
-                ((BoardSceneController) bsc).initializeCoinsSupply();
 
             } catch (IOException e) {
                 throw new RuntimeException(e);

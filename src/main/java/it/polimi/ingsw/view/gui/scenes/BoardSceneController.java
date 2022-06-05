@@ -1,12 +1,10 @@
 package it.polimi.ingsw.view.gui.scenes;
 
-import it.polimi.ingsw.model.Assistant;
-import it.polimi.ingsw.model.Student;
-import it.polimi.ingsw.model.TowerColor;
-import it.polimi.ingsw.model.Wizard;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.messages.clientMessages.ChooseAssistantReply;
 import it.polimi.ingsw.view.gui.GUI;
 import it.polimi.ingsw.view.utilities.MatrixOperations;
+import it.polimi.ingsw.view.utilities.lightclasses.LightArchi;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 import it.polimi.ingsw.view.utilities.lightclasses.LightSchoolBoard;
@@ -45,12 +43,12 @@ public class BoardSceneController implements SceneControllerInterface {
 
     @FXML
     public void initialize() {
-        initializeCharacters();
-        /*initializeThisPlayer();
+        initializeCharacters(lightBoard.getSelectedCharacters());
+        initializeThisPlayer();
         initializeOtherPlayers();
-        initializeArchipelagos();
+        initializeArchipelagos(lightBoard.getArchipelagos());
         initializeClouds();
-        initializeCoinsSupply();*/
+        initializeCoinsSupply(lightBoard.getCoinsSupply());
 
         charactersBox.setDisable(true);
         assistantBox.setDisable(true);
@@ -59,10 +57,8 @@ public class BoardSceneController implements SceneControllerInterface {
         thisPlayerPane.setDisable(true);
     }
 
-    public void initializeCharacters() {
+    public void initializeCharacters(LightCharacter[] selectedCharacters) {
         try {
-            LightCharacter[] selectedCharacters = lightBoard.getSelectedCharacters();
-
             for (int i = 0; i < 3; i++) {
                 ((ImageView)((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(0)).setImage(new Image(getClass().getResourceAsStream("/img/characters/" + selectedCharacters[i].getName().toLowerCase() + ".png")));
 
@@ -72,62 +68,30 @@ public class BoardSceneController implements SceneControllerInterface {
                     case "GrannyGrass":
                         Label noEntryTileLeft = new Label();
 
-                        noEntryTileLeft.setLayoutX(43);
-                        noEntryTileLeft.setLayoutY(108);
+                        noEntryTileLeft.setLayoutX(41);
+                        noEntryTileLeft.setLayoutY(107);
                         noEntryTileLeft.setText("x" + selectedCharacters[i].getNoEntryTiles());
+                        noEntryTileLeft.setStyle("-fx-font-family: \"Metamorphous\"");
 
                         ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(noEntryTileLeft);
                         break;
 
                     case "Monk":
-                        ImageView s1 = new ImageView(),
-                                  s2 = new ImageView(),
-                                  s3 = new ImageView(),
-                                  s4 = new ImageView();
-                        s1.setImage(displayStudent(selectedCharacters[i].getStudents()[0]));
-                        s2.setImage(displayStudent(selectedCharacters[i].getStudents()[1]));
-                        s3.setImage(displayStudent(selectedCharacters[i].getStudents()[2]));
-                        s4.setImage(displayStudent(selectedCharacters[i].getStudents()[3]));
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s1);
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s2);
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s3);
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s4);
+                        for (int j = 0; j < selectedCharacters[i].getStudents().length; j++) {
+                            ((ImageView)((AnchorPane)((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(1)).getChildren().get(j)).setImage(displayStudent(selectedCharacters[i].getStudents()[j]));
+                        }
                         break;
 
                     case "Jester":
-                        ImageView s5 = new ImageView(),
-                                  s6 = new ImageView(),
-                                  s7 = new ImageView(),
-                                  s8 = new ImageView(),
-                                  s9 = new ImageView(),
-                                  s10 = new ImageView();
-                        s5.setImage(displayStudent(selectedCharacters[i].getStudents()[0]));
-                        s6.setImage(displayStudent(selectedCharacters[i].getStudents()[1]));
-                        s7.setImage(displayStudent(selectedCharacters[i].getStudents()[2]));
-                        s8.setImage(displayStudent(selectedCharacters[i].getStudents()[3]));
-                        s9.setImage(displayStudent(selectedCharacters[i].getStudents()[4]));
-                        s10.setImage(displayStudent(selectedCharacters[i].getStudents()[5]));
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s5);
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s6);
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s7);
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s8);
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s9);
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s10);
+                        for (int j = 0; j < selectedCharacters[i].getStudents().length; j++) {
+                            ((ImageView)((AnchorPane)((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(1)).getChildren().get(j)).setImage(displayStudent(selectedCharacters[i].getStudents()[j]));
+                        }
                         break;
 
                     case "SpoiledPrincess":
-                        ImageView s11 = new ImageView(),
-                                  s12 = new ImageView(),
-                                  s13 = new ImageView(),
-                                  s14 = new ImageView();
-                        s11.setImage(displayStudent(selectedCharacters[i].getStudents()[0]));
-                        s12.setImage(displayStudent(selectedCharacters[i].getStudents()[1]));
-                        s13.setImage(displayStudent(selectedCharacters[i].getStudents()[2]));
-                        s14.setImage(displayStudent(selectedCharacters[i].getStudents()[3]));
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s11);
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s12);
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s13);
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(s14);
+                        for (int j = 0; j < selectedCharacters[i].getStudents().length; j++) {
+                            ((ImageView)((AnchorPane)((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(1)).getChildren().get(j)).setImage(displayStudent(selectedCharacters[i].getStudents()[j]));
+                        }
                         break;
 
                     default:
@@ -203,25 +167,25 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
-    public void initializeArchipelagos() {
-        for (int i = 0; i < lightBoard.getArchipelagos().size(); i++) {
+    public void initializeArchipelagos(List<LightArchi> archipelagos) {
+        for (int i = 0; i < archipelagos.size(); i++) {
 
             //set tower
             try {
-                ((ImageView) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(1)).setImage(new Image(getClass().getResourceAsStream("/img/towers/" + lightBoard.getArchipelagos().get(i).getTowerColor().name().toLowerCase() + ".png")));
+                ((ImageView) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(1)).setImage(new Image(getClass().getResourceAsStream("/img/towers/" + archipelagos.get(i).getTowerColor().name().toLowerCase() + ".png")));
             } catch (NullPointerException e) {
                 ((ImageView) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(1)).setImage(new Image(getClass().getResourceAsStream("/img/blank.png")));
             }
 
             //set mother nature
-            ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(2).setVisible(lightBoard.getArchipelagos().get(i).isMNPresent());
+            ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(2).setVisible(archipelagos.get(i).isMNPresent());
 
             //set no entry tile
-            ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(8).setVisible(lightBoard.getArchipelagos().get(i).isNoEntryTilePresent());
+            ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(8).setVisible(archipelagos.get(i).isNoEntryTilePresent());
 
             //set students number and visibility
             for (int j = 0; j < 5; j++) {
-                ((Label)((AnchorPane)((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(j+3)).getChildren().get(1)).setText(Integer.toString(MatrixOperations.columnSum(lightBoard.getArchipelagos().get(i).getIslands(), j)));
+                ((Label)((AnchorPane)((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(j+3)).getChildren().get(1)).setText(Integer.toString(MatrixOperations.columnSum(archipelagos.get(i).getIslands(), j)));
 
                 if (((Label)((AnchorPane)((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(j+3)).getChildren().get(1)).getText().equals("0"))
                     ((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(j+3).setVisible(false);
@@ -246,9 +210,9 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
-    public void initializeCoinsSupply() {
+    public void initializeCoinsSupply(int coinsSupply) {
         if (lightBoard.getSelectedCharacters() != null) {  //if it's expert mode
-            ((Label) coinsSupplyBox.getChildren().get(1)).setText("x" + lightBoard.getCoinsSupply());
+            ((Label) coinsSupplyBox.getChildren().get(1)).setText("x" + coinsSupply);
         } else {
             coinsSupplyBox.setDisable(true);
             coinsSupplyBox.setVisible(false);
@@ -258,8 +222,10 @@ public class BoardSceneController implements SceneControllerInterface {
     public void initializeOtherPlayers() {
         LightSchoolBoard[] otherPlayers = new LightSchoolBoard[lightBoard.getSchoolBoards().size()-1];
 
-        if (lightBoard.getSchoolBoards().size() == 2)
+        if (lightBoard.getSchoolBoards().size() == 2) {
             otherPlayersPane.getTabs().get(1).setDisable(true);
+            otherPlayersPane.getTabs().remove(1);
+        }
 
         for (int i = 0; i < lightBoard.getSchoolBoards().size(); i++) {
             if (!lightBoard.getSchoolBoards().get(i).getPlayer().getNickname().equals(gui.getClient().getNickname())) {
@@ -345,6 +311,7 @@ public class BoardSceneController implements SceneControllerInterface {
         archipelagosBox.setDisable(false);
     }
 
+    @FXML
     private void chooseAssistant(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             String selectedAssistant = event.getPickResult().getIntersectedNode().getId();
@@ -380,6 +347,7 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    @FXML
     private void chooseCharacter(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             String selectedCharacter = event.getPickResult().getIntersectedNode().getId();
