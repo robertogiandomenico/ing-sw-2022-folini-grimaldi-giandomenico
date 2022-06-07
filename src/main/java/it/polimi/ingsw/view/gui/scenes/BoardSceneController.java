@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.network.messages.clientMessages.ChooseAssistantReply;
+import it.polimi.ingsw.network.messages.clientMessages.CloudReply;
 import it.polimi.ingsw.view.gui.GUI;
 import it.polimi.ingsw.view.utilities.MatrixOperations;
 import it.polimi.ingsw.view.utilities.lightclasses.LightArchi;
@@ -114,28 +115,39 @@ public class BoardSceneController implements SceneControllerInterface {
             }
         }
 
+        //set wizard image and nickname
         ((Label) thisPlayerPane.getChildren().get(1)).setText(thisPlayerBoard.getPlayer().getNickname());
         ((ImageView) thisPlayerPane.getChildren().get(2)).setImage(getWizardIcon(thisPlayerBoard.getPlayer().getSelectedWizard()));
 
+        //set available assistants
         try {
             ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistant/" + thisPlayerBoard.getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
         } catch (NullPointerException e) {
             ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/blank.png")));
         }
 
+        //set entrance
         for (int i = 0; i < thisPlayerBoard.getEntrance().length; i++) {
             ((ImageView)((AnchorPane) thisPlayerPane.getChildren().get(4)).getChildren().get(i)).setImage(displayStudent(thisPlayerBoard.getEntrance()[i]));
         }
 
+        //set towers left
         for (int i = 0; i < thisPlayerBoard.getTowersLeft(); i++) {
             ((ImageView)((AnchorPane) thisPlayerPane.getChildren().get(5)).getChildren().get(i)).setImage(getTowerIcon(thisPlayerBoard.getPlayer().getTowerColor()));
         }
 
+        //set professor table
         for (int i = 0; i < thisPlayerBoard.getProfessorTable().length; i++) {
             ((VBox) thisPlayerPane.getChildren().get(6)).getChildren().get(i).setVisible(thisPlayerBoard.getProfessorTable()[i]);
         }
 
-        ((Label)((AnchorPane)thisPlayerPane.getChildren().get(7)).getChildren().get(1)).setText("x" + thisPlayerBoard.getPlayer().getCoins());
+        //set coins
+        if(lightBoard.getSelectedCharacters() != null) {
+            ((Label)((AnchorPane)thisPlayerPane.getChildren().get(7)).getChildren().get(1)).setText("x" + thisPlayerBoard.getPlayer().getCoins());
+        } else {
+            thisPlayerPane.getChildren().get(7).setDisable(true);
+            thisPlayerPane.getChildren().get(7).setVisible(false);
+        }
 
     }
 
@@ -206,6 +218,7 @@ public class BoardSceneController implements SceneControllerInterface {
         for (int i = 0; i < cloudsNumber; i++) {
             for (int j = 0; j < cloudsNumber+1; j++) {
                 ((ImageView) ((AnchorPane) cloudsBox.getChildren().get(i)).getChildren().get(j+1)).setImage(displayStudent(lightBoard.getCloud(i)[j]));
+                cloudsBox.getChildren().get(i).setId(String.valueOf(i));
             }
         }
     }
@@ -258,8 +271,12 @@ public class BoardSceneController implements SceneControllerInterface {
                 ((VBox)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(6)).getChildren().get(j).setVisible(otherPlayers[i].getProfessorTable()[j]);
             }
 
-            ((Label)((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7)).getChildren().get(1)).setText("x" + otherPlayers[i].getPlayer().getCoins());
-
+            if (lightBoard.getSelectedCharacters() != null) {
+                ((Label) ((AnchorPane) ((AnchorPane) otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7)).getChildren().get(1)).setText("x" + otherPlayers[i].getPlayer().getCoins());
+            } else {
+                ((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7).setDisable(true);
+                ((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7).setVisible(false);
+            }
         }
     }
 
@@ -311,6 +328,10 @@ public class BoardSceneController implements SceneControllerInterface {
         archipelagosBox.setDisable(false);
     }
 
+    public void enableCloudBox() {
+        cloudsBox.setDisable(false);
+    }
+
     @FXML
     private void chooseAssistant(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
@@ -319,6 +340,16 @@ public class BoardSceneController implements SceneControllerInterface {
             assistantBox.setDisable(true);
         }
     }
+
+    @FXML
+    private void chooseCloud(MouseEvent event) {
+        if (event.getButton().equals(MouseButton.PRIMARY)) {
+            int cloudIndex = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
+            gui.getClient().sendMsgToServer(new CloudReply(cloudIndex));
+            cloudsBox.setDisable(true);
+        }
+    }
+
 
     private Assistant getAssistantByName(String name) {
         switch (name.toUpperCase()) {

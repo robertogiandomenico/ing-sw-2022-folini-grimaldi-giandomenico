@@ -195,7 +195,11 @@ public class GUI extends Application implements ViewInterface {
 
     @Override
     public void askCloud(List<Integer> availableClouds) {
+        SceneControllerInterface bsc = getBoardSceneController();
 
+        Platform.runLater(() -> {
+            ((BoardSceneController) bsc).enableCloudBox();
+        });
     }
 
     @Override

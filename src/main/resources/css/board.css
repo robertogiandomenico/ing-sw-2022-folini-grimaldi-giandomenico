@@ -52,7 +52,6 @@
 .card:disabled {
     -fx-focus-traversable: false;
     -fx-block-increment: true;
-    -fx-opacity: 0.9;
     -fx-scale-x: 0.95;
     -fx-scale-y: 0.95;
     -fx-translate-y: 4;
