@@ -4,9 +4,9 @@ import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.view.gui.GUI;
 import it.polimi.ingsw.view.utilities.IPvalidator;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
@@ -17,9 +17,9 @@ public class ConnectionSceneController implements SceneControllerInterface {
     @FXML
     private TextField portField;
     @FXML
-    private AnchorPane connectButton;
+    private Button connectButton;
     @FXML
-    private AnchorPane exitButton;
+    private Button exitButton;
     private String ipAddress;
     private String port;
     final int MIN_PORT = 1024;

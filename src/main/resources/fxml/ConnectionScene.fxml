@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="600.0" styleClass="mainPanel" stylesheets="@../css/setup.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <columnConstraints>
@@ -44,36 +43,6 @@
             <Insets top="100.0" />
          </GridPane.margin>
       </Label>
-      <AnchorPane fx:id="connectButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#connect" prefHeight="51.0" prefWidth="138.0" styleClass="actionButton" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BASELINE">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="actionButton" text="Connect" textAlignment="CENTER" wrappingWidth="138.0" y="32.0">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Text>
-         </children>
-         <GridPane.margin>
-            <Insets bottom="170.0" left="50.0" right="50.0" top="15.0" />
-         </GridPane.margin>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </AnchorPane>
-      <AnchorPane fx:id="exitButton" layoutX="232.0" layoutY="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#exit" prefHeight="31.0" prefWidth="82.0" styleClass="exitButton" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
-         <children>
-            <Text layoutX="-1.0" layoutY="-4.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="backButton" text="Exit" textAlignment="CENTER" wrappingWidth="82.39999999999998" y="25.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="5.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <GridPane.margin>
-            <Insets bottom="20.0" left="20.0" />
-         </GridPane.margin>
-      </AnchorPane>
       <Label alignment="CENTER" contentDisplay="CENTER" ellipsisString="" graphicTextGap="7.0" lineSpacing="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="46.0" prefWidth="284.0" styleClass="loadingText" text="Insert the server IP address" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
          <font>
             <Font size="25.0" />
@@ -98,5 +67,15 @@
             <Insets top="90.0" />
          </GridPane.margin>
       </Label>
+      <Button fx:id="connectButton" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#connect" prefHeight="53.0" prefWidth="138.0" styleClass="actionButton" stylesheets="@../css/setup.css" text="Connect" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets top="20.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="29.0" prefWidth="71.0" styleClass="exitButton" stylesheets="@../css/setup.css" text="Exit" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="20.0" />
+         </GridPane.margin>
+      </Button>
    </children>
 </GridPane>

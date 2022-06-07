@@ -6,9 +6,9 @@ import it.polimi.ingsw.view.gui.GUI;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.util.List;
@@ -24,9 +24,9 @@ public class WizardSceneController implements SceneControllerInterface {
     @FXML
     private VBox skyWizard;
     @FXML
-    private AnchorPane goButton;
+    private Button goButton;
     @FXML
-    private AnchorPane exitButton;
+    private Button exitButton;
     private String chosenWizardID;
     List<Wizard> availableWizards;
 

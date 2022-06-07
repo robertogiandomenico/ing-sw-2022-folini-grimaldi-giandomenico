@@ -2,10 +2,10 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -104,28 +104,11 @@
             <Insets bottom="70.0" left="30.0" right="30.0" top="90.0" />
          </GridPane.margin>
       </HBox>
-      <AnchorPane fx:id="goButton" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#go" prefHeight="45.0" prefWidth="20.0" styleClass="actionButton" stylesheets="@../css/setup.css" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="actionButton" text="Go!" textAlignment="CENTER" wrappingWidth="160.0" y="30.0" />
-         </children>
+      <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="29.0" prefWidth="71.0" styleClass="exitButton" stylesheets="@../css/setup.css" text="Exit" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
          <GridPane.margin>
-            <Insets bottom="50.0" left="220.0" right="220.0" top="20.0" />
+            <Insets bottom="20.0" left="15.0" />
          </GridPane.margin>
-      </AnchorPane>
-      <AnchorPane fx:id="exitButton" focusTraversable="true" layoutX="323.0" layoutY="400.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#exit" prefHeight="31.0" prefWidth="82.0" styleClass="exitButton" stylesheets="@../css/setup.css" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-         <children>
-            <Text layoutX="-1.0" layoutY="-4.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="exitButton" text="Exit" textAlignment="CENTER" wrappingWidth="82.39999999999998" y="25.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="5.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <GridPane.margin>
-            <Insets bottom="20.0" left="20.0" />
-         </GridPane.margin>
-      </AnchorPane>
+      </Button>
+      <Button fx:id="goButton" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#go" prefHeight="46.0" prefWidth="153.0" styleClass="actionButton" stylesheets="@../css/setup.css" text="Go!" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
    </children>
 </GridPane>

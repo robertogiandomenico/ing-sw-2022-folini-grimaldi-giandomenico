@@ -29,6 +29,7 @@
 .actionButton:disabled {
     -fx-background-image: url("../img/buttons/disabled.png");
     -fx-focus-traversable: false;
+    -fx-opacity: 1;
 }
 
 .exitButton {
