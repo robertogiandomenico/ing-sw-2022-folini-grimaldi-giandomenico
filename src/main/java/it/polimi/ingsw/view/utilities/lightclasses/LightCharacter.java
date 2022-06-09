@@ -17,6 +17,7 @@ public class LightCharacter implements Serializable {
     private final String name;
     private int noEntryTiles = -1;
     private Student[] students;
+    private boolean isAlreadyUsed;
 
     /**
      * Class constructor.
@@ -28,6 +29,7 @@ public class LightCharacter implements Serializable {
     LightCharacter(GameCharacter c){
         cost = c.getCost();
         name = c.getName();
+        isAlreadyUsed = c.isAlreadyUsed();
 
         switch (name){
             case "GrannyGrass":
@@ -81,5 +83,19 @@ public class LightCharacter implements Serializable {
      */
     public Student[] getStudents() {
         return students;
+    }
+
+    /**
+     * States whether the character has been already used.
+     *
+     * @return             a boolean whose value is:
+     *                     <p>
+     *                     -{@code true} if the character has been already use once;
+     *                     </p> <p>
+     *                     -{@code false} otherwise.
+     *                     </p>
+     */
+    public boolean isAlreadyUsed() {
+        return isAlreadyUsed;
     }
 }

@@ -180,4 +180,18 @@ public class LightBoard implements Serializable {
         return coinsSupply;
     }
 
+    /**
+     * Returns the game mode.
+     *
+     * @return             a boolean whose value is:
+     *                     <p>
+     *                     -{@code true} if the mode is expert;
+     *                     </p> <p>
+     *                     -{@code false} otherwise.
+     *                     </p>
+     */
+    public boolean isExpertMode() {
+        return selectedCharacters != null;
+    }
+
 }

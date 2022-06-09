@@ -104,6 +104,12 @@ public class BoardSceneController implements SceneControllerInterface {
                     default:
                         break;
                 }
+
+                if (selectedCharacters[i].isAlreadyUsed())
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(2).setVisible(true);
+                else
+                    ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(2).setVisible(false);
+
             }
         } catch (NullPointerException e) {
             charactersBox.setDisable(true);
@@ -149,7 +155,7 @@ public class BoardSceneController implements SceneControllerInterface {
         }
 
         //set coins
-        if(lightBoard.getSelectedCharacters() != null) {
+        if(lightBoard.isExpertMode()) {
             ((Label)((AnchorPane)thisPlayerPane.getChildren().get(7)).getChildren().get(1)).setText("x" + thisPlayerBoard.getPlayer().getCoins());
         } else {
             thisPlayerPane.getChildren().get(7).setDisable(true);
@@ -257,7 +263,7 @@ public class BoardSceneController implements SceneControllerInterface {
      * @param coinsSupply         the number of coins in the supply.
      */
     public void initializeCoinsSupply(int coinsSupply) {
-        if (lightBoard.getSelectedCharacters() != null) {  //if it's expert mode
+        if (lightBoard.isExpertMode()) {
             ((Label) coinsSupplyBox.getChildren().get(1)).setText("x" + coinsSupply);
         } else {
             coinsSupplyBox.setDisable(true);
@@ -309,7 +315,7 @@ public class BoardSceneController implements SceneControllerInterface {
                 ((VBox)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(6)).getChildren().get(j).setVisible(otherPlayers[i].getProfessorTable()[j]);
             }
 
-            if (lightBoard.getSelectedCharacters() != null) {
+            if (lightBoard.isExpertMode()) {
                 ((Label) ((AnchorPane) ((AnchorPane) otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7)).getChildren().get(1)).setText("x" + otherPlayers[i].getPlayer().getCoins());
             } else {
                 ((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7).setDisable(true);

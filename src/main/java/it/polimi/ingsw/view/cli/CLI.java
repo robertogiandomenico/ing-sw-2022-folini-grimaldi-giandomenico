@@ -674,7 +674,7 @@ public class CLI implements ViewInterface {
                 System.out.print("\033[3A" + "\033[2C");
         }
 
-        if (board.getSelectedCharacters() != null) {  //if it's expert mode
+        if (board.isExpertMode()) {
             //print coins supply
             DisplayBoard.printCoinsSupply(board.getCoinsSupply());
 
@@ -696,7 +696,7 @@ public class CLI implements ViewInterface {
         //find this client's schoolboard and print it
         for (LightSchoolBoard lsb : board.getSchoolBoards()) {
             if (lsb.getPlayer().getNickname().equals(client.getNickname())) {
-                DisplayBoard.printSchoolBoard(lsb, board.getSelectedCharacters() != null, lsb.equals(currentPlayerSB));
+                DisplayBoard.printSchoolBoard(lsb, board.isExpertMode(), lsb.equals(currentPlayerSB));
                 break;
             }
         }
@@ -704,7 +704,7 @@ public class CLI implements ViewInterface {
         for (int i = 0; i < board.getSchoolBoards().size(); i++) {
             if (!board.getSchoolBoards().get(i).getPlayer().getNickname().equals(client.getNickname())) {
                 System.out.print("\033[7A" + "\033[4C");
-                DisplayBoard.printSchoolBoard(board.getSchoolBoards().get(i), board.getSelectedCharacters() != null, board.getSchoolBoards().get(i).equals(currentPlayerSB));
+                DisplayBoard.printSchoolBoard(board.getSchoolBoards().get(i), board.isExpertMode(), board.getSchoolBoards().get(i).equals(currentPlayerSB));
             }
 
             if (i == (board.getSchoolBoards().size() -1) )

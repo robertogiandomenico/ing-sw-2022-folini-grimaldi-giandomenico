@@ -37,9 +37,10 @@ public class DisplayBoard {
 
         //print blank schoolboard
         System.out.print("\033[1B");                //down 1 line
-        for (int i = 0; i < nicknameLength; i++) {  //backward for -nicknameLength- lines
-            System.out.print("\033[1D" + color);
-        }
+        for (int i = 0; i < nicknameLength; i++)    //backward for -nicknameLength- columns
+            System.out.print("\033[1D");
+
+        System.out.print(color); //FIXME: does not work as it should
         System.out.print("╭───┬──────────────────┬───────╮" + "\033[1B" + "\033[32D");
         System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
         System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");

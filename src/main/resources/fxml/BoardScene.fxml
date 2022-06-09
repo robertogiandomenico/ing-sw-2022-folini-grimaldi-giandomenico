@@ -221,14 +221,14 @@
                         <Image url="@../img/characters/monk.png" />
                      </image>
                   </ImageView>
-                  <AnchorPane layoutX="19.0" layoutY="88.0">
+                  <AnchorPane layoutX="6.0" layoutY="88.0">
                      <children>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
                            <image>
                               <Image url="@../img/blank.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="36.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="61.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
                            <image>
                               <Image url="@../img/blank.png" />
                            </image>
@@ -238,7 +238,17 @@
                               <Image url="@../img/blank.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="36.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="61.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="31.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="31.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
                            <image>
                               <Image url="@../img/blank.png" />
                            </image>
@@ -254,14 +264,14 @@
                         <Image url="@../img/characters/spoiledprincess.png" />
                      </image>
                   </ImageView>
-                  <AnchorPane layoutX="19.0" layoutY="88.0">
+                  <AnchorPane layoutX="6.0" layoutY="88.0">
                      <children>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
                            <image>
                               <Image url="@../img/blank.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="36.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="61.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
                            <image>
                               <Image url="@../img/blank.png" />
                            </image>
@@ -271,7 +281,17 @@
                               <Image url="@../img/blank.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="36.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="61.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="31.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="31.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
                            <image>
                               <Image url="@../img/blank.png" />
                            </image>
@@ -294,11 +314,6 @@
                               <Image url="@../img/blank.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="31.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
-                           <image>
-                              <Image url="@../img/blank.png" />
-                           </image>
-                        </ImageView>
                         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="61.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
                            <image>
                               <Image url="@../img/blank.png" />
@@ -309,12 +324,17 @@
                               <Image url="@../img/blank.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="31.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="61.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
                            <image>
                               <Image url="@../img/blank.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="61.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="31.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
+                           <image>
+                              <Image url="@../img/blank.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="31.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" styleClass="pawn">
                            <image>
                               <Image url="@../img/blank.png" />
                            </image>
