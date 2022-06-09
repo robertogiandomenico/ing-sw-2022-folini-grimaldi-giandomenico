@@ -1,14 +1,16 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.view.cli.CLI;
+import it.polimi.ingsw.view.gui.GUI;
 
 public class ClientMain {
     private static final String CLI_ARGUMENT = "-cli";
 
     public static void main(String[] args) {
-        //if (args.length == 0)
-        //Application.launch(GUI.class, args);
-        if (args.length > 1)
+        if (args.length == 0)
+            GUI.main(args);
+            //Application.launch(GUI.class, args);
+        else if (args.length > 1)
             System.out.println("Too many arguments, insert " + CLI_ARGUMENT + " start in CLI mode.");
         else {
             if (CLI_ARGUMENT.equals(args[0]))
