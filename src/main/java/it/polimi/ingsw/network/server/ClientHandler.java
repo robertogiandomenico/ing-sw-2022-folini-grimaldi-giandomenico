@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.Controller;
+import it.polimi.ingsw.controller.actions.Action;
 import it.polimi.ingsw.controller.phases.ClientHandlerPhases;
 import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
@@ -13,13 +14,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.util.logging.Level;
 
 public class ClientHandler implements Runnable{
     private final int PING_TIME = 5000;
 
     private final Server server;
     private final Socket socket;
-    private Thread pingThread;
+    private final Thread pingThread;
     private boolean activeClient;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
@@ -29,6 +31,8 @@ public class ClientHandler implements Runnable{
     private Controller controller;
 
     private ClientHandlerPhases clientHandlerPhase;
+
+    private Action currentAction;
 
     public ClientHandler(Server server, Socket socket) {
         this.server = server;
@@ -104,7 +108,10 @@ public class ClientHandler implements Runnable{
     }
 
     public void manageDisconnection() {
-
+        activeClient = false;
+        Server.SERVER_LOGGER.log(Level.INFO, "DISCONNECTION: client " + socket.getInetAddress().getHostAddress() + " has disconnected");
+        server.removeClient(this);
+        disconnect();
     }
 
     public ClientHandlerPhases getClientHandlerPhase() {
@@ -121,5 +128,25 @@ public class ClientHandler implements Runnable{
 
     public void setController(Controller controller) {
         this.controller = controller;
+    }
+
+    public Action getCurrentAction() {
+        return currentAction;
+    }
+
+    public void setCurrentAction(Action currentAction) {
+        this.currentAction = currentAction;
+    }
+
+    public void disconnect() {
+        try {
+            inputStream.close();
+        } catch (IOException ignored){}
+        try {
+            outputStream.close();
+        } catch (IOException ignored){}
+        try {
+            socket.close();
+        } catch (IOException ignored){}
     }
 }

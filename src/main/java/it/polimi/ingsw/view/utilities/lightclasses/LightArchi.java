@@ -10,7 +10,8 @@ import java.util.EnumMap;
 
 /**
  * This class is useful to contain the information needed to display the
- * archipelagos. (CLI/GUI)
+ * archipelagos.
+ * ({@link it.polimi.ingsw.view.cli.CLI CLI}/{@link it.polimi.ingsw.view.gui.GUI GUI})
  */
 public class LightArchi implements Serializable {
     private int[][] islands;
@@ -37,6 +38,7 @@ public class LightArchi implements Serializable {
                 islands[i][colorsIndex.get(c)] = a.getIslands().get(i).getStudentNumber(c);
     }
 
+
     /**
      * Returns the islands.
      *
@@ -55,7 +57,7 @@ public class LightArchi implements Serializable {
      *                     <p>
      *                     -{@code true} if Mother Nature is on this Archipelago;
      *                     </p> <p>
-     *                     -{@code false} if Mother Nature isn't on this Archipelago.
+     *                     -{@code false} otherwise.
      *                     </p>
      */
     public boolean isMNPresent() {
@@ -70,7 +72,7 @@ public class LightArchi implements Serializable {
      *                     <p>
      *                     -{@code true} if a No Entry tile is on this Archipelago;
      *                     </p> <p>
-     *                     -{@code false} if there isn't a No Entry tile on this Archipelago.
+     *                     -{@code false} otherwise.
      *                     </p>
      */
     public boolean isNoEntryTilePresent() {
@@ -89,7 +91,7 @@ public class LightArchi implements Serializable {
     /**
      * Returns the size of this archipelago.
      *
-     * @return             the size of this archipelago.
+     * @return             the size of this Archipelago.
      */
     public int getSize() {
         return size;

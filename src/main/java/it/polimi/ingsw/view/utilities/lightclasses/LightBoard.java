@@ -9,7 +9,8 @@ import java.util.List;
 
 /**
  * This class is useful to contain the information needed to display the
- * board. (CLI/GUI)
+ * board.
+ * ({@link it.polimi.ingsw.view.cli.CLI CLI}/{@link it.polimi.ingsw.view.gui.GUI GUI})
  */
 public class LightBoard implements Serializable {
     private List<LightArchi> archipelagos;
@@ -23,7 +24,7 @@ public class LightBoard implements Serializable {
     /**
      * Class constructor.
      *
-     * @param b      the Board to simplify.
+     * @param b            the Board to simplify.
      */
     public LightBoard(Board b){
         initializeLightPlayers(b.getPlayers());
@@ -43,12 +44,13 @@ public class LightBoard implements Serializable {
         initializeLightClouds(b.getClouds());
     }
 
+
     /**
      * Initializes a light version of the clouds.
      * Only the cloud content is saved
      * -> clouds are now treated as Student matrices.
      *
-     * @param clouds the Clouds on the Board.
+     * @param clouds       the Clouds on the Board.
      */
     private void initializeLightClouds(Cloud[] clouds){
         this.clouds = new Student[clouds.length][clouds[0].getCloudContent().length];
@@ -58,9 +60,9 @@ public class LightBoard implements Serializable {
 
     /**
      * Initializes a light version of the players.
-     * {@see LightPlayer}
+     * @see LightPlayer
      *
-     * @param players the List of Players for this Game.
+     * @param players      the List of Players for this Game.
      */
     private void initializeLightPlayers(List<Player> players){
         this.players = new ArrayList<>();
@@ -70,7 +72,7 @@ public class LightBoard implements Serializable {
 
     /**
      * Initializes a light version of the school boards.
-     * {@see LightSchoolBoard}
+     * @see LightSchoolBoard
      *
      * @param schoolBoards the SchoolBoard Array for this Game.
      */
@@ -82,10 +84,10 @@ public class LightBoard implements Serializable {
 
     /**
      * Initializes a light version of the archipelagos.
-     * {@see LightArchis}
+     * @see LightArchi
      *
-     * @param archis      the Archipelago List of the Board.
-     * @param colorsIndex the EnumMap associating Colors and Integers.
+     * @param archis       the Archipelago List of the Board.
+     * @param colorsIndex  the EnumMap associating Colors and Integers.
      */
     private void initializeLightArchipelagos(List<Archipelago> archis, EnumMap<Color, Integer> colorsIndex){
         this.archipelagos = new ArrayList<>();
@@ -93,12 +95,23 @@ public class LightBoard implements Serializable {
             archipelagos.add(new LightArchi(a, colorsIndex));
     }
 
+    /**
+     * Initializes a light version of the characters.
+     * @see LightCharacter
+     *
+     * @param characters   the GameCharacter List of this Game.
+     */
     private void initializeLightCharacters(GameCharacter[] characters){
         this.selectedCharacters = new LightCharacter[characters.length];
         for (int i = 0; i< characters.length; i++)
             selectedCharacters[i] = new LightCharacter(characters[i]);
     }
 
+    /**
+     * Returns the characters.
+     *
+     * @return             a LightCharacter List.
+     */
     public LightCharacter[] getSelectedCharacters() {
         return selectedCharacters;
     }
@@ -106,7 +119,7 @@ public class LightBoard implements Serializable {
     /**
      * Returns the archipelagos.
      *
-     * @return       a LightArchi List.
+     * @return             a LightArchi List.
      */
     public List<LightArchi> getArchipelagos(){
         return archipelagos;
@@ -115,12 +128,17 @@ public class LightBoard implements Serializable {
     /**
      * Returns the school boards.
      *
-     * @return       a LightSchoolBoard List.
+     * @return             a LightSchoolBoard List.
      */
     public List<LightSchoolBoard> getSchoolBoards(){
         return schoolBoards;
     }
 
+    /**
+     * Returns the school board of the current player.
+     *
+     * @return             a LightSchoolBoard.
+     */
     public LightSchoolBoard getCurrentPlayerSchoolBoard() {
         return currentPlayerSB;
     }
@@ -128,7 +146,7 @@ public class LightBoard implements Serializable {
     /**
      * Returns the players.
      *
-     * @return       a LightPlayer List.
+     * @return             a LightPlayer List.
      */
     public List<LightPlayer> getPlayers(){
         return players;
@@ -137,18 +155,29 @@ public class LightBoard implements Serializable {
     /**
      * Returns the students on the given cloud.
      *
-     * @param index  the index of the Cloud.
-     * @return       a Student array.
+     * @param index        the index of the Cloud.
+     * @return             a Student array.
      */
     public Student[] getCloud(int index){
         return clouds[index];
     }
 
+    /**
+     * Returns the number of clouds on the board.
+     *
+     * @return             the number of Clouds.
+     */
     public int getCloudsNumber() {
         return clouds.length;
     }
 
+    /**
+     * Returns the coins supply.
+     *
+     * @return             the number of coins in the supply.
+     */
     public int getCoinsSupply() {
         return coinsSupply;
     }
+
 }

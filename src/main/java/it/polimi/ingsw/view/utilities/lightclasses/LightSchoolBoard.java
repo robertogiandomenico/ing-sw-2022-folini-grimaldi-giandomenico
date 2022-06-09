@@ -7,7 +7,8 @@ import java.io.Serializable;
 
 /**
  * This class is useful to contain the information needed to display the
- * school boards. (CLI/GUI)
+ * school boards.
+ * ({@link it.polimi.ingsw.view.cli.CLI CLI}/{@link it.polimi.ingsw.view.gui.GUI GUI})
  */
 public class LightSchoolBoard implements Serializable {
     private final LightPlayer player;

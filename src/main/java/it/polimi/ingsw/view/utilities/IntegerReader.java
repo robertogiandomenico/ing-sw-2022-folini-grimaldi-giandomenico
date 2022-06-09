@@ -5,7 +5,18 @@ import it.polimi.ingsw.view.cli.CliColor;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * This class contains utility methods for {@link it.polimi.ingsw.view.cli.CLI
+ * CLI} to get input from the user.
+ */
 public class IntegerReader {
+
+    /**
+     * Returns an int got from user input.
+     *
+     * @param scanner   the Scanner to use to get the input.
+     * @return          a valid int.
+     */
     public static int readInput(Scanner scanner) {
         int in = -1;
 

@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,9 +24,9 @@ class SchoolBoardTest {
         players = new ArrayList<>();
         otherBoards = new ArrayList<>();
 
-        players.add(new Player("player1", TowerColor.WHITE, Wizard.WIZARD1));
-        players.add(new Player("player2", TowerColor.BLACK, Wizard.WIZARD2));
-        players.add(new Player("player3", TowerColor.GREY, Wizard.WIZARD3));
+        players.add(new Player("player1", TowerColor.WHITE, Wizard.ARTICWIZARD));
+        players.add(new Player("player2", TowerColor.BLACK, Wizard.DESERTWIZARD));
+        players.add(new Player("player3", TowerColor.GREY, Wizard.FORESTWIZARD));
 
         //blue x2, green x1, yellow x2, pink x4, red x0
         Student[] entrance1 = new Student[]{new Student(Color.BLUE), new Student(Color.GREEN), new Student(Color.YELLOW), new Student(Color.YELLOW), new Student(Color.PINK), new Student(Color.PINK), new Student(Color.BLUE), new Student(Color.PINK), new Student(Color.PINK)};

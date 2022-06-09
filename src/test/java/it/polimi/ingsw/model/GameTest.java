@@ -27,9 +27,9 @@ class GameTest {
         );
         players = new ArrayList<>(
                 Arrays.asList(
-                        new Player("test1", TowerColor.WHITE, Wizard.WIZARD1),
-                        new Player("test2", TowerColor.BLACK, Wizard.WIZARD2),
-                        new Player("test3", TowerColor.GREY, Wizard.WIZARD3)
+                        new Player("test1", TowerColor.WHITE, Wizard.ARTICWIZARD),
+                        new Player("test2", TowerColor.BLACK, Wizard.DESERTWIZARD),
+                        new Player("test3", TowerColor.GREY, Wizard.FORESTWIZARD)
                 )
         );
 

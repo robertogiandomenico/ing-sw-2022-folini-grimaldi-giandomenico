@@ -8,8 +8,5 @@ import java.util.Collection;
 import java.util.List;
 
 public interface TurnPhase {
-
-    void execute(TurnController controller);
-
     List<ActionType> getAvailableTurnActions();
 }

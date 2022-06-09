@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="600.0" prefWidth="600.0" styleClass="mainPanel" stylesheets="@../css/setup.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="162.3999755859375" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="112.60000305175781" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="338.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="120.8000366210938" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" ellipsisString="" focusTraversable="false" graphicTextGap="7.0" lineSpacing="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="46.0" prefWidth="284.0" styleClass="loadingText" text="Select a wizard:" textAlignment="CENTER" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+         <font>
+            <Font size="35.0" />
+         </font>
+         <GridPane.margin>
+            <Insets top="100.0" />
+         </GridPane.margin>
+      </Label>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="800.0" spacing="25.0" stylesheets="@../css/setup.css" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <children>
+            <VBox fx:id="articWizard" onMouseClicked="#handleOnMouseClicked" prefHeight="150.0" prefWidth="180.0" styleClass="wizardPane" stylesheets="@../css/setup.css" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="180.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/wizards/articwizard.png" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D />
+                     </viewport>
+                  </ImageView>
+                  <Text pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Artic Wizard" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="120.308349609375">
+                     <VBox.margin>
+                        <Insets top="19.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox fx:id="desertWizard" onMouseClicked="#handleOnMouseClicked" prefHeight="150.0" prefWidth="180.0" styleClass="wizardPane" stylesheets="@../css/setup.css" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="180.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/wizards/desertwizard.png" />
+                     </image>
+                  </ImageView>
+                  <Text pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Desert Wizard" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="120.308349609375">
+                     <VBox.margin>
+                        <Insets top="19.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox fx:id="forestWizard" onMouseClicked="#handleOnMouseClicked" prefHeight="150.0" prefWidth="180.0" styleClass="wizardPane" stylesheets="@../css/setup.css" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="180.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/wizards/forestwizard.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="10.0" layoutY="201.0" pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Forest Wizard" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="120.308349609375">
+                     <VBox.margin>
+                        <Insets top="19.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+            </VBox>
+            <VBox fx:id="skyWizard" onMouseClicked="#handleOnMouseClicked" prefHeight="150.0" prefWidth="180.0" styleClass="wizardPane" stylesheets="@../css/setup.css" HBox.hgrow="ALWAYS">
+               <children>
+                  <ImageView fitHeight="180.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/wizards/skywizard.png" />
+                     </image>
+                  </ImageView>
+                  <Text pickOnBounds="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Sky Wizard" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="120.308349609375">
+                     <VBox.margin>
+                        <Insets top="19.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+            </VBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets bottom="70.0" left="30.0" right="30.0" top="90.0" />
+         </GridPane.margin>
+      </HBox>
+      <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="29.0" prefWidth="71.0" styleClass="exitButton" stylesheets="@../css/setup.css" text="Exit" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <GridPane.margin>
+            <Insets bottom="20.0" left="15.0" />
+         </GridPane.margin>
+      </Button>
+      <Button fx:id="goButton" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#go" prefHeight="46.0" prefWidth="153.0" styleClass="actionButton" stylesheets="@../css/setup.css" text="Go!" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+   </children>
+</GridPane>

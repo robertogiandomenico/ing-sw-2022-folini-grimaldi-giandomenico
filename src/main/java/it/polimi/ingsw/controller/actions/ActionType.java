@@ -6,7 +6,7 @@ public enum ActionType {
     MOVE_MN_ACTION ("Move mother nature"),
     SELECT_CLOUD_ACTION ("Choose cloud"),
     BUY_CHARACTER_ACTION ("Buy a character to use their effect"),
-    END_TURN_ACTION ("End Turn");
+    NEXT_PHASE_ACTION ("Go to next phase if you don't want to buy a character");
 
     private final String action;
 

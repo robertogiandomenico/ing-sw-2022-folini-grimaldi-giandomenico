@@ -2,6 +2,8 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.phases.ClientHandlerPhases;
+import it.polimi.ingsw.network.client.Client;
+import it.polimi.ingsw.network.messages.connectionMessages.DisconnectionMessage;
 import it.polimi.ingsw.network.messages.serverMessages.GameNameRequest;
 import it.polimi.ingsw.network.messages.serverMessages.NicknameRequest;
 import it.polimi.ingsw.network.messages.serverMessages.TextMessage;
@@ -20,8 +22,8 @@ public class Server {
     private final int port;
     private ServerSocket serverSocket;
     private final Map<Controller, Integer> lobbies;
-    private ExecutorService executor;
-    private Set<String> notAvailableNames;
+    private final ExecutorService executor;
+    private final Set<String> notAvailableNames;
     private final Object lobbyLock = new Object();
     public static final Logger SERVER_LOGGER = Logger.getLogger(Server.class.getName() + "Logger");
 
@@ -45,7 +47,7 @@ public class Server {
         try {
             while (true){
                 Socket clientSocket = serverSocket.accept();
-                SERVER_LOGGER.log(Level.INFO,"New client connected from ( " + clientSocket.getInetAddress().getHostAddress() + ")");
+                SERVER_LOGGER.log(Level.INFO,"New client connected from (" + clientSocket.getInetAddress().getHostAddress() + ")");
                 ClientHandler clientConnection= new ClientHandler(this, clientSocket);
                 executor.submit(clientConnection);
             }
@@ -73,7 +75,24 @@ public class Server {
 
     public void checkLobby(Controller controller) {
         synchronized (lobbyLock){
-            if(lobbies.get(controller) == controller.getHandlers().size()){
+            if(lobbies.get(controller) == controller.getHandlers().size()) {
+                controller.startGame();
+                return;
+            }
+            if (lobbies.get(controller)!= -1 && (lobbies.get(controller) < controller.getHandlers().size())){
+                List<ClientHandler> removed = new ArrayList<>();
+                for (ClientHandler c : controller.getHandlers()){
+                    if (controller.getHandlers().indexOf(c) >= lobbies.get(controller)){
+                        removed.add(c);
+                    }
+                }
+
+                for (ClientHandler c : removed){
+                    controller.getHandlers().remove(c);
+                    c.sendMsgToClient(new TextMessage("The game is full, you're being disconnected"));
+                    notAvailableNames.remove(c.getClientNickname());
+                    c.disconnect();
+                }
                 controller.startGame();
             }
         }
@@ -87,6 +106,26 @@ public class Server {
         } else {
             clientHandler.setClientHandlerPhase(ClientHandlerPhases.WAITING_NICKNAME);
             clientHandler.sendMsgToClient(new NicknameRequest());
+        }
+    }
+
+    public void removeClient(ClientHandler clientHandler) {
+        Optional<Controller> controller = lobbies.keySet().stream().filter(c -> c.getHandlers().contains(clientHandler)).findFirst();
+        if (controller.isPresent()){
+            for (ClientHandler c : controller.get().getHandlers()){
+                notAvailableNames.remove(c.getClientNickname());
+            }
+            controller.get().getHandlers().remove(clientHandler);
+            controller.get().broadcastMessage(new DisconnectionMessage(clientHandler.getClientNickname()));
+            synchronized (lobbyLock){
+                lobbies.remove(controller.get());
+            }
+        }
+    }
+
+    public void endGame(Controller controller) {
+        synchronized (lobbyLock){
+            lobbies.remove(controller);
         }
     }
 }

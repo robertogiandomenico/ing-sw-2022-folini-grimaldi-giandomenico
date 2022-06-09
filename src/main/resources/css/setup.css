@@ -1,0 +1,154 @@
+.mainPanel {
+    -fx-background-image: url("../img/backgrounds/back.png");
+    -fx-background-size: stretch;
+}
+
+.startPanel {
+    -fx-background-image: url("../img/backgrounds/intro.png");
+    -fx-background-size: cover;
+}
+
+.actionButton {
+    -fx-background-image: url("../img/buttons/cold.png");
+    -fx-background-size: stretch;
+    -fx-background-color: transparent;
+    -fx-font-family: "Metamorphous";
+    -fx-font-size: 22px;
+}
+
+.actionButton:hover {
+    -fx-opacity: 0.9;
+}
+
+.actionButton:pressed {
+    -fx-background-image: url("../img/buttons/cold_pressed.png");
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+.actionButton:disabled {
+    -fx-background-image: url("../img/buttons/disabled.png");
+    -fx-focus-traversable: false;
+    -fx-opacity: 1;
+}
+
+.exitButton {
+    -fx-background-image: url("../img/buttons/warm.png");
+    -fx-background-size: stretch;
+    -fx-background-color: transparent;
+    -fx-font-family: "Metamorphous";
+    -fx-font-size: 16px;
+}
+
+.exitButton:hover {
+    -fx-opacity: 0.9;
+}
+
+.exitButton:pressed {
+    -fx-background-image: url("../img/buttons/warm_pressed.png");
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+.loadingText {
+    -fx-font-family: "Metamorphous";
+    -fx-font-size: 25;
+}
+
+.text-field {
+    -fx-font-family: "Roboto";
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+.text-field:focused {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+.radio-field {
+    -fx-font-family: "Roboto";
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+}
+
+.wizardPane {
+    -fx-font-family: "Metamorphous";
+    -fx-font-size: 15;
+}
+
+.wizardPane:disabled {
+    -fx-focus-traversable: false;
+    -fx-block-increment: true;
+    -fx-opacity: 0.6;
+    -fx-scale-x: 0.85;
+    -fx-scale-y: 0.85;
+    -fx-effect: innershadow(gaussian, #606060, 60, 0.5, 0.0, 0.0);
+}
+
+.wizardPane:hover,
+.wizardPane:focused {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+    -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
+    -fx-translate-y: -30;
+}
+
+.wizardPane:pressed {
+    -fx-opacity: 0.8;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.creditsText {
+    -fx-font-family: "Metamorphous";
+    -fx-font-size: 15;
+}
+
+.creditsText:hover {
+    -fx-font-size: 16;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
+
+}
+
+.loadingPanel {
+    -fx-background-image: url("../img/backgrounds/loading1.png");
+    -fx-background-size: cover;
+}
+
+.loadingBar {
+    -fx-accent: #15a0eb;
+}
+
+.resultPanel {
+    -fx-background-image: url("../img/backgrounds/victory.png");
+    -fx-background-size: cover;
+}
+
+.resultText {
+    -fx-font-family: "Metamorphous";
+}
+
+.audioButton:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.audioButton:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-opacity: 0.95;
+}
+
+.cranioLogo:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.cranioLogo:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}

@@ -41,7 +41,7 @@ public class JesterEffect implements Effect {
         //Finding the indexes of numOfStudents students with the specified color, in order to move them from the card to the entrance
         for (int i = 0; i < numOfStudents; i++) {
             for (int j = 0; j < students.length; j++) {
-                if (studColors[i] == students[j].getColor() && !alreadyPresent(j, studentIndexesOnCard)){
+                if (students[j] != null && studColors[i] == students[j].getColor() && !alreadyPresent(j, studentIndexesOnCard)){
                     studentIndexesOnCard[i] = j;
                     break;
                 }

@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.cli;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Student;
 import it.polimi.ingsw.model.TowerColor;
+import it.polimi.ingsw.view.utilities.MatrixOperations;
 import it.polimi.ingsw.view.utilities.lightclasses.LightArchi;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
@@ -10,8 +11,24 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightSchoolBoard;
 
 import java.text.DecimalFormat;
 
+/**
+ * This class is used to properly display the board's features to the user.
+ * Its methods are used in {@link CLI#printBoard(LightBoard) printBoard}.
+ */
 public class DisplayBoard {
 
+    /**
+     * Displays the school board (entrance, dining room, professor table,
+     * tower section and, if expert mode, coin spots and supply).
+     *
+     * @param sB            a LightSchoolBoard to access all the information.
+     * @param expertMode    a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if expert mode was chosen;
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
+     */
     public static void printSchoolBoard(LightSchoolBoard sB, boolean expertMode) {
         int nicknameLength = sB.getPlayer().getNickname().length();
 
@@ -68,7 +85,7 @@ public class DisplayBoard {
         printStudentsTable(sB, 4);
 
         System.out.print(CliColor.RESET);
-        System.out.println("\033[13C" + "\033[5A");
+        System.out.print("\033[13C" + "\033[5A");
 
         //print professor table
         if (sB.getProfessorTable()[0]) {
@@ -96,8 +113,8 @@ public class DisplayBoard {
         System.out.print("\033[5C" + "\033[4A");
 
         //print tower section
-        int towerNameLength = sB.getPlayer().getTowerColor().getClass().getName().length();
-        System.out.print(sB.getPlayer().getTowerColor().getClass().getName());
+        int towerNameLength = sB.getPlayer().getTowerColor().name().length();
+        System.out.print(sB.getPlayer().getTowerColor().name());
         for (int i = 0; i < towerNameLength; i++)
             System.out.print("\033[1D");
         System.out.print("\033[1B" + "\033[1C");
@@ -112,12 +129,19 @@ public class DisplayBoard {
             System.out.print("\033[4C");
 
         if (sB.getPlayer().getCoins() < 10)
-            System.out.println("\033[1B" + "\033[4C");
+            System.out.print("\033[1B" + "\033[4C");
         else
-            System.out.println("\033[1B" + "\033[3C");
+            System.out.print("\033[1B" + "\033[3C");
 
     }
 
+    /**
+     * Displays an archipelago (with students and towers on it and, if present,
+     * Mother Nature or No Entry Tiles).
+     *
+     * @param archipelago   a LightArchi to access all its information.
+     * @param archiIndex    the index of the Archipelago.
+     */
     public static void printArchipelago(LightArchi archipelago, int archiIndex) {
         DecimalFormat formatter = new DecimalFormat("00");
 
@@ -138,18 +162,18 @@ public class DisplayBoard {
         else
             System.out.print("\033[D" + CliColor.BOLD + " " + archiIndex + " " + CliColor.RESET);
 
-        System.out.print("\033[1B" + "\033[6D");
+        System.out.print("\033[1B" + "\033[9D");
 
         //print students in archipelago
-        System.out.print(CliColor.BGREEN + formatter.format(columnSum(archipelago.getIslands(), 0)));
+        System.out.print(CliColor.BGREEN + formatter.format(MatrixOperations.columnSum(archipelago.getIslands(), 0)));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BRED + formatter.format(columnSum(archipelago.getIslands(), 1)));
+        System.out.print(CliColor.BRED + formatter.format(MatrixOperations.columnSum(archipelago.getIslands(), 1)));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BYELLOW + formatter.format(columnSum(archipelago.getIslands(), 2)));
+        System.out.print(CliColor.BYELLOW + formatter.format(MatrixOperations.columnSum(archipelago.getIslands(), 2)));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BPINK + formatter.format(columnSum(archipelago.getIslands(), 3)));
+        System.out.print(CliColor.BPINK + formatter.format(MatrixOperations.columnSum(archipelago.getIslands(), 3)));
         System.out.print("\033[1C");
-        System.out.print(CliColor.BBLUE + formatter.format(columnSum(archipelago.getIslands(), 4)));
+        System.out.print(CliColor.BBLUE + formatter.format(MatrixOperations.columnSum(archipelago.getIslands(), 4)));
         System.out.print(CliColor.RESET);
 
         System.out.print("\033[2B" + "\033[12D");
@@ -193,6 +217,12 @@ public class DisplayBoard {
         System.out.print("\033[1C");
     }
 
+    /**
+     * Displays the cloud (with students on it).
+     *
+     * @param board         the LightBoard to access the Cloud.
+     * @param cloudIndex    the index of the Cloud.
+     */
     public static void printCloud(LightBoard board, int cloudIndex) {
         //print blank cloud
         if (board.getCloud(cloudIndex)[0] == null)    //check if the cloud is empty
@@ -225,6 +255,11 @@ public class DisplayBoard {
         System.out.print("\033[3C" + "\033[1B");
     }
 
+    /**
+     * Displays the coin supply on the board (if expert mode).
+     *
+     * @param coinSupply    the quantity of coins in the supply.
+     */
     public static void printCoinsSupply(int coinSupply) {
         //go at these coordinates
         System.out.print("\033[14;68H");
@@ -251,6 +286,13 @@ public class DisplayBoard {
             System.out.print("\033[1B" + "\033[6C");
     }
 
+    /**
+     * Displays the character (name, cost and, if present, students or No Entry
+     * Tiles on it).
+     *
+     * @param character     the LightCharacter.
+     * @param charIndex     the index of the character.
+     */
     public static void printCharacter(LightCharacter character, int charIndex) {
         //print blank box
         System.out.print("╓───╥─────────────────╥───────────────────────╖" + "\033[1B" + "\033[47D");
@@ -266,8 +308,11 @@ public class DisplayBoard {
 
         //print name
         System.out.print(character.getName());
+        int nameLength = character.getName().length();
+        for (int i = 0; i < nameLength; i++)
+            System.out.print("\033[1D");
 
-        System.out.print("\033[60D" + "\033[24C");
+        System.out.print("\033[18C");
 
         //print cost
         System.out.print(CliColor.BOLDYELLOW + "C" + CliColor.RESET + ":" + character.getCost());
@@ -288,20 +333,27 @@ public class DisplayBoard {
             case("Jester"):
             case("SpoiledPrincess"):
                 System.out.print("S:" +
-                                    CliColor.BGREEN  + numByColor(character.getStudents(), Color.GREEN)  +
+                        CliColor.BGREEN  + numByColor(character.getStudents(), Color.GREEN)  +
                         "\033[1C" + CliColor.BRED    + numByColor(character.getStudents(), Color.RED)    +
                         "\033[1C" + CliColor.BYELLOW + numByColor(character.getStudents(), Color.YELLOW) +
                         "\033[1C" + CliColor.BPINK   + numByColor(character.getStudents(), Color.PINK)   +
                         "\033[1C" + CliColor.BBLUE   + numByColor(character.getStudents(), Color.BLUE)   +
-                                    CliColor.RESET);
+                        "\033[1C" + CliColor.RESET);
                 break;
             default:
-                System.out.print("\033[11C");
+                System.out.print("\033[12C");
         }
 
         System.out.print("\033[2C" + "\033[1B");
     }
 
+    /**
+     * Displays the students table in a school board.
+     * Called in {@link CLI#printBoard printBoard} for each color.
+     *
+     * @param sB            the LightSchoolBoard.
+     * @param tableIndex    the index of the dining room.
+     */
     private static void printStudentsTable(LightSchoolBoard sB, int tableIndex) {
         //print students
         for (int i = 0; i < sB.getDiningRoom()[tableIndex]; i++) {
@@ -315,23 +367,22 @@ public class DisplayBoard {
         }
     }
 
+    /**
+     * Returns the number of students of the given color in the given array.
+     * Utility for {@link CLI} methods.
+     *
+     * @param studentsArray a Student Array.
+     * @param color         a Color.
+     * @return              the String representing the number of Students of that Color.
+     */
     private static String numByColor(Student[] studentsArray, Color color) {
         int number = 0;
 
         for (Student s : studentsArray) {
-            if (s.getColor() == color)
+            if (s != null && s.getColor() == color)
                 number++;
         }
         return Integer.toString(number);
-    }
-
-    private static int columnSum(int[][] matrix, int mapIndex) {
-        int sum = 0;
-        for (int[] a : matrix) {
-            sum += a[mapIndex];
-        }
-
-        return sum;
     }
 
 }
