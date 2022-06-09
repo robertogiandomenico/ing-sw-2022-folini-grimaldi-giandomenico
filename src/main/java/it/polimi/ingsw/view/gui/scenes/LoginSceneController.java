@@ -39,6 +39,7 @@ public class LoginSceneController implements SceneControllerInterface {
             nicknameField.setDisable(true);
             confirmButton.setDisable(true);
 
+            gui.getClient().setNickname(nickname);
             gui.getClient().sendMsgToServer(new NicknameReply(nickname));
             return;
         }

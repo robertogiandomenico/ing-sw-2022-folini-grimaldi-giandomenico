@@ -78,18 +78,10 @@ public class BoardSceneController implements SceneControllerInterface {
                         break;
 
                     case "Monk":
-                        for (int j = 0; j < selectedCharacters[i].getStudents().length; j++) {
-                            ((ImageView)((AnchorPane)((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(1)).getChildren().get(j)).setImage(displayStudent(selectedCharacters[i].getStudents()[j]));
-                        }
-                        break;
-
-                    case "Jester":
-                        for (int j = 0; j < selectedCharacters[i].getStudents().length; j++) {
-                            ((ImageView)((AnchorPane)((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(1)).getChildren().get(j)).setImage(displayStudent(selectedCharacters[i].getStudents()[j]));
-                        }
-                        break;
 
                     case "SpoiledPrincess":
+
+                    case "Jester":
                         for (int j = 0; j < selectedCharacters[i].getStudents().length; j++) {
                             ((ImageView)((AnchorPane)((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(1)).getChildren().get(j)).setImage(displayStudent(selectedCharacters[i].getStudents()[j]));
                         }
@@ -108,8 +100,6 @@ public class BoardSceneController implements SceneControllerInterface {
     public void initializeThisPlayer() {
         for (LightSchoolBoard lsb : lightBoard.getSchoolBoards()) {
             if (lsb.getPlayer().getNickname().equals(gui.getClient().getNickname())) {
-                // FIXME: gui.getClient().getNickname() returns   null
-                // if i change the nickname with the debugger it works tho
                 thisPlayerBoard = lsb;
                 break;
             }
@@ -240,9 +230,10 @@ public class BoardSceneController implements SceneControllerInterface {
             otherPlayersPane.getTabs().remove(1);
         }
 
-        for (int i = 0; i < lightBoard.getSchoolBoards().size(); i++) {
+        for (int i = 0, j = 0; i < lightBoard.getSchoolBoards().size(); i++) {
             if (!lightBoard.getSchoolBoards().get(i).getPlayer().getNickname().equals(gui.getClient().getNickname())) {
-                otherPlayers[i] = lightBoard.getSchoolBoards().get(i);
+                otherPlayers[j] = lightBoard.getSchoolBoards().get(i);
+                j++;
             }
         }
 
@@ -281,19 +272,23 @@ public class BoardSceneController implements SceneControllerInterface {
     }
 
     private Image displayStudent(Student student) {
-        switch (student.getColor()) {
-            case RED:
-                return new Image(getClass().getResourceAsStream("/img/pawns/studentred.png"));
-            case BLUE:
-                return new Image(getClass().getResourceAsStream("/img/pawns/studentblue.png"));
-            case YELLOW:
-                return new Image(getClass().getResourceAsStream("/img/pawns/studentyellow.png"));
-            case GREEN:
-                return new Image(getClass().getResourceAsStream("/img/pawns/studentgreen.png"));
-            case PINK:
-                return new Image(getClass().getResourceAsStream("/img/pawns/studentpink.png"));
-            default:
-                return new Image(getClass().getResourceAsStream("/img/blank.png"));
+        try {
+            switch (student.getColor()) {
+                case RED:
+                    return new Image(getClass().getResourceAsStream("/img/pawns/studentred.png"));
+                case BLUE:
+                    return new Image(getClass().getResourceAsStream("/img/pawns/studentblue.png"));
+                case YELLOW:
+                    return new Image(getClass().getResourceAsStream("/img/pawns/studentyellow.png"));
+                case GREEN:
+                    return new Image(getClass().getResourceAsStream("/img/pawns/studentgreen.png"));
+                case PINK:
+                    return new Image(getClass().getResourceAsStream("/img/pawns/studentpink.png"));
+                default:
+                    return null;
+            }
+        } catch (NullPointerException e) {
+            return new Image(getClass().getResourceAsStream("/img/blank.png"));
         }
     }
 

@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -186,6 +187,7 @@ public class GUI extends Application implements ViewInterface {
     public void askCharacter(LightBoard board) {
         Platform.runLater(() -> SceneController.switchScene(stage));
         ((BoardSceneController)SceneController.getCurrentController()).enableCharactersBox();
+        //switch case
     }
 
     @Override
@@ -197,9 +199,7 @@ public class GUI extends Application implements ViewInterface {
     public void askCloud(List<Integer> availableClouds) {
         SceneControllerInterface bsc = getBoardSceneController();
 
-        Platform.runLater(() -> {
-            ((BoardSceneController) bsc).enableCloudBox();
-        });
+        Platform.runLater(() -> ((BoardSceneController) bsc).enableCloudBox());
     }
 
     @Override
@@ -242,6 +242,11 @@ public class GUI extends Application implements ViewInterface {
 
                 if (firstPrintBoard) {
                     stage.setMaximized(true);
+                    stage.setX(Screen.getPrimary().getVisualBounds().getMinX());
+                    stage.setY(Screen.getPrimary().getVisualBounds().getMinY());
+                    stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+                    stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+
                     //stage.setFullScreenExitHint("Press ESC to exit fullscreen");
                     stage.setMinHeight(720);
                     stage.setMinWidth(1280);
@@ -257,7 +262,9 @@ public class GUI extends Application implements ViewInterface {
 
     @Override
     public void displayEndgameResult(String winner, String condition) {
-
+        //popup victory
+        //changeLabel()
+        //create ResultController
     }
 
     public static MediaPlayer getMediaPlayer() {

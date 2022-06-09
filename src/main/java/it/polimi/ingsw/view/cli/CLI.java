@@ -572,7 +572,7 @@ public class CLI implements ViewInterface {
      */
     @Override
     public void askMNSteps(int maxMNSteps) {
-        System.out.println("Enter the number of steps " + CliColor.BOLDBLUE + "Mother Nature" + CliColor.RESET + " will do (between 1 - " + maxMNSteps + ") : ");
+        System.out.print("Enter the number of steps " + CliColor.BOLDBLUE + "Mother Nature" + CliColor.RESET + " will do (between 1 - " + maxMNSteps + ") : ");
 
         int mnSteps = IntegerReader.readInput(scanner);
         while (mnSteps <= 0 || mnSteps > maxMNSteps) {
@@ -620,8 +620,8 @@ public class CLI implements ViewInterface {
      */
     @Override
     public void displayDisconnectionMessage(String disconnectedNickname, String message) {
-        System.out.println(disconnectedNickname + message);
-        System.exit(-1);
+        System.out.println("\n" + disconnectedNickname + message);
+        System.exit(0);
     }
 
     /**
@@ -633,7 +633,7 @@ public class CLI implements ViewInterface {
     public void displayErrorAndExit(String message) {
         System.out.println("ERROR: " + message);
         System.out.println("EXIT.");
-        System.exit(1);
+        System.exit(0);
     }
 
     /**
