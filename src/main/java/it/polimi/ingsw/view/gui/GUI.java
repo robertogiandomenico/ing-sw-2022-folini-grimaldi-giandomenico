@@ -25,6 +25,10 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This class is an implementation of the {@link ViewInterface}, used to give
+ * the user the possibility to play the game via Graphical User Interface.
+ */
 public class GUI extends Application implements ViewInterface {
     private Client client;
     private Stage stage;
@@ -34,6 +38,11 @@ public class GUI extends Application implements ViewInterface {
         launch(args);
     }
 
+    /**
+     * Starts the guided user interface.
+     *
+     * @param stage                the Stage to set.
+     */
     @Override
     public void start(Stage stage) {
 
@@ -76,6 +85,12 @@ public class GUI extends Application implements ViewInterface {
         }
     }
 
+    /**
+     * Asks server information (address and port) to the user and checks their
+     * validity.
+     *
+     * @return                     the Client created.
+     */
     @Override
     public Client askServerInfo() {
         SceneControllerInterface csc = new ConnectionSceneController();
@@ -92,6 +107,9 @@ public class GUI extends Application implements ViewInterface {
         return null;
     }
 
+    /**
+     * Asks a nickname to the user.
+     */
     @Override
     public void askNickname() {
         SceneControllerInterface lsc = new LoginSceneController();
@@ -107,11 +125,17 @@ public class GUI extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Asks the name of a game to the user.
+     */
     @Override
     public void askGameName() {
         Platform.runLater(() -> SceneController.switchScene(stage));
     }
 
+    /**
+     * Asks the game mode (easy/expert) to the user.
+     */
     @Override
     public void askGameMode() {
         SceneControllerInterface ngsc = new NewGameSceneController();
@@ -127,11 +151,19 @@ public class GUI extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Asks the number of players for the game to the user.
+     */
     @Override
     public void askPlayerNumber() {
         Platform.runLater(() -> SceneController.switchScene(stage));
     }
 
+    /**
+     * Asks the user to choose a wizard among the available ones.
+     *
+     * @param availableWizards     a Wizard List of Wizards not taken yet.
+     */
     @Override
     public void askWizard(List<Wizard> availableWizards) {
         SceneControllerInterface wsc = new WizardSceneController();
@@ -148,6 +180,12 @@ public class GUI extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Asks the user to choose the assistant they want to play.
+     *
+     * @param availableAssistants  an Assistant List of available cards for the Player.
+     * @param discardedAssistants  an Assistant List containing the cards chosen by others.
+     */
     @Override
     public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
         SceneControllerInterface bsc = getBoardSceneController();
@@ -158,11 +196,21 @@ public class GUI extends Application implements ViewInterface {
             });
     }
 
+    /**
+     * Asks the user to declare which action they want to go for next.
+     *
+     * @param possibleActions      an ActionType List of possible actions for the Player.
+     */
     @Override
     public void askAction(List<ActionType> possibleActions) {
 
     }
 
+    /**
+     * Asks the user which student they want to move.
+     *
+     * @param availableColors      a Color List representing the Students that can be moved.
+     */
     @Override
     public void askStudent(List<Color> availableColors) {
         Platform.runLater(() -> SceneController.switchScene(stage));
@@ -170,11 +218,23 @@ public class GUI extends Application implements ViewInterface {
         //...
     }
 
+    /**
+     * Asks the user where they want to move the student.
+     *
+     * @param maxArchis            the number of Archipelagos.
+     */
     @Override
     public void askPlace(int maxArchis) {
 
     }
 
+    /**
+     * Asks the user the index of the archipelago they want to move the
+     * student on.
+     *
+     * @param maxArchis            the number of Archipelagos.
+     * @return                     the index of the chosen Archipelago.
+     */
     @Override
     public int askArchipelago(int maxArchis) {
         Platform.runLater(() -> SceneController.switchScene(stage));
@@ -183,6 +243,12 @@ public class GUI extends Application implements ViewInterface {
         return -1;
     }
 
+    /**
+     * Asks the user the character they want to play. Then, based on the selected
+     * one, asks the proper values in order to activate their effect.
+     *
+     * @param board                a LightBoard to access the available characters.
+     */
     @Override
     public void askCharacter(LightBoard board) {
         Platform.runLater(() -> SceneController.switchScene(stage));
@@ -190,11 +256,21 @@ public class GUI extends Application implements ViewInterface {
         //switch case
     }
 
+    /**
+     * Asks the user the number of steps they want Mother Nature to take.
+     *
+     * @param maxMNSteps           the limit of steps.
+     */
     @Override
     public void askMNSteps(int maxMNSteps) {
 
     }
 
+    /**
+     * Asks the user the cloud they want to draw from.
+     *
+     * @param availableClouds      a List of available Clouds.
+     */
     @Override
     public void askCloud(List<Integer> availableClouds) {
         SceneControllerInterface bsc = getBoardSceneController();
@@ -202,6 +278,11 @@ public class GUI extends Application implements ViewInterface {
         Platform.runLater(() -> ((BoardSceneController) bsc).enableCloudBox());
     }
 
+    /**
+     * Displays a message to the user.
+     *
+     * @param message              the message to be displayed.
+     */
     @Override
     public void displayMessage(String message) {
         SceneControllerInterface lsc = new LoadingSceneController();
@@ -218,17 +299,33 @@ public class GUI extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Displays a message stating that some player disconnected.
+     *
+     * @param disconnectedNickname the nickname of the disconnected Player.
+     * @param message              the message to be displayed.
+     */
     @Override
     public void displayDisconnectionMessage(String disconnectedNickname, String message) {
         errorDialog(disconnectedNickname + message);
     }
 
+    /**
+     * Displays an error message and exits.
+     *
+     * @param message              the error message to be displayed.
+     */
     @Override
     public void displayErrorAndExit(String message) {
         errorDialog(message);
         System.exit(1);
     }
 
+    /**
+     * Prints the current board (archipelagos, clouds, characters, school boards).
+     *
+     * @param board                the LightBoard representing the current status.
+     */
     @Override
     public void printBoard(LightBoard board) {
         SceneControllerInterface bsc = getBoardSceneController();
@@ -260,6 +357,12 @@ public class GUI extends Application implements ViewInterface {
         });
     }
 
+    /**
+     * Displays the results of the game.
+     *
+     * @param winner               the nickname of the winner.
+     * @param condition            the condition to print.
+     */
     @Override
     public void displayEndgameResult(String winner, String condition) {
         //popup victory
@@ -267,10 +370,20 @@ public class GUI extends Application implements ViewInterface {
         //create ResultController
     }
 
+    /**
+     * Returns the media player.
+     *
+     * @return                     the MediaPlayer of this GUI.
+     */
     public static MediaPlayer getMediaPlayer() {
         return mediaPlayer;
     }
 
+    /**
+     * Shows an error dialog to the user.
+     *
+     * @param error                the specific game error.
+     */
     public void errorDialog(String error) {
         Alert errorDialog = new Alert(Alert.AlertType.ERROR);
         errorDialog.setTitle("Game Error");
@@ -279,6 +392,11 @@ public class GUI extends Application implements ViewInterface {
         errorDialog.showAndWait();
     }
 
+    /**
+     * Closes the window notifying the user.
+     *
+     * @param stage                the Stage to close.
+     */
     public void closeWindow(Stage stage) {
         Alert alertDialog = new Alert(Alert.AlertType.CONFIRMATION);
         alertDialog.setTitle("Exiting");
@@ -292,6 +410,11 @@ public class GUI extends Application implements ViewInterface {
         }
     }
 
+    /**
+     * Returns a Board Scene Controller, creating one if not already instantiated.
+     *
+     * @return                     a BoardSceneController.
+     */
     private BoardSceneController getBoardSceneController() {
         BoardSceneController bsc;
         try {
@@ -310,15 +433,29 @@ public class GUI extends Application implements ViewInterface {
         return bsc;
     }
 
-
+    /**
+     * Sets the client.
+     *
+     * @param client               the Client to set.
+     */
     public void setClient(Client client) {
         this.client = client;
     }
 
+    /**
+     * Returns the client.
+     *
+     * @return                     this GUI's Client.
+     */
     public Client getClient() {
         return client;
     }
 
+    /**
+     * Returns the stage.
+     *
+     * @return                     this GUI's Stage.
+     */
     public Stage getStage() {
         return stage;
     }

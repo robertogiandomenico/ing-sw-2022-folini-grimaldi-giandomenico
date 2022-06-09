@@ -117,14 +117,6 @@ public class WizardSceneController implements SceneControllerInterface {
         System.exit(0);
     }
 
-    /**
-     * @param gui
-     */
-    @Override
-    public void setGUI(GUI gui) {
-        this.gui = gui;
-    }
-
     public void setAvailableWizards(List<Wizard> availableWizards) {
         this.availableWizards = availableWizards;
 
@@ -162,5 +154,15 @@ public class WizardSceneController implements SceneControllerInterface {
                 break;
         }
         return -1;
+    }
+
+    /**
+     * Sets the GUI.
+     *
+     * @param gui                 a GUI.
+     */
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui = gui;
     }
 }

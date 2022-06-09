@@ -69,6 +69,11 @@ public class ConnectionSceneController implements SceneControllerInterface {
         System.exit(0);
     }
 
+    /**
+     * Sets the GUI.
+     *
+     * @param gui                 a GUI.
+     */
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;

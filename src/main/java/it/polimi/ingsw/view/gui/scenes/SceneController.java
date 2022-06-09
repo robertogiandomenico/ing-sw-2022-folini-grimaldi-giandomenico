@@ -66,6 +66,11 @@ public class SceneController implements SceneControllerInterface {
         SceneController.currentController = currentController;
     }
 
+    /**
+     * Sets the GUI.
+     *
+     * @param gui                 a GUI.
+     */
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;

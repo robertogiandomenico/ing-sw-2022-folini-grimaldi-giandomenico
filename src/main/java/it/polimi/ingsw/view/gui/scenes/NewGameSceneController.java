@@ -55,14 +55,6 @@ public class NewGameSceneController implements SceneControllerInterface {
         System.exit(0);
     }
 
-    /**
-     * @param gui
-     */
-    @Override
-    public void setGUI(GUI gui) {
-        this.gui = gui;
-    }
-
     private boolean isGameModeEnabled() {
         return !easyMode.isDisable() || !expertMode.isDisable();
     }
@@ -86,5 +78,15 @@ public class NewGameSceneController implements SceneControllerInterface {
             return 2;
         else
             return 3;
+    }
+
+    /**
+     * Sets the GUI.
+     *
+     * @param gui                 a GUI.
+     */
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui = gui;
     }
 }

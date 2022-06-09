@@ -75,10 +75,12 @@ public class LoginSceneController implements SceneControllerInterface {
     }
 
     /**
-     * @param gui
+     * Sets the GUI.
+     *
+     * @param gui                 a GUI.
      */
     @Override
     public void setGUI(GUI gui) {
-        this.gui= gui;
+        this.gui = gui;
     }
 }

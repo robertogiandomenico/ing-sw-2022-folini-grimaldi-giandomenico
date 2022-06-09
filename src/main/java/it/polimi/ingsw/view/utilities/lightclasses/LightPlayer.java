@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class is useful to contain player's information. (CLI/GUI)
+ * This class is useful to contain player's information.
+ * ({@link it.polimi.ingsw.view.cli.CLI CLI}/{@link it.polimi.ingsw.view.gui.GUI GUI})
  */
 public class LightPlayer implements Serializable {
     private final String nickname;
@@ -22,6 +23,7 @@ public class LightPlayer implements Serializable {
 
     /**
      * Class constructor.
+     *
      * @param p            the Player to simplify.
      */
     LightPlayer(Player p){

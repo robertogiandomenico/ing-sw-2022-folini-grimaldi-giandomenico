@@ -23,6 +23,10 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
+/**
+ * This class represents the controller for the main game scene involving
+ * the board and all of its features.
+ */
 public class BoardSceneController implements SceneControllerInterface {
     @FXML
     private HBox charactersBox;
@@ -42,6 +46,11 @@ public class BoardSceneController implements SceneControllerInterface {
     private LightBoard lightBoard;
     private LightSchoolBoard thisPlayerBoard;
 
+    /**
+     * Initializes the scene.
+     * Adds school boards, archipelagos, clouds, characters and other details
+     * to the scene.
+     */
     @FXML
     public void initialize() {
         initializeCharacters(lightBoard.getSelectedCharacters());
@@ -58,6 +67,11 @@ public class BoardSceneController implements SceneControllerInterface {
         thisPlayerPane.setDisable(true);
     }
 
+    /**
+     * Initializes the characters to display for this game.
+     *
+     * @param selectedCharacters  a LightCharacter Array.
+     */
     public void initializeCharacters(LightCharacter[] selectedCharacters) {
         try {
             for (int i = 0; i < 3; i++) {
@@ -97,6 +111,9 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Initializes wizard, assistants and board of this client.
+     */
     public void initializeThisPlayer() {
         for (LightSchoolBoard lsb : lightBoard.getSchoolBoards()) {
             if (lsb.getPlayer().getNickname().equals(gui.getClient().getNickname())) {
@@ -141,6 +158,12 @@ public class BoardSceneController implements SceneControllerInterface {
 
     }
 
+    /**
+     * Returns the icon of the tower corresponding to the given tower color.
+     *
+     * @param towerColor          a TowerColor.
+     * @return                    the corresponding Image.
+     */
     private Image getTowerIcon(TowerColor towerColor) {
         switch (towerColor) {
             case GREY:
@@ -154,6 +177,12 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Returns the icon corresponding to the given wizard.
+     *
+     * @param wizard              a Wizard.
+     * @return                    the corresponding Image.
+     */
     private Image getWizardIcon(Wizard wizard) {
         switch (wizard) {
             case SKYWIZARD:
@@ -169,6 +198,12 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Initializes the archipelagos to display, with (if present) towers,
+     * Mother Nature, No Entry Tiles and students.
+     *
+     * @param archipelagos        a LightArchi List.
+     */
     public void initializeArchipelagos(List<LightArchi> archipelagos) {
         for (int i = 0; i < archipelagos.size(); i++) {
 
@@ -198,6 +233,9 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Initializes the clouds for this game.
+     */
     public void initializeClouds() {
         int cloudsNumber = lightBoard.getCloudsNumber();
         if (cloudsNumber == 2) {
@@ -213,6 +251,11 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Initializes the coins supply to display.
+     *
+     * @param coinsSupply         the number of coins in the supply.
+     */
     public void initializeCoinsSupply(int coinsSupply) {
         if (lightBoard.getSelectedCharacters() != null) {  //if it's expert mode
             ((Label) coinsSupplyBox.getChildren().get(1)).setText("x" + coinsSupply);
@@ -222,6 +265,10 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Initializes the school boards of the other player(s) to display to this
+     * client.
+     */
     public void initializeOtherPlayers() {
         LightSchoolBoard[] otherPlayers = new LightSchoolBoard[lightBoard.getSchoolBoards().size()-1];
 
@@ -271,6 +318,12 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Returns the icon corresponding to the color of the given student.
+     *
+     * @param student             a Student.
+     * @return                    the corresponding Image.
+     */
     private Image displayStudent(Student student) {
         try {
             switch (student.getColor()) {
@@ -292,6 +345,12 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Sets the assistant cards from which the user can choose.
+     *
+     * @param availableAssistants the Assistant List of available Assistants.
+     * @param discardedAssistants the Assistant List of discarded Assistants.
+     */
     public void setAssistants(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
         int i;
         for (i = 0; i < availableAssistants.size(); i++) {
@@ -307,26 +366,46 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Enables the assistant box.
+     */
     public void enableAssistantBox() {
         assistantBox.setDisable(false);
     }
 
+    /**
+     * Enables the characters box.
+     */
     public void enableCharactersBox() {
         charactersBox.setDisable(false);
     }
 
+    /**
+     * Enables the school board.
+     */
     public void enableSchoolBoard() {
         thisPlayerPane.setDisable(false);
     }
 
+    /**
+     * Enables the archipelagos.
+     */
     public void enableArchipelagos() {
         archipelagosBox.setDisable(false);
     }
 
+    /**
+     * Enables the cloud box.
+     */
     public void enableCloudBox() {
         cloudsBox.setDisable(false);
     }
 
+    /**
+     * Gets the assistant chosen by the user and sends it to the server.
+     *
+     * @param event               a MouseEvent.
+     */
     @FXML
     private void chooseAssistant(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
@@ -336,6 +415,11 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Gets the cloud chosen by the user and sends it to the server.
+     *
+     * @param event               a MouseEvent.
+     */
     @FXML
     private void chooseCloud(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
@@ -345,7 +429,12 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
-
+    /**
+     * Returns an assistant given their name.
+     *
+     * @param name                the name of an Assistant.
+     * @return                    the Assistant.
+     */
     private Assistant getAssistantByName(String name) {
         switch (name.toUpperCase()) {
             case "DOG":
@@ -373,6 +462,11 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Gets the character chosen by the user and sends it to the server.
+     *
+     * @param event               a MouseEvent.
+     */
     @FXML
     private void chooseCharacter(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
@@ -383,18 +477,22 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
-
-
+    /**
+     * Sets the light board.
+     *
+     * @param lightBoard          a LightBoard.
+     */
+    public void setLightBoard(LightBoard lightBoard) {
+        this.lightBoard = lightBoard;
+    }
 
     /**
-     * @param gui
+     * Sets the GUI.
+     *
+     * @param gui                 a GUI.
      */
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;
-    }
-
-    public void setLightBoard(LightBoard lightBoard) {
-        this.lightBoard = lightBoard;
     }
 }

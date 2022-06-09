@@ -1,11 +1,14 @@
 package it.polimi.ingsw.view.utilities;
 
-import it.polimi.ingsw.view.cli.CLI;
-
+/**
+ * This class contains utility methods regarding matrix
+ * operations to do for {@link it.polimi.ingsw.view.cli.CLI CLI}
+ * and {@link it.polimi.ingsw.view.gui.GUI GUI}.
+ */
 public class MatrixOperations {
+
     /**
      * Sums the elements present in the column of a matrix.
-     * Utility for {@link CLI} methods.
      *
      * @param matrix        a matrix.
      * @param mapIndex      the index of a column.
