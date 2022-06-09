@@ -16,8 +16,8 @@ import java.util.List;
 
 public class SelectCloudAction implements Action{
     private final ActionType type =  ActionType.SELECT_CLOUD_ACTION;
-    private Player currentPlayer;
-    private ClientHandler clientHandler;
+    private final Player currentPlayer;
+    private final ClientHandler clientHandler;
     private final TurnController turnController;
 
     public SelectCloudAction(TurnController turnController) {
@@ -37,12 +37,6 @@ public class SelectCloudAction implements Action{
         }
 
         clientHandler.sendMsgToClient(new CloudRequest(indexesAvailableClouds));
-    }
-
-    @Override
-    public void resetAction(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-        clientHandler = turnController.getController().getHandlerByNickname(currentPlayer.getNickname());
     }
 
     @Override

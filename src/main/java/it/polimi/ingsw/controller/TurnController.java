@@ -73,26 +73,8 @@ public class TurnController {
         return clientHandler;
     }
 
-    public TurnPhase getTurnPhase() {
-        return turnPhase;
-    }
-
     public Controller getController() {
         return controller;
-    }
-
-    public List<ActionType> getAvailableActions() {
-        return availableActions;
-    }
-
-    public Map<Action, Boolean> getPossibleActions() {
-        return possibleActions;
-    }
-
-    public void resetAllActionsForCurrentPlayer(){
-        for (Action a : possibleActions.keySet()){
-            a.resetAction(currentPlayer);
-        }
     }
 
     public void executeAction(int actionIndex) {

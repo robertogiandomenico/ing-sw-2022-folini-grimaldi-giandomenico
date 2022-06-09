@@ -7,8 +7,6 @@ public interface Action {
 
     void execute();
 
-    void resetAction(Player currentPlayer);
-
     ActionType getType();
 
     void receiveMessage(GenericClientMessage msg);

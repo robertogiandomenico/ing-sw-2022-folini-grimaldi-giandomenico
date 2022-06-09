@@ -10,8 +10,8 @@ import it.polimi.ingsw.network.server.ClientHandler;
 
 public class MoveMNAction implements Action{
     private final ActionType type = ActionType.MOVE_MN_ACTION;
-    private Player currentPlayer;
-    private ClientHandler clientHandler;
+    private final Player currentPlayer;
+    private final ClientHandler clientHandler;
     private final TurnController turnController;
 
     public MoveMNAction(TurnController turnController) {
@@ -24,12 +24,6 @@ public class MoveMNAction implements Action{
     public void execute() {
         int maxMNSteps = turnController.getController().getGame().getCurrentPlayer().getMaxSteps();
         clientHandler.sendMsgToClient(new MNStepsRequest(maxMNSteps));
-    }
-
-    @Override
-    public void resetAction(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-        clientHandler = turnController.getController().getHandlerByNickname(currentPlayer.getNickname());
     }
 
     @Override

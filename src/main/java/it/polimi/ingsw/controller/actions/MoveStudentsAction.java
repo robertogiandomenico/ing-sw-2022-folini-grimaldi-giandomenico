@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 
 public class MoveStudentsAction implements Action {
     private final ActionType type = ActionType.MOVE_STUDENT_ACTION;
-    private Player currentPlayer;
-    private ClientHandler clientHandler;
+    private final Player currentPlayer;
+    private final ClientHandler clientHandler;
     private final TurnController turnController;
 
     private Student studentToBeMoved;
@@ -29,31 +29,21 @@ public class MoveStudentsAction implements Action {
         this.turnController = turnController;
         currentPlayer = turnController.getCurrentPlayer();
         clientHandler = turnController.getClientHandler();
+
+    }
+
+    @Override
+    public void execute() {
         availableColors = new HashMap<>();
         for (Color c : Color.values()){
             int num = (int) Arrays.stream(turnController.getController().getGame().getBoard().getCurrentPlayerSchoolBoard().getEntrance()).filter(s -> s!= null && s.getColor() == c).count();
             availableColors.put(c, num);
         }
-    }
-
-    @Override
-    public void execute() {
         if (studentToBeMoved != null) {
             int num = availableColors.get(studentToBeMoved.getColor());
             availableColors.replace(studentToBeMoved.getColor(), num - 1);
         }
         clientHandler.sendMsgToClient(new StudentRequest(availableColors.keySet().stream().filter(c -> availableColors.get(c) > 0).sorted(Comparator.comparingInt(Enum::ordinal)).collect(Collectors.toList())));
-    }
-
-    @Override
-    public void resetAction(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-        clientHandler = turnController.getController().getHandlerByNickname(currentPlayer.getNickname());
-        availableColors = new HashMap<>();
-        for (Color c : Color.values()){
-            int num = (int) Arrays.stream(turnController.getController().getGame().getBoard().getCurrentPlayerSchoolBoard().getEntrance()).filter(s -> s != null && s.getColor() == c).count();
-            availableColors.put(c, num);
-        }
     }
 
     @Override

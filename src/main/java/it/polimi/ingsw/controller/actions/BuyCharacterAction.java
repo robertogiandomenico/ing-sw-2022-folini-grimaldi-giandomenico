@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 
 public class BuyCharacterAction implements Action{
     private final ActionType type = ActionType.BUY_CHARACTER_ACTION;
-    private Player currentPlayer;
-    private ClientHandler clientHandler;
+    private final Player currentPlayer;
+    private final ClientHandler clientHandler;
     private final TurnController turnController;
 
     public BuyCharacterAction(TurnController turnController) {
@@ -29,12 +29,6 @@ public class BuyCharacterAction implements Action{
     @Override
     public void execute() {
         clientHandler.sendMsgToClient(new CharacterRequest(turnController.getController().getGame().getBoard().getLightBoard()));
-    }
-
-    @Override
-    public void resetAction(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-        clientHandler = turnController.getController().getHandlerByNickname(currentPlayer.getNickname());
     }
 
     @Override

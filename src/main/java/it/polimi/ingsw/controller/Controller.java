@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.SchoolBoard;
 import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
+import it.polimi.ingsw.network.messages.serverMessages.BoardData;
 import it.polimi.ingsw.network.messages.serverMessages.IsWinner;
 import it.polimi.ingsw.network.messages.serverMessages.PhaseEntering;
 import it.polimi.ingsw.network.server.ClientHandler;
@@ -66,10 +67,6 @@ public class Controller {
 
     public String getGameName() {
         return gameName;
-    }
-
-    public GamePhase getGamePhase() {
-        return gamePhase;
     }
 
     public void setGamePhase(GamePhase gamePhase) {
@@ -130,6 +127,7 @@ public class Controller {
     public void nextTurn() {
         Player currentPlayer = game.getCurrentPlayer();
         List<Player> playersOrder = game.getPlayerOrder();
+        broadcastMessage(new BoardData(game.getBoard().getLightBoard()));
         if (gamePhase.toString().equals("ActionPhase") && playersOrder.indexOf(currentPlayer) < playersOrder.size() - 1){
             game.setCurrentPlayer(playersOrder.get(playersOrder.indexOf(currentPlayer)+1));
             gamePhase.execute(this);
