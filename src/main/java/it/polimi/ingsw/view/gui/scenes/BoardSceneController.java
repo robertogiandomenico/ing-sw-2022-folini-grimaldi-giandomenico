@@ -1,15 +1,22 @@
 package it.polimi.ingsw.view.gui.scenes;
 
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Assistant;
+import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.model.TowerColor;
+import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.messages.clientMessages.ChooseAssistantReply;
 import it.polimi.ingsw.network.messages.clientMessages.CloudReply;
+import it.polimi.ingsw.network.messages.clientMessages.MNStepsReply;
 import it.polimi.ingsw.view.gui.GUI;
 import it.polimi.ingsw.view.utilities.MatrixOperations;
 import it.polimi.ingsw.view.utilities.lightclasses.LightArchi;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 import it.polimi.ingsw.view.utilities.lightclasses.LightSchoolBoard;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -42,6 +49,8 @@ public class BoardSceneController implements SceneControllerInterface {
     private AnchorPane thisPlayerPane;
     @FXML
     private TabPane otherPlayersPane;
+    @FXML
+    private AnchorPane thisPlayerDR;
     private GUI gui;
     private LightBoard lightBoard;
     private LightSchoolBoard thisPlayerBoard;
@@ -166,6 +175,13 @@ public class BoardSceneController implements SceneControllerInterface {
             thisPlayerPane.getChildren().get(7).setVisible(false);
         }
 
+        //set dining room students
+        for (int i = 0; i < thisPlayerBoard.getDiningRoom().length; i++) {
+            for (int j = 9; j >= thisPlayerBoard.getDiningRoom()[i]; j--) {
+                ((HBox)thisPlayerDR.getChildren().get(i)).getChildren().get(j).setVisible(false);
+            }
+        }
+
     }
 
     /**
@@ -219,6 +235,9 @@ public class BoardSceneController implements SceneControllerInterface {
 
         for (i = 0; i < archipelagos.size(); i++) {
 
+            //set ID
+            archipelagosBox.getChildren().get(i).setId(String.valueOf(i));
+
             //set tower
             try {
                 ((ImageView) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(1)).setImage(new Image(getClass().getResourceAsStream("/img/towers/" + archipelagos.get(i).getTowerColor().name().toLowerCase() + ".png")));
@@ -248,7 +267,7 @@ public class BoardSceneController implements SceneControllerInterface {
         }
 
         //complete the archipelago circle, hiding the archis that are now merged into others
-        while (i != 11) {
+        while (i <= 11) {
             archipelagosBox.getChildren().get(i).setDisable(true);
             archipelagosBox.getChildren().get(i).setVisible(false);
             i++;
@@ -345,6 +364,13 @@ public class BoardSceneController implements SceneControllerInterface {
             } else {
                 ((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7).setDisable(true);
                 ((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7).setVisible(false);
+            }
+
+            //set dining room students
+            for (int j = 0; j < otherPlayers[i].getDiningRoom().length; j++) {
+                for (int k = 9; k >= otherPlayers[i].getDiningRoom()[j]; k--) {
+                    ((HBox)((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(8)).getChildren().get(j)).getChildren().get(k).setVisible(false);
+                }
             }
         }
     }
@@ -458,6 +484,10 @@ public class BoardSceneController implements SceneControllerInterface {
             gui.getClient().sendMsgToServer(new CloudReply(cloudIndex));
             cloudsBox.setDisable(true);
         }
+    }
+
+    public void enableArchisForMN(int maxMNSteps) {
+
     }
 
     /**

@@ -207,6 +207,284 @@
                   </Label>
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="thisPlayerDR" layoutX="172.0" layoutY="82.0">
+               <children>
+                  <HBox prefHeight="29.0" prefWidth="299.0" spacing="1.2">
+                     <children>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentgreen.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentgreen.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentgreen.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="39.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentgreen.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentgreen.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="39.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentgreen.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="68.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentgreen.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="96.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentgreen.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="183.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentgreen.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="212.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentgreen.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox layoutY="45.0" prefHeight="29.0" prefWidth="299.0" spacing="1.2">
+                     <children>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentred.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentred.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentred.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="39.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentred.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentred.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="39.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentred.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="68.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentred.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="96.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentred.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="183.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentred.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="212.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentred.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox layoutY="88.0" prefHeight="29.0" prefWidth="299.0" spacing="1.2">
+                     <children>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentyellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentyellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentyellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="39.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentyellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentyellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="39.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentyellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="68.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentyellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="96.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentyellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="183.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentyellow.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="212.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentyellow.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox layoutY="132.0" prefHeight="29.0" prefWidth="299.0" spacing="1.2">
+                     <children>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentpink.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentpink.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentpink.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="39.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentpink.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentpink.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="39.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentpink.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="68.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentpink.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="96.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentpink.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="183.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentpink.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="212.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentpink.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox layoutY="176.0" prefHeight="29.0" prefWidth="299.0" spacing="1.2">
+                     <children>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentblue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentblue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentblue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="39.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentblue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentblue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="39.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentblue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="68.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentblue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="96.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentblue.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="183.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/pawns/studentblue.png" />
+                           </image>
+                        </ImageView>
+                        <AnchorPane>
+                           <children>
+                              <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/pawns/studentblue.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
          </children>
          <GridPane.margin>
             <Insets bottom="3.0" right="10.0" />
@@ -531,6 +809,280 @@
                               </Label>
                            </children>
                         </AnchorPane>
+                        <AnchorPane layoutX="110.0" layoutY="67.0">
+                           <children>
+                              <HBox prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                                 <children>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="66.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="94.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="178.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="206.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="41.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                                 <children>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="66.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="94.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="178.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="206.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="82.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                                 <children>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="66.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="94.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="178.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="206.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="124.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                                 <children>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="66.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="94.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="178.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="206.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="165.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                                 <children>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="66.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="94.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="178.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="206.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
             </content>
@@ -696,6 +1248,280 @@
                                     <Insets left="5.0" />
                                  </padding>
                               </Label>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="110.0" layoutY="67.0">
+                           <children>
+                              <HBox prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                                 <children>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="66.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="94.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="178.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="206.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentgreen.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="41.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                                 <children>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="66.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="94.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="178.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="206.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentred.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="82.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                                 <children>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="66.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="94.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="178.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="206.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentyellow.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="124.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                                 <children>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="66.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="94.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="178.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="206.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentpink.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="165.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                                 <children>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="38.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="66.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="94.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="178.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="206.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/pawns/studentblue.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
                            </children>
                         </AnchorPane>
                      </children>

@@ -263,7 +263,8 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askMNSteps(int maxMNSteps) {
-
+        SceneControllerInterface bsc = getBoardSceneController();
+        Platform.runLater(() -> ((BoardSceneController) bsc).enableArchisForMN(maxMNSteps));
     }
 
     /**
@@ -274,7 +275,6 @@ public class GUI extends Application implements ViewInterface {
     @Override
     public void askCloud(List<Integer> availableClouds) {
         SceneControllerInterface bsc = getBoardSceneController();
-
         Platform.runLater(() -> ((BoardSceneController) bsc).enableCloudBox());
     }
 
