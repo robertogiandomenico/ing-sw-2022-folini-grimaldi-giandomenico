@@ -74,11 +74,13 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     public void initializeCharacters(LightCharacter[] selectedCharacters) {
         try {
+            //set character image
             for (int i = 0; i < 3; i++) {
                 ((ImageView)((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(0)).setImage(new Image(getClass().getResourceAsStream("/img/characters/" + selectedCharacters[i].getName().toLowerCase() + ".png")));
 
                 charactersBox.getChildren().get(i).setId(selectedCharacters[i].getName());
 
+                //set additional elements on the card if it's one of the following
                 switch (selectedCharacters[i].getName()) {
                     case "GrannyGrass":
                         Label noEntryTileLeft = new Label();
@@ -105,6 +107,7 @@ public class BoardSceneController implements SceneControllerInterface {
                         break;
                 }
 
+                //set coin image if the character has been already used
                 if (selectedCharacters[i].isAlreadyUsed())
                     ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(2).setVisible(true);
                 else
@@ -112,6 +115,7 @@ public class BoardSceneController implements SceneControllerInterface {
 
             }
         } catch (NullPointerException e) {
+            //if this exception is thrown, the game is in easy mode
             charactersBox.setDisable(true);
             charactersBox.setVisible(false);
         }
@@ -136,7 +140,7 @@ public class BoardSceneController implements SceneControllerInterface {
         try {
             ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistant/" + thisPlayerBoard.getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
         } catch (NullPointerException e) {
-            ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/blank.png")));
+            ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(blankImg());
         }
 
         //set entrance
@@ -179,7 +183,7 @@ public class BoardSceneController implements SceneControllerInterface {
             case WHITE:
                 return new Image(getClass().getResourceAsStream("/img/towers/upwhite.png"));
             default:
-                return new Image(getClass().getResourceAsStream("/img/blank.png"));
+                return blankImg();
         }
     }
 
@@ -200,7 +204,7 @@ public class BoardSceneController implements SceneControllerInterface {
             case FORESTWIZARD:
                 return new Image(getClass().getResourceAsStream("/img/wizards/f_icon.png"));
             default:
-                return new Image(getClass().getResourceAsStream("/img/blank.png"));
+                return blankImg();
         }
     }
 
@@ -211,13 +215,15 @@ public class BoardSceneController implements SceneControllerInterface {
      * @param archipelagos        a LightArchi List.
      */
     public void initializeArchipelagos(List<LightArchi> archipelagos) {
-        for (int i = 0; i < archipelagos.size(); i++) {
+        int i;
+
+        for (i = 0; i < archipelagos.size(); i++) {
 
             //set tower
             try {
                 ((ImageView) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(1)).setImage(new Image(getClass().getResourceAsStream("/img/towers/" + archipelagos.get(i).getTowerColor().name().toLowerCase() + ".png")));
             } catch (NullPointerException e) {
-                ((ImageView) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(1)).setImage(new Image(getClass().getResourceAsStream("/img/blank.png")));
+                ((ImageView) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(1)).setImage(blankImg());
             }
 
             //set mother nature
@@ -236,6 +242,16 @@ public class BoardSceneController implements SceneControllerInterface {
                     ((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(j+3).setVisible(true);
             }
 
+            //set the archipelago size
+            ((Label)((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(9)).setText("x" + archipelagos.get(i).getSize());
+
+        }
+
+        //complete the archipelago circle, hiding the archis that are now merged into others
+        while (i != 11) {
+            archipelagosBox.getChildren().get(i).setDisable(true);
+            archipelagosBox.getChildren().get(i).setVisible(false);
+            i++;
         }
     }
 
@@ -278,11 +294,13 @@ public class BoardSceneController implements SceneControllerInterface {
     public void initializeOtherPlayers() {
         LightSchoolBoard[] otherPlayers = new LightSchoolBoard[lightBoard.getSchoolBoards().size()-1];
 
+        //disable tab if there are only 2 players
         if (lightBoard.getSchoolBoards().size() == 2) {
             otherPlayersPane.getTabs().get(1).setDisable(true);
             otherPlayersPane.getTabs().remove(1);
         }
 
+        //create an array of enemy players
         for (int i = 0, j = 0; i < lightBoard.getSchoolBoards().size(); i++) {
             if (!lightBoard.getSchoolBoards().get(i).getPlayer().getNickname().equals(gui.getClient().getNickname())) {
                 otherPlayers[j] = lightBoard.getSchoolBoards().get(i);
@@ -290,31 +308,38 @@ public class BoardSceneController implements SceneControllerInterface {
             }
         }
 
+        //set the otherPlayers schoolboard
         for (int i = 0; i < otherPlayers.length; i++) {
-
             otherPlayersPane.getTabs().get(i).setText(otherPlayers[i].getPlayer().getNickname());
 
+            //set nickname
             ((Label)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(1)).setText(otherPlayers[i].getPlayer().getNickname());
+            //set chosen wizard
             ((ImageView)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(2)).setImage(getWizardIcon(otherPlayers[i].getPlayer().getSelectedWizard()));
 
+            //set discard pile, if present
             try {
                 ((ImageView)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistant/" + otherPlayers[i].getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
             } catch (NullPointerException e){
-                ((ImageView)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/blank.png")));
+                ((ImageView)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(3)).setImage(blankImg());
             }
 
+            //set entrance
             for (int j = 0; j < otherPlayers[i].getEntrance().length; j++) {
                 ((ImageView)((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(5)).getChildren().get(j)).setImage(displayStudent(otherPlayers[i].getEntrance()[j]));
             }
 
+            //set towers on the schoolboard
             for (int j = 0; j < otherPlayers[i].getTowersLeft(); j++) {
                 ((ImageView)((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(4)).getChildren().get(j)).setImage(getTowerIcon(otherPlayers[i].getPlayer().getTowerColor()));
             }
 
+            //set professor table
             for (int j = 0; j < otherPlayers[i].getProfessorTable().length; j++) {
                 ((VBox)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(6)).getChildren().get(j).setVisible(otherPlayers[i].getProfessorTable()[j]);
             }
 
+            //set coins if it's expert mode
             if (lightBoard.isExpertMode()) {
                 ((Label) ((AnchorPane) ((AnchorPane) otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7)).getChildren().get(1)).setText("x" + otherPlayers[i].getPlayer().getCoins());
             } else {
@@ -347,7 +372,7 @@ public class BoardSceneController implements SceneControllerInterface {
                     return null;
             }
         } catch (NullPointerException e) {
-            return new Image(getClass().getResourceAsStream("/img/blank.png"));
+            return blankImg();
         }
     }
 
@@ -481,6 +506,15 @@ public class BoardSceneController implements SceneControllerInterface {
             //gui.getClient().sendMsgToServer(new CharacterReply( , , , ,));
             charactersBox.setDisable(true);
         }
+    }
+
+    /**
+     * Returns a blank image.
+     *
+     * @return                    a blank image used as placeholder.
+     */
+    private Image blankImg() {
+        return new Image(getClass().getResourceAsStream("/img/blank.png"));
     }
 
     /**
