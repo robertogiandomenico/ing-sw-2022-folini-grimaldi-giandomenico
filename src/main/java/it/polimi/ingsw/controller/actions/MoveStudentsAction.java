@@ -39,10 +39,6 @@ public class MoveStudentsAction implements Action {
             int num = (int) Arrays.stream(turnController.getController().getGame().getBoard().getCurrentPlayerSchoolBoard().getEntrance()).filter(s -> s!= null && s.getColor() == c).count();
             availableColors.put(c, num);
         }
-        if (studentToBeMoved != null) {
-            int num = availableColors.get(studentToBeMoved.getColor());
-            availableColors.replace(studentToBeMoved.getColor(), num - 1);
-        }
         clientHandler.sendMsgToClient(new StudentRequest(availableColors.keySet().stream().filter(c -> availableColors.get(c) > 0).sorted(Comparator.comparingInt(Enum::ordinal)).collect(Collectors.toList())));
     }
 

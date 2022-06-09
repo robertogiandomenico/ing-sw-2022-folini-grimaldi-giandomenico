@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
 import it.polimi.ingsw.network.messages.clientMessages.WizardReply;
+import it.polimi.ingsw.network.messages.serverMessages.TextMessage;
 import it.polimi.ingsw.network.messages.serverMessages.WizardRequest;
 import it.polimi.ingsw.network.server.ClientHandler;
 
@@ -24,6 +25,12 @@ public class SetupPhase implements GamePhase {
         this.controller = controller;
 
         availableWizards = new ArrayList<>(controller.getGame().getAvailableWizards());
+
+        for(ClientHandler c : controller.getHandlers()){
+            if(!c.equals(controller.getHandlers().get(playerIndex))){
+                c.sendMsgToClient(new TextMessage("Waiting for your turn to start"));
+            }
+        }
 
         controller.getHandlers().get(playerIndex).sendMsgToClient(new WizardRequest(availableWizards));
     }

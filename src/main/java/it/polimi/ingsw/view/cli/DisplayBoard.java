@@ -29,15 +29,16 @@ public class DisplayBoard {
      *                      -{@code false} otherwise.
      *                      </p>
      */
-    public static void printSchoolBoard(LightSchoolBoard sB, boolean expertMode) {
+    public static void printSchoolBoard(LightSchoolBoard sB, boolean expertMode, boolean isCurrentPlayer) {
         int nicknameLength = sB.getPlayer().getNickname().length();
+        CliColor color = isCurrentPlayer ? CliColor.CYAN : CliColor.RESET;
 
         System.out.print(CliColor.BOLD + sB.getPlayer().getNickname() + CliColor.RESET);
 
         //print blank schoolboard
         System.out.print("\033[1B");                //down 1 line
         for (int i = 0; i < nicknameLength; i++) {  //backward for -nicknameLength- lines
-            System.out.print("\033[1D");
+            System.out.print("\033[1D" + color);
         }
         System.out.print("╭───┬──────────────────┬───────╮" + "\033[1B" + "\033[32D");
         System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
@@ -45,7 +46,7 @@ public class DisplayBoard {
         System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
         System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
         System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
-        System.out.print("╰───┴──────────────────┴───────╯");
+        System.out.print("╰───┴──────────────────┴───────╯" + CliColor.RESET);
 
         System.out.print("\033[32D" + "\033[5A");
         System.out.print("\033[2C");

@@ -609,6 +609,7 @@ public class CLI implements ViewInterface {
      */
     @Override
     public void displayMessage(String message) {
+        clearCLI();
         System.out.println(message);
     }
 
@@ -691,11 +692,11 @@ public class CLI implements ViewInterface {
         } else
             System.out.print("\033[2B" + CliColor.RESET_LINE);
 
-
+        LightSchoolBoard currentPlayerSB = board.getCurrentPlayerSchoolBoard();
         //find this client's schoolboard and print it
         for (LightSchoolBoard lsb : board.getSchoolBoards()) {
             if (lsb.getPlayer().getNickname().equals(client.getNickname())) {
-                DisplayBoard.printSchoolBoard(lsb, board.getSelectedCharacters() != null);
+                DisplayBoard.printSchoolBoard(lsb, board.getSelectedCharacters() != null, lsb.equals(currentPlayerSB));
                 break;
             }
         }
@@ -703,7 +704,7 @@ public class CLI implements ViewInterface {
         for (int i = 0; i < board.getSchoolBoards().size(); i++) {
             if (!board.getSchoolBoards().get(i).getPlayer().getNickname().equals(client.getNickname())) {
                 System.out.print("\033[7A" + "\033[4C");
-                DisplayBoard.printSchoolBoard(board.getSchoolBoards().get(i), board.getSelectedCharacters() != null);
+                DisplayBoard.printSchoolBoard(board.getSchoolBoards().get(i), board.getSelectedCharacters() != null, board.getSchoolBoards().get(i).equals(currentPlayerSB));
             }
 
             if (i == (board.getSchoolBoards().size() -1) )
