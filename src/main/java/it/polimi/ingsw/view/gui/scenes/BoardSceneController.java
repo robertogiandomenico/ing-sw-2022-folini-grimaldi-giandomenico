@@ -7,16 +7,14 @@ import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.messages.clientMessages.ChooseAssistantReply;
 import it.polimi.ingsw.network.messages.clientMessages.CloudReply;
 import it.polimi.ingsw.network.messages.clientMessages.MNStepsReply;
+import it.polimi.ingsw.network.messages.clientMessages.PlaceReply;
 import it.polimi.ingsw.view.gui.GUI;
 import it.polimi.ingsw.view.utilities.MatrixOperations;
 import it.polimi.ingsw.view.utilities.lightclasses.LightArchi;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 import it.polimi.ingsw.view.utilities.lightclasses.LightSchoolBoard;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -487,7 +485,39 @@ public class BoardSceneController implements SceneControllerInterface {
     }
 
     public void enableArchisForMN(int maxMNSteps) {
+        int currentMNIndex = findCurrentMNIndex(lightBoard.getArchipelagos());
 
+        for (int i = 0; i < maxMNSteps; i++)
+            archipelagosBox.getChildren().get((currentMNIndex+i+1) % (lightBoard.getArchipelagos().size())).setDisable(false);
+    }
+
+    @FXML
+    private void chooseArchipelago(MouseEvent event) {
+        if (event.getButton().equals(MouseButton.PRIMARY)) {
+            boolean movingMN = gui.getClient().isMovingMN();
+
+            if (movingMN) { //if I'm moving mother nature
+                int currentMNIndex = findCurrentMNIndex(lightBoard.getArchipelagos());
+                int archiIndex = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
+
+                gui.getClient().sendMsgToServer(new MNStepsReply(archiIndex - currentMNIndex));
+                gui.getClient().setMovingMN(false);
+                archipelagosBox.setDisable(true);
+
+            } else { //if I'm choosing freely any archipelago for other reasons
+                int archiIndex = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
+                gui.getClient().sendMsgToServer(new PlaceReply("ARCHIPELAGO", archiIndex));
+                archipelagosBox.setDisable(true);
+            }
+        }
+    }
+
+    private int findCurrentMNIndex(List<LightArchi> archipelagos) {
+        for(LightArchi a : archipelagos) {
+            if (a.isMNPresent())
+                return archipelagos.indexOf(a);
+        }
+        return -1;
     }
 
     /**

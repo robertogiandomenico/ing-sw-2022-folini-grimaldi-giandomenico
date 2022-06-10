@@ -213,8 +213,8 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askStudent(List<Color> availableColors) {
-        Platform.runLater(() -> SceneController.switchScene(stage));
-        ((BoardSceneController)SceneController.getCurrentController()).enableSchoolBoard();
+        SceneControllerInterface bsc = getBoardSceneController();
+        Platform.runLater(() -> ((BoardSceneController) bsc).enableSchoolBoard());
         //...
     }
 
@@ -237,10 +237,9 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public int askArchipelago(int maxArchis) {
-        Platform.runLater(() -> SceneController.switchScene(stage));
-        ((BoardSceneController)SceneController.getCurrentController()).enableArchipelagos();
-        //...
-        return -1;
+        SceneControllerInterface bsc = getBoardSceneController();
+        Platform.runLater(() -> ((BoardSceneController) bsc).enableArchipelagos());
+        return -1; //this return value is useless, the true value should be returned by the BoardSceneController chooseArchi()
     }
 
     /**
@@ -251,9 +250,9 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askCharacter(LightBoard board) {
-        Platform.runLater(() -> SceneController.switchScene(stage));
-        ((BoardSceneController)SceneController.getCurrentController()).enableCharactersBox();
-        //switch case
+        SceneControllerInterface bsc = getBoardSceneController();
+        Platform.runLater(() -> ((BoardSceneController) bsc).enableCharactersBox());
+        //TODO: switch case
     }
 
     /**

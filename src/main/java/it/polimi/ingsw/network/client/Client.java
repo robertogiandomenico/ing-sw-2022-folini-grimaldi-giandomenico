@@ -30,6 +30,7 @@ public class Client {
     private final Thread messageListener;
     private final Thread messageHandler;
     private String nickname;
+    private boolean movingMN = false;
 
     public Client(String ip, int port, ViewInterface view) {
         this.ip = ip;
@@ -79,12 +80,16 @@ public class Client {
             while (clientConnected.get()) {
                 Object msg = inputStream.readObject();
                 if(msg instanceof GenericServerMessage){
-                    if (((GenericServerMessage) msg).getType() == MessageType.RESULT){
+                    if (((GenericServerMessage) msg).getType() == MessageType.RESULT) {
                         messageQueue.clear();
                         ((GenericServerMessage) msg).show(view);
                         disconnect(false);
                     }
                     messageQueue.add((GenericServerMessage) msg);
+
+                    if (((GenericServerMessage) msg).getType() == MessageType.MNSTEPS_REQUEST)
+                        movingMN = true;
+
                 } else if (msg instanceof DisconnectionMessage) {
                     messageQueue.clear();
                     ((DisconnectionMessage) msg).show(view);
@@ -131,5 +136,13 @@ public class Client {
 
     public String getNickname() {
         return nickname;
+    }
+
+    public boolean isMovingMN() {
+        return movingMN;
+    }
+
+    public void setMovingMN(boolean movingMN) {
+        this.movingMN = movingMN;
     }
 }
