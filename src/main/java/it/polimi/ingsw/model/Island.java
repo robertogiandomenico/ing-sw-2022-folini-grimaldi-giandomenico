@@ -35,10 +35,10 @@ public class Island {
      *
      * @return                 a boolean whose value is:
      *                         <p>
-     *                         -{@code true} if there is a Student in the 0 position of the Student List
+     *                         -{@code true} if there is a Student in the {@code 0} position of the Student List
      *                         (= there is at least a Student on this Island)
      *                         </p> <p>
-     *                         -{@code false} if the 0 position of the Student List is {@code null}
+     *                         -{@code false} if the {@code 0} position of the Student List is {@code null}
      *                         (= there are no students on this Island).
      *                         </p>
      */

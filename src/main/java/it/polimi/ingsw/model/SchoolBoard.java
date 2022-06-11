@@ -94,7 +94,7 @@ public class SchoolBoard {
      *                      <p>
      *                      -{@code true} if the professor is in this SchoolBoard;
      *                      </p> <p>
-     *                      -{@code false} if the professor isn't in this SchoolBoard.
+     *                      -{@code false} otherwise.
      *                      </p>
      */
     public boolean isProfessorPresent(int index){
@@ -258,7 +258,7 @@ public class SchoolBoard {
      *                      <p>
      *                      -{@code true} if the FarmerEffect is active;
      *                      </p> <p>
-     *                      -{@code false} if the FarmerEffect isn't active.
+     *                      -{@code false} otherwise.
      *                      </p>
      */
     public void setFarmerEffect(boolean farmerEffect) {

@@ -536,13 +536,15 @@ public class CLI implements ViewInterface {
     }
 
     /**
-     * Checks the color number in the dining room.
-     * Used in {@link CLI#askCharacter(LightBoard) askCharacter method} in order to
-     * activate {@link it.polimi.ingsw.model.effects.MinstrelEffect MinstrelEffect}.
+     * Removes a student color from the list of available ones if, as the user
+     * makes their choices, no students of that color are left in the dining room.
+     *
+     * Used in {@link CLI#askCharacter(LightBoard) askCharacter method} when applying
+     * the {@link it.polimi.ingsw.model.effects.MinstrelEffect MinstrelEffect}.
      *
      * @param dr                   the Array representing the current Player's dining room.
-     * @param studColors           the Color Array of colors chosen by the user.
-     * @param i                    the index of the Arrays.
+     * @param studColors           the Color Array of Colors chosen by the user.
+     * @param i                    the index representing the Color.
      * @param availableColors      the Color List of available Colors.
      */
     private void checkColorNumberDR(int[] dr, Color[] studColors, int i, List<Color> availableColors) {
@@ -552,11 +554,13 @@ public class CLI implements ViewInterface {
     }
 
     /**
-     * Checks the color number.
+     * Removes a student color from the list of available ones if, as the user
+     * makes their choices, no students of that color are left on the card/in the
+     * entrance.
      *
      * @param studArray            a Student Array.
-     * @param studColors           a Color Array of colors chosen by the user.
-     * @param i                    the index of the Arrays.
+     * @param studColors           a Color Array of Colors chosen by the user.
+     * @param i                    the index representing the Color.
      * @param availableColors      the Color List of available Colors.
      */
     private void checkColorNumber(Student[] studArray, Color[] studColors, int i, List<Color> availableColors){

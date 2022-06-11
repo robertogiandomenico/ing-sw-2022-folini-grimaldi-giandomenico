@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * This class contains methods for generic scenes and to switch between them.
+ */
 public class SceneController implements SceneControllerInterface {
     private GUI gui;
     private static Scene scene;
@@ -29,7 +32,11 @@ public class SceneController implements SceneControllerInterface {
 
     /**
      * Switches between scenes.
-     * Takes different parameters based on the specific situation.
+     *
+     * @param stage             a Stage.
+     * @param fxmlFile          the name of the fxml corresponding to the new scene.
+     * @param sci               the SceneControllerInterface corresponding to the new scene.
+     * @throws IOException      IOException.
      */
     public static void switchScene(Stage stage, String fxmlFile, SceneControllerInterface sci) throws IOException {
         loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxmlFile + ".fxml"));
@@ -39,6 +46,11 @@ public class SceneController implements SceneControllerInterface {
         //stage.show();
     }
 
+    /**
+     * Sets and shows the scene.
+     *
+     * @param stage             a Stage.
+     */
     public static void switchScene(Stage stage) {
         stage.setScene(scene);
         stage.show();
@@ -47,7 +59,7 @@ public class SceneController implements SceneControllerInterface {
     /**
      * Returns the scene currently active.
      *
-     * @return              the current Scene.
+     * @return                  the current Scene.
      */
     public static Scene getCurrentScene() {
         return scene;
@@ -56,12 +68,17 @@ public class SceneController implements SceneControllerInterface {
     /**
      * Returns the controller corresponding to the currently active scene.
      *
-     * @return              the current SceneController.
+     * @return                  the current scene controller.
      */
     public static SceneControllerInterface getCurrentController() {
         return currentController;
     }
 
+    /**
+     * Sets the controller corresponding to the currently active scene.
+     *
+     * @param currentController the current scene controller.
+     */
     public static void setCurrentController(SceneControllerInterface currentController) {
         SceneController.currentController = currentController;
     }
@@ -69,7 +86,7 @@ public class SceneController implements SceneControllerInterface {
     /**
      * Sets the GUI.
      *
-     * @param gui                 a GUI.
+     * @param gui               a GUI.
      */
     @Override
     public void setGUI(GUI gui) {

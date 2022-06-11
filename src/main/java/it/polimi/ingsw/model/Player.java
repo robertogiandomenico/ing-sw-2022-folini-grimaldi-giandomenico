@@ -108,7 +108,7 @@ public class Player {
      *                              <p>
      *                              -{@code true} if the Player can choose an Assistant;
      *                              </p> <p>
-     *                              -{@code false} if the Player can't choose an Assistant.
+     *                              -{@code false} otherwise.
      *                              </p>
      */
     public void setCanChooseAssistant(boolean canChooseAssistant) {
@@ -122,7 +122,7 @@ public class Player {
      *                              <p>
      *                              -{@code true} if the Player can move a Student;
      *                              </p> <p>
-     *                              -{@code false} if the Player can't move a Student.
+     *                              -{@code false} otherwise.
      *                              </p>
      */
     public void setCanMoveStudents(boolean canMoveStudents) {
@@ -136,7 +136,7 @@ public class Player {
      *                              <p>
      *                              -{@code true} if the Player can buy a GameCharacter;
      *                              </p> <p>
-     *                              -{@code false} if the Player can't buy a GameCharacter.
+     *                              -{@code false} otherwise.
      *                              </p>
      */
     public void setCanBuyCharacter(boolean canBuyCharacter) {
@@ -188,7 +188,7 @@ public class Player {
      *                          <p>
      *                          -{@code true} if this Player can choose an Assistant;
      *                          </p>
-     *                          -{@code false} if this Player can't choose an Assistant.
+     *                          -{@code false} otherwise.
      */
     public boolean getCanChooseAssistant() {
         return canChooseAssistant;
@@ -201,7 +201,7 @@ public class Player {
      *                          <p>
      *                          -{@code true} if this Player can move Students;
      *                          </p> <p>
-     *                          -{@code false} if this Player can't move Students.
+     *                          -{@code false} otherwise.
      *                          </p>
      */
     public boolean getCanMoveStudents() {
@@ -215,7 +215,7 @@ public class Player {
      *                          <p>
      *                          -{@code true} if this Player can buy a GameCharacter;
      *                          </p> <p>
-     *                          -{@code false} if this Player can't buy a GameCharacter.
+     *                          -{@code false} otherwise.
      *                          </p>
      */
     public boolean getCanBuyCharacter() {

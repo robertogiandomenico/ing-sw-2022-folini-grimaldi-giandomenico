@@ -7,8 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
+/**
+ * This class represents the controller for the creation of a new game scene.
+ */
 public class NewGameSceneController implements SceneControllerInterface {
-
     @FXML
     private RadioButton easyMode;
     @FXML
@@ -27,12 +29,19 @@ public class NewGameSceneController implements SceneControllerInterface {
     private boolean num3OfPlayers = false;
     private GUI gui;
 
+    /**
+     * Initializes the scene.
+     */
     @FXML
     private void initialize() {
         n2Players.setDisable(true);
         n3Players.setDisable(true);
     }
 
+    /**
+     * Enables different fields as the user proceeds with the creation of the game
+     * and sends the information to the server.
+     */
     @FXML
     private void next() {
         if(isGameModeEnabled() && !isNPlayersEnabled()) {
@@ -49,30 +58,68 @@ public class NewGameSceneController implements SceneControllerInterface {
         //FIXME: unable to read the toggle value, it returns null but it should return the actual value of the toggle
     }
 
+    /**
+     * Closes the window.
+     */
     @FXML
     private void exit() {
         gui.closeWindow(gui.getStage());
         System.exit(0);
     }
 
+    /**
+     * States whether the buttons for the selection of the game mode are
+     * enabled or not.
+     *
+     * @return          a boolean whose value is:
+     *                  <p>
+     *                  -{@code true} if at least one between {@code easyMode} button and
+     *                  {@code expertMode} button is enabled;
+     *                  </p> <p>
+     *                  -{@code false} otherwise.
+     *                  </p>
+     */
     private boolean isGameModeEnabled() {
         return !easyMode.isDisable() || !expertMode.isDisable();
     }
 
+    /**
+     * States whether the buttons for the selection of the number of players
+     * are enabled or not.
+     *
+     * @return          a boolean whose value is:
+     *                  <p>
+     *                  -{@code true} if at least one between {@code n2Players} button and
+     *                  {@code n3Players} button is enabled;
+     *                  </p> <p>
+     *                  -{@code false} otherwise.
+     *                  </p>
+     */
     private boolean isNPlayersEnabled() {
         return !n2Players.isDisable() || !n3Players.isDisable();
     }
 
+    /**
+     * Disables the buttons for the selection of the game mode.
+     */
     private void disableGameMode() {
         easyMode.setDisable(true);
         expertMode.setDisable(true);
     }
 
+    /**
+     * Enables the buttons for the selection of the number of players.
+     */
     private void enableNPlayers() {
         n2Players.setDisable(false);
         n3Players.setDisable(false);
     }
 
+    /**
+     * Gets the selected number of players for the game.
+     *
+     * @return          the selected number of players.
+     */
     private int getPlayerNumber() {
         if (n2Players.isSelected())
             return 2;
@@ -83,7 +130,7 @@ public class NewGameSceneController implements SceneControllerInterface {
     /**
      * Sets the GUI.
      *
-     * @param gui                 a GUI.
+     * @param gui       a GUI.
      */
     @Override
     public void setGUI(GUI gui) {
