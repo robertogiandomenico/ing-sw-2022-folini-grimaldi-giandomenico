@@ -20,6 +20,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -203,6 +204,29 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askAction(List<ActionType> possibleActions) {
+        SceneControllerInterface aasc = new AskActionSceneController();
+        SceneController.setCurrentController(aasc);
+        aasc.setGUI(this);
+
+        Platform.runLater(() -> {
+            try {
+                Stage actionStage = new Stage();
+                actionStage.initStyle(StageStyle.UTILITY);
+                actionStage.setResizable(false);
+                actionStage.setAlwaysOnTop(true);
+
+                SceneController.switchScene(actionStage, "AskActionScene", aasc);
+                ((AskActionSceneController) aasc).setPossibleActions(possibleActions);
+
+                actionStage.setOnCloseRequest(event -> {
+                    warningDialog("You have to choose the action first in order to close this panel");
+                    event.consume();
+                });
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
     }
 
@@ -334,8 +358,6 @@ public class GUI extends Application implements ViewInterface {
 
         Platform.runLater(() -> {
             try {
-                SceneController.switchScene(stage, "BoardScene", bsc);
-
                 if (firstPrintBoard) {
                     stage.setMaximized(true);
                     stage.setX(Screen.getPrimary().getVisualBounds().getMinX());
@@ -349,6 +371,8 @@ public class GUI extends Application implements ViewInterface {
                     stage.setResizable(true);
                     firstPrintBoard = false;
                 }
+
+                SceneController.switchScene(stage, "BoardScene", bsc);
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -389,6 +413,33 @@ public class GUI extends Application implements ViewInterface {
         errorDialog.setHeaderText("Error!");
         errorDialog.setContentText(error);
         errorDialog.showAndWait();
+    }
+
+    /**
+     * Shows a warning dialog to the user.
+     *
+     * @param warning              the specific warning.
+     */
+    public void warningDialog(String warning) {
+        Alert warningDialog = new Alert(Alert.AlertType.WARNING);
+        warningDialog.setTitle("Game Warning");
+        warningDialog.setHeaderText("Be careful");
+        warningDialog.setContentText(warning);
+        ((Stage)warningDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+        warningDialog.showAndWait();
+    }
+
+    /**
+     * Shows an information dialog to the user.
+     *
+     * @param info                the specific information.
+     */
+    public void infoDialog(String info) {
+        Alert infoDialog = new Alert(Alert.AlertType.INFORMATION);
+        infoDialog.setTitle("Game Info");
+        infoDialog.setHeaderText("Look, new info");
+        infoDialog.setContentText(info);
+        infoDialog.showAndWait();
     }
 
     /**

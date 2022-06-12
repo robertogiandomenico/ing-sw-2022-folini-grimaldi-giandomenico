@@ -36,7 +36,7 @@ public class SceneController implements SceneControllerInterface {
         loader.setController(sci);
         scene = new Scene(loader.load());
         stage.setScene(scene);
-        //stage.show();
+        stage.show();
     }
 
     public static void switchScene(Stage stage) {
