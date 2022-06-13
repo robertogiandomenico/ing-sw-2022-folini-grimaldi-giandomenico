@@ -8,13 +8,29 @@ import it.polimi.ingsw.network.messages.serverMessages.GameNameRequest;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.Server;
 
+/**
+ * This class represents a message that the client sends to the server, that
+ * contains the chosen game name.
+ * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.GameNameRequest GameNameRequest}.
+ */
 public class GameNameReply extends GenericClientMessage {
     private String gameName;
+
+    /**
+     * Class constructor.
+     *
+     * @param gameName  the name of the Game.
+     */
     public GameNameReply(String gameName) {
         super(MessageType.GAMENAME_REPLY);
         this.gameName = gameName;
     }
 
+    /**
+     * Returns the name of the game.
+     *
+     * @return          the name of the Game.
+     */
     public String getGameName() {
         return gameName;
     }
@@ -45,6 +61,18 @@ public class GameNameReply extends GenericClientMessage {
         }
     }
 
+    /**
+     * States whether a game with the given name already exists on the server.
+     *
+     * @param gameName  the name of the game to check.
+     * @param server    the Server.
+     * @return          a boolean whose value is:
+     *                  <p>
+     *                  -{@code true} if a game with that name already exists;
+     *                  </p> <p>
+     *                  -{@code false} otherwise.
+     *                  </p>
+     */
     private boolean alreadyExists(String gameName, Server server) {
         return server.getLobbies().keySet().stream().map(Controller::getGameName).anyMatch(n -> n.equals(gameName));
     }

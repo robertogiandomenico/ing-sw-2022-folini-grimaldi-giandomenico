@@ -5,14 +5,29 @@ import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.Server;
 
+/**
+ * This class represents a message that the client sends to the server, that
+ * contains the chosen wizard.
+ * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.WizardRequest WizardRequest}.
+ */
 public class WizardReply extends GenericClientMessage {
     private Wizard wizard;
 
+    /**
+     * Class constructor.
+     *
+     * @param wizard    the chosen Wizard.
+     */
     public WizardReply(Wizard wizard) {
         super(MessageType.WIZARD_REPLY);
         this.wizard = wizard;
     }
 
+    /**
+     * Returns the wizard.
+     *
+     * @return          the chosen Wizard.
+     */
     public Wizard getWizard() {
         return wizard;
     }
