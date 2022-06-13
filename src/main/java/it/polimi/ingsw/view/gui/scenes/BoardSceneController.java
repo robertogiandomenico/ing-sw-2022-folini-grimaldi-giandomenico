@@ -562,7 +562,7 @@ public class BoardSceneController implements SceneControllerInterface {
     private void chooseCharacter(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             String selectedCharacter = event.getPickResult().getIntersectedNode().getId();
-            //....
+            //TODO: switch case
             //gui.getClient().sendMsgToServer(new CharacterReply( , , , ,));
             charactersBox.setDisable(true);
         }

@@ -249,6 +249,7 @@ public class GUI extends Application implements ViewInterface {
 
                 SceneController.switchScene(colorStage, "AskColorScene", acsc);
                 ((AskColorSceneController) acsc).setAvailableColors(availableColors);
+                ((AskColorSceneController) acsc).setLabel("Select the color of the student you would like to move");
 
                 colorStage.setOnCloseRequest(event -> {
                     warningDialog("You have to choose the color first in order to close this panel");
@@ -268,7 +269,28 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askPlace(int maxArchis) {
+        SceneControllerInterface apsc = new AskPlaceSceneController();
+        SceneController.setCurrentController(apsc);
+        apsc.setGUI(this);
 
+        Platform.runLater(() -> {
+            try {
+                Stage placeStage = new Stage();
+                placeStage.initStyle(StageStyle.UTILITY);
+                placeStage.setResizable(false);
+                placeStage.setAlwaysOnTop(true);
+
+                SceneController.switchScene(placeStage, "AskPlaceScene", apsc);
+
+                placeStage.setOnCloseRequest(event -> {
+                    warningDialog("You have to choose the place first in order to close this panel");
+                    event.consume();
+                });
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**
@@ -282,7 +304,7 @@ public class GUI extends Application implements ViewInterface {
     public int askArchipelago(int maxArchis) {
         SceneControllerInterface bsc = getBoardSceneController();
         Platform.runLater(() -> ((BoardSceneController) bsc).enableArchipelagos());
-        return -1; //this return value is useless, the true value should be returned by the BoardSceneController chooseArchi()
+        return -1; //this return value is useless, the true value should be returned by the BoardSceneController chooseArchipelago()
     }
 
     /**
@@ -295,7 +317,6 @@ public class GUI extends Application implements ViewInterface {
     public void askCharacter(LightBoard board) {
         SceneControllerInterface bsc = getBoardSceneController();
         Platform.runLater(() -> ((BoardSceneController) bsc).enableCharactersBox());
-        //TODO: switch case
     }
 
     /**
@@ -442,7 +463,7 @@ public class GUI extends Application implements ViewInterface {
     public void warningDialog(String warning) {
         Alert warningDialog = new Alert(Alert.AlertType.WARNING);
         warningDialog.setTitle("Game Warning");
-        warningDialog.setHeaderText("Be careful");
+        warningDialog.setHeaderText("Careful");
         warningDialog.setContentText(warning);
         ((Stage)warningDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
         warningDialog.showAndWait();
@@ -456,7 +477,7 @@ public class GUI extends Application implements ViewInterface {
     public void infoDialog(String info) {
         Alert infoDialog = new Alert(Alert.AlertType.INFORMATION);
         infoDialog.setTitle("Game Info");
-        infoDialog.setHeaderText("Look, new info");
+        infoDialog.setHeaderText("Your next step");
         infoDialog.setContentText(info);
         infoDialog.showAndWait();
     }

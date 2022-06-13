@@ -7,6 +7,7 @@ import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -31,6 +32,8 @@ public class AskColorSceneController implements SceneControllerInterface {
     private VBox blueBox;
     @FXML
     private Button confirmButton;
+    @FXML
+    private Label label;
 
     private GUI gui;
     private Color studColor;
@@ -118,6 +121,8 @@ public class AskColorSceneController implements SceneControllerInterface {
             colorBox.getChildren().remove(blueBox);
     }
 
+    /* FIXME: this could not be just a studentReply, this scene must be used for different scenarios,
+        so it'd be better if it returned a color to the main class and that class send the wanted message, but how? */
     @FXML
     private void confirm() {
         try {
@@ -147,6 +152,10 @@ public class AskColorSceneController implements SceneControllerInterface {
             default:
                 return null;
         }
+    }
+
+    public void setLabel(String text) {
+        label.setText(text);
     }
 
     private void disableAll() {
