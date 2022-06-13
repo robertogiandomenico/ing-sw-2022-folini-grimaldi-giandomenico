@@ -227,7 +227,6 @@ public class GUI extends Application implements ViewInterface {
                 throw new RuntimeException(e);
             }
         });
-
     }
 
     /**
@@ -237,9 +236,29 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askStudent(List<Color> availableColors) {
-        SceneControllerInterface bsc = getBoardSceneController();
-        Platform.runLater(() -> ((BoardSceneController) bsc).enableSchoolBoard());
-        //...
+        SceneControllerInterface acsc = new AskColorSceneController();
+        SceneController.setCurrentController(acsc);
+        acsc.setGUI(this);
+
+        Platform.runLater(() -> {
+            try {
+                Stage colorStage = new Stage();
+                colorStage.initStyle(StageStyle.UTILITY);
+                colorStage.setResizable(false);
+                colorStage.setAlwaysOnTop(true);
+
+                SceneController.switchScene(colorStage, "AskColorScene", acsc);
+                ((AskColorSceneController) acsc).setAvailableColors(availableColors);
+
+                colorStage.setOnCloseRequest(event -> {
+                    warningDialog("You have to choose the color first in order to close this panel");
+                    event.consume();
+                });
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**

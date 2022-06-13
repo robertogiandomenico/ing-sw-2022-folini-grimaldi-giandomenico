@@ -116,7 +116,7 @@ public class WizardSceneController implements SceneControllerInterface {
     public void setAvailableWizards(List<Wizard> availableWizards) {
         this.availableWizards = availableWizards;
 
-        for(Wizard w : availableWizards) {
+        for (Wizard w : availableWizards) {
             switch (w.name().toUpperCase()) {
                 case "ARTICWIZARD":
                     articWizard.setDisable(false);
