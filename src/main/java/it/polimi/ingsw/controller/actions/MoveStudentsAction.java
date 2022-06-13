@@ -64,7 +64,12 @@ public class MoveStudentsAction implements Action {
 
             String place = ((PlaceReply) msg).getPlace();
             if (place.equals("DININGROOM")){
-                b.moveFromEntranceToDiningRoom(studentToBeMoved);
+                if(b.getCurrentPlayerSchoolBoard().getDiningRoom()[studentToBeMoved.getColor().ordinal()] < 10) {
+                    b.moveFromEntranceToDiningRoom(studentToBeMoved);
+                } else {
+                    // send a specific error message
+                    clientHandler.sendMsgToClient(new PlaceRequest(b.getArchipelagos().size()));
+                }
             } else if (place.equals("ARCHIPELAGO")) {
                 int archiIndex = ((PlaceReply) msg).getArchiIndex();
                 assert archiIndex != -1;
