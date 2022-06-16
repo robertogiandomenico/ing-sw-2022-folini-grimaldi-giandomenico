@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.network.messages.clientMessages.StudentReply;
 import it.polimi.ingsw.view.gui.GUI;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
@@ -48,7 +47,6 @@ public class AskColorSceneController implements SceneControllerInterface {
 
     @FXML
     private void onColorClick(MouseEvent event) {
-
         Node selectedColorNode = event.getPickResult().getIntersectedNode().getParent();
 
         if (event.getButton().equals(MouseButton.PRIMARY)) {
@@ -128,7 +126,8 @@ public class AskColorSceneController implements SceneControllerInterface {
         try {
             studColor = getSelectedColor();
             if(studColor != null) {
-                gui.getClient().sendMsgToServer(new StudentReply(studColor));
+                gui.setStudColor(studColor);
+                // ____.notify();
                 disableAll();
                 ((Stage) confirmButton.getScene().getWindow()).close();
             }

@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.messages.clientMessages.*;
 import it.polimi.ingsw.view.ViewInterface;
+import it.polimi.ingsw.view.utilities.DataChores;
 import it.polimi.ingsw.view.utilities.IPvalidator;
 import it.polimi.ingsw.view.utilities.IntegerReader;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
@@ -15,8 +16,10 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 import it.polimi.ingsw.view.utilities.lightclasses.LightSchoolBoard;
 
 import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * This class is an implementation of the {@link ViewInterface}, used to give
@@ -394,7 +397,7 @@ public class CLI implements ViewInterface {
                 studentNumber = 1;
                 studColors = new Color[studentNumber*2];
                 System.out.println("Select the student you would like to take from the character card.");
-                studColors[studentNumber-1] = askColor(getColorsByStudents(selectedCharacter.getStudents()));
+                studColors[studentNumber-1] = askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()));
 
                 System.out.print("\nEnter the index of the " + CliColor.YELLOW + "island" + CliColor.RESET + " where you would like to move the student on: ");
                 archiIndex = askArchipelago(maxArchis);
@@ -439,7 +442,7 @@ public class CLI implements ViewInterface {
                 }
 
                 studColors = new Color[studentNumber*2];
-                availableColors = getColorsByStudents(selectedCharacter.getStudents());
+                availableColors = DataChores.getColorsByStudents(selectedCharacter.getStudents());
                 System.out.println("Select the student(s) you would like to take from the character card.");
                 for (int i = 0; i < studentNumber; i++) {
                     System.out.println((studentNumber-i) + " student(s) left.");
@@ -448,7 +451,7 @@ public class CLI implements ViewInterface {
                     System.out.print("\n");
                 }
 
-                availableColors = getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
+                availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
                 askEntranceStudents(board, studentNumber, studColors, availableColors);
 
                 break;
@@ -462,7 +465,7 @@ public class CLI implements ViewInterface {
                 System.out.println(CliColor.BOLDYELLOW + "Mushroom Man effect" + CliColor.RESET + " activated!");
                 studentNumber = 1;
                 studColors = new Color[studentNumber*2];
-                System.out.println("Select a color. During this turn, that color add no influence.");
+                System.out.println("Select a color. During this turn, that color adds no influence.");
                 studColors[studentNumber-1] = askColor(new ArrayList<>(Arrays.asList(Color.values())));
                 break;
 
@@ -477,7 +480,7 @@ public class CLI implements ViewInterface {
                 }
 
                 studColors = new Color[studentNumber*2];
-                availableColors = getColorsByDR(board.getCurrentPlayerSchoolBoard().getDiningRoom());
+                availableColors = DataChores.getColorsByDR(board.getCurrentPlayerSchoolBoard().getDiningRoom());
                 System.out.println("Select the student(s) you would like to take from the dining room.");
                 for (int i = 0; i < studentNumber; i++) {
                     System.out.println((studentNumber-i) + " student(s) left.");
@@ -486,7 +489,7 @@ public class CLI implements ViewInterface {
                     System.out.print("\n");
                 }
 
-                availableColors = getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
+                availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
                 askEntranceStudents(board, studentNumber, studColors, availableColors);
 
                 break;
@@ -496,7 +499,7 @@ public class CLI implements ViewInterface {
                 System.out.println("Select the student you would like to take from the character card and place in your dining room.");
                 studentNumber = 1;
                 studColors = new Color[studentNumber*2];
-                studColors[studentNumber-1] = askColor(getColorsByStudents(selectedCharacter.getStudents()));
+                studColors[studentNumber-1] = askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()));
                 break;
 
             case "Thief":
@@ -731,61 +734,6 @@ public class CLI implements ViewInterface {
     public void clearCLI() {
         System.out.print(CliColor.CLEAR_ALL);
         System.out.flush();
-    }
-
-    /**
-     * Returns the colors corresponding to those of the students present in the
-     * given array.
-     *
-     * @param studentsArray        a Student Array.
-     * @return                     the Color List of the Students in the Array.
-     */
-    public List<Color> getColorsByStudents(Student[] studentsArray) {
-        List<Color> availableColors = new ArrayList<>();
-
-        for (Student s : studentsArray) {
-            if (s != null && !availableColors.contains(s.getColor()))
-                availableColors.add(s.getColor());
-        }
-
-        return availableColors.stream().sorted(Comparator.comparing(Enum::ordinal)).collect(Collectors.toList());
-    }
-
-    /**
-     * Returns the colors corresponding to those of the students present in the
-     * given dining room.
-     *
-     * @param drArray              the Array representing the dining room.
-     * @return                     the Color List of the Students in the dining room.
-     */
-    public List<Color> getColorsByDR(int[] drArray) {
-        List<Color> availableColors = new ArrayList<>();
-
-        for (int i = 0; i < drArray.length; i++) {
-            if (drArray[i] > 0) {
-                switch (i) {
-                    case 0:
-                        availableColors.add(Color.GREEN);
-                        break;
-                    case 1:
-                        availableColors.add(Color.RED);
-                        break;
-                    case 2:
-                        availableColors.add(Color.YELLOW);
-                        break;
-                    case 3:
-                        availableColors.add(Color.PINK);
-                        break;
-                    case 4:
-                        availableColors.add(Color.BLUE);
-                        break;
-                    default:    //not reachable
-                        break;
-                }
-            }
-        }
-
-        return availableColors.stream().sorted(Comparator.comparing(Enum::ordinal)).collect(Collectors.toList());
     }
 
     /**

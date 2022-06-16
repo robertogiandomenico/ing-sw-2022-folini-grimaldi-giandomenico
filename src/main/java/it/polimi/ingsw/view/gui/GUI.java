@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.Assistant;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.client.Client;
+import it.polimi.ingsw.network.messages.clientMessages.StudentReply;
 import it.polimi.ingsw.view.ViewInterface;
 import it.polimi.ingsw.view.gui.scenes.*;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
@@ -35,7 +36,8 @@ public class GUI extends Application implements ViewInterface {
     private Stage stage;
     protected static MediaPlayer mediaPlayer;
     private BoardSceneController bsc = new BoardSceneController();
-
+    private Color studColor;
+    private int archiIndex;
     private boolean firstPrintBoard = true;
     public static void main(String[] args) {
         launch(args);
@@ -238,6 +240,11 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askStudent(List<Color> availableColors) {
+        Color studColor = askColor(availableColors, "Select the color of the student you would like to move");
+        getClient().sendMsgToServer(new StudentReply(studColor));
+    }
+
+    public Color askColor(List<Color> availableColors, String text) {
         SceneControllerInterface acsc = new AskColorSceneController();
         SceneController.setCurrentController(acsc);
         acsc.setGUI(this);
@@ -251,7 +258,7 @@ public class GUI extends Application implements ViewInterface {
 
                 SceneController.switchScene(colorStage, "AskColorScene", acsc);
                 ((AskColorSceneController) acsc).setAvailableColors(availableColors);
-                ((AskColorSceneController) acsc).setLabel("Select the color of the student you would like to move");
+                ((AskColorSceneController) acsc).setLabel(text);
 
                 colorStage.setOnCloseRequest(event -> {
                     warningDialog("You have to choose the color first in order to close this panel");
@@ -262,6 +269,9 @@ public class GUI extends Application implements ViewInterface {
                 throw new RuntimeException(e);
             }
         });
+        // ____.wait();
+
+        return studColor;
     }
 
     /**
@@ -306,7 +316,8 @@ public class GUI extends Application implements ViewInterface {
     public int askArchipelago(int maxArchis) {
         //SceneControllerInterface bsc = getBoardSceneController();
         Platform.runLater(() -> ((BoardSceneController) bsc).enableArchipelagos());
-        return -1; //this return value is useless, the true value should be returned by the BoardSceneController chooseArchipelago()
+        // ____.wait();
+        return archiIndex;
     }
 
     /**
@@ -319,6 +330,7 @@ public class GUI extends Application implements ViewInterface {
     public void askCharacter(LightBoard board) {
         //SceneControllerInterface bsc = getBoardSceneController();
         Platform.runLater(() -> ((BoardSceneController) bsc).enableCharactersBox());
+        //BoardSceneController takes care of sending the reply
     }
 
     /**
@@ -330,6 +342,7 @@ public class GUI extends Application implements ViewInterface {
     public void askMNSteps(int maxMNSteps) {
         //SceneControllerInterface bsc = getBoardSceneController();
         Platform.runLater(() -> ((BoardSceneController) bsc).enableArchisForMN(maxMNSteps));
+        //BoardSceneController takes care of sending the reply
     }
 
     /**
@@ -396,7 +409,7 @@ public class GUI extends Application implements ViewInterface {
         //SceneControllerInterface bsc = getBoardSceneController();
         SceneController.setCurrentController(bsc);
         bsc.setGUI(this);
-        ((BoardSceneController) bsc).setLightBoard(board);
+        ((BoardSceneController) bsc).setBoard(board);
 
         Platform.runLater(() -> {
             try {
@@ -552,5 +565,13 @@ public class GUI extends Application implements ViewInterface {
      */
     public Stage getStage() {
         return stage;
+    }
+
+    public void setStudColor(Color studColor) {
+        this.studColor = studColor;
+    }
+
+    public void setArchiIndex(int archiIndex) {
+        this.archiIndex = archiIndex;
     }
 }

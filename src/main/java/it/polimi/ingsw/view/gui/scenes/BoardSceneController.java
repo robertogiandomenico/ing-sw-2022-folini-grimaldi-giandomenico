@@ -1,14 +1,9 @@
 package it.polimi.ingsw.view.gui.scenes;
 
-import it.polimi.ingsw.model.Assistant;
-import it.polimi.ingsw.model.Student;
-import it.polimi.ingsw.model.TowerColor;
-import it.polimi.ingsw.model.Wizard;
-import it.polimi.ingsw.network.messages.clientMessages.ChooseAssistantReply;
-import it.polimi.ingsw.network.messages.clientMessages.CloudReply;
-import it.polimi.ingsw.network.messages.clientMessages.MNStepsReply;
-import it.polimi.ingsw.network.messages.clientMessages.PlaceReply;
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.network.messages.clientMessages.*;
 import it.polimi.ingsw.view.gui.GUI;
+import it.polimi.ingsw.view.utilities.DataChores;
 import it.polimi.ingsw.view.utilities.MatrixOperations;
 import it.polimi.ingsw.view.utilities.lightclasses.LightArchi;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
@@ -26,6 +21,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -50,7 +47,7 @@ public class BoardSceneController implements SceneControllerInterface {
     @FXML
     private AnchorPane thisPlayerDR;
     private GUI gui;
-    private LightBoard lightBoard;
+    private LightBoard board;
     private LightSchoolBoard thisPlayerBoard;
 
     /**
@@ -60,12 +57,12 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     @FXML
     public void initialize() {
-        initializeCharacters(lightBoard.getSelectedCharacters());
+        initializeCharacters(board.getSelectedCharacters());
         initializeThisPlayer();
         initializeOtherPlayers();
-        initializeArchipelagos(lightBoard.getArchipelagos());
+        initializeArchipelagos(board.getArchipelagos());
         initializeClouds();
-        initializeCoinsSupply(lightBoard.getCoinsSupply());
+        initializeCoinsSupply(board.getCoinsSupply());
 
         charactersBox.setDisable(true);
         assistantBox.setDisable(true);
@@ -132,7 +129,7 @@ public class BoardSceneController implements SceneControllerInterface {
      * Initializes wizard, assistants and board of this client.
      */
     public void initializeThisPlayer() {
-        for (LightSchoolBoard lsb : lightBoard.getSchoolBoards()) {
+        for (LightSchoolBoard lsb : board.getSchoolBoards()) {
             if (lsb.getPlayer().getNickname().equals(gui.getClient().getNickname())) {
                 thisPlayerBoard = lsb;
                 break;
@@ -166,7 +163,7 @@ public class BoardSceneController implements SceneControllerInterface {
         }
 
         //set coins
-        if(lightBoard.isExpertMode()) {
+        if(board.isExpertMode()) {
             ((Label)((AnchorPane)thisPlayerPane.getChildren().get(7)).getChildren().get(1)).setText("x" + thisPlayerBoard.getPlayer().getCoins());
         } else {
             thisPlayerPane.getChildren().get(7).setDisable(true);
@@ -276,14 +273,14 @@ public class BoardSceneController implements SceneControllerInterface {
      * Initializes the clouds for this game.
      */
     public void initializeClouds() {
-        int cloudsNumber = lightBoard.getCloudsNumber();
+        int cloudsNumber = board.getCloudsNumber();
         if (cloudsNumber == 2) {
             cloudsBox.getChildren().remove(cloudsBox.getChildren().get(2));
         }
 
         for (int i = 0; i < cloudsNumber; i++) {
             for (int j = 0; j < cloudsNumber+1; j++) {
-                ((ImageView) ((AnchorPane) cloudsBox.getChildren().get(i)).getChildren().get(j+1)).setImage(displayStudent(lightBoard.getCloud(i)[j]));
+                ((ImageView) ((AnchorPane) cloudsBox.getChildren().get(i)).getChildren().get(j+1)).setImage(displayStudent(board.getCloud(i)[j]));
                 cloudsBox.getChildren().get(i).setId("cloud" + i);
             }
         }
@@ -295,7 +292,7 @@ public class BoardSceneController implements SceneControllerInterface {
      * @param coinsSupply         the number of coins in the supply.
      */
     public void initializeCoinsSupply(int coinsSupply) {
-        if (lightBoard.isExpertMode()) {
+        if (board.isExpertMode()) {
             ((Label) coinsSupplyBox.getChildren().get(1)).setText("x" + coinsSupply);
         } else {
             coinsSupplyBox.setDisable(true);
@@ -308,18 +305,18 @@ public class BoardSceneController implements SceneControllerInterface {
      * client.
      */
     public void initializeOtherPlayers() {
-        LightSchoolBoard[] otherPlayers = new LightSchoolBoard[lightBoard.getSchoolBoards().size()-1];
+        LightSchoolBoard[] otherPlayers = new LightSchoolBoard[board.getSchoolBoards().size()-1];
 
         //disable tab if there are only 2 players
-        if (lightBoard.getSchoolBoards().size() == 2) {
+        if (board.getSchoolBoards().size() == 2) {
             otherPlayersPane.getTabs().get(1).setDisable(true);
             otherPlayersPane.getTabs().remove(1);
         }
 
         //create an array of enemy players
-        for (int i = 0, j = 0; i < lightBoard.getSchoolBoards().size(); i++) {
-            if (!lightBoard.getSchoolBoards().get(i).getPlayer().getNickname().equals(gui.getClient().getNickname())) {
-                otherPlayers[j] = lightBoard.getSchoolBoards().get(i);
+        for (int i = 0, j = 0; i < board.getSchoolBoards().size(); i++) {
+            if (!board.getSchoolBoards().get(i).getPlayer().getNickname().equals(gui.getClient().getNickname())) {
+                otherPlayers[j] = board.getSchoolBoards().get(i);
                 j++;
             }
         }
@@ -356,7 +353,7 @@ public class BoardSceneController implements SceneControllerInterface {
             }
 
             //set coins if it's expert mode
-            if (lightBoard.isExpertMode()) {
+            if (board.isExpertMode()) {
                 ((Label) ((AnchorPane) ((AnchorPane) otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7)).getChildren().get(1)).setText("x" + otherPlayers[i].getPlayer().getCoins());
             } else {
                 ((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7).setDisable(true);
@@ -485,8 +482,8 @@ public class BoardSceneController implements SceneControllerInterface {
     }
 
     public void enableArchisForMN(int maxMNSteps) {
-        int currentMNIndex = findCurrentMNIndex(lightBoard.getArchipelagos());
-        int nArchis = lightBoard.getArchipelagos().size();
+        int currentMNIndex = findCurrentMNIndex(board.getArchipelagos());
+        int nArchis = board.getArchipelagos().size();
         archipelagosBox.setDisable(false);
 
         for (int i = 0; i < nArchis; i++)
@@ -504,13 +501,13 @@ public class BoardSceneController implements SceneControllerInterface {
             int archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
 
             if (movingMN) { //if I'm moving mother nature
-                int currentMNIndex = findCurrentMNIndex(lightBoard.getArchipelagos());
+                int currentMNIndex = findCurrentMNIndex(board.getArchipelagos());
                 gui.getClient().sendMsgToServer(new MNStepsReply(archiIndex - currentMNIndex));
                 gui.getClient().setMovingMN(false);
                 archipelagosBox.setDisable(true);
 
             } else { //if I'm choosing freely any archipelago for other reasons
-                gui.getClient().sendMsgToServer(new PlaceReply("ARCHIPELAGO", archiIndex));
+                gui.setArchiIndex(archiIndex);
                 archipelagosBox.setDisable(true);
             }
         }
@@ -564,12 +561,111 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     @FXML
     private void chooseCharacter(MouseEvent event) {
+        LightCharacter selectedCharacter;
+        int archiIndex = -1;
+        int studentNumber = 0;
+        Color[] studColors = null;
+
         if (event.getButton().equals(MouseButton.PRIMARY)) {
-            String selectedCharacter = event.getPickResult().getIntersectedNode().getId();
-            //TODO: switch case
-            //gui.getClient().sendMsgToServer(new CharacterReply( , , , ,));
+            String characterName = event.getPickResult().getIntersectedNode().getId();
+
+            if(board.getSelectedCharacters()[getCharIndexByName(characterName)].getCost() > board.getCurrentPlayerSchoolBoard().getPlayer().getCoins()) {
+                gui.warningDialog("Cannot choose this character card since you do not have enough coins. Try again.");
+                return;
+            } else if (characterName.equalsIgnoreCase("minstrel") && Arrays.stream(board.getCurrentPlayerSchoolBoard().getDiningRoom()).allMatch(t -> t == 0)) {
+                gui.warningDialog("Cannot choose this character card since you do not have any students in your dining room. Try again.");
+                return;
+
+            }
+
+            selectedCharacter = board.getSelectedCharacters()[getCharIndexByName(characterName)];
+            int maxArchis = board.getArchipelagos().size();
+            List<Color> availableColors;
+
+            //switch case of all characters to ask the proper values
+            switch (selectedCharacter.getName()) {
+                case "Monk":
+                    gui.infoDialog("Monk effect activated!");
+                    studentNumber = 1;
+                    studColors = new Color[studentNumber*2];
+                    studColors[studentNumber-1] = gui.askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()), "Select the student you would like to take from the character card");
+
+                    gui.infoDialog("Select the island where you would like to move the student on");
+                    archiIndex = gui.askArchipelago(maxArchis);
+                    break;
+
+                case "Farmer":
+                    gui.infoDialog("Farmer effect activated! You take control of any professor if there's a tie between players' students in the dining rooms.");
+                    break;
+
+                case "Herald":
+                    gui.infoDialog("Herald effect activated! Select the island you would like to be resolved");
+                    archiIndex = gui.askArchipelago(maxArchis);
+                    break;
+
+                case "Magicmailman":
+                    gui.infoDialog("Magic Mailman effect activated! You may now move mother nature up to 2 additional islands");
+                    break;
+
+                case "Grannygrass":
+                    gui.infoDialog("Granny Grass effect activated! Select the island here you would like to put the No Entry Tile on");
+                    archiIndex = gui.askArchipelago(maxArchis);
+                    break;
+
+                case "Centaur":
+                    gui.infoDialog("Centaur effect activated! Select the island to cancel its towers influence");
+                    archiIndex = gui.askArchipelago(maxArchis);
+                    break;
+
+                case "Jester":
+                    gui.infoDialog("Jester effect activated!");
+                    //TODO: implement the effect
+                    break;
+
+                case "Knight":
+                    gui.infoDialog("Knight effect ativated! You now have 2 more points of influence on islands during this turn.");
+                    break;
+
+                case "Mushroomman":
+                    gui.infoDialog("Mushroom Man effect activated!");
+                    studentNumber = 1;
+                    studColors = new Color[studentNumber*2];
+                    studColors[studentNumber-1] = gui.askColor(new ArrayList<>(Arrays.asList(Color.values())), "Select a color. During this turn, this color adds no influence.");
+                    break;
+
+                case "Minstrel":
+                    gui.infoDialog("Minstrel effect activated!");
+                    //TODO: implement the effect
+                    break;
+
+                case "Spoiledprincess":
+                    gui.infoDialog("Spoiled Princess effect activated!");
+                    studentNumber = 1;
+                    studColors = new Color[studentNumber*2];
+                    studColors[studentNumber-1] = gui.askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()), "Select the student you would like to take from the character card and place in your dining room");
+                    break;
+
+                case "Thief":
+                    gui.infoDialog("Thief effect activated!");
+                    studentNumber = 1;
+                    studColors = new Color[studentNumber*2];
+                    studColors[studentNumber-1] = gui.askColor(new ArrayList<>(Arrays.asList(Color.values())), "Select a color. Every player, including yourself, will return 3 students of that color from the dining room to the bag.");
+                    break;
+
+                default:
+                    break;
+            }
+            gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
             charactersBox.setDisable(true);
         }
+    }
+
+    private int getCharIndexByName(String characterName) {
+        for (int i = 0; i < board.getSelectedCharacters().length; i++) {
+            if (characterName.equalsIgnoreCase(board.getSelectedCharacters()[i].getName()))
+                return i;
+        }
+        return -1;
     }
 
     /**
@@ -584,10 +680,10 @@ public class BoardSceneController implements SceneControllerInterface {
     /**
      * Sets the light board.
      *
-     * @param lightBoard          a LightBoard.
+     * @param board          a LightBoard.
      */
-    public void setLightBoard(LightBoard lightBoard) {
-        this.lightBoard = lightBoard;
+    public void setBoard(LightBoard board) {
+        this.board = board;
     }
 
     /**
