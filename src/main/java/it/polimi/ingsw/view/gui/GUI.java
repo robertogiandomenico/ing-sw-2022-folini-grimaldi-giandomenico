@@ -34,6 +34,8 @@ public class GUI extends Application implements ViewInterface {
     private Client client;
     private Stage stage;
     protected static MediaPlayer mediaPlayer;
+    private BoardSceneController bsc = new BoardSceneController();
+
     private boolean firstPrintBoard = true;
     public static void main(String[] args) {
         launch(args);
@@ -189,7 +191,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
-        SceneControllerInterface bsc = getBoardSceneController();
+        //SceneControllerInterface bsc = getBoardSceneController();
 
         Platform.runLater(() -> {
                 ((BoardSceneController) bsc).setAssistants(availableAssistants, discardedAssistants);
@@ -302,7 +304,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public int askArchipelago(int maxArchis) {
-        SceneControllerInterface bsc = getBoardSceneController();
+        //SceneControllerInterface bsc = getBoardSceneController();
         Platform.runLater(() -> ((BoardSceneController) bsc).enableArchipelagos());
         return -1; //this return value is useless, the true value should be returned by the BoardSceneController chooseArchipelago()
     }
@@ -315,7 +317,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askCharacter(LightBoard board) {
-        SceneControllerInterface bsc = getBoardSceneController();
+        //SceneControllerInterface bsc = getBoardSceneController();
         Platform.runLater(() -> ((BoardSceneController) bsc).enableCharactersBox());
     }
 
@@ -326,7 +328,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askMNSteps(int maxMNSteps) {
-        SceneControllerInterface bsc = getBoardSceneController();
+        //SceneControllerInterface bsc = getBoardSceneController();
         Platform.runLater(() -> ((BoardSceneController) bsc).enableArchisForMN(maxMNSteps));
     }
 
@@ -337,7 +339,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askCloud(List<Integer> availableClouds) {
-        SceneControllerInterface bsc = getBoardSceneController();
+        //SceneControllerInterface bsc = getBoardSceneController();
         Platform.runLater(() -> ((BoardSceneController) bsc).enableCloudBox());
     }
 
@@ -391,7 +393,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void printBoard(LightBoard board) {
-        SceneControllerInterface bsc = getBoardSceneController();
+        //SceneControllerInterface bsc = getBoardSceneController();
         SceneController.setCurrentController(bsc);
         bsc.setGUI(this);
         ((BoardSceneController) bsc).setLightBoard(board);
@@ -452,6 +454,7 @@ public class GUI extends Application implements ViewInterface {
         errorDialog.setTitle("Game Error");
         errorDialog.setHeaderText("Error!");
         errorDialog.setContentText(error);
+        ((Stage)errorDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
         errorDialog.showAndWait();
     }
 
@@ -479,6 +482,7 @@ public class GUI extends Application implements ViewInterface {
         infoDialog.setTitle("Game Info");
         infoDialog.setHeaderText("Your next step");
         infoDialog.setContentText(info);
+        ((Stage)infoDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
         infoDialog.showAndWait();
     }
 
@@ -492,6 +496,7 @@ public class GUI extends Application implements ViewInterface {
         alertDialog.setTitle("Exiting");
         alertDialog.setHeaderText("You're about to exit");
         alertDialog.setContentText("Do you want to close the game?");
+        ((Stage)alertDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
 
         if (alertDialog.showAndWait().get() == ButtonType.OK) {
             System.out.println("Exit confirmed.");
@@ -506,7 +511,6 @@ public class GUI extends Application implements ViewInterface {
      * @return                     a BoardSceneController.
      */
     private BoardSceneController getBoardSceneController() {
-        BoardSceneController bsc;
         try {
             bsc = (BoardSceneController) SceneController.getCurrentController();
         } catch (ClassCastException e) {

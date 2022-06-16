@@ -3,18 +3,30 @@
     -fx-background-size: stretch;
 }
 
+.island {
+    -fx-effect: dropshadow(gaussian, #addaf1, 10, 0.5, 0.0, 0.0);
+    -fx-scale-x: 1.01;
+    -fx-scale-y: 1.01;
+}
+
 .island:hover,
 .island:focused {
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
-    -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
+
 }
 
 .island:pressed {
     -fx-opacity: 0.9;
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
-    -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
+
+}
+
+.island:disabled {
+    -fx-effect: dropshadow(gaussian, #000000, 0, 0, 0.0, 0.0);
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
 }
 
 .cloud:hover,

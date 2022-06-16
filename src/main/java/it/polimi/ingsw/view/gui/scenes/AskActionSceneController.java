@@ -3,10 +3,13 @@ package it.polimi.ingsw.view.gui.scenes;
 import it.polimi.ingsw.controller.actions.ActionType;
 import it.polimi.ingsw.network.messages.clientMessages.ActionReply;
 import it.polimi.ingsw.view.gui.GUI;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -28,7 +31,14 @@ public class AskActionSceneController implements SceneControllerInterface {
     @FXML
     private void initialize() {
         confirmButton.setDisable(true);
-        confirmButton.requestFocus();
+        actionList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                selectedAction = actionList.getSelectionModel().getSelectedItem();
+                actionLabel.setText(selectedAction);
+                confirmButton.setDisable(false);
+            }
+        });
     }
 
     @FXML
@@ -39,10 +49,9 @@ public class AskActionSceneController implements SceneControllerInterface {
     }
 
     @FXML
-    private void clickOnList() {
-        selectedAction = actionList.getSelectionModel().selectedItemProperty().get();
-        actionLabel.setText(selectedAction);
-        confirmButton.setDisable(false);
+    private void clickOnList(KeyEvent e) {
+        if (e.getCode().toString().equals("ENTER") && !confirmButton.isDisable())
+            confirm();
     }
 
     public void setPossibleActions(List<ActionType> possibleActions) {

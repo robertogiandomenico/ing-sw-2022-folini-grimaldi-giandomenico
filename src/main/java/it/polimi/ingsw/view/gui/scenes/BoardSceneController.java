@@ -234,7 +234,7 @@ public class BoardSceneController implements SceneControllerInterface {
         for (i = 0; i < archipelagos.size(); i++) {
 
             //set ID
-            archipelagosBox.getChildren().get(i).setId(String.valueOf(i));
+            archipelagosBox.getChildren().get(i).setId("archi0" + i);
 
             //set tower
             try {
@@ -278,14 +278,13 @@ public class BoardSceneController implements SceneControllerInterface {
     public void initializeClouds() {
         int cloudsNumber = lightBoard.getCloudsNumber();
         if (cloudsNumber == 2) {
-            cloudsBox.getChildren().get(2).setDisable(true);
-            cloudsBox.getChildren().get(2).setVisible(false);
+            cloudsBox.getChildren().remove(cloudsBox.getChildren().get(2));
         }
 
         for (int i = 0; i < cloudsNumber; i++) {
             for (int j = 0; j < cloudsNumber+1; j++) {
                 ((ImageView) ((AnchorPane) cloudsBox.getChildren().get(i)).getChildren().get(j+1)).setImage(displayStudent(lightBoard.getCloud(i)[j]));
-                cloudsBox.getChildren().get(i).setId(String.valueOf(i));
+                cloudsBox.getChildren().get(i).setId("cloud" + i);
             }
         }
     }
@@ -478,7 +477,8 @@ public class BoardSceneController implements SceneControllerInterface {
     @FXML
     private void chooseCloud(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
-            int cloudIndex = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
+            String cloudId = event.getPickResult().getIntersectedNode().getId();
+            int cloudIndex = Character.getNumericValue(cloudId.charAt(cloudId.length() - 1));
             gui.getClient().sendMsgToServer(new CloudReply(cloudIndex));
             cloudsBox.setDisable(true);
         }
@@ -486,26 +486,30 @@ public class BoardSceneController implements SceneControllerInterface {
 
     public void enableArchisForMN(int maxMNSteps) {
         int currentMNIndex = findCurrentMNIndex(lightBoard.getArchipelagos());
+        int nArchis = lightBoard.getArchipelagos().size();
+        archipelagosBox.setDisable(false);
+
+        for (int i = 0; i < nArchis; i++)
+            archipelagosBox.getChildren().get(i).setDisable(true);
 
         for (int i = 0; i < maxMNSteps; i++)
-            archipelagosBox.getChildren().get((currentMNIndex+i+1) % (lightBoard.getArchipelagos().size())).setDisable(false);
+            archipelagosBox.getChildren().get((currentMNIndex+i+1) % nArchis).setDisable(false);
     }
 
     @FXML
     private void chooseArchipelago(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             boolean movingMN = gui.getClient().isMovingMN();
+            String archiId = event.getPickResult().getIntersectedNode().getId();
+            int archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
 
             if (movingMN) { //if I'm moving mother nature
                 int currentMNIndex = findCurrentMNIndex(lightBoard.getArchipelagos());
-                int archiIndex = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
-
                 gui.getClient().sendMsgToServer(new MNStepsReply(archiIndex - currentMNIndex));
                 gui.getClient().setMovingMN(false);
                 archipelagosBox.setDisable(true);
 
             } else { //if I'm choosing freely any archipelago for other reasons
-                int archiIndex = Integer.parseInt(event.getPickResult().getIntersectedNode().getId());
                 gui.getClient().sendMsgToServer(new PlaceReply("ARCHIPELAGO", archiIndex));
                 archipelagosBox.setDisable(true);
             }
