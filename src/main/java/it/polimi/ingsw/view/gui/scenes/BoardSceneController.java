@@ -596,7 +596,8 @@ public class BoardSceneController implements SceneControllerInterface {
                     gui.infoDialog("Monk effect activated!");
                     studentNumber = 1;
                     studColors = new Color[studentNumber*2];
-                    studColors[studentNumber-1] = gui.askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()), "Select the student you would like to take from the character card");
+                    gui.askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()), "Select the student you would like to take from the character card");
+                    studColors[studentNumber-1] = gui.getStudColor();
 
                     gui.infoDialog("Select the island where you would like to move the student on");
                     archiIndex = gui.askArchipelago(maxArchis);
@@ -632,7 +633,8 @@ public class BoardSceneController implements SceneControllerInterface {
                     availableColors = DataChores.getColorsByStudents(selectedCharacter.getStudents());
 
                     for (int i = 0; i < studentNumber; i++) {
-                        studColors[i] = gui.askColor(availableColors, "Select the student you would like to take from the character card. " + (studentNumber-i) + " student(s) left");
+                        gui.askColor(availableColors, "Select the student you would like to take from the character card. " + (studentNumber-i) + " student(s) left");
+                        studColors[i] = gui.getStudColor();
                         DataChores.checkColorNumber(selectedCharacter.getStudents(), studColors, i, availableColors);
                     }
                     availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
@@ -648,7 +650,8 @@ public class BoardSceneController implements SceneControllerInterface {
                     gui.infoDialog("Mushroom Man effect activated!");
                     studentNumber = 1;
                     studColors = new Color[studentNumber*2];
-                    studColors[studentNumber-1] = gui.askColor(new ArrayList<>(Arrays.asList(Color.values())), "Select a color. During this turn, this color adds no influence.");
+                    gui.askColor(new ArrayList<>(Arrays.asList(Color.values())), "Select a color. During this turn, this color adds no influence.");
+                    studColors[studentNumber-1] = gui.getStudColor();
                     break;
 
                 case "Minstrel":
@@ -663,7 +666,8 @@ public class BoardSceneController implements SceneControllerInterface {
                     availableColors = DataChores.getColorsByDR(board.getCurrentPlayerSchoolBoard().getDiningRoom());
 
                     for (int i = 0; i < studentNumber; i++) {
-                        studColors[i] = gui.askColor(availableColors, "Select the student you would like to take from the dining room." + (studentNumber-i) + " student(s) left.");
+                        gui.askColor(availableColors, "Select the student you would like to take from the dining room." + (studentNumber-i) + " student(s) left.");
+                        studColors[i] = gui.getStudColor();
                         DataChores.checkColorNumberDR(board.getCurrentPlayerSchoolBoard().getDiningRoom(), studColors, i, availableColors);
                     }
 
@@ -676,14 +680,16 @@ public class BoardSceneController implements SceneControllerInterface {
                     gui.infoDialog("Spoiled Princess effect activated!");
                     studentNumber = 1;
                     studColors = new Color[studentNumber*2];
-                    studColors[studentNumber-1] = gui.askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()), "Select the student you would like to take from the character card and place in your dining room");
+                    gui.askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()), "Select the student you would like to take from the character card and place in your dining room");
+                    studColors[studentNumber-1] = gui.getStudColor();
                     break;
 
                 case "Thief":
                     gui.infoDialog("Thief effect activated!");
                     studentNumber = 1;
                     studColors = new Color[studentNumber*2];
-                    studColors[studentNumber-1] = gui.askColor(new ArrayList<>(Arrays.asList(Color.values())), "Select a color. Every player, including yourself, will return 3 students of that color from the dining room to the bag.");
+                    gui.askColor(new ArrayList<>(Arrays.asList(Color.values())), "Select a color. Every player, including yourself, will return 3 students of that color from the dining room to the bag.");
+                    studColors[studentNumber-1] = gui.getStudColor();
                     break;
 
                 default:
@@ -744,7 +750,8 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     private void askEntranceStudents(LightBoard board, int studentNumber, Color[] studColors, List<Color> availableColors) {
         for (int i = 0; i < studentNumber; i++) {
-            studColors[studentNumber+i] = gui.askColor(availableColors, "Select now the student(s) you would like to swap from your entrance. " + (studentNumber-i) + " student(s) left.");
+            gui.askColor(availableColors, "Select now the student(s) you would like to swap from your entrance. " + (studentNumber-i) + " student(s) left.");
+            studColors[studentNumber+i] = gui.getStudColor();
             DataChores.checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, i, availableColors);
             System.out.print("\n");
         }

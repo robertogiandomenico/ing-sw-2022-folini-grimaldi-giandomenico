@@ -39,6 +39,7 @@ public class GUI extends Application implements ViewInterface {
     private Color studColor;
     private int archiIndex;
     private boolean firstPrintBoard = true;
+    private Object object = new Object();
     public static void main(String[] args) {
         launch(args);
     }
@@ -240,11 +241,11 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askStudent(List<Color> availableColors) {
-        Color studColor = askColor(availableColors, "Select the color of the student you would like to move");
+        askColor(availableColors, "Select the color of the student you would like to move");
         getClient().sendMsgToServer(new StudentReply(studColor));
     }
 
-    public Color askColor(List<Color> availableColors, String text) {
+    public void askColor(List<Color> availableColors, String text) {
         SceneControllerInterface acsc = new AskColorSceneController();
         SceneController.setCurrentController(acsc);
         acsc.setGUI(this);
@@ -268,10 +269,15 @@ public class GUI extends Application implements ViewInterface {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+
+            /*try {
+                object.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
+
         });
         // ____.wait();
-
-        return studColor;
     }
 
     /**
@@ -443,9 +449,34 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void displayEndgameResult(String winner, String condition) {
-        //popup victory
-        //changeLabel()
-        //create ResultController
+        SceneControllerInterface rsc = new ResultSceneController();
+        SceneController.setCurrentController(rsc);
+        rsc.setGUI(this);
+
+        Platform.runLater(() -> {
+            try {
+                Stage resultStage = new Stage();
+                resultStage.initStyle(StageStyle.UTILITY);
+                resultStage.setResizable(false);
+                resultStage.setAlwaysOnTop(true);
+
+                SceneController.popUpScene(resultStage, "ResultScene", rsc);
+                if (getClient().getNickname().equals(winner)) {
+                    ((ResultSceneController)rsc).setWinner("Congratulations, you WON!");
+                } else {
+                    ((ResultSceneController)rsc).setWinner("You lost!");
+                    ((ResultSceneController)rsc).setSubtitle(winner + "WINS! " + condition);
+                }
+
+                resultStage.setOnCloseRequest(event -> {
+                    closeWindow(resultStage);
+                    event.consume();
+                });
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**
@@ -572,6 +603,14 @@ public class GUI extends Application implements ViewInterface {
 
     public void setStudColor(Color studColor) {
         this.studColor = studColor;
+    }
+
+    public Color getStudColor() {
+        return studColor;
+    }
+
+    public Object getObject() {
+        return object;
     }
 
     public void setArchiIndex(int archiIndex) {

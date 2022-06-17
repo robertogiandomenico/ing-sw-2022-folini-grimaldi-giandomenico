@@ -127,7 +127,7 @@ public class AskColorSceneController implements SceneControllerInterface {
             studColor = getSelectedColor();
             if(studColor != null) {
                 gui.setStudColor(studColor);
-                // ____.notify();
+                //gui.getObject().notify();
                 disableAll();
                 ((Stage) confirmButton.getScene().getWindow()).close();
             }

@@ -115,7 +115,7 @@
 }
 
 .loadingPanel {
-    -fx-background-image: url("../img/backgrounds/loading1.png");
+    -fx-background-image: url("../img/backgrounds/loading.png");
     -fx-background-size: cover;
 }
 
