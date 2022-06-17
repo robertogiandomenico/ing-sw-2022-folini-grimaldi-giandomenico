@@ -39,7 +39,7 @@ public class GUI extends Application implements ViewInterface {
     private Color studColor;
     private int archiIndex;
     private boolean firstPrintBoard = true;
-    private Object object = new Object();
+    private final Object lock = new Object();
     public static void main(String[] args) {
         launch(args);
     }
@@ -194,11 +194,10 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
-        //SceneControllerInterface bsc = getBoardSceneController();
-
         Platform.runLater(() -> {
-                ((BoardSceneController) bsc).setAssistants(availableAssistants, discardedAssistants);
-                ((BoardSceneController) bsc).enableAssistantBox();
+                bsc.setAssistants(availableAssistants, discardedAssistants);
+                bsc.enableAssistantBox();
+                infoDialog("It's your turn to choose the assistant!");
             });
     }
 
@@ -269,15 +268,15 @@ public class GUI extends Application implements ViewInterface {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        });
 
-            /*try {
-                object.wait();
+        synchronized (lock) {
+            try {
+                lock.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }*/
-
-        });
-        // ____.wait();
+            }
+        }
     }
 
     /**
@@ -320,9 +319,18 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public int askArchipelago(int maxArchis) {
-        //SceneControllerInterface bsc = getBoardSceneController();
-        Platform.runLater(() -> ((BoardSceneController) bsc).enableArchipelagos());
-        // ____.wait();
+        Platform.runLater(() -> {
+            bsc.enableArchipelagos();
+        });
+
+        synchronized (lock) {
+            try {
+                lock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         return archiIndex;
     }
 
@@ -334,8 +342,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askCharacter(LightBoard board) {
-        //SceneControllerInterface bsc = getBoardSceneController();
-        Platform.runLater(() -> ((BoardSceneController) bsc).enableCharactersBox());
+        Platform.runLater(() -> bsc.enableCharactersBox());
         //BoardSceneController takes care of sending the reply
     }
 
@@ -346,8 +353,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askMNSteps(int maxMNSteps) {
-        //SceneControllerInterface bsc = getBoardSceneController();
-        Platform.runLater(() -> ((BoardSceneController) bsc).enableArchisForMN(maxMNSteps));
+        Platform.runLater(() -> bsc.enableArchisForMN(maxMNSteps));
         //BoardSceneController takes care of sending the reply
     }
 
@@ -358,8 +364,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askCloud(List<Integer> availableClouds) {
-        //SceneControllerInterface bsc = getBoardSceneController();
-        Platform.runLater(() -> ((BoardSceneController) bsc).enableCloudBox());
+        Platform.runLater(() -> bsc.enableCloudBox());
     }
 
     /**
@@ -412,24 +417,24 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void printBoard(LightBoard board) {
-        //SceneControllerInterface bsc = getBoardSceneController();
         SceneController.setCurrentController(bsc);
         bsc.setGUI(this);
-        ((BoardSceneController) bsc).setBoard(board);
+        bsc.setBoard(board);
 
         Platform.runLater(() -> {
             try {
                 if (firstPrintBoard) {
-                    stage.setMaximized(true);
                     stage.setX(Screen.getPrimary().getVisualBounds().getMinX());
                     stage.setY(Screen.getPrimary().getVisualBounds().getMinY());
                     stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
                     stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
-
-                    //stage.setFullScreenExitHint("Press ESC to exit fullscreen");
-                    stage.setMinHeight(720);
-                    stage.setMinWidth(1280);
+                    stage.setMinHeight(700);
+                    stage.setMinWidth(1250);
+                    stage.sizeToScene();
+                    stage.centerOnScreen();
                     stage.setResizable(true);
+                    stage.setMaximized(true);
+
                     firstPrintBoard = false;
                 }
 
@@ -553,28 +558,6 @@ public class GUI extends Application implements ViewInterface {
     }
 
     /**
-     * Returns a Board Scene Controller, creating one if not already instantiated.
-     *
-     * @return                     a BoardSceneController.
-     */
-    private BoardSceneController getBoardSceneController() {
-        try {
-            bsc = (BoardSceneController) SceneController.getCurrentController();
-        } catch (ClassCastException e) {
-            bsc = new BoardSceneController();
-            BoardSceneController finalBsc = bsc;
-            Platform.runLater(() -> {
-                try {
-                    SceneController.switchScene(stage, "BoardScene", finalBsc);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
-        }
-        return bsc;
-    }
-
-    /**
      * Sets the client.
      *
      * @param client               the Client to set.
@@ -609,8 +592,8 @@ public class GUI extends Application implements ViewInterface {
         return studColor;
     }
 
-    public Object getObject() {
-        return object;
+    public Object getLock() {
+        return lock;
     }
 
     public void setArchiIndex(int archiIndex) {

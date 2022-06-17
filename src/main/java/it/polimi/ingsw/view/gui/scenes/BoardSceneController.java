@@ -5,7 +5,6 @@ import it.polimi.ingsw.network.messages.clientMessages.CharacterReply;
 import it.polimi.ingsw.network.messages.clientMessages.ChooseAssistantReply;
 import it.polimi.ingsw.network.messages.clientMessages.CloudReply;
 import it.polimi.ingsw.network.messages.clientMessages.MNStepsReply;
-import it.polimi.ingsw.view.cli.CLI;
 import it.polimi.ingsw.view.gui.GUI;
 import it.polimi.ingsw.view.utilities.DataChores;
 import it.polimi.ingsw.view.utilities.MatrixOperations;
@@ -76,7 +75,6 @@ public class BoardSceneController implements SceneControllerInterface {
         assistantBox.setDisable(true);
         archipelagosBox.setDisable(true);
         cloudsBox.setDisable(true);
-        thisPlayerPane.setDisable(true);
     }
 
     /**
@@ -148,12 +146,15 @@ public class BoardSceneController implements SceneControllerInterface {
         ((Label) thisPlayerPane.getChildren().get(1)).setText(thisPlayerBoard.getPlayer().getNickname());
         ((ImageView) thisPlayerPane.getChildren().get(2)).setImage(getWizardIcon(thisPlayerBoard.getPlayer().getSelectedWizard()));
 
-        //set available assistants
+        //set discard pile assistant
         try {
-            ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistant/" + thisPlayerBoard.getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
+            ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistants/" + thisPlayerBoard.getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
         } catch (NullPointerException e) {
             ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(blankImg());
         }
+
+        //set assistant
+        setAssistants(thisPlayerBoard.getPlayer().getCards(), new ArrayList<>());
 
         //set entrance
         for (int i = 0; i < thisPlayerBoard.getEntrance().length; i++) {
@@ -340,7 +341,7 @@ public class BoardSceneController implements SceneControllerInterface {
 
             //set discard pile, if present
             try {
-                ((ImageView)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistant/" + otherPlayers[i].getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
+                ((ImageView)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(3)).setImage(new Image(getClass().getResourceAsStream("/img/assistants/" + otherPlayers[i].getPlayer().getDiscardPile().name().toLowerCase() + ".png")));
             } catch (NullPointerException e){
                 ((ImageView)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(3)).setImage(blankImg());
             }
@@ -437,13 +438,10 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     public void enableCharactersBox() {
         charactersBox.setDisable(false);
-    }
-
-    /**
-     * Enables the school board.
-     */
-    public void enableSchoolBoard() {
-        thisPlayerPane.setDisable(false);
+        for (int i = 0; i < 3; i++) {
+            if (board.getCurrentPlayerSchoolBoard().getPlayer().getCoins() < board.getSelectedCharacters()[i].getCost())
+                charactersBox.getChildren().get(i).setDisable(true);
+        }
     }
 
     /**
@@ -458,6 +456,10 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     public void enableCloudBox() {
         cloudsBox.setDisable(false);
+        for (int i = 0; i < board.getCloudsNumber(); i++) {
+            if (board.getCloud(i)[0] == null)
+                cloudsBox.getChildren().get(i).setDisable(true);
+        }
     }
 
     /**
@@ -482,8 +484,14 @@ public class BoardSceneController implements SceneControllerInterface {
     @FXML
     private void chooseCloud(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
-            String cloudId = event.getPickResult().getIntersectedNode().getId();
+            String cloudId = event.getPickResult().getIntersectedNode().getParent().getId();
             int cloudIndex = Character.getNumericValue(cloudId.charAt(cloudId.length() - 1));
+
+            if (board.getCloud(cloudIndex)[0] == null) {
+                gui.warningDialog("Cannot choose this cloud since it's empty. Try again.");
+                return;
+            }
+
             gui.getClient().sendMsgToServer(new CloudReply(cloudIndex));
             cloudsBox.setDisable(true);
         }
@@ -505,8 +513,14 @@ public class BoardSceneController implements SceneControllerInterface {
     private void chooseArchipelago(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             boolean movingMN = gui.getClient().isMovingMN();
-            String archiId = event.getPickResult().getIntersectedNode().getId();
-            int archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
+            String archiId = event.getPickResult().getIntersectedNode().getParent().getId();
+            int archiIndex;
+            try {
+                archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
+            } catch (NullPointerException e) {
+                archiId = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
+                archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
+            }
 
             if (movingMN) { //if I'm moving mother nature
                 int currentMNIndex = findCurrentMNIndex(board.getArchipelagos());
@@ -517,6 +531,10 @@ public class BoardSceneController implements SceneControllerInterface {
             } else { //if I'm choosing freely any archipelago for other reasons
                 gui.setArchiIndex(archiIndex);
                 archipelagosBox.setDisable(true);
+
+                synchronized (gui.getLock()) {
+                    gui.getLock().notifyAll();
+                }
             }
         }
     }
@@ -536,28 +554,29 @@ public class BoardSceneController implements SceneControllerInterface {
      * @return                    the Assistant.
      */
     private Assistant getAssistantByName(String name) {
-        switch (name.toUpperCase()) {
-            case "DOG":
+        switch (name.toLowerCase()) {
+            case "dog":
                 return Assistant.DOG;
-            case "CAT":
+            case "cat":
                 return Assistant.CAT;
-            case "OSTRICH":
+            case "ostrich":
                 return Assistant.OSTRICH;
-            case "EAGLE":
+            case "eagle":
                 return Assistant.EAGLE;
-            case "ELEPHANT":
+            case "elephant":
                 return Assistant.ELEPHANT;
-            case "TURTLE":
+            case "turtle":
                 return Assistant.TURTLE;
-            case "CHETAAH":
+            case "cheetah":
                 return Assistant.CHEETAH;
-            case "LIZARD":
+            case "lizard":
                 return Assistant.LIZARD;
-            case "OCTOPUS":
+            case "octopus":
                 return Assistant.OCTOPUS;
-            case "FOX":
+            case "fox":
                 return Assistant.FOX;
             default:
+                gui.errorDialog("An error occured choosing the assistant");
                 return null;
         }
     }
@@ -575,7 +594,7 @@ public class BoardSceneController implements SceneControllerInterface {
         Color[] studColors = null;
 
         if (event.getButton().equals(MouseButton.PRIMARY)) {
-            String characterName = event.getPickResult().getIntersectedNode().getId();
+            String characterName = event.getPickResult().getIntersectedNode().getParent().getId();
 
             if(board.getSelectedCharacters()[getCharIndexByName(characterName)].getCost() > board.getCurrentPlayerSchoolBoard().getPlayer().getCoins()) {
                 gui.warningDialog("Cannot choose this character card since you do not have enough coins. Try again.");
@@ -583,7 +602,6 @@ public class BoardSceneController implements SceneControllerInterface {
             } else if (characterName.equalsIgnoreCase("minstrel") && Arrays.stream(board.getCurrentPlayerSchoolBoard().getDiningRoom()).allMatch(t -> t == 0)) {
                 gui.warningDialog("Cannot choose this character card since you do not have any students in your dining room. Try again.");
                 return;
-
             }
 
             selectedCharacter = board.getSelectedCharacters()[getCharIndexByName(characterName)];
@@ -643,7 +661,7 @@ public class BoardSceneController implements SceneControllerInterface {
                     break;
 
                 case "Knight":
-                    gui.infoDialog("Knight effect ativated! You now have 2 more points of influence on islands during this turn.");
+                    gui.infoDialog("Knight effect activated! You now have 2 more points of influence on islands during this turn.");
                     break;
 
                 case "Mushroomman":
@@ -739,7 +757,7 @@ public class BoardSceneController implements SceneControllerInterface {
 
     /**
      * Asks the user which students they want to swap from their entrance.
-     * Used in {@link CLI#askCharacter(LightBoard) askCharacter method} in order to
+     * Used in {@link GUI#askCharacter(LightBoard) askCharacter method} in order to
      * activate {@link it.polimi.ingsw.model.effects.JesterEffect JesterEffect} and
      * {@link it.polimi.ingsw.model.effects.MinstrelEffect MinstrelEffect}.
      *

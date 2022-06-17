@@ -14,20 +14,6 @@ public class SceneController implements SceneControllerInterface {
     private static SceneControllerInterface currentController;
 
     /**
-     * Displays an error in a popup.
-     */
-    public static void displayError() {
-        //TODO: implement displayError method
-    }
-
-    /**
-     * Displays who won the game.
-     */
-    public static void displayWinner() {
-        //TODO: implement displayWinner method
-    }
-
-    /**
      * Switches between scenes.
      * Takes different parameters based on the specific situation.
      */

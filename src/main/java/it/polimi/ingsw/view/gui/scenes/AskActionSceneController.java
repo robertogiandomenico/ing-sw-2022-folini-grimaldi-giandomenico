@@ -31,6 +31,7 @@ public class AskActionSceneController implements SceneControllerInterface {
     @FXML
     private void initialize() {
         confirmButton.setDisable(true);
+        actionList.setStyle("-fx-font-family: \"Roboto\"");
         actionList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -49,7 +50,7 @@ public class AskActionSceneController implements SceneControllerInterface {
     }
 
     @FXML
-    private void clickOnList(KeyEvent e) {
+    private void typeOnList(KeyEvent e) {
         if (e.getCode().toString().equals("ENTER") && !confirmButton.isDisable())
             confirm();
     }

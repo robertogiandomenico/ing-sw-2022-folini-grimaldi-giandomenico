@@ -36,10 +36,6 @@
     -fx-font-family: "Metamorphous";
 }
 
-.list {
-    -fx-font-family: "Roboto";
-}
-
 .pawnBox:hover,
 .pawnBox:focused {
     -fx-scale-x: 1.1;

@@ -119,18 +119,21 @@ public class AskColorSceneController implements SceneControllerInterface {
             colorBox.getChildren().remove(blueBox);
     }
 
-    /* FIXME: this could not be just a studentReply, this scene must be used for different scenarios,
-        so it'd be better if it returned a color to the main class and that class send the wanted message, but how? */
     @FXML
     private void confirm() {
         try {
             studColor = getSelectedColor();
             if(studColor != null) {
                 gui.setStudColor(studColor);
-                //gui.getObject().notify();
+
+                synchronized (gui.getLock()) {
+                    gui.getLock().notify();
+                }
+
                 disableAll();
                 ((Stage) confirmButton.getScene().getWindow()).close();
-            }
+            } else
+                gui.errorDialog("No color is selected. Try again.");
         } catch (Exception e) {
             gui.errorDialog("No color is selected. Try again.");
         }

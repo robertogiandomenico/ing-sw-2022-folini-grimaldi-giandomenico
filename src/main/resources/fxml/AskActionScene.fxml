@@ -36,9 +36,9 @@
             <Insets top="40.0" />
          </GridPane.margin>
       </Button>
-      <ListView fx:id="actionList" focusTraversable="false" onKeyPressed="#clickOnList" prefHeight="292.0" prefWidth="253.0" styleClass="list" stylesheets="@../css/utility.css" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+      <ListView fx:id="actionList" focusTraversable="false" onKeyPressed="#typeOnList" prefHeight="292.0" prefWidth="253.0" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
          <GridPane.margin>
-            <Insets bottom="100.0" left="20.0" right="10.0" top="100.0" />
+            <Insets bottom="100.0" left="43.0" right="10.0" top="100.0" />
          </GridPane.margin>
       </ListView>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Selected Action:" textAlignment="CENTER" wrappingWidth="433.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">

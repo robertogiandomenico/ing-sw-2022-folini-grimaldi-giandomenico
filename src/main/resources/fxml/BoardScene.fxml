@@ -492,7 +492,7 @@
       </AnchorPane>
       <HBox fx:id="charactersBox" alignment="CENTER" prefHeight="122.0" prefWidth="448.0" spacing="27.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
          <children>
-            <AnchorPane styleClass="characterCard" stylesheets="@../css/board.css">
+            <AnchorPane onMouseClicked="#chooseCharacter" styleClass="characterCard" stylesheets="@../css/board.css">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -540,7 +540,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane styleClass="characterCard" stylesheets="@../css/board.css">
+            <AnchorPane onMouseClicked="#chooseCharacter" styleClass="characterCard" stylesheets="@../css/board.css">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -588,7 +588,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane styleClass="characterCard" stylesheets="@../css/board.css">
+            <AnchorPane onMouseClicked="#chooseCharacter" styleClass="characterCard" stylesheets="@../css/board.css">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
