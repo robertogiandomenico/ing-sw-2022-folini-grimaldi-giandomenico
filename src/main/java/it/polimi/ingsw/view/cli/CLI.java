@@ -3,7 +3,6 @@ package it.polimi.ingsw.view.cli;
 import it.polimi.ingsw.controller.actions.ActionType;
 import it.polimi.ingsw.model.Assistant;
 import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.Student;
 import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.messages.clientMessages.*;
@@ -447,7 +446,7 @@ public class CLI implements ViewInterface {
                 for (int i = 0; i < studentNumber; i++) {
                     System.out.println((studentNumber-i) + " student(s) left.");
                     studColors[i] = askColor(availableColors);
-                    checkColorNumber(selectedCharacter.getStudents(), studColors, i, availableColors);
+                    DataChores.checkColorNumber(selectedCharacter.getStudents(), studColors, i, availableColors);
                     System.out.print("\n");
                 }
 
@@ -485,7 +484,7 @@ public class CLI implements ViewInterface {
                 for (int i = 0; i < studentNumber; i++) {
                     System.out.println((studentNumber-i) + " student(s) left.");
                     studColors[i] = askColor(availableColors);
-                    checkColorNumberDR(board.getCurrentPlayerSchoolBoard().getDiningRoom(), studColors, i, availableColors);
+                    DataChores.checkColorNumberDR(board.getCurrentPlayerSchoolBoard().getDiningRoom(), studColors, i, availableColors);
                     System.out.print("\n");
                 }
 
@@ -533,38 +532,8 @@ public class CLI implements ViewInterface {
         for (int i = 0; i < studentNumber; i++) {
             System.out.println((studentNumber - i) + " student(s) left.");
             studColors[studentNumber+i] = askColor(availableColors);
-            checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, i, availableColors);
+            DataChores.checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, i, availableColors);
             System.out.print("\n");
-        }
-    }
-
-    /**
-     * Checks the color number in the dining room.
-     * Used in {@link CLI#askCharacter(LightBoard) askCharacter method} in order to
-     * activate {@link it.polimi.ingsw.model.effects.MinstrelEffect MinstrelEffect}.
-     *
-     * @param dr                   the Array representing the current Player's dining room.
-     * @param studColors           the Color Array of colors chosen by the user.
-     * @param i                    the index of the Arrays.
-     * @param availableColors      the Color List of available Colors.
-     */
-    private void checkColorNumberDR(int[] dr, Color[] studColors, int i, List<Color> availableColors) {
-        if (dr[i] - Arrays.stream(studColors).filter(color -> color != null && color.ordinal() == i).count() == 0){
-            availableColors.remove(studColors[i]);
-        }
-    }
-
-    /**
-     * Checks the color number.
-     *
-     * @param studArray            a Student Array.
-     * @param studColors           a Color Array of colors chosen by the user.
-     * @param i                    the index of the Arrays.
-     * @param availableColors      the Color List of available Colors.
-     */
-    private void checkColorNumber(Student[] studArray, Color[] studColors, int i, List<Color> availableColors){
-        if(Arrays.stream(studArray).filter(s -> (s != null && s.getColor() == studColors[i])).count() - Arrays.stream(studColors).filter(c -> c == studColors[i]).count() == 0){
-            availableColors.remove(studColors[i]);
         }
     }
 

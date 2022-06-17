@@ -1,7 +1,11 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.network.messages.clientMessages.*;
+import it.polimi.ingsw.network.messages.clientMessages.CharacterReply;
+import it.polimi.ingsw.network.messages.clientMessages.ChooseAssistantReply;
+import it.polimi.ingsw.network.messages.clientMessages.CloudReply;
+import it.polimi.ingsw.network.messages.clientMessages.MNStepsReply;
+import it.polimi.ingsw.view.cli.CLI;
 import it.polimi.ingsw.view.gui.GUI;
 import it.polimi.ingsw.view.utilities.DataChores;
 import it.polimi.ingsw.view.utilities.MatrixOperations;
@@ -10,6 +14,8 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 import it.polimi.ingsw.view.utilities.lightclasses.LightSchoolBoard;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -20,10 +26,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This class represents the controller for the main game scene involving
@@ -619,7 +627,17 @@ public class BoardSceneController implements SceneControllerInterface {
 
                 case "Jester":
                     gui.infoDialog("Jester effect activated!");
-                    //TODO: implement the effect
+                    studentNumber = studNumberDialog(3, "Select the number of students you would like to swap from the character card [up to 3]");
+                    studColors = new Color[studentNumber*2];
+                    availableColors = DataChores.getColorsByStudents(selectedCharacter.getStudents());
+
+                    for (int i = 0; i < studentNumber; i++) {
+                        studColors[i] = gui.askColor(availableColors, "Select the student you would like to take from the character card. " + (studentNumber-i) + " student(s) left");
+                        DataChores.checkColorNumber(selectedCharacter.getStudents(), studColors, i, availableColors);
+                    }
+                    availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
+                    askEntranceStudents(board, studentNumber, studColors, availableColors);
+
                     break;
 
                 case "Knight":
@@ -635,7 +653,23 @@ public class BoardSceneController implements SceneControllerInterface {
 
                 case "Minstrel":
                     gui.infoDialog("Minstrel effect activated!");
-                    //TODO: implement the effect
+
+                    studentNumber = studNumberDialog(2, "Select the number of students you would like to swap from the dining room [up to 2]");
+                    while (studentNumber > Arrays.stream(board.getCurrentPlayerSchoolBoard().getDiningRoom()).sum()) {
+                        gui.errorDialog("Invalid student number. Select a valid number of students. Try again");
+                        studentNumber = studNumberDialog(2, "Select the number of students you would like to swap from the dining room [up to 2]");
+                    }
+                    studColors = new Color[studentNumber*2];
+                    availableColors = DataChores.getColorsByDR(board.getCurrentPlayerSchoolBoard().getDiningRoom());
+
+                    for (int i = 0; i < studentNumber; i++) {
+                        studColors[i] = gui.askColor(availableColors, "Select the student you would like to take from the dining room." + (studentNumber-i) + " student(s) left.");
+                        DataChores.checkColorNumberDR(board.getCurrentPlayerSchoolBoard().getDiningRoom(), studColors, i, availableColors);
+                    }
+
+                    availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
+                    askEntranceStudents(board, studentNumber, studColors, availableColors);
+
                     break;
 
                 case "Spoiledprincess":
@@ -666,6 +700,54 @@ public class BoardSceneController implements SceneControllerInterface {
                 return i;
         }
         return -1;
+    }
+
+    private int studNumberDialog(int maxStudNumber, String text) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Student number selection");
+        alert.setHeaderText("Press the right button");
+        alert.setContentText(text);
+        ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
+
+        ButtonType button1 = new ButtonType("1");
+        ButtonType button2 = new ButtonType("2");
+        ButtonType button3 = new ButtonType("3");
+
+        if (maxStudNumber == 2) {
+            alert.getButtonTypes().setAll(button1, button2);
+        } else
+            alert.getButtonTypes().setAll(button1, button2, button3);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == button1){
+            return 1;
+        } else if (result.get() == button2) {
+            return 2;
+        } else if (result.get() == button3) {
+            return 3;
+        } else {
+            gui.errorDialog("An error occurred.");
+            return -1;
+        }
+    }
+
+    /**
+     * Asks the user which students they want to swap from their entrance.
+     * Used in {@link CLI#askCharacter(LightBoard) askCharacter method} in order to
+     * activate {@link it.polimi.ingsw.model.effects.JesterEffect JesterEffect} and
+     * {@link it.polimi.ingsw.model.effects.MinstrelEffect MinstrelEffect}.
+     *
+     * @param board                the LightBoard to access the entrance of the current Player.
+     * @param studentNumber        the number of Students the user can move.
+     * @param studColors           the Color Array of Students chosen by the user.
+     * @param availableColors      the Color List of Students present in the entrance.
+     */
+    private void askEntranceStudents(LightBoard board, int studentNumber, Color[] studColors, List<Color> availableColors) {
+        for (int i = 0; i < studentNumber; i++) {
+            studColors[studentNumber+i] = gui.askColor(availableColors, "Select now the student(s) you would like to swap from your entrance. " + (studentNumber-i) + " student(s) left.");
+            DataChores.checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, i, availableColors);
+            System.out.print("\n");
+        }
     }
 
     /**

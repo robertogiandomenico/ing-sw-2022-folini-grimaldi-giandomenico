@@ -36,6 +36,13 @@ public class SceneController implements SceneControllerInterface {
         loader.setController(sci);
         scene = new Scene(loader.load());
         stage.setScene(scene);
+    }
+
+    public static void popUpScene(Stage stage, String fxmlFile, SceneControllerInterface sci) throws IOException {
+        loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxmlFile + ".fxml"));
+        loader.setController(sci);
+        scene = new Scene(loader.load());
+        stage.setScene(scene);
         stage.show();
     }
 

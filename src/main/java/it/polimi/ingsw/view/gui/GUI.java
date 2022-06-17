@@ -219,7 +219,7 @@ public class GUI extends Application implements ViewInterface {
                 actionStage.setResizable(false);
                 actionStage.setAlwaysOnTop(true);
 
-                SceneController.switchScene(actionStage, "AskActionScene", aasc);
+                SceneController.popUpScene(actionStage, "AskActionScene", aasc);
                 ((AskActionSceneController) aasc).setPossibleActions(possibleActions);
 
                 actionStage.setOnCloseRequest(event -> {
@@ -256,7 +256,7 @@ public class GUI extends Application implements ViewInterface {
                 colorStage.setResizable(false);
                 colorStage.setAlwaysOnTop(true);
 
-                SceneController.switchScene(colorStage, "AskColorScene", acsc);
+                SceneController.popUpScene(colorStage, "AskColorScene", acsc);
                 ((AskColorSceneController) acsc).setAvailableColors(availableColors);
                 ((AskColorSceneController) acsc).setLabel(text);
 
@@ -292,7 +292,7 @@ public class GUI extends Application implements ViewInterface {
                 placeStage.setResizable(false);
                 placeStage.setAlwaysOnTop(true);
 
-                SceneController.switchScene(placeStage, "AskPlaceScene", apsc);
+                SceneController.popUpScene(placeStage, "AskPlaceScene", apsc);
 
                 placeStage.setOnCloseRequest(event -> {
                     warningDialog("You have to choose the place first in order to close this panel");
@@ -482,6 +482,7 @@ public class GUI extends Application implements ViewInterface {
         warningDialog.setHeaderText("Careful");
         warningDialog.setContentText(warning);
         ((Stage)warningDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+        ((Stage)warningDialog.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
         warningDialog.showAndWait();
     }
 
@@ -496,6 +497,7 @@ public class GUI extends Application implements ViewInterface {
         infoDialog.setHeaderText("Your next step");
         infoDialog.setContentText(info);
         ((Stage)infoDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+        ((Stage)infoDialog.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
         infoDialog.showAndWait();
     }
 
@@ -510,6 +512,7 @@ public class GUI extends Application implements ViewInterface {
         alertDialog.setHeaderText("You're about to exit");
         alertDialog.setContentText("Do you want to close the game?");
         ((Stage)alertDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+        ((Stage)alertDialog.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
 
         if (alertDialog.showAndWait().get() == ButtonType.OK) {
             System.out.println("Exit confirmed.");

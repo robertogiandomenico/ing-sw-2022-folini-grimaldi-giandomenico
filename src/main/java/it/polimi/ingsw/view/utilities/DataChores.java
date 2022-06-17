@@ -2,8 +2,11 @@ package it.polimi.ingsw.view.utilities;
 
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Student;
+import it.polimi.ingsw.view.cli.CLI;
+import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,5 +66,35 @@ public class DataChores {
         }
 
         return availableColors.stream().sorted(Comparator.comparing(Enum::ordinal)).collect(Collectors.toList());
+    }
+
+    /**
+     * Checks the color number in the dining room.
+     * Used in {@link CLI#askCharacter(LightBoard) askCharacter method} in order to
+     * activate {@link it.polimi.ingsw.model.effects.MinstrelEffect MinstrelEffect}.
+     *
+     * @param dr                   the Array representing the current Player's dining room.
+     * @param studColors           the Color Array of colors chosen by the user.
+     * @param i                    the index of the Arrays.
+     * @param availableColors      the Color List of available Colors.
+     */
+    public static void checkColorNumberDR(int[] dr, Color[] studColors, int i, List<Color> availableColors) {
+        if (dr[i] - Arrays.stream(studColors).filter(color -> color != null && color.ordinal() == i).count() == 0){
+            availableColors.remove(studColors[i]);
+        }
+    }
+
+    /**
+     * Checks the color number.
+     *
+     * @param studArray            a Student Array.
+     * @param studColors           a Color Array of colors chosen by the user.
+     * @param i                    the index of the Arrays.
+     * @param availableColors      the Color List of available Colors.
+     */
+    public static void checkColorNumber(Student[] studArray, Color[] studColors, int i, List<Color> availableColors){
+        if(Arrays.stream(studArray).filter(s -> (s != null && s.getColor() == studColors[i])).count() - Arrays.stream(studColors).filter(c -> c == studColors[i]).count() == 0){
+            availableColors.remove(studColors[i]);
+        }
     }
 }
