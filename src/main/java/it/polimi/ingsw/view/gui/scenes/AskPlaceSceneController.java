@@ -66,8 +66,7 @@ public class AskPlaceSceneController implements SceneControllerInterface {
                 ((Stage) confirmButton.getScene().getWindow()).close();
             } else {
                 ((Stage) confirmButton.getScene().getWindow()).close();
-                gui.infoDialog("Select now the archipelago");
-                gui.askArchipelago(-1);
+                gui.enableArchiBox();
             }
 
         } catch (Exception e) {

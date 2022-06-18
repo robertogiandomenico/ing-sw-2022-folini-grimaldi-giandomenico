@@ -330,7 +330,6 @@ public class CLI implements ViewInterface {
      * @param maxArchis            the number of Archipelagos.
      * @return                     the index of the chosen Archipelago.
      */
-    @Override
     public int askArchipelago(int maxArchis) {
         int archiIndex;
 

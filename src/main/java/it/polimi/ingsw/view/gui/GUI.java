@@ -311,27 +311,12 @@ public class GUI extends Application implements ViewInterface {
     }
 
     /**
-     * Asks the user the index of the archipelago they want to move the
-     * student on.
-     *
-     * @param maxArchis            the number of Archipelagos.
-     * @return                     the index of the chosen Archipelago.
+     * Enables the archipelagos.
      */
-    @Override
-    public int askArchipelago(int maxArchis) {
+    public void enableArchiBox() {
         Platform.runLater(() -> {
             bsc.enableArchipelagos();
         });
-
-        synchronized (lock) {
-            try {
-                lock.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return archiIndex;
     }
 
     /**
@@ -417,6 +402,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void printBoard(LightBoard board) {
+        //setArchiIndex(-1);
         SceneController.setCurrentController(bsc);
         bsc.setGUI(this);
         bsc.setBoard(board);

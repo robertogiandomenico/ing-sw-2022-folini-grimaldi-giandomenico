@@ -31,6 +31,8 @@ public class Client {
     private final Thread messageHandler;
     private String nickname;
     private boolean movingMN = false;
+    private boolean movingStud = false;
+    private boolean choosingChar = false;
 
     public Client(String ip, int port, ViewInterface view) {
         this.ip = ip;
@@ -89,6 +91,10 @@ public class Client {
 
                     if (((GenericServerMessage) msg).getType() == MessageType.MNSTEPS_REQUEST)
                         movingMN = true;
+                    else if (((GenericServerMessage) msg).getType() == MessageType.PLACE_REQUEST)
+                        movingStud = true;
+                    else if (((GenericServerMessage) msg).getType() == MessageType.CHARACTER_REQUEST)
+                        choosingChar = true;
 
                 } else if (msg instanceof DisconnectionMessage) {
                     messageQueue.clear();
@@ -138,11 +144,27 @@ public class Client {
         return nickname;
     }
 
+    public void setMovingMN(boolean movingMN) {
+        this.movingMN = movingMN;
+    }
+
     public boolean isMovingMN() {
         return movingMN;
     }
 
-    public void setMovingMN(boolean movingMN) {
-        this.movingMN = movingMN;
+    public void setMovingStud(boolean movingStud) {
+        this.movingStud = movingStud;
+    }
+
+    public boolean isMovingStud() {
+        return movingStud;
+    }
+
+    public void setChoosingChar(boolean choosingChar) {
+        this.choosingChar = choosingChar;
+    }
+
+    public boolean isChoosingChar() {
+        return choosingChar;
     }
 }

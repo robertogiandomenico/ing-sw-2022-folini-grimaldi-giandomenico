@@ -1,10 +1,7 @@
 package it.polimi.ingsw.view.gui.scenes;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.network.messages.clientMessages.CharacterReply;
-import it.polimi.ingsw.network.messages.clientMessages.ChooseAssistantReply;
-import it.polimi.ingsw.network.messages.clientMessages.CloudReply;
-import it.polimi.ingsw.network.messages.clientMessages.MNStepsReply;
+import it.polimi.ingsw.network.messages.clientMessages.*;
 import it.polimi.ingsw.view.gui.GUI;
 import it.polimi.ingsw.view.utilities.DataChores;
 import it.polimi.ingsw.view.utilities.MatrixOperations;
@@ -56,6 +53,10 @@ public class BoardSceneController implements SceneControllerInterface {
     private GUI gui;
     private LightBoard board;
     private LightSchoolBoard thisPlayerBoard;
+    private LightCharacter selectedCharacter;
+    private int archiIndex;
+    private int studentNumber;
+    private Color[] studColors;
 
     /**
      * Initializes the scene.
@@ -484,8 +485,15 @@ public class BoardSceneController implements SceneControllerInterface {
     @FXML
     private void chooseCloud(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
+            int cloudIndex ;
             String cloudId = event.getPickResult().getIntersectedNode().getParent().getId();
-            int cloudIndex = Character.getNumericValue(cloudId.charAt(cloudId.length() - 1));
+
+            try {
+                cloudIndex = Character.getNumericValue(cloudId.charAt(cloudId.length() - 1));
+            } catch (NullPointerException e) {
+                cloudId = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
+                cloudIndex = Character.getNumericValue(cloudId.charAt(cloudId.length() - 1));
+            }
 
             if (board.getCloud(cloudIndex)[0] == null) {
                 gui.warningDialog("Cannot choose this cloud since it's empty. Try again.");
@@ -511,30 +519,43 @@ public class BoardSceneController implements SceneControllerInterface {
 
     @FXML
     private void chooseArchipelago(MouseEvent event) {
+
         if (event.getButton().equals(MouseButton.PRIMARY)) {
-            boolean movingMN = gui.getClient().isMovingMN();
-            String archiId = event.getPickResult().getIntersectedNode().getParent().getId();
-            int archiIndex;
+            String archiId = event.getPickResult().getIntersectedNode().getId();
+
             try {
                 archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
             } catch (NullPointerException e) {
-                archiId = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
-                archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
+                try {
+                    archiId = event.getPickResult().getIntersectedNode().getParent().getId();
+                    archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
+                } catch (NullPointerException f) {
+                    try {
+                        archiId = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
+                        archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
+                    } catch (NullPointerException g) {
+                        archiId = event.getPickResult().getIntersectedNode().getParent().getParent().getParent().getId();
+                        archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
+                    }
+                }
             }
 
-            if (movingMN) { //if I'm moving mother nature
+            if (gui.getClient().isMovingStud()) { //if I'm moving student on archis
+                gui.getClient().sendMsgToServer(new PlaceReply("ARCHIPELAGO", archiIndex));
+                gui.getClient().setMovingStud(false);
+                archipelagosBox.setDisable(true);
+
+            } else if (gui.getClient().isMovingMN()) { //if I'm moving mother nature
                 int currentMNIndex = findCurrentMNIndex(board.getArchipelagos());
                 gui.getClient().sendMsgToServer(new MNStepsReply(archiIndex - currentMNIndex));
                 gui.getClient().setMovingMN(false);
                 archipelagosBox.setDisable(true);
 
-            } else { //if I'm choosing freely any archipelago for other reasons
-                gui.setArchiIndex(archiIndex);
+            } else if (gui.getClient().isChoosingChar()) { //if I'm choosing archis to give it to characters' effect
+                gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
+                gui.getClient().setChoosingChar(false);
                 archipelagosBox.setDisable(true);
 
-                synchronized (gui.getLock()) {
-                    gui.getLock().notifyAll();
-                }
             }
         }
     }
@@ -588,13 +609,16 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     @FXML
     private void chooseCharacter(MouseEvent event) {
-        LightCharacter selectedCharacter;
-        int archiIndex = -1;
-        int studentNumber = 0;
-        Color[] studColors = null;
 
         if (event.getButton().equals(MouseButton.PRIMARY)) {
-            String characterName = event.getPickResult().getIntersectedNode().getParent().getId();
+            String characterName;
+            archiIndex = -1;
+            studentNumber = 0;
+            studColors = null;
+
+             characterName = event.getPickResult().getIntersectedNode().getParent().getId();
+             if (characterName == null)
+                 characterName = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
 
             if(board.getSelectedCharacters()[getCharIndexByName(characterName)].getCost() > board.getCurrentPlayerSchoolBoard().getPlayer().getCoins()) {
                 gui.warningDialog("Cannot choose this character card since you do not have enough coins. Try again.");
@@ -605,7 +629,6 @@ public class BoardSceneController implements SceneControllerInterface {
             }
 
             selectedCharacter = board.getSelectedCharacters()[getCharIndexByName(characterName)];
-            int maxArchis = board.getArchipelagos().size();
             List<Color> availableColors;
 
             //switch case of all characters to ask the proper values
@@ -618,30 +641,32 @@ public class BoardSceneController implements SceneControllerInterface {
                     studColors[studentNumber-1] = gui.getStudColor();
 
                     gui.infoDialog("Select the island where you would like to move the student on");
-                    archiIndex = gui.askArchipelago(maxArchis);
+                    gui.enableArchiBox();
                     break;
 
                 case "Farmer":
                     gui.infoDialog("Farmer effect activated! You take control of any professor if there's a tie between players' students in the dining rooms.");
+                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
                     break;
 
                 case "Herald":
                     gui.infoDialog("Herald effect activated! Select the island you would like to be resolved");
-                    archiIndex = gui.askArchipelago(maxArchis);
+                    gui.enableArchiBox();
                     break;
 
-                case "Magicmailman":
+                case "MagicMailman":
                     gui.infoDialog("Magic Mailman effect activated! You may now move mother nature up to 2 additional islands");
+                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
                     break;
 
-                case "Grannygrass":
+                case "GrannyGrass":
                     gui.infoDialog("Granny Grass effect activated! Select the island here you would like to put the No Entry Tile on");
-                    archiIndex = gui.askArchipelago(maxArchis);
+                    gui.enableArchiBox();
                     break;
 
                 case "Centaur":
                     gui.infoDialog("Centaur effect activated! Select the island to cancel its towers influence");
-                    archiIndex = gui.askArchipelago(maxArchis);
+                    gui.enableArchiBox();
                     break;
 
                 case "Jester":
@@ -657,19 +682,22 @@ public class BoardSceneController implements SceneControllerInterface {
                     }
                     availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
                     askEntranceStudents(board, studentNumber, studColors, availableColors);
+                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
 
                     break;
 
                 case "Knight":
                     gui.infoDialog("Knight effect activated! You now have 2 more points of influence on islands during this turn.");
+                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
                     break;
 
-                case "Mushroomman":
+                case "MushroomMan":
                     gui.infoDialog("Mushroom Man effect activated!");
                     studentNumber = 1;
                     studColors = new Color[studentNumber*2];
                     gui.askColor(new ArrayList<>(Arrays.asList(Color.values())), "Select a color. During this turn, this color adds no influence.");
                     studColors[studentNumber-1] = gui.getStudColor();
+                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
                     break;
 
                 case "Minstrel":
@@ -691,15 +719,17 @@ public class BoardSceneController implements SceneControllerInterface {
 
                     availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
                     askEntranceStudents(board, studentNumber, studColors, availableColors);
+                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
 
                     break;
 
-                case "Spoiledprincess":
+                case "SpoiledPrincess":
                     gui.infoDialog("Spoiled Princess effect activated!");
                     studentNumber = 1;
                     studColors = new Color[studentNumber*2];
                     gui.askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()), "Select the student you would like to take from the character card and place in your dining room");
                     studColors[studentNumber-1] = gui.getStudColor();
+                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
                     break;
 
                 case "Thief":
@@ -708,12 +738,12 @@ public class BoardSceneController implements SceneControllerInterface {
                     studColors = new Color[studentNumber*2];
                     gui.askColor(new ArrayList<>(Arrays.asList(Color.values())), "Select a color. Every player, including yourself, will return 3 students of that color from the dining room to the bag.");
                     studColors[studentNumber-1] = gui.getStudColor();
+                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
                     break;
 
                 default:
                     break;
             }
-            gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
             charactersBox.setDisable(true);
         }
     }

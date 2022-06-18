@@ -24,7 +24,6 @@ public interface ViewInterface {
     void askAction(List<ActionType> possibleActions);
     void askStudent(List<Color> availableColors);
     void askPlace(int maxArchis);
-    int askArchipelago(int maxArchis);
     void askCharacter(LightBoard board);
     void askMNSteps(int maxMNSteps);
     void askCloud(List<Integer> availableClouds);
