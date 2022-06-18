@@ -14,16 +14,16 @@
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="245.39998779296874" minHeight="10.0" prefHeight="234.39998779296874" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="224.6000061035156" minHeight="10.0" prefHeight="164.80001220703124" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="220.80000610351556" minHeight="10.0" prefHeight="201.39998779296877" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="224.6000061035156" minHeight="10.0" prefHeight="133.1999755859375" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="220.80000610351556" minHeight="10.0" prefHeight="166.00002441406252" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label fx:id="resultLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="640.0" styleClass="resultText" stylesheets="@../css/setup.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <GridPane.margin>
-            <Insets bottom="20.0" />
+            <Insets bottom="10.0" />
          </GridPane.margin>
          <font>
-            <Font size="32.0" />
+            <Font size="29.0" />
          </font>
       </Label>
       <Label fx:id="subtitleLabel" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="55.0" prefWidth="600.0" styleClass="resultText" stylesheets="@../css/setup.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">

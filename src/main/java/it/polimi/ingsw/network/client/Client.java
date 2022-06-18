@@ -89,12 +89,20 @@ public class Client {
                     }
                     messageQueue.add((GenericServerMessage) msg);
 
-                    if (((GenericServerMessage) msg).getType() == MessageType.MNSTEPS_REQUEST)
+                    if (((GenericServerMessage) msg).getType() == MessageType.MNSTEPS_REQUEST) {
                         movingMN = true;
-                    else if (((GenericServerMessage) msg).getType() == MessageType.PLACE_REQUEST)
-                        movingStud = true;
-                    else if (((GenericServerMessage) msg).getType() == MessageType.CHARACTER_REQUEST)
+                        choosingChar = false;
+                        movingStud = false;
+                    } else if (((GenericServerMessage) msg).getType() == MessageType.CHARACTER_REQUEST) {
+                        movingMN = false;
                         choosingChar = true;
+                        movingStud = false;
+                    }
+                    else if (((GenericServerMessage) msg).getType() == MessageType.PLACE_REQUEST) {
+                        movingMN = false;
+                        choosingChar = false;
+                        movingStud = true;
+                    }
 
                 } else if (msg instanceof DisconnectionMessage) {
                     messageQueue.clear();

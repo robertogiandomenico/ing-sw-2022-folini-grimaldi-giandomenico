@@ -196,8 +196,8 @@ public class GUI extends Application implements ViewInterface {
     public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
         Platform.runLater(() -> {
                 bsc.setAssistants(availableAssistants, discardedAssistants);
-                bsc.enableAssistantBox();
                 infoDialog("It's your turn to choose the assistant!");
+                bsc.enableAssistantBox();
             });
     }
 
@@ -402,7 +402,6 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void printBoard(LightBoard board) {
-        //setArchiIndex(-1);
         SceneController.setCurrentController(bsc);
         bsc.setGUI(this);
         bsc.setBoard(board);
@@ -461,7 +460,6 @@ public class GUI extends Application implements ViewInterface {
 
                 resultStage.setOnCloseRequest(event -> {
                     closeWindow(resultStage);
-                    event.consume();
                 });
 
             } catch (IOException e) {

@@ -542,21 +542,19 @@ public class BoardSceneController implements SceneControllerInterface {
 
             if (gui.getClient().isMovingStud()) { //if I'm moving student on archis
                 gui.getClient().sendMsgToServer(new PlaceReply("ARCHIPELAGO", archiIndex));
-                gui.getClient().setMovingStud(false);
-                archipelagosBox.setDisable(true);
 
             } else if (gui.getClient().isMovingMN()) { //if I'm moving mother nature
                 int currentMNIndex = findCurrentMNIndex(board.getArchipelagos());
-                gui.getClient().sendMsgToServer(new MNStepsReply(archiIndex - currentMNIndex));
-                gui.getClient().setMovingMN(false);
-                archipelagosBox.setDisable(true);
+                gui.getClient().sendMsgToServer(new MNStepsReply( ((archiIndex - currentMNIndex) + board.getArchipelagos().size()) % board.getArchipelagos().size()) );
 
             } else if (gui.getClient().isChoosingChar()) { //if I'm choosing archis to give it to characters' effect
                 gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
-                gui.getClient().setChoosingChar(false);
-                archipelagosBox.setDisable(true);
-
             }
+
+            archipelagosBox.setDisable(true);
+            gui.getClient().setMovingStud(false);
+            gui.getClient().setMovingMN(false);
+            gui.getClient().setChoosingChar(false);
         }
     }
 
@@ -565,7 +563,7 @@ public class BoardSceneController implements SceneControllerInterface {
             if (a.isMNPresent())
                 return archipelagos.indexOf(a);
         }
-        return -1;
+        return -1; //function cannot reach this point
     }
 
     /**
@@ -660,7 +658,7 @@ public class BoardSceneController implements SceneControllerInterface {
                     break;
 
                 case "GrannyGrass":
-                    gui.infoDialog("Granny Grass effect activated! Select the island here you would like to put the No Entry Tile on");
+                    gui.infoDialog("Granny Grass effect activated! Select the island where you would like to put the No Entry Tile on");
                     gui.enableArchiBox();
                     break;
 
