@@ -115,6 +115,7 @@ public class BoardSceneController implements SceneControllerInterface {
                         break;
 
                     default:
+                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().remove(((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(1));
                         break;
                 }
 
@@ -523,22 +524,15 @@ public class BoardSceneController implements SceneControllerInterface {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             String archiId = event.getPickResult().getIntersectedNode().getId();
 
-            try {
-                archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
-            } catch (NullPointerException e) {
-                try {
-                    archiId = event.getPickResult().getIntersectedNode().getParent().getId();
-                    archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
-                } catch (NullPointerException f) {
-                    try {
+            if (archiId == null) {
+                archiId = event.getPickResult().getIntersectedNode().getParent().getId();
+                if (archiId == null) {
+                    archiId = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
+                    if (archiId == null)
                         archiId = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
-                        archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
-                    } catch (NullPointerException g) {
-                        archiId = event.getPickResult().getIntersectedNode().getParent().getParent().getParent().getId();
-                        archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
-                    }
                 }
             }
+            archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
 
             if (gui.getClient().isMovingStud()) { //if I'm moving student on archis
                 gui.getClient().sendMsgToServer(new PlaceReply("ARCHIPELAGO", archiIndex));
@@ -630,6 +624,7 @@ public class BoardSceneController implements SceneControllerInterface {
             List<Color> availableColors;
 
             //switch case of all characters to ask the proper values
+            //characters that need an archiIndex do not send the message here, but chooseArchipelago() does it for them
             switch (selectedCharacter.getName()) {
                 case "Monk":
                     gui.infoDialog("Monk effect activated!");

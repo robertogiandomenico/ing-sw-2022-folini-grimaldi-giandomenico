@@ -664,10 +664,10 @@ public class CLI implements ViewInterface {
             System.out.print("\033[2B" + CliColor.RESET_LINE);
 
         LightSchoolBoard currentPlayerSB = board.getCurrentPlayerSchoolBoard();
-        //find this client's schoolboard and print it
+        //find this client's schoolboard and print it as first
         for (LightSchoolBoard lsb : board.getSchoolBoards()) {
             if (lsb.getPlayer().getNickname().equals(client.getNickname())) {
-                DisplayBoard.printSchoolBoard(lsb, board.isExpertMode(), lsb.equals(currentPlayerSB));
+                DisplayBoard.printSchoolBoard(lsb, board.isExpertMode(), lsb.getPlayer().getNickname().equals(currentPlayerSB.getPlayer().getNickname()));
                 break;
             }
         }
@@ -675,7 +675,7 @@ public class CLI implements ViewInterface {
         for (int i = 0; i < board.getSchoolBoards().size(); i++) {
             if (!board.getSchoolBoards().get(i).getPlayer().getNickname().equals(client.getNickname())) {
                 System.out.print("\033[7A" + "\033[4C");
-                DisplayBoard.printSchoolBoard(board.getSchoolBoards().get(i), board.isExpertMode(), board.getSchoolBoards().get(i).equals(currentPlayerSB));
+                DisplayBoard.printSchoolBoard(board.getSchoolBoards().get(i), board.isExpertMode(), board.getSchoolBoards().get(i).getPlayer().getNickname().equals(currentPlayerSB.getPlayer().getNickname()));
             }
 
             if (i == (board.getSchoolBoards().size() -1) )

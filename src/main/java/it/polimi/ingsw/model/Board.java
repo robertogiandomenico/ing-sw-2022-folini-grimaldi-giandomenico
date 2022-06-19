@@ -221,7 +221,7 @@ public class Board {
                 Archipelago.resetForbiddenColor();
                 if (archipelago.getTowerColor() != null) checkMerge(archipelago);
             } else {
-                archipelago.setNoEntryTile(false);
+                archipelago.setNoEntryTile(archipelago.getNoEntryTile() - 1);
                 for (GameCharacter c : selectedCharacters) {
                     if (c.getName().equals("GrannyGrass")) {
                         GrannyGrassEffect effect = (GrannyGrassEffect) c.getEffect();

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Archipelago {
     private final List<Island> islands;
     private boolean motherNature;
-    private boolean noEntryTile;
+    private int noEntryTile;
     private TowerColor towerColor;
     private static Color forbiddenColor;
 
@@ -29,7 +29,7 @@ public class Archipelago {
         islands = new ArrayList<>();
         createFirstIsland(student);
         this.motherNature = motherNature;
-        noEntryTile = false;
+        noEntryTile = 0;
     }
 
     /**
@@ -92,8 +92,7 @@ public class Archipelago {
     }
 
     /**
-     * Sets the variable that states whether a no entry tile is on this archipelago
-     * or not.
+     * Sets the variable that states the number of no entry tiles on this archipelago
      * This method conforms to the use of the
      * {@link it.polimi.ingsw.model.effects.GrannyGrassEffect GrannyGrassEffect}.
      *
@@ -104,7 +103,7 @@ public class Archipelago {
      *                         -{@code false} if there isn't a No Entry tile on this Archipelago.
      *                         </p>
      */
-    public void setNoEntryTile(boolean noEntryTile){
+    public void setNoEntryTile(int noEntryTile){
         this.noEntryTile = noEntryTile;
     }
 
@@ -122,6 +121,18 @@ public class Archipelago {
      *                         </p>
      */
     public boolean isNoEntryTilePresent(){
+        return noEntryTile>0;
+    }
+
+    /**
+     * Returns a value that states how many no entry tiles are on this
+     * archipelago.
+     * This method conforms to the use of the
+     * {@link it.polimi.ingsw.model.effects.GrannyGrassEffect GrannyGrassEffect}.
+     *
+     * @return                 the number of no entry tiles on this archipelago
+     */
+    public int getNoEntryTile() {
         return noEntryTile;
     }
 
