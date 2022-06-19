@@ -28,7 +28,7 @@ public class ConnectionSceneController implements SceneControllerInterface {
     private GUI gui;
 
     @FXML
-    private void connect() throws IOException {
+    private void connect() {
         ipAddress = ipAddressField.getText();
         port = portField.getText();
 
@@ -59,7 +59,7 @@ public class ConnectionSceneController implements SceneControllerInterface {
         connectButton.setDisable( !validPort || !IPvalidator.validateIP(ipAddress) );
 
         if (e.getCode().toString().equals("ENTER") && !connectButton.isDisable()) {
-            connectButton.requestFocus();
+           connect();
         }
     }
 

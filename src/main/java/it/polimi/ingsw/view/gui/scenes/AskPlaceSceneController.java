@@ -32,19 +32,17 @@ public class AskPlaceSceneController implements SceneControllerInterface {
 
     @FXML
     private void onPlaceClick(MouseEvent event) {
-
-        Node selectedPlaceNode = event.getPickResult().getIntersectedNode().getParent();
-
         if (event.getButton().equals(MouseButton.PRIMARY)) {
+            Node selectedPlaceNode = event.getPickResult().getIntersectedNode().getParent();
+            chosenPlaceID = selectedPlaceNode.getId();
+
             if (selectedPlaceNode.getPseudoClassStates().contains(focusedElement)) {
                 selectedPlaceNode.pseudoClassStateChanged(focusedElement, false);
                 confirmButton.setDisable(true);
-            } else {
+            } else if (chosenPlaceID != null){
                 selectedPlaceNode.pseudoClassStateChanged(focusedElement, true);
                 confirmButton.setDisable(false);
             }
-
-            chosenPlaceID = event.getPickResult().getIntersectedNode().getParent().getId();
 
             try {
                 if (chosenPlaceID.equals("archipelagoBox"))
@@ -70,7 +68,7 @@ public class AskPlaceSceneController implements SceneControllerInterface {
             }
 
         } catch (Exception e) {
-            gui.errorDialog("No place is selected. Try again.");
+            gui.warningDialog("No place is selected. Try again.");
         }
     }
 

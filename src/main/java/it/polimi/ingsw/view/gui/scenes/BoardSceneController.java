@@ -115,11 +115,10 @@ public class BoardSceneController implements SceneControllerInterface {
                         break;
 
                     default:
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().remove(((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(1));
                         break;
                 }
 
-                //set coin image if the character has been already used
+                //set coin image if the character has been already used once
                 if (selectedCharacters[i].isAlreadyUsed())
                     ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(2).setVisible(true);
                 else
@@ -155,7 +154,7 @@ public class BoardSceneController implements SceneControllerInterface {
             ((ImageView) thisPlayerPane.getChildren().get(3)).setImage(blankImg());
         }
 
-        //set assistant
+        //set assistants' cards
         setAssistants(thisPlayerBoard.getPlayer().getCards(), new ArrayList<>());
 
         //set entrance
@@ -589,7 +588,7 @@ public class BoardSceneController implements SceneControllerInterface {
             case "fox":
                 return Assistant.FOX;
             default:
-                gui.errorDialog("An error occured choosing the assistant");
+                gui.warningDialog("An error occured choosing the assistant");
                 return null;
         }
     }
@@ -698,7 +697,7 @@ public class BoardSceneController implements SceneControllerInterface {
 
                     studentNumber = studNumberDialog(2, "Select the number of students you would like to swap from the dining room [up to 2]");
                     while (studentNumber > Arrays.stream(board.getCurrentPlayerSchoolBoard().getDiningRoom()).sum()) {
-                        gui.errorDialog("Invalid student number. Select a valid number of students. Try again");
+                        gui.warningDialog("Invalid student number. Select a valid number of students. Try again");
                         studentNumber = studNumberDialog(2, "Select the number of students you would like to swap from the dining room [up to 2]");
                     }
                     studColors = new Color[studentNumber*2];
@@ -755,6 +754,10 @@ public class BoardSceneController implements SceneControllerInterface {
         alert.setHeaderText("Press the right button");
         alert.setContentText(text);
         ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
+        alert.getDialogPane().getScene().getWindow().setOnCloseRequest(event -> {
+            gui.warningDialog("You have to choose the number first in order to close this panel");
+            event.consume();
+        });
 
         ButtonType button1 = new ButtonType("1");
         ButtonType button2 = new ButtonType("2");
@@ -773,7 +776,7 @@ public class BoardSceneController implements SceneControllerInterface {
         } else if (result.get() == button3) {
             return 3;
         } else {
-            gui.errorDialog("An error occurred.");
+            gui.warningDialog("An error occurred.");
             return -1;
         }
     }

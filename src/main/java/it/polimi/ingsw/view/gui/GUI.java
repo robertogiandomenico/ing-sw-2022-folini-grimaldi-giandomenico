@@ -382,6 +382,16 @@ public class GUI extends Application implements ViewInterface {
     @Override
     public void displayDisconnectionMessage(String disconnectedNickname, String message) {
         errorDialog(disconnectedNickname + message);
+
+        synchronized (lock) {
+            try {
+                lock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.exit(0);
     }
 
     /**
@@ -392,7 +402,16 @@ public class GUI extends Application implements ViewInterface {
     @Override
     public void displayErrorAndExit(String message) {
         errorDialog(message);
-        System.exit(1);
+
+        synchronized (lock) {
+            try {
+                lock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.exit(0);
     }
 
     /**
@@ -483,12 +502,19 @@ public class GUI extends Application implements ViewInterface {
      * @param error                the specific game error.
      */
     public void errorDialog(String error) {
-        Alert errorDialog = new Alert(Alert.AlertType.ERROR);
-        errorDialog.setTitle("Game Error");
-        errorDialog.setHeaderText("Error!");
-        errorDialog.setContentText(error);
-        ((Stage)errorDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
-        errorDialog.showAndWait();
+        Platform.runLater(() -> {
+            Alert errorDialog = new Alert(Alert.AlertType.ERROR);
+            errorDialog.setTitle("Game Error");
+            errorDialog.setHeaderText("Error!");
+            errorDialog.setContentText(error);
+            ((Stage) errorDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            errorDialog.showAndWait();
+
+            synchronized (lock) {
+                lock.notify();
+            }
+
+        });
     }
 
     /**

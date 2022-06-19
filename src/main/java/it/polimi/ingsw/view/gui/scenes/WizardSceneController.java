@@ -40,46 +40,40 @@ public class WizardSceneController implements SceneControllerInterface {
 
     @FXML
     private void handleOnMouseClicked(MouseEvent event) {
-
-        Node selectedWizardNode = event.getPickResult().getIntersectedNode().getParent();
-
         if (event.getButton().equals(MouseButton.PRIMARY)) {
+            Node selectedWizardNode = event.getPickResult().getIntersectedNode().getParent();
+            chosenWizardID = selectedWizardNode.getId();
+
 
             if (selectedWizardNode.getPseudoClassStates().contains(focusedElement)) {
                 selectedWizardNode.pseudoClassStateChanged(focusedElement, false);
                 goButton.setDisable(true);
-            } else {
+            } else if (chosenWizardID != null){
                 selectedWizardNode.pseudoClassStateChanged(focusedElement, true);
                 goButton.setDisable(false);
             }
 
-            chosenWizardID = event.getPickResult().getIntersectedNode().getParent().getId();
-
             try {
                 switch (chosenWizardID) {
                     case "articWizard":
-                        //System.out.println("articWizard selected");
                         desertWizard.pseudoClassStateChanged(focusedElement, false);
                         forestWizard.pseudoClassStateChanged(focusedElement, false);
                         skyWizard.pseudoClassStateChanged(focusedElement, false);
                         break;
 
                     case "desertWizard":
-                        //System.out.println("desertWizard selected");
                         articWizard.pseudoClassStateChanged(focusedElement, false);
                         forestWizard.pseudoClassStateChanged(focusedElement, false);
                         skyWizard.pseudoClassStateChanged(focusedElement, false);
                         break;
 
                     case "forestWizard":
-                        //System.out.println("forestWizard selected");
                         articWizard.pseudoClassStateChanged(focusedElement, false);
                         desertWizard.pseudoClassStateChanged(focusedElement, false);
                         skyWizard.pseudoClassStateChanged(focusedElement, false);
                         break;
 
                     case "skyWizard":
-                        //System.out.println("skyWizard selected");
                         articWizard.pseudoClassStateChanged(focusedElement, false);
                         desertWizard.pseudoClassStateChanged(focusedElement, false);
                         forestWizard.pseudoClassStateChanged(focusedElement, false);

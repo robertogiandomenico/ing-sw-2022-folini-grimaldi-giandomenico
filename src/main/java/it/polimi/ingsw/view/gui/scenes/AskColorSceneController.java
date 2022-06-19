@@ -47,18 +47,17 @@ public class AskColorSceneController implements SceneControllerInterface {
 
     @FXML
     private void onColorClick(MouseEvent event) {
-        Node selectedColorNode = event.getPickResult().getIntersectedNode().getParent();
-
         if (event.getButton().equals(MouseButton.PRIMARY)) {
+            Node selectedColorNode = event.getPickResult().getIntersectedNode().getParent();
+            chosenColorID = selectedColorNode.getId();
+
             if (selectedColorNode.getPseudoClassStates().contains(focusedElement)) {
                 selectedColorNode.pseudoClassStateChanged(focusedElement, false);
                 confirmButton.setDisable(true);
-            } else {
+            } else if (chosenColorID != null){
                 selectedColorNode.pseudoClassStateChanged(focusedElement, true);
                 confirmButton.setDisable(false);
             }
-
-            chosenColorID = event.getPickResult().getIntersectedNode().getParent().getId();
 
             try {
                 switch (chosenColorID) {
@@ -133,9 +132,9 @@ public class AskColorSceneController implements SceneControllerInterface {
                 disableAll();
                 ((Stage) confirmButton.getScene().getWindow()).close();
             } else
-                gui.errorDialog("No color is selected. Try again.");
+                gui.warningDialog("No color is selected. Try again.");
         } catch (Exception e) {
-            gui.errorDialog("No color is selected. Try again.");
+            gui.warningDialog("No color is selected. Try again.");
         }
     }
 

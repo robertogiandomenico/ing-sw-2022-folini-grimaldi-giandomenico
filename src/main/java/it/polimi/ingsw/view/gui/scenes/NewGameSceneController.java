@@ -21,32 +21,30 @@ public class NewGameSceneController implements SceneControllerInterface {
     private ToggleGroup gameMode;
     @FXML
     private ToggleGroup nPlayers;
-    private boolean validGameMode = false;
-    private boolean validNPlayers = false;
-    private boolean expertModeBool = false;
-    private boolean num3OfPlayers = false;
     private GUI gui;
 
     @FXML
     private void initialize() {
-        n2Players.setDisable(true);
-        n3Players.setDisable(true);
+        disableNPlayers();
+        easyMode.setToggleGroup(gameMode);
+        expertMode.setToggleGroup(gameMode);
+        n2Players.setToggleGroup(nPlayers);
+        n3Players.setToggleGroup(nPlayers);
     }
 
     @FXML
     private void next() {
-        if(isGameModeEnabled() && !isNPlayersEnabled()) {
+        if (isGameModeEnabled() && !isNPlayersEnabled()) {
             gui.getClient().sendMsgToServer(new GameModeReply(expertMode.isSelected()));
-
             disableGameMode();
             enableNPlayers();
             return;
         }
 
-        if(!isGameModeEnabled() && isNPlayersEnabled()) {
+        if (!isGameModeEnabled() && isNPlayersEnabled()) {
             gui.getClient().sendMsgToServer(new PlayerNumberReply(getPlayerNumber()));
+            disableNPlayers();
         }
-        //FIXME: unable to read the toggle value, it returns null but it should return the actual value of the toggle
     }
 
     @FXML
@@ -73,11 +71,13 @@ public class NewGameSceneController implements SceneControllerInterface {
         n3Players.setDisable(false);
     }
 
+    private void disableNPlayers() {
+        n2Players.setDisable(true);
+        n3Players.setDisable(true);
+    }
+
     private int getPlayerNumber() {
-        if (n2Players.isSelected())
-            return 2;
-        else
-            return 3;
+        return Integer.parseInt(((RadioButton)nPlayers.getSelectedToggle()).getText());
     }
 
     /**
