@@ -18,6 +18,7 @@ class BagTest {
         List<Student> out = new ArrayList<>();
 
         Bag bag = new Bag();
+        refillBag(bag);
         assertEquals(10, bag.getSize());
 
         int bagSize = bag.getSize();
@@ -34,6 +35,19 @@ class BagTest {
 
     }
 
+    private void refillBag(Bag bag) {
+        while (bag.getSize() != 0){
+            bag.draw();
+        }
+        for (int i = 0; i < 2; i++) {
+            bag.put(new Student(Color.GREEN));
+            bag.put(new Student(Color.RED));
+            bag.put(new Student(Color.YELLOW));
+            bag.put(new Student(Color.PINK));
+            bag.put(new Student(Color.BLUE));
+        }
+    }
+
     @Test
     void testPut() {
         List<Student> in = new ArrayList<>(Arrays.asList(new Student(Color.BLUE), new Student(Color.YELLOW), new Student(Color.PINK),
@@ -41,7 +55,8 @@ class BagTest {
         List<Student> out = new ArrayList<>();
 
         Bag bag = new Bag();
-
+        refillBag(bag);
+        
         for (int i = 0; i < in.size(); i++) {
             bag.put(in.get(i));
             assertEquals(10 + i + 1, bag.getSize());

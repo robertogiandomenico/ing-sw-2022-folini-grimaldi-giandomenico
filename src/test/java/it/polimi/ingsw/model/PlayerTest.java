@@ -25,9 +25,9 @@ class PlayerTest {
     void setUp() {
         players = new ArrayList<>();
         nicknames = new ArrayList<>(Arrays.asList(
-                "player",
-                "",
-                "test124u93!#"
+                "ale",
+                "fra",
+                "rob"
         ));
         towerColors = new ArrayList<>(Arrays.asList(
                 TowerColor.WHITE,

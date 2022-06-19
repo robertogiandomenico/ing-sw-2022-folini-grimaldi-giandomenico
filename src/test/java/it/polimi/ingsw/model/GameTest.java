@@ -125,6 +125,7 @@ class GameTest {
 
         for (Game g : games){
             g.initializeBoard();
+            setBoard(g);
             Board b = g.getBoard();
             assertEquals(players, b.getPlayers());
             assertEquals(g.getNumberOfPlayers(), b.getTOTALCLOUDS());
@@ -139,6 +140,27 @@ class GameTest {
                 }
             }
         }
+    }
+
+    private void setBoard(Game g) {
+        int TOTALCLOUDS, CLOUDSIZE, ENTRANCESIZE, TOTALTOWERS;
+        GameCharacter[] selectedCharacters = null;
+
+        TOTALCLOUDS = g.getNumberOfPlayers();
+        CLOUDSIZE = g.getNumberOfPlayers() + 1;
+
+
+        ENTRANCESIZE = 2 * g.getNumberOfPlayers() + 3;
+        TOTALTOWERS = -2 * g.getNumberOfPlayers() + 12;
+
+        if (g.isExpertMode()) {
+            selectedCharacters = new GameCharacter[3];
+            for (int i = 0; i < 3; i++) {
+                selectedCharacters[i] = g.getAvailableCharacters().remove(i);
+            }
+        }
+
+        g.setBoard(new Board(players, TOTALCLOUDS, CLOUDSIZE, ENTRANCESIZE, TOTALTOWERS, selectedCharacters));
     }
 
 }

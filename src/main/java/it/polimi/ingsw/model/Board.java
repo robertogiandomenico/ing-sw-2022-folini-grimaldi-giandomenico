@@ -18,7 +18,7 @@ public class Board {
     private final int ENTRANCESIZE;
     private final int TOTALTOWERS;
 
-    private final List<Archipelago> archipelagos;
+    private List<Archipelago> archipelagos;
     private final Bag bag;
     private Cloud[] clouds;
     private final List<Player> players;
@@ -498,6 +498,14 @@ public class Board {
      */
     public List<Archipelago> getArchipelagos() {
         return archipelagos;
+    }
+
+    /**
+     * Sets the archipelagos on this board. It is used for testing.
+     * @param archipelagos                      the new Archipelago List of this Board's archipelagos.
+     */
+    public void setArchipelagos(List<Archipelago> archipelagos) {
+        this.archipelagos = archipelagos;
     }
 
     /**

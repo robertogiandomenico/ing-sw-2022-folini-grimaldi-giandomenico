@@ -193,6 +193,14 @@ public class Game {
     }
 
     /**
+     * Sets game board. It is used for testing.
+     * @param board                the new Board of this Game.
+     */
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    /**
      * Returns the players of this game.
      *
      * @return                the Player List of this Game.

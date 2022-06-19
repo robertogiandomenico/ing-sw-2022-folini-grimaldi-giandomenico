@@ -28,11 +28,25 @@ class MinstrelEffectTest {
 
         selectedCharacters = new GameCharacter[]{new GameCharacter(2, new FarmerEffect(), "Farmer"),
                 new GameCharacter(1, new MinstrelEffect(), "Minstrel"),
-                new GameCharacter(1, new JesterEffect(), "Jester")};
+                new GameCharacter(1, new CentaurEffect(), "Centaur")};
 
         players.get(0).setCanMoveStudents(true);
 
         board = new Board(players, 3, 4, 9, 6, selectedCharacters);
+        initializeEntrances(board);
+    }
+
+    private void initializeEntrances(Board b) {
+        for(SchoolBoard sb : b.getPlayerBoards()){
+            for(Student s : sb.getEntrance()){
+                sb.removeFromEntrance(s.getColor());
+            }
+            for(int i = 0; i < 3; i++){
+                sb.addToEntrance(new Student(Color.GREEN));
+                sb.addToEntrance(new Student(Color.YELLOW));
+                sb.addToEntrance(new Student(Color.BLUE));
+            }
+        }
     }
 
     @AfterEach
@@ -41,6 +55,7 @@ class MinstrelEffectTest {
         players = null;
         selectedCharacters = null;
     }
+
 
     @Test
     void applyEffect() {
@@ -54,7 +69,7 @@ class MinstrelEffectTest {
 
         Student chosenFromEntrance = entrance[0];
 
-        board.playCharacter("Minstrel", 0, 1, Color.RED, chosenFromEntrance.getColor());
+        board.playCharacter("Minstrel", 0, 2, Color.RED, Color.YELLOW, chosenFromEntrance.getColor(), Color.PINK);
 
         assertEquals(Color.RED, board.getCurrentPlayerSchoolBoard().getEntrance()[0].getColor());
         assertNotEquals(chosenFromEntrance, board.getCurrentPlayerSchoolBoard().getEntrance()[0]);
