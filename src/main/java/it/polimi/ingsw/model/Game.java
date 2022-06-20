@@ -15,7 +15,7 @@ public class Game {
     private List<GameCharacter> availableCharacters;
     private List<TowerColor> availableTowers;
     private int numberOfPlayers;
-    private List<Player> playerOrder;
+    private final List<Player> playerOrder;
     private Player currentPlayer;
     private final boolean expertMode;
 
@@ -132,6 +132,8 @@ public class Game {
 
         //if the game is played in easy mode, board is created with a null reference for its selectedCharacters attribute
         board = new Board(players, TOTALCLOUDS, CLOUDSIZE, ENTRANCESIZE, TOTALTOWERS, selectedCharacters);
+        board.setBag(new Bag());
+        board.initBoard();
     }
 
     /**

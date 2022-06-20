@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.mockClasses.MockBag;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * This class tests the {@link it.polimi.ingsw.model.Bag Bag} methods.
+ * This class tests the {@link it.polimi.ingsw.model.Bag Bag} methods using the {@link MockBag}.
  */
 class BagTest {
 
@@ -17,8 +18,7 @@ class BagTest {
     void testDraw() {
         List<Student> out = new ArrayList<>();
 
-        Bag bag = new Bag();
-        refillBag(bag);
+        Bag bag = new MockBag();
         assertEquals(10, bag.getSize());
 
         int bagSize = bag.getSize();
@@ -35,27 +35,13 @@ class BagTest {
 
     }
 
-    private void refillBag(Bag bag) {
-        while (bag.getSize() != 0){
-            bag.draw();
-        }
-        for (int i = 0; i < 2; i++) {
-            bag.put(new Student(Color.GREEN));
-            bag.put(new Student(Color.RED));
-            bag.put(new Student(Color.YELLOW));
-            bag.put(new Student(Color.PINK));
-            bag.put(new Student(Color.BLUE));
-        }
-    }
-
     @Test
     void testPut() {
         List<Student> in = new ArrayList<>(Arrays.asList(new Student(Color.BLUE), new Student(Color.YELLOW), new Student(Color.PINK),
                 new Student(Color.GREEN), new Student(Color.RED)));
         List<Student> out = new ArrayList<>();
 
-        Bag bag = new Bag();
-        refillBag(bag);
+        Bag bag = new MockBag();
         
         for (int i = 0; i < in.size(); i++) {
             bag.put(in.get(i));

@@ -18,14 +18,12 @@ public class Board {
     private final int ENTRANCESIZE;
     private final int TOTALTOWERS;
 
-    private List<Archipelago> archipelagos;
-    private final Bag bag;
+    private final List<Archipelago> archipelagos;
+    private Bag bag;
     private Cloud[] clouds;
     private final List<Player> players;
     private SchoolBoard[] playerBoards;
-
     private final EnumMap<Color, Integer> colorsIndex;
-
     private int coinsSupply;
     private final GameCharacter[] selectedCharacters;
 
@@ -54,11 +52,11 @@ public class Board {
         //create and fill the map colorsIndex
         colorsIndex = new EnumMap<>(Color.class);
         mapSetup();
+    }
 
-        bag = new Bag();
-
+    public void initBoard(){
         //initialize the islands with mother nature and the students
-        initializeIslands();
+        initializeIslands(new Random().nextInt(12));
 
         //fill the bag with the remaining 120 students
         fillBag();
@@ -293,12 +291,11 @@ public class Board {
      * Initializes the 12 islands on the board.
      * A random number states where Mother Nature is located initially.
      */
-    private void initializeIslands() {
-        int n = new Random().nextInt(12);
+    public void initializeIslands(int mnPos) {
         for (int i = 0; i < 12; i++) {
-            if (i == n) {
+            if (i == mnPos) {
                 archipelagos.add(new Archipelago(null, true));
-            } else if (i == (n + 6) % 12) {
+            } else if (i == (mnPos + 6) % 12) {
                 archipelagos.add(new Archipelago(null, false));
             } else {
                 archipelagos.add(new Archipelago(bag.draw(), false));
@@ -309,7 +306,7 @@ public class Board {
     /**
      * Fills the bag with students of each color.
      */
-    private void fillBag() {
+    public void fillBag() {
         for (int i = 0; i < 24; i++) {
             bag.put(new Student(Color.GREEN));
             bag.put(new Student(Color.RED));
@@ -322,7 +319,7 @@ public class Board {
     /**
      * Initializes the clouds on this board.
      */
-    private void initializeClouds() {
+    public void initializeClouds() {
         clouds = new Cloud[TOTALCLOUDS];
         for (int i = 0; i < TOTALCLOUDS; i++) {
             clouds[i] = new Cloud(CLOUDSIZE);
@@ -333,7 +330,7 @@ public class Board {
     /**
      * Initializes a school board for each player.
      */
-    private void initializeBoards() {
+    public void initializeBoards() {
         playerBoards = new SchoolBoard[players.size()];
         for (int i = 0; i < players.size(); i++) {
             playerBoards[i] = new SchoolBoard(players.get(i), drawStudentsArray(ENTRANCESIZE), TOTALTOWERS);
@@ -352,7 +349,7 @@ public class Board {
      * Preliminarily sets the features of some characters
      * ({@link MonkEffect}, {@link JesterEffect}, {@link SpoiledPrincessEffect}).
      */
-    private void initializeCharacters() {
+    public void initializeCharacters() {
         for (GameCharacter c : selectedCharacters) {
             switch (c.getName()) {
                 case "Monk": {
@@ -501,14 +498,6 @@ public class Board {
     }
 
     /**
-     * Sets the archipelagos on this board. It is used for testing.
-     * @param archipelagos                      the new Archipelago List of this Board's archipelagos.
-     */
-    public void setArchipelagos(List<Archipelago> archipelagos) {
-        this.archipelagos = archipelagos;
-    }
-
-    /**
      * Returns the clouds on this board.
      *
      * @return                      the Cloud Array of this Board's clouds.
@@ -596,5 +585,13 @@ public class Board {
      */
     public LightBoard getLightBoard(){
         return new LightBoard(this);
+    }
+
+    /**
+     * Sets the board's bag (or mock bag)
+     * @param bag                      the Bag
+     */
+    public void setBag(Bag bag) {
+        this.bag = bag;
     }
 }

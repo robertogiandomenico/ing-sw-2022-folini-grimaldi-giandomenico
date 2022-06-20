@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.*;
+import it.polimi.ingsw.model.mockClasses.MockBag;
+import it.polimi.ingsw.model.mockClasses.MockBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,22 +23,18 @@ class BoardTest {
     private List<Board> boards;
     private List<Player> players;
     private List<GameCharacter[]> selectedCharacters;
-    private List<List<Archipelago>> archisList;
 
     @BeforeEach
     void setUp() {
         boards = new ArrayList<>();
         players = new ArrayList<>();
         selectedCharacters = new ArrayList<>();
-        archisList = new ArrayList<>();
 
         players.add(new Player("player1", TowerColor.WHITE, Wizard.ARTICWIZARD));
         players.add(new Player("player2", TowerColor.BLACK, Wizard.DESERTWIZARD));
         players.add(new Player("player3", TowerColor.GREY, Wizard.FORESTWIZARD));
 
         players.get(0).setCanMoveStudents(true);
-
-        initializeArchis(archisList);
 
         selectedCharacters.add(new GameCharacter[]{
                 new GameCharacter(3, new HeraldEffect(), "Herald"),
@@ -69,13 +67,7 @@ class BoardTest {
         });
 
         for (GameCharacter[] selChar : selectedCharacters){
-            boards.add(new Board(players, 3, 4, 9, 6, selChar));
-        }
-
-        for (Board b : boards){
-            b.setArchipelagos(archisList.get(boards.indexOf(b)));
-            initializeCharacterStudents(b);
-            initializeEntrances(b);
+            boards.add(new MockBoard(players, 3, 4, 9, 6, selChar, selectedCharacters.indexOf(selChar)));
         }
     }
 
@@ -92,126 +84,11 @@ class BoardTest {
         }
     }
 
-    private void initializeCharacterStudents(Board b) {
-        for (GameCharacter c : b.getSelectedCharacters()){
-            switch(c.getName()){
-                case "Monk":
-                    MonkEffect me = (MonkEffect) c.getEffect();
-                    me.setStudents(new Student[] {
-                            new Student(Color.YELLOW),
-                            new Student(Color.BLUE),
-                            new Student(Color.PINK),
-                            new Student(Color.GREEN)
-                    });
-                    break;
-                case "Jester":
-                    JesterEffect je = (JesterEffect) c.getEffect();
-                    je.setStudents(new Student[] {
-                            new Student(Color.YELLOW),
-                            new Student(Color.BLUE),
-                            new Student(Color.PINK),
-                            new Student(Color.GREEN),
-                            new Student(Color.RED),
-                            new Student(Color.PINK)
-                    });
-                    break;
-                case "SpoiledPrincess":
-                    SpoiledPrincessEffect spe = (SpoiledPrincessEffect) c.getEffect();
-                    spe.setStudents(new Student[] {
-                            new Student(Color.YELLOW),
-                            new Student(Color.BLUE),
-                            new Student(Color.PINK),
-                            new Student(Color.GREEN)
-                    });
-                    break;
-            }
-        }
-    }
-
-    private void initializeArchis(List<List<Archipelago>> archisList) {
-        archisList.add(new ArrayList<>(Arrays.asList(
-                new Archipelago(new Student(Color.GREEN), false),
-                new Archipelago(new Student(Color.RED), false),
-                new Archipelago(new Student(Color.YELLOW), false),
-                new Archipelago(new Student(Color.BLUE), false),
-                new Archipelago(new Student(Color.PINK), false),
-                new Archipelago(null, true),
-                new Archipelago(new Student(Color.GREEN), false),
-                new Archipelago(new Student(Color.RED), false),
-                new Archipelago(new Student(Color.YELLOW), false),
-                new Archipelago(new Student(Color.BLUE), false),
-                new Archipelago(new Student(Color.PINK), false),
-                new Archipelago(null, false)
-        )));
-
-        archisList.add(new ArrayList<>(Arrays.asList(
-                new Archipelago(null, true),
-                new Archipelago(new Student(Color.GREEN), false),
-                new Archipelago(new Student(Color.RED), false),
-                new Archipelago(new Student(Color.YELLOW), false),
-                new Archipelago(new Student(Color.BLUE), false),
-                new Archipelago(new Student(Color.PINK), false),
-                new Archipelago(null, false),
-                new Archipelago(new Student(Color.GREEN), false),
-                new Archipelago(new Student(Color.RED), false),
-                new Archipelago(new Student(Color.YELLOW), false),
-                new Archipelago(new Student(Color.BLUE), false),
-                new Archipelago(new Student(Color.PINK), false)
-        )));
-
-        archisList.add(new ArrayList<>(Arrays.asList(
-                new Archipelago(new Student(Color.GREEN), false),
-                new Archipelago(new Student(Color.RED), false),
-                new Archipelago(new Student(Color.YELLOW), false),
-                new Archipelago(new Student(Color.BLUE), false),
-                new Archipelago(new Student(Color.PINK), false),
-                new Archipelago(null, false),
-                new Archipelago(new Student(Color.GREEN), false),
-                new Archipelago(new Student(Color.RED), false),
-                new Archipelago(new Student(Color.YELLOW), false),
-                new Archipelago(new Student(Color.BLUE), false),
-                new Archipelago(new Student(Color.PINK), false),
-                new Archipelago(null, true)
-        )));
-
-        archisList.add(new ArrayList<>(Arrays.asList(
-                new Archipelago(new Student(Color.GREEN), false),
-                new Archipelago(new Student(Color.RED), false),
-                new Archipelago(null, true),
-                new Archipelago(new Student(Color.YELLOW), false),
-                new Archipelago(new Student(Color.BLUE), false),
-                new Archipelago(new Student(Color.PINK), false),
-                new Archipelago(new Student(Color.GREEN), false),
-                new Archipelago(new Student(Color.RED), false),
-                new Archipelago(null, false),
-                new Archipelago(new Student(Color.YELLOW), false),
-                new Archipelago(new Student(Color.BLUE), false),
-                new Archipelago(new Student(Color.PINK), false)
-        )));
-
-        archisList.add(new ArrayList<>(Arrays.asList(
-
-                new Archipelago(new Student(Color.GREEN), false),
-                new Archipelago(new Student(Color.RED), false),
-                new Archipelago(null, false),
-                new Archipelago(new Student(Color.YELLOW), false),
-                new Archipelago(new Student(Color.BLUE), false),
-                new Archipelago(new Student(Color.PINK), false),
-                new Archipelago(new Student(Color.GREEN), false),
-                new Archipelago(new Student(Color.RED), false),
-                new Archipelago(null, true),
-                new Archipelago(new Student(Color.YELLOW), false),
-                new Archipelago(new Student(Color.BLUE), false),
-                new Archipelago(new Student(Color.PINK), false)
-        )));
-    }
-
     @AfterEach
     void tearDown() {
         boards = null;
         players = null;
         selectedCharacters = null;
-        archisList = null;
     }
 
     @Test
@@ -337,7 +214,7 @@ class BoardTest {
     @Test
     void testCalculateInfluence(){
         //Adding a new board in order to test every influence-related character's effect and every merging and tower placing scenario
-        boards.add(new Board(players, 3, 4, 9, 6, selectedCharacters.get(4)));
+        boards.add(new MockBoard(players, 3, 4, 9, 6, selectedCharacters.get(4), 11));
         for (Board b : boards) {
             int archiIndex = boards.indexOf(b);
 

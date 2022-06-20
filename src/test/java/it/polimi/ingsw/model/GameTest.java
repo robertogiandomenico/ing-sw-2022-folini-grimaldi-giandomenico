@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.mockClasses.MockGame;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * This class tests the {@link it.polimi.ingsw.model.Game Game} methods.
+ * This class tests the {@link it.polimi.ingsw.model.Game Game} methods using the {@link it.polimi.ingsw.model.mockClasses.MockGame}.
  */
 class GameTest {
     private List<Game> games;
@@ -21,8 +22,8 @@ class GameTest {
     void setUp() {
         games = new ArrayList<>(
                 Arrays.asList(
-                        new Game(false),
-                        new Game(true)
+                        new MockGame(false),
+                        new MockGame(true)
                 )
         );
         players = new ArrayList<>(
@@ -125,7 +126,6 @@ class GameTest {
 
         for (Game g : games){
             g.initializeBoard();
-            setBoard(g);
             Board b = g.getBoard();
             assertEquals(players, b.getPlayers());
             assertEquals(g.getNumberOfPlayers(), b.getTOTALCLOUDS());
@@ -141,26 +141,4 @@ class GameTest {
             }
         }
     }
-
-    private void setBoard(Game g) {
-        int TOTALCLOUDS, CLOUDSIZE, ENTRANCESIZE, TOTALTOWERS;
-        GameCharacter[] selectedCharacters = null;
-
-        TOTALCLOUDS = g.getNumberOfPlayers();
-        CLOUDSIZE = g.getNumberOfPlayers() + 1;
-
-
-        ENTRANCESIZE = 2 * g.getNumberOfPlayers() + 3;
-        TOTALTOWERS = -2 * g.getNumberOfPlayers() + 12;
-
-        if (g.isExpertMode()) {
-            selectedCharacters = new GameCharacter[3];
-            for (int i = 0; i < 3; i++) {
-                selectedCharacters[i] = g.getAvailableCharacters().remove(i);
-            }
-        }
-
-        g.setBoard(new Board(players, TOTALCLOUDS, CLOUDSIZE, ENTRANCESIZE, TOTALTOWERS, selectedCharacters));
-    }
-
 }

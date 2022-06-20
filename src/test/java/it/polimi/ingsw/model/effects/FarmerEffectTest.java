@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.mockClasses.MockBoard;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,7 @@ class FarmerEffectTest {
 
         players.get(0).setCanMoveStudents(true);
 
-        board = new Board(players, 3, 4, 9, 6, selectedCharacters);
+        board = new MockBoard(players, 3, 4, 9, 6, selectedCharacters, 0);
     }
 
     @AfterEach
