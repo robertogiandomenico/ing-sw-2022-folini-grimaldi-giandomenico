@@ -615,9 +615,9 @@ public class CLI implements ViewInterface {
      */
     @Override
     public void printBoard(LightBoard board) {
-        // to resize the console window     length:48  width:155
+        // to resize the console window     length:48  width:146
         clearCLI();
-        System.out.print("\033[8;48;155t");
+        System.out.print("\033[8;48;146t");
 
         //print all the archipelagos clockwise
         int dim = board.getArchipelagos().size() % 2 == 0 ? (board.getArchipelagos().size()/2 - 1) : (board.getArchipelagos().size()/2);
