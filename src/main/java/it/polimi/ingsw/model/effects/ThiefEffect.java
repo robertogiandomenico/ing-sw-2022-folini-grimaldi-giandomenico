@@ -21,6 +21,7 @@ public class ThiefEffect implements Effect {
      */
     public void applyEffect(Board board, int archiIndex, int numOfStudents, Color...studColors) {
         int indexSelectedColor = board.mapToIndex(studColors[numOfStudents-1]);
+        board.getCurrentPlayerSchoolBoard().setThiefEffect(true);
 
         for(SchoolBoard s : board.getPlayerBoards()) {
             for(int i=0; i<3; i++) {
@@ -32,6 +33,8 @@ public class ThiefEffect implements Effect {
                 }
             }
         }
+
+        board.getCurrentPlayerSchoolBoard().setThiefEffect(false);
     }
 
 }

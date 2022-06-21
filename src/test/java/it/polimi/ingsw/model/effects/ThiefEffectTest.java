@@ -62,7 +62,15 @@ class ThiefEffectTest {
             board.getPlayerBoards()[2].addToDiningRoom(board.mapToIndex(chosenColor));
         }
 
+        assertTrue(board.getPlayerBoards()[0].getProfessorTable()[board.mapToIndex(chosenColor)]);
+        assertFalse(board.getPlayerBoards()[1].getProfessorTable()[board.mapToIndex(chosenColor)]);
+        assertFalse(board.getPlayerBoards()[2].getProfessorTable()[board.mapToIndex(chosenColor)]);
+
         board.playCharacter("Thief", 0, 1, chosenColor);
+
+        assertTrue(board.getPlayerBoards()[0].getProfessorTable()[board.mapToIndex(chosenColor)]);
+        assertFalse(board.getPlayerBoards()[1].getProfessorTable()[board.mapToIndex(chosenColor)]);
+        assertFalse(board.getPlayerBoards()[2].getProfessorTable()[board.mapToIndex(chosenColor)]);
 
         assertEquals(Math.max(studentsPlayer0 - 3, 0), board.getPlayerBoards()[0].getDiningRoom()[board.mapToIndex(chosenColor)]);
         assertEquals(Math.max(studentsPlayer1 - 3, 0), board.getPlayerBoards()[1].getDiningRoom()[board.mapToIndex(chosenColor)]);
