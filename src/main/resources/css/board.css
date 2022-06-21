@@ -30,9 +30,9 @@
 }
 
 .cloud {
-    -fx-effect: dropshadow(gaussian, #32aaea, 10, 0.5, 0.0, 0.0);
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, #4db1ea, 10, 0.5, 0.0, 0.0);
+    -fx-scale-x: 1.06;
+    -fx-scale-y: 1.06;
 }
 
 .cloud:hover,
@@ -43,8 +43,8 @@
 
 .cloud:pressed {
     -fx-opacity: 0.9;
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.08;
+    -fx-scale-y: 1.08;
 }
 
 .cloud:disabled {
