@@ -20,7 +20,7 @@
     <RowConstraints maxHeight="186.40001831054684" minHeight="10.0" prefHeight="186.40001831054684" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label fx:id="actionLabel" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="398.0" styleClass="text" stylesheets="@../css/utility.css" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+      <Label fx:id="actionLabel" alignment="TOP_CENTER" contentDisplay="CENTER" prefHeight="78.0" prefWidth="337.0" styleClass="text" stylesheets="@../css/utility.css" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
          <font>
             <Font size="19.0" />
          </font>
