@@ -8,8 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * This class represents the controller for the login scene.
+ */
 public class LoginSceneController implements SceneControllerInterface {
-
     @FXML
     private TextField nicknameField;
     @FXML
@@ -24,13 +26,18 @@ public class LoginSceneController implements SceneControllerInterface {
     private String gameName;
     private GUI gui;
 
-
+    /**
+     * Initializes buttons and fields.
+     */
     @FXML
     private void initialize() {
         confirmButton.setDisable(true);
         gameNameField.setDisable(true);
     }
 
+    /**
+     * Confirms the inserted nickname or game name and sends them to the server.
+     */
     @FXML
     private void confirm() {
         if (!nicknameField.isDisable() && gameNameField.isDisable()) {
@@ -50,6 +57,11 @@ public class LoginSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Checks the validity of the inserted nickname.
+     *
+     * @param e              an Event.
+     */
     @FXML
     private void nicknameCheckProperty(KeyEvent e) {
         nickname = nicknameField.getText();
@@ -59,6 +71,11 @@ public class LoginSceneController implements SceneControllerInterface {
             confirm();
     }
 
+    /**
+     * Checks the validity of the inserted game name.
+     *
+     * @param e              an Event.
+     */
     @FXML
     private void gameNameCheckProperty(KeyEvent e) {
         gameName = gameNameField.getText();
@@ -68,6 +85,9 @@ public class LoginSceneController implements SceneControllerInterface {
             confirm();
     }
 
+    /**
+     * Closes the window.
+     */
     @FXML
     private void exit() {
         gui.closeWindow(gui.getStage());
@@ -77,7 +97,7 @@ public class LoginSceneController implements SceneControllerInterface {
     /**
      * Sets the GUI.
      *
-     * @param gui                 a GUI.
+     * @param gui            a GUI.
      */
     @Override
     public void setGUI(GUI gui) {

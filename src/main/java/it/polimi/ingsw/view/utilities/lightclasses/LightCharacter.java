@@ -90,7 +90,7 @@ public class LightCharacter implements Serializable {
      *
      * @return             a boolean whose value is:
      *                     <p>
-     *                     -{@code true} if the character has been already use once;
+     *                     -{@code true} if the character has been already used once;
      *                     </p> <p>
      *                     -{@code false} otherwise.
      *                     </p>

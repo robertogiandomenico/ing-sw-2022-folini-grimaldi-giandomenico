@@ -36,6 +36,11 @@ public class GrannyGrassEffect implements Effect {
         noEntryTiles++;
     }
 
+    /**
+     * Returns the number of No Entry tiles on the card.
+     *
+     * @return                     the number of No Entry tiles.
+     */
     public int getNoEntryTiles() {
         return noEntryTiles;
     }

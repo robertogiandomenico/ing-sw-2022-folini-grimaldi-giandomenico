@@ -67,7 +67,7 @@ public class Server {
             clientHandler.setController(gameController);
             checkLobby(gameController);
         }
-        if(clientHandler.getClientHandlerPhase() != ClientHandlerPhases.WAITING_GAMEMODE && clientHandler.getClientHandlerPhase() != ClientHandlerPhases.WAITING_PLAYERNUMBER) {
+        if(!clientHandler.getController().isGameStarted() && clientHandler.getClientHandlerPhase() != ClientHandlerPhases.WAITING_GAMEMODE && clientHandler.getClientHandlerPhase() != ClientHandlerPhases.WAITING_PLAYERNUMBER) {
             clientHandler.setClientHandlerPhase(ClientHandlerPhases.WAITING_IN_LOBBY);
             clientHandler.sendMsgToClient(new TextMessage("Waiting for the other player(s) to join"));
         }
@@ -120,6 +120,8 @@ public class Server {
             synchronized (lobbyLock){
                 lobbies.remove(controller.get());
             }
+        } else {
+            notAvailableNames.remove(clientHandler.getClientNickname());
         }
     }
 

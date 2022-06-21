@@ -10,6 +10,9 @@ import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 
+/**
+ * This class represents the controller for the connection to the server scene.
+ */
 public class ConnectionSceneController implements SceneControllerInterface {
 
     @FXML
@@ -27,6 +30,11 @@ public class ConnectionSceneController implements SceneControllerInterface {
     boolean validPort;
     private GUI gui;
 
+    /**
+     * Gets IP address and port from user input.
+     *
+     * @throws IOException   IOException.
+     */
     @FXML
     private void connect() {
         ipAddress = ipAddressField.getText();
@@ -40,6 +48,11 @@ public class ConnectionSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Checks the validity of the inserted IP address.
+     *
+     * @param e              an Event.
+     */
     @FXML
     private void ipCheckProperty(KeyEvent e) {
         ipAddress = ipAddressField.getText();
@@ -52,6 +65,11 @@ public class ConnectionSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Checks the validity of the inserted port.
+     *
+     * @param e              an Event.
+     */
     @FXML
     private void portCheckProperty(KeyEvent e) {
         port = portField.getText();
@@ -63,6 +81,9 @@ public class ConnectionSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Closes the window.
+     */
     @FXML
     private void exit() {
         gui.closeWindow(gui.getStage());

@@ -11,19 +11,27 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+/**
+ * This class represents the controller for the start scene.
+ */
 public class StartSceneController implements SceneControllerInterface {
-
     @FXML
     private ImageView audioButton;
     private boolean muted = false;
     private GUI gui;
 
 
+    /**
+     * Displays the first scene (connection scene) when 'PLAY' button is clicked.
+     */
     @FXML
     private void play() {
         gui.askServerInfo();
     }
 
+    /**
+     * Opens the browser to the project repository when 'CREDITS' button is clicked.
+     */
     @FXML
     private void onCreditsClick() {
         try {
@@ -33,6 +41,9 @@ public class StartSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Opens the browser to display the rules of the game when 'RULES' button is clicked.
+     */
     @FXML
     private void onRulesClick() {
         try {
@@ -42,6 +53,9 @@ public class StartSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Opens the browser to the Cranio Creations site when the logo is clicked.
+     */
     @FXML
     private void onLogoClick() {
         try {
@@ -51,6 +65,9 @@ public class StartSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Enables/disables the music according to user choice.
+     */
     @FXML
     private void onAudioClick() {
         if (muted) {
@@ -64,6 +81,9 @@ public class StartSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Closes the window displaying a message.
+     */
     @FXML
     private void exit() {
         Alert alertDialog = new Alert(Alert.AlertType.CONFIRMATION);
@@ -80,7 +100,7 @@ public class StartSceneController implements SceneControllerInterface {
     /**
      * Sets the GUI.
      *
-     * @param gui                 a GUI.
+     * @param gui            a GUI.
      */
     @Override
     public void setGUI(GUI gui) {

@@ -587,7 +587,7 @@ public class Board {
     /**
      * Returns the light version of the given board.
      *
-     * @return  the LightBoard.
+     * @return                      the LightBoard.
      */
     public LightBoard getLightBoard(){
         return new LightBoard(this);

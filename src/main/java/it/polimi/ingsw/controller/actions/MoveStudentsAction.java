@@ -50,6 +50,7 @@ public class MoveStudentsAction implements Action {
     @Override
     public void receiveMessage(GenericClientMessage msg) {
         Board b = turnController.getController().getGame().getBoard();
+        boolean askAgain = false;
         if (!(msg.getType() == MessageType.STUDENT_REPLY || msg.getType() == MessageType.PLACE_REPLY)){
             return;
         }
@@ -64,13 +65,21 @@ public class MoveStudentsAction implements Action {
 
             String place = ((PlaceReply) msg).getPlace();
             if (place.equals("DININGROOM")){
-                b.moveFromEntranceToDiningRoom(studentToBeMoved);
+                if(b.getCurrentPlayerSchoolBoard().getDiningRoom()[studentToBeMoved.getColor().ordinal()] < 10) {
+                    b.moveFromEntranceToDiningRoom(studentToBeMoved);
+                } else {
+                    askAgain = true;
+                }
             } else if (place.equals("ARCHIPELAGO")) {
                 int archiIndex = ((PlaceReply) msg).getArchiIndex();
                 assert archiIndex != -1;
                 b.moveFromEntranceToArchipelago(studentToBeMoved, archiIndex);
             }
-            turnController.nextAction(this);
+            if(!askAgain){
+                turnController.nextAction(this);
+            } else {
+                clientHandler.sendMsgToClient(new PlaceRequest(b.getArchipelagos().size()));
+            }
         }
     }
 }

@@ -22,8 +22,12 @@ public class Archipelago {
      *
      * @param student          the first Student (if there is one) to be put on the
      *                         Island.
-     * @param motherNature     a boolean that indicates whether Mother Nature is on
-     *                         that Island or not.
+     * @param motherNature     a boolean whose value is:
+     *                         <p>
+     *                         -{@code true} if Mother Nature is on that Island;
+     *                         </p> <p>
+     *                         -{@code false} otherwise.
+     *                         </p>
      */
     public Archipelago(Student student, boolean motherNature) {
         islands = new ArrayList<>();
@@ -69,7 +73,7 @@ public class Archipelago {
      *                         <p>
      *                         -{@code true} if Mother Nature is on this Archipelago;
      *                         </p> <p>
-     *                         -{@code false} if Mother Nature isn't on this Archipelago.
+     *                         -{@code false} otherwise.
      *                         </p>
      */
     public void setMotherNature(boolean motherNature){
@@ -84,7 +88,7 @@ public class Archipelago {
      *                         <p>
      *                         -{@code true} if Mother Nature is on this Archipelago;
      *                         </p> <p>
-     *                         -{@code false} if Mother Nature isn't on this Archipelago.
+     *                         -{@code false} otherwise.
      *                         </p>
      */
     public boolean isMNPresent(){
@@ -100,7 +104,7 @@ public class Archipelago {
      *                         <p>
      *                         -{@code true} if a No Entry tile is on this Archipelago;
      *                         </p> <p>
-     *                         -{@code false} if there isn't a No Entry tile on this Archipelago.
+     *                         -{@code false} otherwise.
      *                         </p>
      */
     public void setNoEntryTile(int noEntryTile){
@@ -117,7 +121,7 @@ public class Archipelago {
      *                         <p>
      *                         -{@code true} if a No Entry tile is on this Archipelago;
      *                         </p> <p>
-     *                         -{@code false} if there isn't a No Entry tile on this Archipelago.
+     *                         -{@code false} otherwise.
      *                         </p>
      */
     public boolean isNoEntryTilePresent(){
@@ -160,7 +164,7 @@ public class Archipelago {
      *
      * @param color            the Color of the Students to count.
      * @return                 the actual number of Students, in particular it returns
-     *                         0 if there are no Students of the given Color or
+     *                         {@code 0} if there are no Students of the given Color or
      *                         if the Color is forbidden
      *                         ({@link it.polimi.ingsw.model.effects.MushroomManEffect
      *                         MushroomManEffect}).

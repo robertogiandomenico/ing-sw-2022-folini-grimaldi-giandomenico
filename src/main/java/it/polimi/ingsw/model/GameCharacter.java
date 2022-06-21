@@ -68,7 +68,7 @@ public class GameCharacter {
      *                      <p>
      *                      -{@code true} if it was already used;
      *                      </p> <p>
-     *                      -{@code false} if it wasn't already used.
+     *                      -{@code false} otherwise.
      *                      </p>
      */
     public boolean isAlreadyUsed() {

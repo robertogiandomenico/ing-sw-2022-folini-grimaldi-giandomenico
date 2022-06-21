@@ -13,8 +13,10 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
+/**
+ * This class represents the controller for the choice of the wizard scene.
+ */
 public class WizardSceneController implements SceneControllerInterface {
-
     @FXML
     private VBox articWizard;
     @FXML
@@ -33,11 +35,19 @@ public class WizardSceneController implements SceneControllerInterface {
     private static final PseudoClass focusedElement = PseudoClass.getPseudoClass("focused");
     private GUI gui;
 
+    /**
+     * Initializes the wizards VBoxes.
+     */
     @FXML
     private void initialize() {
         disableAll();
     }
 
+    /**
+     * Puts the focus on a specific wizard card according to the mouse event.
+     *
+     * @param event             a MouseEvent.
+     */
     @FXML
     private void handleOnMouseClicked(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
@@ -86,7 +96,9 @@ public class WizardSceneController implements SceneControllerInterface {
         }
     }
 
-
+    /**
+     * Goes to the next scene sending the user choice to the server.
+     */
     @FXML
     private void go() {
         try {
@@ -101,12 +113,20 @@ public class WizardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Closes the window.
+     */
     @FXML
     private void exit() {
         gui.closeWindow(gui.getStage());
         System.exit(0);
     }
 
+    /**
+     * Sets the available wizards.
+     *
+     * @param availableWizards  a Wizard List of the available ones.
+     */
     public void setAvailableWizards(List<Wizard> availableWizards) {
         this.availableWizards = availableWizards;
 
@@ -130,6 +150,11 @@ public class WizardSceneController implements SceneControllerInterface {
     }
 
 
+    /**
+     * Gets the index of the chosen wizard.
+     *
+     * @return                  the index corresponding to the chosen Wizard.
+     */
     private int getWizardIndex() {
         switch (chosenWizardID.toUpperCase()) {
             case "ARTICWIZARD":
@@ -157,7 +182,7 @@ public class WizardSceneController implements SceneControllerInterface {
     /**
      * Sets the GUI.
      *
-     * @param gui                 a GUI.
+     * @param gui               a GUI.
      */
     @Override
     public void setGUI(GUI gui) {

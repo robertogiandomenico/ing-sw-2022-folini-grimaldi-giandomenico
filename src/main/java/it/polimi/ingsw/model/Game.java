@@ -23,12 +23,12 @@ public class Game {
      * Class constructor specifying if expert mode is selected.
      * Initializes wizards and towers and expert mode features (if required).
      *
-     * @param expertMode    a boolean whose value is:
-     *                      <p>
-     *                      -{@code true} if expert mode is selected;
-     *                      </p> <p>
-     *                      -{@code false} if expert mode isn't selected.
-     *                      </p>
+     * @param expertMode      a boolean whose value is:
+     *                        <p>
+     *                        -{@code true} if expert mode is selected;
+     *                        </p> <p>
+     *                        -{@code false} otherwise.
+     *                        </p>
      */
     public Game(boolean expertMode) {
         this.expertMode = expertMode;
@@ -45,7 +45,7 @@ public class Game {
     /**
      * Adds a new player to the game.
      *
-     * @param newPlayer     the Player to be added.
+     * @param newPlayer       the Player to be added.
      */
     public void addNewPlayer(Player newPlayer) {
         players.add(newPlayer);
@@ -57,8 +57,8 @@ public class Game {
     /**
      * Returns the player corresponding to the given nickname.
      *
-     * @param nickname      the nickname of the Player.
-     * @return              the Player corresponding to the nickname.
+     * @param nickname        the nickname of the Player.
+     * @return                the Player corresponding to the nickname.
      */
     public Player getPlayerByNickname(String nickname) {
         for (Player p : players) {
@@ -72,7 +72,7 @@ public class Game {
     /**
      * Sets the given player as current.
      *
-     * @param currentPlayer the Player to be set as current.
+     * @param currentPlayer   the Player to be set as current.
      */
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
@@ -84,7 +84,7 @@ public class Game {
     /**
      * Returns the current player.
      *
-     * @return              the current Player.
+     * @return                the current Player.
      */
     public Player getCurrentPlayer() {
         return currentPlayer;
@@ -186,7 +186,7 @@ public class Game {
     /**
      * Returns game board.
      *
-     * @return              the Board of this Game.
+     * @return                the Board of this Game.
      */
     public Board getBoard() {
         return board;
@@ -195,7 +195,7 @@ public class Game {
     /**
      * Returns the players of this game.
      *
-     * @return              the Player List of this Game.
+     * @return                the Player List of this Game.
      */
     public List<Player> getPlayers() {
         return players;
@@ -204,7 +204,7 @@ public class Game {
     /**
      * Returns the available wizards.
      *
-     * @return              the Wizard List of available ones.
+     * @return                the Wizard List of available ones.
      */
     public List<Wizard> getAvailableWizards() {
         return availableWizards;
@@ -213,7 +213,7 @@ public class Game {
     /**
      * Returns the available characters.
      *
-     * @return              the GameCharacter List of available ones.
+     * @return                the GameCharacter List of available ones.
      */
     public List<GameCharacter> getAvailableCharacters() {
         return availableCharacters;
@@ -222,7 +222,7 @@ public class Game {
     /**
      * Returns the available tower colors.
      *
-     * @return              the TowerColor List of available ones.
+     * @return                the TowerColor List of available ones.
      */
     public List<TowerColor> getAvailableTowers() {
         return availableTowers;
@@ -231,7 +231,7 @@ public class Game {
     /**
      * Returns the number of players.
      *
-     * @return              the number of Players.
+     * @return                the number of Players.
      */
     public int getNumberOfPlayers() {
         return numberOfPlayers;
@@ -240,7 +240,7 @@ public class Game {
     /**
      * Returns the players ordered according to the turns.
      *
-     * @return              a Player List of the playing order.
+     * @return                a Player List of the playing order.
      */
     public List<Player> getPlayerOrder() {
         return playerOrder;
@@ -249,17 +249,22 @@ public class Game {
     /**
      * States whether the expert mode is chosen or not for this game.
      *
-     * @return              a boolean whose value is:
-     *                      <p>
-     *                      -{@code true} if expert mode is selected;
-     *                      </p> <p>
-     *                      -{@code false} if expert mode isn't selected.
-     *                      </p>
+     * @return                a boolean whose value is:
+     *                        <p>
+     *                        -{@code true} if expert mode is selected;
+     *                        </p> <p>
+     *                        -{@code false} otherwise.
+     *                        </p>
      */
     public boolean isExpertMode() {
         return expertMode;
     }
 
+    /**
+     * Sets the number of players for this game.
+     *
+     * @param numberOfPlayers the selected number of Players.
+     */
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
     }
