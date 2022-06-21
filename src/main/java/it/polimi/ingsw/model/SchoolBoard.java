@@ -299,7 +299,7 @@ public class SchoolBoard {
                         // case opponent not found, I ipso facto take the professor
                         professorTable[index] = true;
                     } else if((diningRoom[index] > enemyBoard.getDiningRoom()[index]) ||
-                              (diningRoom[index] == enemyBoard.getDiningRoom()[index])) {
+                              (diningRoom[index] == enemyBoard.getDiningRoom()[index] && farmerEffect)) {
                         // case opponent found and I have more students OR I have equal students with farmerEffect active
                         professorTable[index] = true;
                         enemyBoard.setProfessor(index, false);
