@@ -108,7 +108,7 @@ public class TurnController {
             }
         }
 
-        if(!availableActions.isEmpty()) {
+        if(!availableActions.isEmpty() && !(availableActions.size() == 1 && availableActions.get(0) == ActionType.NEXT_PHASE_ACTION)) {
             if (availableActions.size() == 1 && availableActions.get(0) == ActionType.BUY_CHARACTER_ACTION){
                 availableActions.add(ActionType.NEXT_PHASE_ACTION);
             }
