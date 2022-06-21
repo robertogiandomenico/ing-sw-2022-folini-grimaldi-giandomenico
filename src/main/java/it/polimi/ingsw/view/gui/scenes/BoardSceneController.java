@@ -704,7 +704,7 @@ public class BoardSceneController implements SceneControllerInterface {
                     availableColors = DataChores.getColorsByDR(board.getCurrentPlayerSchoolBoard().getDiningRoom());
 
                     for (int i = 0; i < studentNumber; i++) {
-                        gui.askColor(availableColors, "Select the student you would like to take from the dining room." + (studentNumber-i) + " student(s) left.");
+                        gui.askColor(availableColors, "Select the student you would like to take from the dining room. " + (studentNumber-i) + " student(s) left.");
                         studColors[i] = gui.getStudColor();
                         DataChores.checkColorNumberDR(board.getCurrentPlayerSchoolBoard().getDiningRoom(), studColors, i, availableColors);
                     }
@@ -797,7 +797,6 @@ public class BoardSceneController implements SceneControllerInterface {
             gui.askColor(availableColors, "Select now the student(s) you would like to swap from your entrance. " + (studentNumber-i) + " student(s) left.");
             studColors[studentNumber+i] = gui.getStudColor();
             DataChores.checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, i, availableColors);
-            System.out.print("\n");
         }
     }
 

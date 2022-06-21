@@ -99,7 +99,7 @@ public class AskColorSceneController implements SceneControllerInterface {
                     default:
                         break;
                 }
-            } catch (Exception ignored) {}
+            } catch (NullPointerException ignored) {}
         }
 
     }

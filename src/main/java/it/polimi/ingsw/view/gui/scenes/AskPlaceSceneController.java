@@ -50,7 +50,7 @@ public class AskPlaceSceneController implements SceneControllerInterface {
                 else if (chosenPlaceID.equals("diningRoomBox"))
                     archipelagoBox.pseudoClassStateChanged(focusedElement, false);
 
-            } catch (Exception ignored) {}
+            } catch (NullPointerException ignored) {}
         }
     }
 

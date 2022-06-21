@@ -82,7 +82,7 @@ public class WizardSceneController implements SceneControllerInterface {
                     default:
                         break;
                 }
-            } catch (Exception ignored) {}
+            } catch (NullPointerException ignored) {}
         }
     }
 
