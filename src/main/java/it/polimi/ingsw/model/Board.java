@@ -273,6 +273,9 @@ public class Board {
         List<Island> islands2 = archipelagos.get(archi2).getIslands();
 
         islands1.addAll(islands2);
+        if (archipelagos.get(archi2).isNoEntryTilePresent()) {
+            archipelagos.get(archi1).setNoEntryTile(archipelagos.get(archi1).getNoEntryTile() + archipelagos.get(archi2).getNoEntryTile());
+        }
 
         islands2.clear();
         archipelagos.remove(archi2);
