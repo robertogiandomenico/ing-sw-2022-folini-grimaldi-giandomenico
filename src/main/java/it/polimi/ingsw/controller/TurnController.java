@@ -6,14 +6,12 @@ import it.polimi.ingsw.controller.phases.turnPhases.SelectCloudPhase;
 import it.polimi.ingsw.controller.phases.turnPhases.TurnPhase;
 import it.polimi.ingsw.model.GameCharacter;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.effects.GrannyGrassEffect;
 import it.polimi.ingsw.network.messages.serverMessages.ActionRequest;
 import it.polimi.ingsw.network.messages.serverMessages.BoardData;
 import it.polimi.ingsw.network.server.ClientHandler;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TurnController {
     private final Player currentPlayer;
@@ -44,10 +42,24 @@ public class TurnController {
     }
 
     private boolean canBuyCharacter() {
-        for (GameCharacter c : controller.getGame().getBoard().getSelectedCharacters()){
-            if (currentPlayer.getCoins() >= c.getCost()) return true;
+        List<Integer> buyableCharacters = new ArrayList<>();
+        GameCharacter[] selectedCharacters = controller.getGame().getBoard().getSelectedCharacters();
+
+        for(int i=0; i < selectedCharacters.length; i++){
+            if(currentPlayer.getCoins() >= selectedCharacters[i].getCost()) buyableCharacters.add(i);
         }
-        return false;
+
+        return  buyableCharacters.size() != 0
+                && ((buyableCharacters.size() != 1 || !selectedCharacters[buyableCharacters.get(0)].getName().equals("Minstrel") || canBuyMinstrel())
+                || (buyableCharacters.size() != 1 || !selectedCharacters[buyableCharacters.get(0)].getName().equals("GrannyGrass") || canBuyGrannyGrass(selectedCharacters[buyableCharacters.get(0)])));
+    }
+
+    private boolean canBuyGrannyGrass(GameCharacter selectedCharacter) {
+        return ((GrannyGrassEffect) selectedCharacter.getEffect()).getNoEntryTiles() > 0;
+    }
+
+    private boolean canBuyMinstrel() {
+        return !Arrays.stream(controller.getGame().getBoard().getCurrentPlayerSchoolBoard().getDiningRoom()).allMatch(t -> t == 0);
     }
 
     private void fillPossibleActions() {
