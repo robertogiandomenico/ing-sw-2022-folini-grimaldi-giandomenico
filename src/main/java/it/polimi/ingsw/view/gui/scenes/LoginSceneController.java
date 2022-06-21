@@ -60,7 +60,7 @@ public class LoginSceneController implements SceneControllerInterface {
     /**
      * Checks the validity of the inserted nickname.
      *
-     * @param e              an Event.
+     * @param e              the pressed key.
      */
     @FXML
     private void nicknameCheckProperty(KeyEvent e) {
@@ -74,7 +74,7 @@ public class LoginSceneController implements SceneControllerInterface {
     /**
      * Checks the validity of the inserted game name.
      *
-     * @param e              an Event.
+     * @param e              the pressed key.
      */
     @FXML
     private void gameNameCheckProperty(KeyEvent e) {

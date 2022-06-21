@@ -36,7 +36,7 @@ public class SceneController implements SceneControllerInterface {
      * @param stage             a Stage.
      * @param fxmlFile          the name of the fxml corresponding to the new scene.
      * @param sci               the SceneControllerInterface corresponding to the new scene.
-     * @throws IOException      IOException.
+     * @throws IOException      if it is impossible to load the FXML file.
      */
     public static void switchScene(Stage stage, String fxmlFile, SceneControllerInterface sci) throws IOException {
         loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxmlFile + ".fxml"));

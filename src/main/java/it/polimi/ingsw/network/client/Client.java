@@ -31,6 +31,13 @@ public class Client {
     private final Thread messageHandler;
     private String nickname;
 
+    /**
+     * Class constructor.
+     *
+     * @param ip        the IP address.
+     * @param port      the port.
+     * @param view      a ViewInterface.
+     */
     public Client(String ip, int port, ViewInterface view) {
         this.ip = ip;
         this.port = port;
@@ -125,10 +132,20 @@ public class Client {
         if(error) view.displayErrorAndExit("An error occurred during the communication with the server, you're being disconnected! See ya!");
     }
 
+    /**
+     * Sets the nickname.
+     *
+     * @param nickname      the chosen nickname.
+     */
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
 
+    /**
+     * Returns the nickname.
+     *
+     * @return              this Client's nickname.
+     */
     public String getNickname() {
         return nickname;
     }
