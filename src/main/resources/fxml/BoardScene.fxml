@@ -665,7 +665,7 @@
                               <Image url="@../img/wizards/f_icon.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="88.0" fitWidth="51.0" layoutX="600.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="210.2" AnchorPane.leftAnchor="600.0">
+                        <ImageView fitHeight="88.0" fitWidth="51.0" layoutX="600.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="600.0">
                            <image>
                               <Image url="@../img/blank.png" />
                            </image>
@@ -1535,19 +1535,19 @@
       </TabPane>
       <GridPane fx:id="archipelagosBox" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowSpan="2" GridPane.valignment="TOP">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.20001220703125" minWidth="10.0" prefWidth="151.60000610351562" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.39999389648438" minWidth="10.0" prefWidth="188.39999389648438" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.20001220703125" minWidth="10.0" prefWidth="145.60000610351562" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.9999938964844" minWidth="10.0" prefWidth="188.59997558593747" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.99998779296868" minWidth="10.0" prefWidth="171.60004272460935" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.5999572753907" minWidth="10.0" prefWidth="174.4000244140625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.99997558593748" minWidth="10.0" prefWidth="163.99997558593748" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="172.20003662109377" minWidth="10.0" prefWidth="153.80007324218752" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <GridPane.margin>
-            <Insets bottom="5.0" left="10.0" right="50.0" top="5.0" />
+            <Insets bottom="5.0" left="10.0" right="40.0" top="5.0" />
          </GridPane.margin>
          <children>
             <AnchorPane onMouseClicked="#chooseArchipelago" styleClass="island" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -1622,6 +1622,11 @@
                         <Image url="@../img/tiles/noEntryTile.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="143.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="1" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="140.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1" textAlignment="CENTER">
                      <font>
                         <Font size="15.0" />
@@ -1704,6 +1709,11 @@
                         <Image url="@../img/tiles/noEntryTile.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="143.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="1" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="140.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1" textAlignment="CENTER">
                      <font>
                         <Font size="15.0" />
@@ -1786,6 +1796,11 @@
                         <Image url="@../img/tiles/noEntryTile.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="143.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="1" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="140.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1" textAlignment="CENTER">
                      <font>
                         <Font size="15.0" />
@@ -1868,6 +1883,11 @@
                         <Image url="@../img/tiles/noEntryTile.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="143.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="1" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="140.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1" textAlignment="CENTER">
                      <font>
                         <Font size="15.0" />
@@ -1950,6 +1970,11 @@
                         <Image url="@../img/tiles/noEntryTile.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="143.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="1" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="140.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1" textAlignment="CENTER">
                      <font>
                         <Font size="15.0" />
@@ -2032,6 +2057,11 @@
                         <Image url="@../img/tiles/noEntryTile.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="143.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="1" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="140.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1" textAlignment="CENTER">
                      <font>
                         <Font size="15.0" />
@@ -2114,6 +2144,11 @@
                         <Image url="@../img/tiles/noEntryTile.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="143.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="1" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="140.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1" textAlignment="CENTER">
                      <font>
                         <Font size="15.0" />
@@ -2196,6 +2231,11 @@
                         <Image url="@../img/tiles/noEntryTile.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="143.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="1" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="140.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1" textAlignment="CENTER">
                      <font>
                         <Font size="15.0" />
@@ -2278,6 +2318,11 @@
                         <Image url="@../img/tiles/noEntryTile.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="143.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="1" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="140.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1" textAlignment="CENTER">
                      <font>
                         <Font size="15.0" />
@@ -2360,6 +2405,11 @@
                         <Image url="@../img/tiles/noEntryTile.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="143.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="1" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="140.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1" textAlignment="CENTER">
                      <font>
                         <Font size="15.0" />
@@ -2442,6 +2492,11 @@
                         <Image url="@../img/tiles/noEntryTile.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="143.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="1" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="140.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1" textAlignment="CENTER">
                      <font>
                         <Font size="15.0" />
@@ -2524,6 +2579,11 @@
                         <Image url="@../img/tiles/noEntryTile.png" />
                      </image>
                   </ImageView>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="144.0" layoutY="143.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="1" textAlignment="CENTER" textFill="RED">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="140.0" prefHeight="22.0" prefWidth="25.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1" textAlignment="CENTER">
                      <font>
                         <Font size="15.0" />

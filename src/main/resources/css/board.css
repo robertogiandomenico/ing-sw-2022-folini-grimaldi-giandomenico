@@ -4,7 +4,7 @@
 }
 
 .island {
-    -fx-effect: dropshadow(gaussian, #addaf1, 10, 0.5, 0.0, 0.0);
+    -fx-effect: dropshadow(gaussian, #48b1ee, 10, 0.5, 0.0, 0.0);
     -fx-scale-x: 1.01;
     -fx-scale-y: 1.01;
 }
@@ -30,7 +30,7 @@
 }
 
 .cloud {
-    -fx-effect: dropshadow(gaussian, #4db1ea, 10, 0.5, 0.0, 0.0);
+    -fx-effect: dropshadow(gaussian, #48b1ee, 10, 0.5, 0.0, 0.0);
     -fx-scale-x: 1.06;
     -fx-scale-y: 1.06;
 }

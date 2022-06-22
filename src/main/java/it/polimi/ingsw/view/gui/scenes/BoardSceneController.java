@@ -253,10 +253,22 @@ public class BoardSceneController implements SceneControllerInterface {
             //set mother nature
             ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(2).setVisible(archipelagos.get(i).isMNPresent());
 
-            //set no entry tile
-            ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(8).setVisible(archipelagos.get(i).isNoEntryTilePresent());
+            //set no entry tiles
+            if (archipelagos.get(i).getNoEntryTiles() >= 1) {
+                ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(8).setVisible(true);
 
-            //set students number and visibility
+                if (archipelagos.get(i).getNoEntryTiles() == 1) {
+                    ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(9).setDisable(true);
+                    ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(9).setVisible(false);
+                } else if (archipelagos.get(i).getNoEntryTiles() > 1) {
+                    ((Label) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(9)).setText(Integer.toString(archipelagos.get(i).getNoEntryTiles()));
+                }
+            } else {
+                ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(8).setVisible(false);
+                ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(9).setVisible(false);
+            }
+
+            //set students number and their visibility
             for (int j = 0; j < 5; j++) {
                 ((Label)((AnchorPane)((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(j+3)).getChildren().get(1)).setText(Integer.toString(MatrixOperations.columnSum(archipelagos.get(i).getIslands(), j)));
 
@@ -266,8 +278,13 @@ public class BoardSceneController implements SceneControllerInterface {
                     ((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(j+3).setVisible(true);
             }
 
-            //set the archipelago size
-            ((Label)((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(9)).setText("x" + archipelagos.get(i).getSize());
+            //set the archipelago size if it's > 1
+            if (archipelagos.get(i).getSize() > 1)
+                ((Label)((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(10)).setText("x" + archipelagos.get(i).getSize());
+            else {
+                ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(10).setDisable(true);
+                ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(10).setVisible(false);
+            }
 
         }
 
@@ -442,6 +459,10 @@ public class BoardSceneController implements SceneControllerInterface {
         for (int i = 0; i < 3; i++) {
             if (board.getCurrentPlayerSchoolBoard().getPlayer().getCoins() < board.getSelectedCharacters()[i].getCost())
                 charactersBox.getChildren().get(i).setDisable(true);
+
+            if (board.getSelectedCharacters()[i].getName().equals("GrannyGrass"))
+                if (board.getSelectedCharacters()[i].getNoEntryTiles() == 0)
+                    charactersBox.getChildren().get(i).setDisable(true);
         }
     }
 
@@ -615,7 +636,7 @@ public class BoardSceneController implements SceneControllerInterface {
                 gui.warningDialog("Cannot choose this character card since you do not have enough coins. Try again.");
                 return;
             } else if (characterName.equalsIgnoreCase("minstrel") && Arrays.stream(board.getCurrentPlayerSchoolBoard().getDiningRoom()).allMatch(t -> t == 0)) {
-                gui.warningDialog("Cannot choose this character card since you do not have any students in your dining room. Try again.");
+                gui.warningDialog("Cannot choose Minstrel card since you do not have any students in your dining room. Try again.");
                 return;
             }
 
