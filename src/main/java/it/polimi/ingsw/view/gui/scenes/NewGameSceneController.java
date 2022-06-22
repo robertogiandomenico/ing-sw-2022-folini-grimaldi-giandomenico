@@ -115,6 +115,7 @@ public class NewGameSceneController implements SceneControllerInterface {
     private void enableNPlayers() {
         n2Players.setDisable(false);
         n3Players.setDisable(false);
+        n2Players.requestFocus();
     }
 
     private void disableNPlayers() {

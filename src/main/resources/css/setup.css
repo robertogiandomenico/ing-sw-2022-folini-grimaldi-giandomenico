@@ -98,8 +98,8 @@
 
 .wizardPane:pressed {
     -fx-opacity: 0.8;
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+    -fx-scale-x: 1.14;
+    -fx-scale-y: 1.14;
 }
 
 .creditsText {

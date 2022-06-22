@@ -547,6 +547,24 @@ public class GUI extends Application implements ViewInterface {
         infoDialog.showAndWait();
     }
 
+    public void charInfoDialog(String charInfo) {
+        Platform.runLater(() -> {
+            infoDialog(charInfo);
+
+            synchronized (lock) {
+                lock.notify();
+            }
+        });
+
+        synchronized (lock) {
+            try {
+                lock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     /**
      * Closes the window notifying the user.
      *

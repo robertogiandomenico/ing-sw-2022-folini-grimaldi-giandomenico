@@ -9,11 +9,10 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightArchi;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 import it.polimi.ingsw.view.utilities.lightclasses.LightSchoolBoard;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -28,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * This class represents the controller for the main game scene involving
@@ -619,123 +619,147 @@ public class BoardSceneController implements SceneControllerInterface {
                 return;
             }
 
-            selectedCharacter = board.getSelectedCharacters()[getCharIndexByName(characterName)];
-            List<Color> availableColors;
+            String finalCharacterName = characterName;
+            Task<Void> task = new Task<>() {
+                @Override public Void call() {
 
-            //switch case of all characters to ask the proper values
-            //characters that need an archiIndex do not send the message here, but chooseArchipelago() does it for them
-            switch (selectedCharacter.getName()) {
-                case "Monk":
-                    gui.infoDialog("Monk effect activated!");
-                    studentNumber = 1;
-                    studColors = new Color[studentNumber*2];
-                    gui.askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()), "Select the student you would like to take from the character card");
-                    studColors[studentNumber-1] = gui.getStudColor();
+                    selectedCharacter = board.getSelectedCharacters()[getCharIndexByName(finalCharacterName)];
+                    List<Color> availableColors;
 
-                    gui.infoDialog("Select the island where you would like to move the student on");
-                    gui.enableArchiBox();
-                    break;
+                    //switch case of all characters to ask the proper values
+                    //characters that need an archiIndex do not send the message here, but chooseArchipelago() does it for them
+                    switch (selectedCharacter.getName()) {
+                        case "Monk":
+                            gui.charInfoDialog("Monk effect activated!");
+                            studentNumber = 1;
+                            studColors = new Color[studentNumber*2];
+                            gui.askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()), "Select the student you would like to take from the character card");
+                            studColors[studentNumber-1] = gui.getStudColor();
 
-                case "Farmer":
-                    gui.infoDialog("Farmer effect activated! You take control of any professor if there's a tie between players' students in the dining rooms.");
-                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
-                    break;
+                            gui.charInfoDialog("Select the island where you would like to move the student on");
+                            gui.enableArchiBox();
+                            break;
 
-                case "Herald":
-                    gui.infoDialog("Herald effect activated! Select the island you would like to be resolved");
-                    gui.enableArchiBox();
-                    break;
+                        case "Farmer":
+                            gui.charInfoDialog("Farmer effect activated! You take control of any professor if there's a tie between players' students in the dining rooms.");
+                            gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
+                            break;
 
-                case "MagicMailman":
-                    gui.infoDialog("Magic Mailman effect activated! You may now move mother nature up to 2 additional islands");
-                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
-                    break;
+                        case "Herald":
+                            gui.charInfoDialog("Herald effect activated! Select the island you would like to be resolved");
+                            gui.enableArchiBox();
+                            break;
 
-                case "GrannyGrass":
-                    gui.infoDialog("Granny Grass effect activated! Select the island where you would like to put the No Entry Tile on");
-                    gui.enableArchiBox();
-                    break;
+                        case "MagicMailman":
+                            gui.charInfoDialog("Magic Mailman effect activated! You may now move mother nature up to 2 additional islands");
+                            gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
+                            break;
 
-                case "Centaur":
-                    gui.infoDialog("Centaur effect activated! Select the island to cancel its towers influence");
-                    gui.enableArchiBox();
-                    break;
+                        case "GrannyGrass":
+                            gui.charInfoDialog("Granny Grass effect activated! Select the island where you would like to put the No Entry Tile on");
+                            gui.enableArchiBox();
+                            break;
 
-                case "Jester":
-                    gui.infoDialog("Jester effect activated!");
-                    studentNumber = studNumberDialog(3, "Select the number of students you would like to swap from the character card [up to 3]");
-                    studColors = new Color[studentNumber*2];
-                    availableColors = DataChores.getColorsByStudents(selectedCharacter.getStudents());
+                        case "Centaur":
+                            gui.charInfoDialog("Centaur effect activated! Select the island to cancel its towers influence");
+                            gui.enableArchiBox();
+                            break;
 
-                    for (int i = 0; i < studentNumber; i++) {
-                        gui.askColor(availableColors, "Select the student you would like to take from the character card. " + (studentNumber-i) + " student(s) left");
-                        studColors[i] = gui.getStudColor();
-                        DataChores.checkColorNumber(selectedCharacter.getStudents(), studColors, i, availableColors);
+                        case "Jester":
+                            gui.charInfoDialog("Jester effect activated!");
+                            studentNumber = studNumberDialog(3, "Select the number of students you would like to swap from the character card [up to 3]");
+                            studColors = new Color[studentNumber*2];
+                            availableColors = DataChores.getColorsByStudents(selectedCharacter.getStudents());
+
+                            for (int i = 0; i < studentNumber; i++) {
+                                gui.askColor(availableColors, "Select the student you would like to take from the character card. " + (studentNumber-i) + " student(s) left");
+                                studColors[i] = gui.getStudColor();
+                                DataChores.checkColorNumber(selectedCharacter.getStudents(), studColors, i, availableColors);
+                            }
+                            availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
+                            askEntranceStudents(board, studentNumber, studColors, availableColors);
+                            gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
+
+                            break;
+
+                        case "Knight":
+                            gui.charInfoDialog("Knight effect activated! You now have 2 more points of influence on islands during this turn.");
+                            gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
+                            break;
+
+                        case "MushroomMan":
+                            gui.charInfoDialog("Mushroom Man effect activated!");
+                            studentNumber = 1;
+                            studColors = new Color[studentNumber*2];
+                            gui.askColor(new ArrayList<>(Arrays.asList(Color.values())), "Select a color. During this turn, this color adds no influence.");
+                            studColors[studentNumber-1] = gui.getStudColor();
+                            gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
+                            break;
+
+                        case "Minstrel":
+                            gui.charInfoDialog("Minstrel effect activated!");
+
+                            studentNumber = studNumberDialog(2, "Select the number of students you would like to swap from the dining room [up to 2]");
+
+                            while (studentNumber > Arrays.stream(board.getCurrentPlayerSchoolBoard().getDiningRoom()).sum()) {
+                                Platform.runLater(() -> {
+                                    gui.warningDialog("Invalid student number. In the dining room there is only 1 student. Try again and select '1'");
+                                    synchronized (gui.getLock()) {
+                                        gui.getLock().notify();
+                                    }
+                                });
+                                synchronized (gui.getLock()) {
+                                    try {
+                                        gui.getLock().wait();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                studentNumber = studNumberDialog(2, "Select the number of students you would like to swap from the dining room [up to 2]");
+                            }
+                            studColors = new Color[studentNumber*2];
+                            availableColors = DataChores.getColorsByDR(board.getCurrentPlayerSchoolBoard().getDiningRoom());
+
+                            for (int i = 0; i < studentNumber; i++) {
+                                gui.askColor(availableColors, "Select the student you would like to take from the dining room. " + (studentNumber-i) + " student(s) left.");
+                                studColors[i] = gui.getStudColor();
+                                DataChores.checkColorNumberDR(board.getCurrentPlayerSchoolBoard().getDiningRoom(), studColors, i, availableColors);
+                            }
+
+                            availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
+                            askEntranceStudents(board, studentNumber, studColors, availableColors);
+                            gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
+
+                            break;
+
+                        case "SpoiledPrincess":
+                            gui.charInfoDialog("Spoiled Princess effect activated!");
+                            studentNumber = 1;
+                            studColors = new Color[studentNumber*2];
+                            gui.askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()), "Select the student you would like to take from the character card and place in your dining room");
+                            studColors[studentNumber-1] = gui.getStudColor();
+                            gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
+                            break;
+
+                        case "Thief":
+                            gui.charInfoDialog("Thief effect activated!");
+                            studentNumber = 1;
+                            studColors = new Color[studentNumber*2];
+                            gui.askColor(new ArrayList<>(Arrays.asList(Color.values())), "Select a color. Every player, including yourself, will return 3 students of that color from the dining room to the bag.");
+                            studColors[studentNumber-1] = gui.getStudColor();
+                            gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
+                            break;
+
+                        default:
+                            break;
                     }
-                    availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
-                    askEntranceStudents(board, studentNumber, studColors, availableColors);
-                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
 
-                    break;
+                    return null;
+                }
+            };
 
-                case "Knight":
-                    gui.infoDialog("Knight effect activated! You now have 2 more points of influence on islands during this turn.");
-                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
-                    break;
-
-                case "MushroomMan":
-                    gui.infoDialog("Mushroom Man effect activated!");
-                    studentNumber = 1;
-                    studColors = new Color[studentNumber*2];
-                    gui.askColor(new ArrayList<>(Arrays.asList(Color.values())), "Select a color. During this turn, this color adds no influence.");
-                    studColors[studentNumber-1] = gui.getStudColor();
-                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
-                    break;
-
-                case "Minstrel":
-                    gui.infoDialog("Minstrel effect activated!");
-
-                    studentNumber = studNumberDialog(2, "Select the number of students you would like to swap from the dining room [up to 2]");
-                    while (studentNumber > Arrays.stream(board.getCurrentPlayerSchoolBoard().getDiningRoom()).sum()) {
-                        gui.warningDialog("Invalid student number. Select a valid number of students. Try again");
-                        studentNumber = studNumberDialog(2, "Select the number of students you would like to swap from the dining room [up to 2]");
-                    }
-                    studColors = new Color[studentNumber*2];
-                    availableColors = DataChores.getColorsByDR(board.getCurrentPlayerSchoolBoard().getDiningRoom());
-
-                    for (int i = 0; i < studentNumber; i++) {
-                        gui.askColor(availableColors, "Select the student you would like to take from the dining room. " + (studentNumber-i) + " student(s) left.");
-                        studColors[i] = gui.getStudColor();
-                        DataChores.checkColorNumberDR(board.getCurrentPlayerSchoolBoard().getDiningRoom(), studColors, i, availableColors);
-                    }
-
-                    availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
-                    askEntranceStudents(board, studentNumber, studColors, availableColors);
-                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
-
-                    break;
-
-                case "SpoiledPrincess":
-                    gui.infoDialog("Spoiled Princess effect activated!");
-                    studentNumber = 1;
-                    studColors = new Color[studentNumber*2];
-                    gui.askColor(DataChores.getColorsByStudents(selectedCharacter.getStudents()), "Select the student you would like to take from the character card and place in your dining room");
-                    studColors[studentNumber-1] = gui.getStudColor();
-                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
-                    break;
-
-                case "Thief":
-                    gui.infoDialog("Thief effect activated!");
-                    studentNumber = 1;
-                    studColors = new Color[studentNumber*2];
-                    gui.askColor(new ArrayList<>(Arrays.asList(Color.values())), "Select a color. Every player, including yourself, will return 3 students of that color from the dining room to the bag.");
-                    studColors[studentNumber-1] = gui.getStudColor();
-                    gui.getClient().sendMsgToServer(new CharacterReply(selectedCharacter, archiIndex, studentNumber, studColors));
-                    break;
-
-                default:
-                    break;
-            }
+            new Thread(task).start();
             charactersBox.setDisable(true);
         }
     }
@@ -749,36 +773,56 @@ public class BoardSceneController implements SceneControllerInterface {
     }
 
     private int studNumberDialog(int maxStudNumber, String text) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Student number selection");
-        alert.setHeaderText("Press the right button");
-        alert.setContentText(text);
-        ((Stage)alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
-        alert.getDialogPane().getScene().getWindow().setOnCloseRequest(event -> {
-            gui.warningDialog("You have to choose the number first in order to close this panel");
-            event.consume();
+        AtomicInteger selectedStudNumber = new AtomicInteger();
+
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Student number selection");
+            alert.setHeaderText("Press the right button");
+            alert.setContentText(text);
+            ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
+            alert.getDialogPane().getScene().getWindow().setOnCloseRequest(event -> {
+                gui.warningDialog("You have to choose the number first in order to close this panel");
+                event.consume();
+            });
+
+            ButtonType button1 = new ButtonType("1");
+            ButtonType button2 = new ButtonType("2");
+            ButtonType button3 = new ButtonType("3");
+
+            if (maxStudNumber == 2) {
+                alert.getButtonTypes().setAll(button1, button2);
+            } else
+                alert.getButtonTypes().setAll(button1, button2, button3);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == button1) {
+                selectedStudNumber.set(1);
+            } else if (result.get() == button2) {
+                selectedStudNumber.set(2);
+            } else if (result.get() == button3) {
+                selectedStudNumber.set(3);
+            } else {
+                gui.warningDialog("An error occurred.");
+                selectedStudNumber.set(-1);
+            }
+
+            synchronized (gui.getLock()) {
+                gui.getLock().notify();
+            }
+
         });
 
-        ButtonType button1 = new ButtonType("1");
-        ButtonType button2 = new ButtonType("2");
-        ButtonType button3 = new ButtonType("3");
-
-        if (maxStudNumber == 2) {
-            alert.getButtonTypes().setAll(button1, button2);
-        } else
-            alert.getButtonTypes().setAll(button1, button2, button3);
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == button1){
-            return 1;
-        } else if (result.get() == button2) {
-            return 2;
-        } else if (result.get() == button3) {
-            return 3;
-        } else {
-            gui.warningDialog("An error occurred.");
-            return -1;
+        synchronized (gui.getLock()) {
+            try {
+                gui.getLock().wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
+        return selectedStudNumber.get();
     }
 
     /**
