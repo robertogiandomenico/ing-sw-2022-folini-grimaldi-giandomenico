@@ -109,7 +109,7 @@ public class WizardSceneController implements SceneControllerInterface {
                 disableAll();
             }
         } catch (Exception e) {
-            gui.errorDialog("No wizard is selected. Try again.");
+            gui.errorDialog("No wizard is selected. Try again.", false);
         }
     }
 
