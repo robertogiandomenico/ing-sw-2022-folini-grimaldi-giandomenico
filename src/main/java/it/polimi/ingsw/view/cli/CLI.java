@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * This class is an implementation of the {@link ViewInterface}, used to give
@@ -242,7 +243,7 @@ public class CLI implements ViewInterface {
 
         CliColor color;
         for (int i = 0; i < availableAssistants.size(); i++) {
-            color = discardedAssistants.contains(availableAssistants.get(i)) ? CliColor.RED : CliColor.RESET;
+            color = (discardedAssistants.contains(availableAssistants.get(i)) && availableAssistants.size() > 1) ? CliColor.RED : CliColor.RESET;
             System.out.print(color + "[" + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() + "] \t");
 
             if (i==4) System.out.print("\n\n");
@@ -267,10 +268,19 @@ public class CLI implements ViewInterface {
      */
     @Override
     public void askAction(List<ActionType> possibleActions) {
+        List<String> possibleActionsNames = new ArrayList<>();
+        String action;
         System.out.print("\n");
 
-        for (int i = 0; i < possibleActions.size(); i++) {
-            System.out.println("[" + i + " | " + possibleActions.get(i).getAction().replace("_", " ").replace("ACTION", ""));
+        for (ActionType possibleAction : possibleActions) {
+            action = possibleAction.getAction().replace("_", " ").replace("ACTION", "");
+
+            if (!possibleActionsNames.contains(action))
+                possibleActionsNames.add(action);
+        }
+
+        for (int i = 0; i < possibleActionsNames.size(); i++) {
+            System.out.println("[" + i + " | " + possibleActionsNames.get(i));
         }
         System.out.print("Enter the index of your next " + CliColor.BOLDCYAN + "action" + CliColor.RESET + ": ");
 

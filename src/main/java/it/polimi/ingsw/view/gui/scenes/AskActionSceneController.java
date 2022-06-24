@@ -32,7 +32,7 @@ public class AskActionSceneController implements SceneControllerInterface {
     private void initialize() {
         confirmButton.setDisable(true);
         actionList.setStyle("-fx-font-family: \"Roboto\"");
-        actionList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        actionList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 selectedAction = actionList.getSelectionModel().getSelectedItem();
@@ -58,10 +58,10 @@ public class AskActionSceneController implements SceneControllerInterface {
     public void setPossibleActions(List<ActionType> possibleActions) {
         String action;
 
-        for (int i = 0; i < possibleActions.size(); i++) {
-            action = possibleActions.get(i).getAction().replace("_", " ").replace("ACTION", "");
+        for (ActionType possibleAction : possibleActions) {
+            action = possibleAction.getAction().replace("_", " ").replace("ACTION", "");
 
-            if (!possibleActions.contains(action))
+            if (!possibleActionList.contains(action))
                 possibleActionList.add(action);
         }
 
@@ -69,7 +69,7 @@ public class AskActionSceneController implements SceneControllerInterface {
     }
 
     /**
-     * @param gui
+     * @param gui           a GUI
      */
     @Override
     public void setGUI(GUI gui) {

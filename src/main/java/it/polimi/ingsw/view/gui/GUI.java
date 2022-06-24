@@ -212,6 +212,7 @@ public class GUI extends Application implements ViewInterface {
         SceneController.setCurrentController(aasc);
         aasc.setGUI(this);
 
+
         Platform.runLater(() -> {
             try {
                 Stage actionStage = new Stage();
@@ -420,9 +421,11 @@ public class GUI extends Application implements ViewInterface {
                     stage.setMaximized(true);
 
                     firstPrintBoard = false;
+                    SceneController.switchScene(stage, "BoardScene", bsc);
+                } else {
+                    bsc.initialize();
                 }
 
-                SceneController.switchScene(stage, "BoardScene", bsc);
 
             } catch (IOException e) {
                 throw new RuntimeException(e);

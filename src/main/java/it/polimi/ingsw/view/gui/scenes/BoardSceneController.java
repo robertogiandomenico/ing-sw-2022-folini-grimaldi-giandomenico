@@ -182,8 +182,8 @@ public class BoardSceneController implements SceneControllerInterface {
 
         //set dining room students
         for (int i = 0; i < thisPlayerBoard.getDiningRoom().length; i++) {
-            for (int j = 9; j >= thisPlayerBoard.getDiningRoom()[i]; j--) {
-                ((HBox)thisPlayerDR.getChildren().get(i)).getChildren().get(j).setVisible(false);
+            for (int j = 0; j < 10; j++) {
+                ((HBox)thisPlayerDR.getChildren().get(i)).getChildren().get(j).setVisible(j < thisPlayerBoard.getDiningRoom()[i]);
             }
         }
 
@@ -301,7 +301,7 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     public void initializeClouds() {
         int cloudsNumber = board.getCloudsNumber();
-        if (cloudsNumber == 2) {
+        if (cloudsNumber == 2 && cloudsBox.getChildren().size() == 3) {
             cloudsBox.getChildren().remove(cloudsBox.getChildren().get(2));
         }
 
@@ -335,7 +335,7 @@ public class BoardSceneController implements SceneControllerInterface {
         LightSchoolBoard[] otherPlayers = new LightSchoolBoard[board.getSchoolBoards().size()-1];
 
         //disable tab if there are only 2 players
-        if (board.getSchoolBoards().size() == 2) {
+        if (board.getSchoolBoards().size() == 2 && otherPlayersPane.getTabs().size() == 2) {
             otherPlayersPane.getTabs().get(1).setDisable(true);
             otherPlayersPane.getTabs().remove(1);
         }
@@ -389,8 +389,8 @@ public class BoardSceneController implements SceneControllerInterface {
 
             //set dining room students
             for (int j = 0; j < otherPlayers[i].getDiningRoom().length; j++) {
-                for (int k = 9; k >= otherPlayers[i].getDiningRoom()[j]; k--) {
-                    ((HBox)((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(8)).getChildren().get(j)).getChildren().get(k).setVisible(false);
+                for (int k = 0; k < 10; k++) {
+                    ((HBox)((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(8)).getChildren().get(j)).getChildren().get(k).setVisible(k < otherPlayers[i].getDiningRoom()[j]);
                 }
             }
         }
@@ -435,7 +435,7 @@ public class BoardSceneController implements SceneControllerInterface {
             ((ImageView) assistantBox.getChildren().get(i)).setImage(new Image(getClass().getResourceAsStream("/img/assistants/" + availableAssistants.get(i).name().toLowerCase() + ".png")));
 
             assistantBox.getChildren().get(i).setId(availableAssistants.get(i).name().toLowerCase());
-            assistantBox.getChildren().get(i).setDisable(discardedAssistants.contains(availableAssistants.get(i)));
+            assistantBox.getChildren().get(i).setDisable(availableAssistants.size() > 1 && discardedAssistants.contains(availableAssistants.get(i)));
         }
         while (i != 10) {
             assistantBox.getChildren().get(i).setDisable(true);
