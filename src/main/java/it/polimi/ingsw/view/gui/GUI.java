@@ -73,8 +73,7 @@ public class GUI extends Application implements ViewInterface {
             Image icon = new Image("/img/icon.png");
             stage.getIcons().add(icon);
             stage.setTitle("Eriantys");
-            stage.setMinHeight(630);
-            stage.setMinWidth(610);
+            stage.sizeToScene();
             stage.setResizable(false);
 
             stage.setScene(scene);

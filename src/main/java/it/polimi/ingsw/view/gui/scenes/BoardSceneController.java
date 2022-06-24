@@ -163,8 +163,10 @@ public class BoardSceneController implements SceneControllerInterface {
         }
 
         //set towers left
-        for (int i = 0; i < thisPlayerBoard.getTowersLeft(); i++) {
+        for (int i = 0; i < (-2 * board.getPlayers().size() + 12); i++) {
             ((ImageView)((AnchorPane) thisPlayerPane.getChildren().get(5)).getChildren().get(i)).setImage(getTowerIcon(thisPlayerBoard.getPlayer().getTowerColor()));
+            if(i >= thisPlayerBoard.getTowersLeft())
+                ((AnchorPane) thisPlayerPane.getChildren().get(5)).getChildren().get(i).setVisible(false);
         }
 
         //set professor table
@@ -279,9 +281,10 @@ public class BoardSceneController implements SceneControllerInterface {
             }
 
             //set the archipelago size if it's > 1
-            if (archipelagos.get(i).getSize() > 1)
-                ((Label)((AnchorPane)archipelagosBox.getChildren().get(i)).getChildren().get(10)).setText("x" + archipelagos.get(i).getSize());
-            else {
+            if (archipelagos.get(i).getSize() > 1) {
+                ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(10).setVisible(true);
+                ((Label) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(10)).setText("x" + archipelagos.get(i).getSize());
+            } else {
                 ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(10).setDisable(true);
                 ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(10).setVisible(false);
             }
@@ -370,8 +373,10 @@ public class BoardSceneController implements SceneControllerInterface {
             }
 
             //set towers on the schoolboard
-            for (int j = 0; j < otherPlayers[i].getTowersLeft(); j++) {
+            for (int j = 0; j < (-2 * board.getPlayers().size() + 12); j++) {
                 ((ImageView)((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(4)).getChildren().get(j)).setImage(getTowerIcon(otherPlayers[i].getPlayer().getTowerColor()));
+                if(j >= otherPlayers[i].getTowersLeft())
+                    ((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(4)).getChildren().get(j).setVisible(false);
             }
 
             //set professor table
@@ -471,6 +476,9 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     public void enableArchipelagos() {
         archipelagosBox.setDisable(false);
+        for (int i = 0; i < board.getArchipelagos().size(); i++) {
+            archipelagosBox.getChildren().get(i).setDisable(false);
+        }
     }
 
     /**
@@ -478,6 +486,11 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     public void enableCloudBox() {
         cloudsBox.setDisable(false);
+
+        for (int i = 0; i < board.getCloudsNumber(); i++) {
+            cloudsBox.getChildren().get(i).setDisable(false);
+        }
+
         for (int i = 0; i < board.getCloudsNumber(); i++) {
             if (board.getCloud(i)[0] == null)
                 cloudsBox.getChildren().get(i).setDisable(true);
