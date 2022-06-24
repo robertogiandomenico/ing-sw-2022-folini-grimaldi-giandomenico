@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" styleClass="mainPanel" stylesheets="@../css/board.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane styleClass="mainPanel" stylesheets="@../css/board.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="876.199951171875" minWidth="10.0" prefWidth="714.2" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="1206.0000488281248" minWidth="10.0" prefWidth="331.79999999999995" />
@@ -26,7 +26,7 @@
     <RowConstraints maxHeight="450.4000244140625" minHeight="10.0" prefHeight="319.4666809082031" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <AnchorPane fx:id="coinsSupplyBox" prefHeight="64.0" prefWidth="116.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+      <AnchorPane fx:id="coinsSupplyBox" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
          <GridPane.margin>
             <Insets bottom="190.0" left="50.0" right="220.0" top="80.0" />
          </GridPane.margin>
@@ -36,7 +36,7 @@
                   <Image url="@../img/tiles/coinssupply.png" />
                </image>
             </ImageView>
-            <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="44.0" styleClass="numbersText" text="x18">
+            <Label layoutX="29.0" layoutY="4.0" styleClass="numbersText" text="x18">
                <font>
                   <Font size="16.0" />
                </font>
@@ -46,14 +46,14 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="thisPlayerPane" prefHeight="307.0" prefWidth="678.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+      <AnchorPane fx:id="thisPlayerPane" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
          <children>
             <ImageView fitHeight="269.0" fitWidth="622.0" layoutX="58.0" layoutY="50.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/schoolboard/schoolboard.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="64.0" layoutY="10.0" prefHeight="35.0" prefWidth="542.0" styleClass="playersLabel" stylesheets="@../css/board.css" text="player1">
+            <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="156.0" layoutY="10.0" prefHeight="35.0" prefWidth="450.0" styleClass="playersLabel" stylesheets="@../css/board.css" text="player1">
                <font>
                   <Font size="24.0" />
                </font>
@@ -161,7 +161,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <VBox layoutX="494.0" layoutY="78.0" prefHeight="205.0" prefWidth="35.0" spacing="17.0">
+            <VBox layoutX="494.0" layoutY="78.0" spacing="17.0">
                <children>
                   <ImageView fitHeight="33.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -190,7 +190,7 @@
                   </ImageView>
                </children>
             </VBox>
-            <AnchorPane layoutY="277.0" prefHeight="31.0" prefWidth="61.0">
+            <AnchorPane layoutX="80.0" layoutY="16.0">
                <children>
                   <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" x="-5.0">
                      <image>
@@ -209,7 +209,7 @@
             </AnchorPane>
             <AnchorPane fx:id="thisPlayerDR" layoutX="172.0" layoutY="82.0">
                <children>
-                  <HBox prefHeight="29.0" prefWidth="299.0" spacing="1.2">
+                  <HBox spacing="1.2">
                      <children>
                         <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -263,7 +263,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox layoutY="45.0" prefHeight="29.0" prefWidth="299.0" spacing="1.2">
+                  <HBox layoutY="45.0" spacing="1.2">
                      <children>
                         <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -317,7 +317,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox layoutY="88.0" prefHeight="29.0" prefWidth="299.0" spacing="1.2">
+                  <HBox layoutY="88.0" spacing="1.2">
                      <children>
                         <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -371,7 +371,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox layoutY="132.0" prefHeight="29.0" prefWidth="299.0" spacing="1.2">
+                  <HBox layoutY="132.0" spacing="1.2">
                      <children>
                         <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -425,7 +425,7 @@
                         </ImageView>
                      </children>
                   </HBox>
-                  <HBox layoutY="176.0" prefHeight="29.0" prefWidth="299.0" spacing="1.2">
+                  <HBox layoutY="176.0" spacing="1.2">
                      <children>
                         <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="210.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -490,9 +490,9 @@
             <Insets bottom="3.0" right="10.0" />
          </GridPane.margin>
       </AnchorPane>
-      <HBox fx:id="charactersBox" alignment="CENTER" prefHeight="122.0" prefWidth="448.0" spacing="27.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+      <HBox fx:id="charactersBox" alignment="CENTER" prefHeight="122.0" prefWidth="448.0" spacing="27.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
          <children>
-            <AnchorPane onMouseClicked="#chooseCharacter" styleClass="characterCard" stylesheets="@../css/board.css">
+            <AnchorPane onMouseClicked="#chooseCharacter" styleClass="characterCard" stylesheets="@../css/board.css" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -540,7 +540,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane onMouseClicked="#chooseCharacter" styleClass="characterCard" stylesheets="@../css/board.css">
+            <AnchorPane onMouseClicked="#chooseCharacter" styleClass="characterCard" stylesheets="@../css/board.css" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -588,7 +588,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane onMouseClicked="#chooseCharacter" styleClass="characterCard" stylesheets="@../css/board.css">
+            <AnchorPane onMouseClicked="#chooseCharacter" styleClass="characterCard" stylesheets="@../css/board.css" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -644,18 +644,18 @@
             <Insets top="10.0" />
          </GridPane.margin>
       </HBox>
-      <TabPane fx:id="otherPlayersPane" prefHeight="200.0" prefWidth="675.0" stylesheets="@../css/setup.css" tabClosingPolicy="UNAVAILABLE" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+      <TabPane fx:id="otherPlayersPane" prefHeight="200.0" prefWidth="675.0" stylesheets="@../css/setup.css" tabClosingPolicy="UNAVAILABLE" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
         <tabs>
           <Tab text="player2">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0">
                      <children>
                         <ImageView fitHeight="252.0" fitWidth="598.0" layoutX="5.0" layoutY="37.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="2.1999999999999886" AnchorPane.leftAnchor="5.0">
                            <image>
                               <Image url="@../img/schoolboard/schoolboard.png" />
                            </image>
                         </ImageView>
-                        <Label contentDisplay="RIGHT" layoutX="57.0" prefHeight="35.0" prefWidth="523.0" styleClass="playersLabel" stylesheets="@../css/board.css" text="player2" AnchorPane.bottomAnchor="256.0" AnchorPane.leftAnchor="57.0">
+                        <Label contentDisplay="RIGHT" layoutX="57.0" prefHeight="35.0" prefWidth="406.0" styleClass="playersLabel" stylesheets="@../css/board.css" text="player2" AnchorPane.bottomAnchor="256.0" AnchorPane.leftAnchor="57.0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -792,14 +792,14 @@
                               </ImageView>
                            </children>
                         </VBox>
-                        <AnchorPane layoutX="600.0" layoutY="245.0" prefHeight="31.0" prefWidth="61.0" AnchorPane.bottomAnchor="14.99999999999999" AnchorPane.leftAnchor="600.0">
+                        <AnchorPane layoutX="595.0" layoutY="245.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="595.0">
                            <children>
-                              <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" x="-5.0">
                                  <image>
                                     <Image url="@../img/tiles/coin.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="36.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1">
+                              <Label layoutX="22.0" layoutY="4.0" prefHeight="26.0" prefWidth="38.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -811,7 +811,7 @@
                         </AnchorPane>
                         <AnchorPane layoutX="110.0" layoutY="67.0" AnchorPane.bottomAnchor="30.5" AnchorPane.leftAnchor="110.0">
                            <children>
-                              <HBox prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                              <HBox spacing="0.5">
                                  <children>
                                     <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -865,7 +865,7 @@
                                     </ImageView>
                                  </children>
                               </HBox>
-                              <HBox layoutY="41.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                              <HBox layoutY="41.0" spacing="0.5">
                                  <children>
                                     <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -919,7 +919,7 @@
                                     </ImageView>
                                  </children>
                               </HBox>
-                              <HBox layoutY="82.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                              <HBox layoutY="82.0" spacing="0.5">
                                  <children>
                                     <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -973,7 +973,7 @@
                                     </ImageView>
                                  </children>
                               </HBox>
-                              <HBox layoutY="124.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                              <HBox layoutY="124.0" spacing="0.5">
                                  <children>
                                     <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -1027,7 +1027,7 @@
                                     </ImageView>
                                  </children>
                               </HBox>
-                              <HBox layoutY="165.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                              <HBox layoutY="165.0" spacing="0.5">
                                  <children>
                                     <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -1089,14 +1089,14 @@
           </Tab>
           <Tab text="player3">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0">
                      <children>
                         <ImageView fitHeight="252.0" fitWidth="598.0" layoutX="5.0" layoutY="37.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="2.1999999999999886" AnchorPane.leftAnchor="5.0">
                            <image>
                               <Image url="@../img/schoolboard/schoolboard.png" />
                            </image>
                         </ImageView>
-                        <Label contentDisplay="RIGHT" layoutX="57.0" prefHeight="35.0" prefWidth="523.0" styleClass="playersLabel" stylesheets="@../css/board.css" text="player3" AnchorPane.bottomAnchor="256.0" AnchorPane.leftAnchor="57.0">
+                        <Label contentDisplay="RIGHT" layoutX="57.0" prefHeight="35.0" prefWidth="407.0" styleClass="playersLabel" stylesheets="@../css/board.css" text="player3" AnchorPane.bottomAnchor="256.0" AnchorPane.leftAnchor="57.0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -1106,7 +1106,7 @@
                               <Image url="@../img/wizards/d_icon.png" />
                            </image>
                         </ImageView>
-                        <ImageView fitHeight="88.0" fitWidth="51.0" layoutX="600.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="210.2" AnchorPane.leftAnchor="600.0">
+                        <ImageView fitHeight="88.0" fitWidth="51.0" layoutX="600.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="600.0">
                            <image>
                               <Image url="@../img/blank.png" />
                            </image>
@@ -1233,14 +1233,14 @@
                               </ImageView>
                            </children>
                         </VBox>
-                        <AnchorPane layoutX="600.0" layoutY="245.0" prefHeight="31.0" prefWidth="61.0" AnchorPane.bottomAnchor="14.99999999999999" AnchorPane.leftAnchor="600.0">
+                        <AnchorPane layoutX="595.0" layoutY="245.0" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="595.0">
                            <children>
-                              <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="31.0" fitWidth="29.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" x="-5.0">
                                  <image>
                                     <Image url="@../img/tiles/coin.png" />
                                  </image>
                               </ImageView>
-                              <Label layoutX="29.0" layoutY="4.0" prefHeight="26.0" prefWidth="31.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1">
+                              <Label layoutX="22.0" layoutY="4.0" prefHeight="26.0" prefWidth="38.0" styleClass="numbersText" stylesheets="@../css/board.css" text="x1">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -1252,7 +1252,7 @@
                         </AnchorPane>
                         <AnchorPane layoutX="110.0" layoutY="67.0" AnchorPane.bottomAnchor="30.599999999999994" AnchorPane.leftAnchor="110.0">
                            <children>
-                              <HBox prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                              <HBox spacing="0.5">
                                  <children>
                                     <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -1306,7 +1306,7 @@
                                     </ImageView>
                                  </children>
                               </HBox>
-                              <HBox layoutY="41.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                              <HBox layoutY="41.0" spacing="0.5">
                                  <children>
                                     <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -1360,7 +1360,7 @@
                                     </ImageView>
                                  </children>
                               </HBox>
-                              <HBox layoutY="82.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                              <HBox layoutY="82.0" spacing="0.5">
                                  <children>
                                     <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -1414,7 +1414,7 @@
                                     </ImageView>
                                  </children>
                               </HBox>
-                              <HBox layoutY="124.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                              <HBox layoutY="124.0" spacing="0.5">
                                  <children>
                                     <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -1468,7 +1468,7 @@
                                     </ImageView>
                                  </children>
                               </HBox>
-                              <HBox layoutY="165.0" prefHeight="28.0" prefWidth="275.0" spacing="0.5">
+                              <HBox layoutY="165.0" spacing="0.5">
                                  <children>
                                     <ImageView fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -1533,7 +1533,7 @@
             <Insets />
          </GridPane.margin>
       </TabPane>
-      <GridPane fx:id="archipelagosBox" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowSpan="2" GridPane.valignment="TOP">
+      <GridPane fx:id="archipelagosBox" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.20001220703125" minWidth="10.0" prefWidth="145.60000610351562" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="191.9999938964844" minWidth="10.0" prefWidth="188.59997558593747" />
@@ -2596,7 +2596,7 @@
             </AnchorPane>
          </children>
       </GridPane>
-      <GridPane fx:id="assistantBox" alignment="CENTER_RIGHT" vgap="5.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <GridPane fx:id="assistantBox" alignment="CENTER_RIGHT" vgap="5.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -2667,7 +2667,7 @@
             <Insets bottom="20.0" right="20.0" top="40.0" />
          </GridPane.margin>
       </GridPane>
-      <HBox fx:id="cloudsBox" spacing="70.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <HBox fx:id="cloudsBox" spacing="70.0" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <children>
             <AnchorPane fx:id="cloud1" onMouseClicked="#chooseCloud" styleClass="cloud" stylesheets="@../css/board.css">
                <children>

@@ -4,6 +4,7 @@ import it.polimi.ingsw.view.gui.GUI;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -36,6 +37,11 @@ public class SceneController implements SceneControllerInterface {
         loader.setController(sci);
         scene = new Scene(loader.load());
         stage.setScene(scene);
+
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setResizable(false);
+        stage.setAlwaysOnTop(true);
+
         stage.show();
     }
 

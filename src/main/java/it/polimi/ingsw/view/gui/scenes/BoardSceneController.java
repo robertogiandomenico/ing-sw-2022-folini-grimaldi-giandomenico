@@ -109,9 +109,9 @@ public class BoardSceneController implements SceneControllerInterface {
                     case "SpoiledPrincess":
 
                     case "Jester":
-                        for (int j = 0; j < selectedCharacters[i].getStudents().length; j++) {
+                        for (int j = 0; j < selectedCharacters[i].getStudents().length; j++)
                             ((ImageView)((AnchorPane)((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(1)).getChildren().get(j)).setImage(displayStudent(selectedCharacters[i].getStudents()[j]));
-                        }
+
                         break;
 
                     default:
@@ -178,7 +178,6 @@ public class BoardSceneController implements SceneControllerInterface {
         if(board.isExpertMode()) {
             ((Label)((AnchorPane)thisPlayerPane.getChildren().get(7)).getChildren().get(1)).setText("x" + thisPlayerBoard.getPlayer().getCoins());
         } else {
-            thisPlayerPane.getChildren().get(7).setDisable(true);
             thisPlayerPane.getChildren().get(7).setVisible(false);
         }
 
@@ -260,7 +259,6 @@ public class BoardSceneController implements SceneControllerInterface {
                 ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(8).setVisible(true);
 
                 if (archipelagos.get(i).getNoEntryTiles() == 1) {
-                    ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(9).setDisable(true);
                     ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(9).setVisible(false);
                 } else if (archipelagos.get(i).getNoEntryTiles() > 1) {
                     ((Label) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(9)).setText(Integer.toString(archipelagos.get(i).getNoEntryTiles()));
@@ -285,7 +283,6 @@ public class BoardSceneController implements SceneControllerInterface {
                 ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(10).setVisible(true);
                 ((Label) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(10)).setText("x" + archipelagos.get(i).getSize());
             } else {
-                ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(10).setDisable(true);
                 ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(10).setVisible(false);
             }
 
@@ -325,7 +322,6 @@ public class BoardSceneController implements SceneControllerInterface {
         if (board.isExpertMode()) {
             ((Label) coinsSupplyBox.getChildren().get(1)).setText("x" + coinsSupply);
         } else {
-            coinsSupplyBox.setDisable(true);
             coinsSupplyBox.setVisible(false);
         }
     }
@@ -339,7 +335,6 @@ public class BoardSceneController implements SceneControllerInterface {
 
         //disable tab if there are only 2 players
         if (board.getSchoolBoards().size() == 2 && otherPlayersPane.getTabs().size() == 2) {
-            otherPlayersPane.getTabs().get(1).setDisable(true);
             otherPlayersPane.getTabs().remove(1);
         }
 
@@ -388,7 +383,6 @@ public class BoardSceneController implements SceneControllerInterface {
             if (board.isExpertMode()) {
                 ((Label) ((AnchorPane) ((AnchorPane) otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7)).getChildren().get(1)).setText("x" + otherPlayers[i].getPlayer().getCoins());
             } else {
-                ((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7).setDisable(true);
                 ((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(7).setVisible(false);
             }
 
@@ -461,10 +455,15 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     public void enableCharactersBox() {
         charactersBox.setDisable(false);
+        for (int i = 0; i < 3; i++)
+            charactersBox.getChildren().get(i).setDisable(false);
+
+        //check if the plater can buy the character
         for (int i = 0; i < 3; i++) {
             if (board.getCurrentPlayerSchoolBoard().getPlayer().getCoins() < board.getSelectedCharacters()[i].getCost())
                 charactersBox.getChildren().get(i).setDisable(true);
 
+            //check if granny grass has at least 1 NoEntryTile
             if (board.getSelectedCharacters()[i].getName().equals("GrannyGrass"))
                 if (board.getSelectedCharacters()[i].getNoEntryTiles() == 0)
                     charactersBox.getChildren().get(i).setDisable(true);
@@ -476,9 +475,9 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     public void enableArchipelagos() {
         archipelagosBox.setDisable(false);
-        for (int i = 0; i < board.getArchipelagos().size(); i++) {
+
+        for (int i = 0; i < board.getArchipelagos().size(); i++)
             archipelagosBox.getChildren().get(i).setDisable(false);
-        }
     }
 
     /**
@@ -487,14 +486,12 @@ public class BoardSceneController implements SceneControllerInterface {
     public void enableCloudBox() {
         cloudsBox.setDisable(false);
 
-        for (int i = 0; i < board.getCloudsNumber(); i++) {
+        for (int i = 0; i < board.getCloudsNumber(); i++)
             cloudsBox.getChildren().get(i).setDisable(false);
-        }
 
-        for (int i = 0; i < board.getCloudsNumber(); i++) {
+        for (int i = 0; i < board.getCloudsNumber(); i++)
             if (board.getCloud(i)[0] == null)
                 cloudsBox.getChildren().get(i).setDisable(true);
-        }
     }
 
     /**
@@ -522,12 +519,10 @@ public class BoardSceneController implements SceneControllerInterface {
             int cloudIndex ;
             String cloudId = event.getPickResult().getIntersectedNode().getParent().getId();
 
-            try {
-                cloudIndex = Character.getNumericValue(cloudId.charAt(cloudId.length() - 1));
-            } catch (NullPointerException e) {
+            if (cloudId == null)
                 cloudId = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
-                cloudIndex = Character.getNumericValue(cloudId.charAt(cloudId.length() - 1));
-            }
+
+            cloudIndex = Character.getNumericValue(cloudId.charAt(cloudId.length() - 1));
 
             if (board.getCloud(cloudIndex)[0] == null) {
                 gui.warningDialog("Cannot choose this cloud since it's empty. Try again.");
@@ -586,10 +581,10 @@ public class BoardSceneController implements SceneControllerInterface {
     }
 
     private int findCurrentMNIndex(List<LightArchi> archipelagos) {
-        for(LightArchi a : archipelagos) {
+        for(LightArchi a : archipelagos)
             if (a.isMNPresent())
                 return archipelagos.indexOf(a);
-        }
+
         return -1; //function cannot reach this point
     }
 
@@ -799,11 +794,11 @@ public class BoardSceneController implements SceneControllerInterface {
     }
 
     private int getCharIndexByName(String characterName) {
-        for (int i = 0; i < board.getSelectedCharacters().length; i++) {
+        for (int i = 0; i < board.getSelectedCharacters().length; i++)
             if (characterName.equalsIgnoreCase(board.getSelectedCharacters()[i].getName()))
                 return i;
-        }
-        return -1;
+
+        return -1;  //function cannot reach this point
     }
 
     private int studNumberDialog(int maxStudNumber, String text) {

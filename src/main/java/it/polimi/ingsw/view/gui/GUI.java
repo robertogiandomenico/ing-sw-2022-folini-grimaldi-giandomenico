@@ -19,9 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -215,9 +213,6 @@ public class GUI extends Application implements ViewInterface {
         Platform.runLater(() -> {
             try {
                 Stage actionStage = new Stage();
-                actionStage.initStyle(StageStyle.UTILITY);
-                actionStage.setResizable(false);
-                actionStage.setAlwaysOnTop(true);
 
                 SceneController.popUpScene(actionStage, "AskActionScene", aasc);
                 ((AskActionSceneController) aasc).setPossibleActions(possibleActions);
@@ -252,9 +247,6 @@ public class GUI extends Application implements ViewInterface {
         Platform.runLater(() -> {
             try {
                 Stage colorStage = new Stage();
-                colorStage.initStyle(StageStyle.UTILITY);
-                colorStage.setResizable(false);
-                colorStage.setAlwaysOnTop(true);
 
                 SceneController.popUpScene(colorStage, "AskColorScene", acsc);
                 ((AskColorSceneController) acsc).setAvailableColors(availableColors);
@@ -293,9 +285,6 @@ public class GUI extends Application implements ViewInterface {
         Platform.runLater(() -> {
             try {
                 Stage placeStage = new Stage();
-                placeStage.initStyle(StageStyle.UTILITY);
-                placeStage.setResizable(false);
-                placeStage.setAlwaysOnTop(true);
 
                 SceneController.popUpScene(placeStage, "AskPlaceScene", apsc);
 
@@ -314,9 +303,7 @@ public class GUI extends Application implements ViewInterface {
      * Enables the archipelagos.
      */
     public void enableArchiBox() {
-        Platform.runLater(() -> {
-            bsc.enableArchipelagos();
-        });
+        Platform.runLater(() -> bsc.enableArchipelagos());
     }
 
     /**
@@ -408,19 +395,19 @@ public class GUI extends Application implements ViewInterface {
         Platform.runLater(() -> {
             try {
                 if (firstPrintBoard) {
-                    stage.setX(Screen.getPrimary().getVisualBounds().getMinX());
-                    stage.setY(Screen.getPrimary().getVisualBounds().getMinY());
-                    stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
-                    stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+                    SceneController.switchScene(stage, "BoardScene", bsc);
+                    //stage.setX(Screen.getPrimary().getVisualBounds().getMinX());
+                    //stage.setY(Screen.getPrimary().getVisualBounds().getMinY());
+                    //stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+                    //stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
                     stage.setMinHeight(700);
-                    stage.setMinWidth(1250);
-                    stage.sizeToScene();
-                    stage.centerOnScreen();
+                    stage.setMinWidth(1200);
+                    //stage.sizeToScene();
+                    //stage.centerOnScreen();
                     stage.setResizable(true);
                     stage.setMaximized(true);
 
                     firstPrintBoard = false;
-                    SceneController.switchScene(stage, "BoardScene", bsc);
                 } else {
                     bsc.initialize();
                 }
@@ -444,24 +431,31 @@ public class GUI extends Application implements ViewInterface {
         SceneController.setCurrentController(rsc);
         rsc.setGUI(this);
 
+        mediaPlayer.stop();
+
         Platform.runLater(() -> {
             try {
                 Stage resultStage = new Stage();
-                resultStage.initStyle(StageStyle.UTILITY);
-                resultStage.setResizable(false);
-                resultStage.setAlwaysOnTop(true);
+                MediaPlayer resultPlayer;
+                Media resultSFX;
 
                 SceneController.popUpScene(resultStage, "ResultScene", rsc);
                 if (getClient().getNickname().equals(winner)) {
                     ((ResultSceneController)rsc).setWinner("Congratulations, you WON!");
+                    resultSFX = new Media(getClass().getClassLoader().getResource("audio/Win_SFX.mp3").toString());
+
                 } else {
                     ((ResultSceneController)rsc).setWinner("You lost!");
-                    ((ResultSceneController)rsc).setSubtitle(winner + "WINS! " + condition);
+                    ((ResultSceneController)rsc).setSubtitle(winner + " WINS! " + condition);
+                    resultSFX = new Media(getClass().getClassLoader().getResource("audio/Lose_SFX.mp3").toString());
                 }
 
                 resultStage.setOnCloseRequest(event -> {
                     closeWindow(resultStage);
                 });
+                resultPlayer = new MediaPlayer(resultSFX);
+                resultPlayer.setVolume(30);
+                resultPlayer.setAutoPlay(false);
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
