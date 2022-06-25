@@ -458,7 +458,7 @@ public class BoardSceneController implements SceneControllerInterface {
         for (int i = 0; i < 3; i++)
             charactersBox.getChildren().get(i).setDisable(false);
 
-        //check if the plater can buy the character
+        //check if the player can buy the character
         for (int i = 0; i < 3; i++) {
             if (board.getCurrentPlayerSchoolBoard().getPlayer().getCoins() < board.getSelectedCharacters()[i].getCost())
                 charactersBox.getChildren().get(i).setDisable(true);
