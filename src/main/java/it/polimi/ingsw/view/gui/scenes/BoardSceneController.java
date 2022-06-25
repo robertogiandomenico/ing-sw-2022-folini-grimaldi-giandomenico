@@ -94,14 +94,19 @@ public class BoardSceneController implements SceneControllerInterface {
                 //set additional elements on the card if it's one of the following
                 switch (selectedCharacters[i].getName()) {
                     case "GrannyGrass":
-                        Label noEntryTileLeft = new Label();
+                        try {
+                            ((Label)((AnchorPane) charactersBox.getChildren().get(i)).getChildren().get(3)).setText("x" + selectedCharacters[i].getNoEntryTiles());
 
-                        noEntryTileLeft.setLayoutX(41);
-                        noEntryTileLeft.setLayoutY(107);
-                        noEntryTileLeft.setText("x" + selectedCharacters[i].getNoEntryTiles());
-                        noEntryTileLeft.setStyle("-fx-font-family: \"Metamorphous\"");
+                        } catch (IndexOutOfBoundsException e) {
+                            Label noEntryTileLeft = new Label();
 
-                        ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().add(noEntryTileLeft);
+                            noEntryTileLeft.setLayoutX(41);
+                            noEntryTileLeft.setLayoutY(107);
+                            noEntryTileLeft.setText("x" + selectedCharacters[i].getNoEntryTiles());
+                            noEntryTileLeft.setStyle("-fx-font-family: \"Metamorphous\"");
+
+                            ((AnchorPane) charactersBox.getChildren().get(i)).getChildren().add(noEntryTileLeft);
+                        }
                         break;
 
                     case "Monk":
@@ -262,6 +267,7 @@ public class BoardSceneController implements SceneControllerInterface {
                     ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(9).setVisible(false);
                 } else if (archipelagos.get(i).getNoEntryTiles() > 1) {
                     ((Label) ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(9)).setText(Integer.toString(archipelagos.get(i).getNoEntryTiles()));
+                    ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(9).setVisible(true);
                 }
             } else {
                 ((AnchorPane) archipelagosBox.getChildren().get(i)).getChildren().get(8).setVisible(false);
