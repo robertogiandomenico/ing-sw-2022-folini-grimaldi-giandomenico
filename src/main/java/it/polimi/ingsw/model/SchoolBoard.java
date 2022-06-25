@@ -18,7 +18,6 @@ public class SchoolBoard {
     private final int[] diningRoom = new int[5];
     private int additionalInfluence = 0;
     private boolean farmerEffect;
-    private boolean thiefEffect;
     private final List<SchoolBoard> otherBoards;
     private int[] coinsPath;
 
@@ -150,22 +149,18 @@ public class SchoolBoard {
      *
      * @param index         the index corresponding to the Color of the Student
      *                      to be removed.
+     * @param steal         a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if the method is called by {@link it.polimi.ingsw.model.effects.ThiefEffect}.
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
      */
-    public void removeFromDiningRoom(int index){
+    public void removeFromDiningRoom(int index, boolean steal){
         if(diningRoom[index]>0) {
             diningRoom[index]--;
-            if(!checkThiefEffect()) checkProfessorMovement(index, "remove");
+            if(!steal) checkProfessorMovement(index, "remove");
         }
-    }
-
-    public boolean checkThiefEffect(){
-        if(thiefEffect) return true;
-
-        for(SchoolBoard s : otherBoards){
-            if(s.isThiefEffectActive()) return true;
-        }
-
-        return false;
     }
 
     /**
@@ -274,26 +269,6 @@ public class SchoolBoard {
      */
     public void setFarmerEffect(boolean farmerEffect) {
         this.farmerEffect = farmerEffect;
-    }
-
-    /**
-     * Sets the variable that states whether the {@link it.polimi.ingsw.model.effects.ThiefEffect
-     * ThiefEffect} is active or not.
-     *
-     * @param thiefEffect   a boolean whose value is:
-     *                      <p>
-     *                      -{@code true} if the ThiefEffect is active;
-     *                      </p> <p>
-     *                      -{@code false} otherwise.
-     *                      </p>
-     */
-    public void setThiefEffect(boolean thiefEffect) {
-        this.thiefEffect = thiefEffect;
-    }
-
-
-    public boolean isThiefEffectActive() {
-        return thiefEffect;
     }
 
     /**

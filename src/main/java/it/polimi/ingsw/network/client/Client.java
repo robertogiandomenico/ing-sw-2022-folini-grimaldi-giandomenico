@@ -126,22 +126,25 @@ public class Client {
     }
 
     public void disconnect(boolean error){
-        if(messageListener.isAlive()) messageListener.interrupt();
-        if(messageHandler.isAlive()) messageHandler.interrupt();
+        if(clientConnected.get()) {
+            clientConnected.set(false);
+            if (messageListener.isAlive()) messageListener.interrupt();
+            if (messageHandler.isAlive()) messageHandler.interrupt();
 
-        try {
-            inputStream.close();
-        } catch (IOException ignored) {}
+            try {
+                inputStream.close();
+            } catch (IOException ignored) {}
 
-        try {
-            outputStream.close();
-        } catch (IOException ignored) {}
+            try {
+                outputStream.close();
+            } catch (IOException ignored) {}
 
-        try {
-            clientSocket.close();
-        } catch (IOException ignored) {}
+            try {
+                clientSocket.close();
+            } catch (IOException ignored) {}
 
-        if(error) view.displayErrorAndExit("An error occurred during the communication with the server, you're being disconnected! See ya!");
+            if (error) view.displayErrorAndExit("An error occurred during the communication with the server, you're being disconnected! See ya!");
+        }
     }
 
     public void setNickname(String nickname) {

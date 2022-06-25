@@ -146,7 +146,7 @@ class SchoolBoardTest {
         sb.setFarmerEffect(false);
 
         //removing a green student from the currentPlayerSB and making sure that they lose the green professor
-        sb.removeFromDiningRoom(index);
+        sb.removeFromDiningRoom(index, false);
         assertEquals(1, sb.getDiningRoom()[index]);
         assertTrue(otherBoards.get(1).isProfessorPresent(index));
         assertFalse(sb.isProfessorPresent(index));

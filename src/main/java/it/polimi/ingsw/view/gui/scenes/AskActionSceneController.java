@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AskActionSceneController implements SceneControllerInterface {
 
@@ -23,7 +24,7 @@ public class AskActionSceneController implements SceneControllerInterface {
     private ListView<String> actionList;
     @FXML
     private Button confirmButton;
-
+    List<ActionType> possibleActions;
     private List<String> possibleActionList = new ArrayList<>();
     private String selectedAction;
     private GUI gui;
@@ -44,7 +45,8 @@ public class AskActionSceneController implements SceneControllerInterface {
 
     @FXML
     private void confirm() {
-        gui.getClient().sendMsgToServer(new ActionReply(possibleActionList.indexOf(selectedAction)));
+        int index = possibleActions.stream().map(ActionType::getAction).collect(Collectors.toList()).indexOf(selectedAction);
+        gui.getClient().sendMsgToServer(new ActionReply(index));
         confirmButton.setDisable(true);
         ((Stage) confirmButton.getScene().getWindow()).close();
     }
@@ -56,6 +58,7 @@ public class AskActionSceneController implements SceneControllerInterface {
     }
 
     public void setPossibleActions(List<ActionType> possibleActions) {
+        this.possibleActions = new ArrayList<>(possibleActions);
         String action;
 
         for (ActionType possibleAction : possibleActions) {

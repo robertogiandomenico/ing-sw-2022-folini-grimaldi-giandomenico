@@ -285,11 +285,12 @@ public class CLI implements ViewInterface {
         System.out.print("Enter the index of your next " + CliColor.BOLDCYAN + "action" + CliColor.RESET + ": ");
 
         int actionIndex = IntegerReader.readInput(scanner);
-        while (actionIndex<0 || actionIndex>=possibleActions.size()) {
+        while (actionIndex<0 || actionIndex >= possibleActionsNames.size()) {
             System.out.print(CliColor.RESET_LINE);
             System.out.print("Invalid action index. Try again: ");
             actionIndex = IntegerReader.readInput(scanner);
         }
+        actionIndex = possibleActions.stream().map(ActionType::getAction).collect(Collectors.toList()).indexOf(possibleActionsNames.get(actionIndex));
         client.sendMsgToServer(new ActionReply(actionIndex));
     }
 

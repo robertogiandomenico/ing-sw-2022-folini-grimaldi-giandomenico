@@ -35,8 +35,11 @@ public class SelectCloudAction implements Action{
                 indexesAvailableClouds.add(i);
             }
         }
+        if(indexesAvailableClouds.size() != 0)
+            clientHandler.sendMsgToClient(new CloudRequest(indexesAvailableClouds));
+        else
+            turnController.getController().nextTurn();
 
-        clientHandler.sendMsgToClient(new CloudRequest(indexesAvailableClouds));
     }
 
     @Override

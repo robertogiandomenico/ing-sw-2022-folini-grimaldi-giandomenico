@@ -334,7 +334,7 @@ class BoardTest {
         assertEquals(1, otherBoards.get(1).getPlayer().getCoins());
 
         //removing the last student from the dining room and re-adding it to check that coins number stays the same
-        sb.removeFromDiningRoom(index);
+        sb.removeFromDiningRoom(index, false);
         sb.addToDiningRoom(index);
         assertEquals(2, sb.getPlayer().getCoins());
 
