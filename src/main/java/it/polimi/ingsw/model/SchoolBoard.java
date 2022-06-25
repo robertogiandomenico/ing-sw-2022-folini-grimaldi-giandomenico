@@ -199,7 +199,7 @@ public class SchoolBoard {
     }
 
     /**
-     * Updates the coins path of this school board. It increases every time the
+     * Updates the coins' path of this school board. It increases every time the
      * player puts a student for the first time in a dining room position
      * containing a coin. (only in Expert Mode)
      *
@@ -210,7 +210,7 @@ public class SchoolBoard {
     }
 
     /**
-     * Returns the coins path of this school board.
+     * Returns the coins' path of this school board.
      *
      * @return              the Array representing coins path.
      */

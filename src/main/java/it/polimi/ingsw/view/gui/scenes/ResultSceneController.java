@@ -12,6 +12,11 @@ public class ResultSceneController implements SceneControllerInterface {
     @FXML
     private Label subtitleLabel;
 
+    /**
+     * Sets the GUI.
+     *
+     * @param gui               a GUI.
+     */
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;

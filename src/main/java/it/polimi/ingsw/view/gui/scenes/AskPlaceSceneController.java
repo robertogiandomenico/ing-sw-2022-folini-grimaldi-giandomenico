@@ -81,7 +81,9 @@ public class AskPlaceSceneController implements SceneControllerInterface {
 
 
     /**
-     * @param gui
+     * Sets the GUI.
+     *
+     * @param gui               a GUI.
      */
     @Override
     public void setGUI(GUI gui) {

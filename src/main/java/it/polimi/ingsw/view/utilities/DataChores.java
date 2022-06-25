@@ -93,7 +93,7 @@ public class DataChores {
      * @param availableColors      the Color List of available Colors.
      */
     public static void checkColorNumber(Student[] studArray, Color[] studColors, int i, List<Color> availableColors){
-        if(Arrays.stream(studArray).filter(s -> (s != null && s.getColor() == studColors[i])).count() - Arrays.stream(studColors).filter(c -> c == studColors[i]).count() == 0){
+        if(Arrays.stream(studArray).filter(s -> (s != null && s.getColor() == studColors[i])).count() - Arrays.stream(studColors).filter(c -> c == studColors[i]).count() == 0) {
             availableColors.remove(studColors[i]);
         }
     }

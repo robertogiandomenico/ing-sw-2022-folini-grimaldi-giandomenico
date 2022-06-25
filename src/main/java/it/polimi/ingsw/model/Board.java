@@ -131,7 +131,6 @@ public class Board {
     }
 
     public void updatePlayerCoins(SchoolBoard currSB, int indexDR){
-        //TODO: resolve a bug that doesn't allow to receive coins from the DR
         boolean canTake = currSB.checkCoinsPath(indexDR, currSB.getDiningRoom()[indexDR]);
         if (canTake && coinsSupply > 0) {
             currSB.getPlayer().addCoin();
@@ -153,7 +152,7 @@ public class Board {
      * @param mnSteps               the number of steps Mother Nature has to take.
      */
     public void moveMotherNature(int mnSteps) {
-        int archiIndex = 0; //needed to know the index of the starting archipelago
+        int archiIndex = 0; //necessary to know the index of the starting archipelago
         int nextArchiIndex;
 
         for (Archipelago archi : archipelagos) {
@@ -216,7 +215,6 @@ public class Board {
                     topInfluencer.removeTowers(archipelago.getIslands().size());
                     archipelago.setTowerColor(topInfluencer.getPlayer().getTowerColor());
                 }
-                //We'll need to remember that if topInfluencer.getTowersLeft() == 0 -> topInfluencer wins the game
 
                 Archipelago.resetForbiddenColor();
                 if (archipelago.getTowerColor() != null) checkMerge(archipelago);

@@ -530,10 +530,12 @@ public class BoardSceneController implements SceneControllerInterface {
 
             cloudIndex = Character.getNumericValue(cloudId.charAt(cloudId.length() - 1));
 
-            if (board.getCloud(cloudIndex)[0] == null) {
-                gui.warningDialog("Cannot choose this cloud since it's empty. Try again.");
-                return;
-            }
+            try {
+                if (board.getCloud(cloudIndex)[0] == null) {
+                    gui.warningDialog("Cannot choose this cloud since it's empty. Try again.");
+                    return;
+                }
+            } catch (IndexOutOfBoundsException ignored) { }
 
             gui.getClient().sendMsgToServer(new CloudReply(cloudIndex));
             cloudsBox.setDisable(true);
@@ -562,8 +564,11 @@ public class BoardSceneController implements SceneControllerInterface {
                 archiId = event.getPickResult().getIntersectedNode().getParent().getId();
                 if (archiId == null) {
                     archiId = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
-                    if (archiId == null)
+                    if (archiId == null) {
                         archiId = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
+                        if (archiId == null)
+                            archiId = event.getPickResult().getIntersectedNode().getParent().getParent().getParent().getId();
+                    }
                 }
             }
             archiIndex = Integer.parseInt(archiId.substring(archiId.length() - 2));
@@ -643,8 +648,11 @@ public class BoardSceneController implements SceneControllerInterface {
             studColors = null;
 
              characterName = event.getPickResult().getIntersectedNode().getParent().getId();
-             if (characterName == null)
+             if (characterName == null) {
                  characterName = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
+                 if (characterName == null)
+                     characterName = event.getPickResult().getIntersectedNode().getParent().getParent().getParent().getId();
+             }
 
             if(board.getSelectedCharacters()[getCharIndexByName(characterName)].getCost() > board.getCurrentPlayerSchoolBoard().getPlayer().getCoins()) {
                 gui.warningDialog("Cannot choose this character card since you do not have enough coins. Try again.");
@@ -875,7 +883,7 @@ public class BoardSceneController implements SceneControllerInterface {
         for (int i = 0; i < studentNumber; i++) {
             gui.askColor(availableColors, "Select now the student(s) you would like to swap from your entrance. " + (studentNumber-i) + " student(s) left.");
             studColors[studentNumber+i] = gui.getStudColor();
-            DataChores.checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, i, availableColors);
+            DataChores.checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, studentNumber+i, availableColors);
         }
     }
 

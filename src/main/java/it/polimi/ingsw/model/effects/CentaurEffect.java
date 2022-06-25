@@ -30,8 +30,6 @@ public class CentaurEffect implements Effect {
             negativeInfluence = selectedArchipelago.getIslands().size() * (-1);
 
             board.getPlayerSchoolBoardByTeam(team).setAdditionalInfluence(negativeInfluence);
-
-            // TODO: AdditionalInfluence must go back to 0  ** AT THE END OF THE TURN **, NOT IMMEDIATELY, need controller(?) to manage turns and send a signal to de-activate the effect */
         }
     }
 }

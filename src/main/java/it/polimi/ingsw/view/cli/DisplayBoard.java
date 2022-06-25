@@ -40,7 +40,7 @@ public class DisplayBoard {
         for (int i = 0; i < nicknameLength; i++)    //backward for -nicknameLength- columns
             System.out.print("\033[1D");
 
-        System.out.print(color); //FIXME: does not work as it should
+        System.out.print(color);
         System.out.print("╭───┬──────────────────┬───────╮" + "\033[1B" + "\033[32D");
         System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
         System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
@@ -355,7 +355,7 @@ public class DisplayBoard {
     }
 
     /**
-     * Displays the students table in a school board.
+     * Displays the students' table in a school board.
      * Called in {@link CLI#printBoard printBoard} for each color.
      *
      * @param sB            the LightSchoolBoard.

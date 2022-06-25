@@ -66,7 +66,6 @@ public class NewGameSceneController implements SceneControllerInterface {
     @FXML
     private void exit() {
         gui.closeWindow(gui.getStage());
-        System.exit(0);
     }
 
     /**

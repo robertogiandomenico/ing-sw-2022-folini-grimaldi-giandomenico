@@ -547,7 +547,7 @@ public class CLI implements ViewInterface {
         for (int i = 0; i < studentNumber; i++) {
             System.out.println((studentNumber - i) + " student(s) left.");
             studColors[studentNumber+i] = askColor(availableColors);
-            DataChores.checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, i, availableColors);
+            DataChores.checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, studentNumber+i, availableColors);
             System.out.print("\n");
         }
     }

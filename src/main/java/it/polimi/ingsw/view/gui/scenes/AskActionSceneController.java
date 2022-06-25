@@ -72,7 +72,9 @@ public class AskActionSceneController implements SceneControllerInterface {
     }
 
     /**
-     * @param gui           a GUI
+     * Sets the GUI.
+     *
+     * @param gui               a GUI.
      */
     @Override
     public void setGUI(GUI gui) {

@@ -37,7 +37,9 @@ public class GUI extends Application implements ViewInterface {
     private Color studColor;
     private int archiIndex;
     private boolean firstPrintBoard = true;
+    private boolean muted = false;
     private final Object lock = new Object();
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -78,13 +80,12 @@ public class GUI extends Application implements ViewInterface {
             stage.show();
 
             stage.setOnCloseRequest(event -> {
-                event.consume();
                 closeWindow(stage);
+                event.consume();
             });
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(-1);
+        } catch (IOException e) {
+            Platform.exit();
         }
     }
 
@@ -431,31 +432,39 @@ public class GUI extends Application implements ViewInterface {
         SceneController.setCurrentController(rsc);
         rsc.setGUI(this);
 
-        mediaPlayer.stop();
+        if (!muted) {
+            mediaPlayer.setAutoPlay(false);
+            mediaPlayer.stop();
+        }
 
         Platform.runLater(() -> {
             try {
                 Stage resultStage = new Stage();
-                MediaPlayer resultPlayer;
-                Media resultSFX;
 
                 SceneController.popUpScene(resultStage, "ResultScene", rsc);
                 if (getClient().getNickname().equals(winner)) {
                     ((ResultSceneController)rsc).setWinner("Congratulations, you WON!");
-                    resultSFX = new Media(getClass().getClassLoader().getResource("audio/Win_SFX.mp3").toString());
+
+                    if (!muted) {
+                        Media winSFX = new Media(getClass().getClassLoader().getResource("audio/Win_SFX.mp3").toString());
+                        mediaPlayer = new MediaPlayer(winSFX);
+                        mediaPlayer.play();
+                    }
 
                 } else {
                     ((ResultSceneController)rsc).setWinner("You lost!");
                     ((ResultSceneController)rsc).setSubtitle(winner + " WINS! " + condition);
-                    resultSFX = new Media(getClass().getClassLoader().getResource("audio/Lose_SFX.mp3").toString());
+
+                    if (!muted) {
+                        Media loseSFX = new Media(getClass().getClassLoader().getResource("audio/Lose_SFX.mp3").toString());
+                        mediaPlayer = new MediaPlayer(loseSFX);
+                        mediaPlayer.play();
+                    }
                 }
 
                 resultStage.setOnCloseRequest(event -> {
                     closeWindow(resultStage);
                 });
-                resultPlayer = new MediaPlayer(resultSFX);
-                resultPlayer.setVolume(30);
-                resultPlayer.setAutoPlay(false);
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -486,7 +495,8 @@ public class GUI extends Application implements ViewInterface {
             ((Stage) errorDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
             errorDialog.showAndWait();
 
-            if(shutDown) System.exit(0);
+            if(shutDown)
+                Platform.exit();
         });
     }
 
@@ -552,9 +562,9 @@ public class GUI extends Application implements ViewInterface {
         ((Stage)alertDialog.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
 
         if (alertDialog.showAndWait().get() == ButtonType.OK) {
-            System.out.println("Exit confirmed.");
             stage.close();
-            System.exit(0);                 //FIXME: idk if this is necessary
+            Platform.exit();
+            System.exit(0);
         }
     }
 
@@ -595,6 +605,10 @@ public class GUI extends Application implements ViewInterface {
 
     public Object getLock() {
         return lock;
+    }
+
+    public void setMuted(boolean muted) {
+        this.muted = muted;
     }
 
     public void setArchiIndex(int archiIndex) {

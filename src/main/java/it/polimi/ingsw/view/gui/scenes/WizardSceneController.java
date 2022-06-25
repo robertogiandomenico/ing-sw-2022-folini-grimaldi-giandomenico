@@ -119,7 +119,6 @@ public class WizardSceneController implements SceneControllerInterface {
     @FXML
     private void exit() {
         gui.closeWindow(gui.getStage());
-        System.exit(0);
     }
 
     /**
