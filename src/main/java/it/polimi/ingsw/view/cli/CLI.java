@@ -461,7 +461,7 @@ public class CLI implements ViewInterface {
                 for (int i = 0; i < studentNumber; i++) {
                     System.out.println((studentNumber-i) + " student(s) left.");
                     studColors[i] = askColor(availableColors);
-                    DataChores.checkColorNumber(selectedCharacter.getStudents(), studColors, i, availableColors);
+                    DataChores.checkColorNumber(selectedCharacter.getStudents(), studColors, i, 0, availableColors);
                     System.out.print("\n");
                 }
 
@@ -499,7 +499,7 @@ public class CLI implements ViewInterface {
                 for (int i = 0; i < studentNumber; i++) {
                     System.out.println((studentNumber-i) + " student(s) left.");
                     studColors[i] = askColor(availableColors);
-                    DataChores.checkColorNumberDR(board.getCurrentPlayerSchoolBoard().getDiningRoom(), studColors, i, availableColors);
+                    DataChores.checkColorNumberDR(board.getCurrentPlayerSchoolBoard().getDiningRoom(), studColors, i, 0, availableColors);
                     System.out.print("\n");
                 }
 
@@ -547,7 +547,7 @@ public class CLI implements ViewInterface {
         for (int i = 0; i < studentNumber; i++) {
             System.out.println((studentNumber - i) + " student(s) left.");
             studColors[studentNumber+i] = askColor(availableColors);
-            DataChores.checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, studentNumber+i, availableColors);
+            DataChores.checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, studentNumber+i, studentNumber, availableColors);
             System.out.print("\n");
         }
     }

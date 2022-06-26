@@ -75,25 +75,32 @@ public class DataChores {
      *
      * @param dr                   the Array representing the current Player's dining room.
      * @param studColors           the Color Array of colors chosen by the user.
-     * @param i                    the index of the Arrays.
+     * @param i                    the index of the newly added Color in the studColors Array.
+     * @param startingIndex        the index from which to start to subList the studColors Array.
      * @param availableColors      the Color List of available Colors.
      */
-    public static void checkColorNumberDR(int[] dr, Color[] studColors, int i, List<Color> availableColors) {
-        if (dr[i] - Arrays.stream(studColors).filter(color -> color != null && color.ordinal() == i).count() == 0){
+    public static void checkColorNumberDR(int[] dr, Color[] studColors, int i, int startingIndex, List<Color> availableColors) {
+        List<Color> currentStudColors = List.of(studColors).subList(startingIndex, studColors.length);
+        int colorIntValue = Color.values()[i].ordinal();
+        if (dr[colorIntValue] - currentStudColors.stream().filter(color -> color != null && color.ordinal() == colorIntValue).count() == 0){
             availableColors.remove(studColors[i]);
         }
     }
 
     /**
      * Checks the color number.
+     * Used in {@link CLI#askCharacter(LightBoard) askCharacter method} in order to
+     * activate {@link it.polimi.ingsw.model.effects.MinstrelEffect MinstrelEffect} and {@link it.polimi.ingsw.model.effects.JesterEffect JesterEffect}.
      *
      * @param studArray            a Student Array.
      * @param studColors           a Color Array of colors chosen by the user.
-     * @param i                    the index of the Arrays.
+     * @param i                    the index of the newly added Color in the studColors Array.
+     * @param startingIndex        the index from which to start to subList the studColors Array.
      * @param availableColors      the Color List of available Colors.
      */
-    public static void checkColorNumber(Student[] studArray, Color[] studColors, int i, List<Color> availableColors){
-        if(Arrays.stream(studArray).filter(s -> (s != null && s.getColor() == studColors[i])).count() - Arrays.stream(studColors).filter(c -> c == studColors[i]).count() == 0) {
+    public static void checkColorNumber(Student[] studArray, Color[] studColors, int i, int startingIndex, List<Color> availableColors){
+        List<Color> currentStudColors = List.of(studColors).subList(startingIndex, studColors.length);
+        if(Arrays.stream(studArray).filter(s -> (s != null && s.getColor() == studColors[i])).count() - currentStudColors.stream().filter(c -> c == studColors[i]).count() == 0) {
             availableColors.remove(studColors[i]);
         }
     }

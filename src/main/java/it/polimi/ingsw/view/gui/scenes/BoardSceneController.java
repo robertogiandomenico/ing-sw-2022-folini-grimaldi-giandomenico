@@ -717,7 +717,7 @@ public class BoardSceneController implements SceneControllerInterface {
                             for (int i = 0; i < studentNumber; i++) {
                                 gui.askColor(availableColors, "Select the student you would like to take from the character card. " + (studentNumber-i) + " student(s) left");
                                 studColors[i] = gui.getStudColor();
-                                DataChores.checkColorNumber(selectedCharacter.getStudents(), studColors, i, availableColors);
+                                DataChores.checkColorNumber(selectedCharacter.getStudents(), studColors, i, 0, availableColors);
                             }
                             availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
                             askEntranceStudents(board, studentNumber, studColors, availableColors);
@@ -767,7 +767,7 @@ public class BoardSceneController implements SceneControllerInterface {
                             for (int i = 0; i < studentNumber; i++) {
                                 gui.askColor(availableColors, "Select the student you would like to take from the dining room. " + (studentNumber-i) + " student(s) left.");
                                 studColors[i] = gui.getStudColor();
-                                DataChores.checkColorNumberDR(board.getCurrentPlayerSchoolBoard().getDiningRoom(), studColors, i, availableColors);
+                                DataChores.checkColorNumberDR(board.getCurrentPlayerSchoolBoard().getDiningRoom(), studColors, i, 0, availableColors);
                             }
 
                             availableColors = DataChores.getColorsByStudents(board.getCurrentPlayerSchoolBoard().getEntrance());
@@ -883,7 +883,7 @@ public class BoardSceneController implements SceneControllerInterface {
         for (int i = 0; i < studentNumber; i++) {
             gui.askColor(availableColors, "Select now the student(s) you would like to swap from your entrance. " + (studentNumber-i) + " student(s) left.");
             studColors[studentNumber+i] = gui.getStudColor();
-            DataChores.checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, studentNumber+i, availableColors);
+            DataChores.checkColorNumber(board.getCurrentPlayerSchoolBoard().getEntrance(), studColors, studentNumber+i, studentNumber, availableColors);
         }
     }
 
