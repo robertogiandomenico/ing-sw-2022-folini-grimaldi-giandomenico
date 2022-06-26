@@ -80,8 +80,8 @@ public class DataChores {
      * @param availableColors      the Color List of available Colors.
      */
     public static void checkColorNumberDR(int[] dr, Color[] studColors, int i, int startingIndex, List<Color> availableColors) {
-        List<Color> currentStudColors = List.of(studColors).subList(startingIndex, studColors.length);
-        int colorIntValue = Color.values()[i].ordinal();
+        List<Color> currentStudColors = Arrays.asList(studColors).subList(startingIndex, studColors.length);
+        int colorIntValue = studColors[i].ordinal();
         if (dr[colorIntValue] - currentStudColors.stream().filter(color -> color != null && color.ordinal() == colorIntValue).count() == 0){
             availableColors.remove(studColors[i]);
         }
@@ -99,7 +99,7 @@ public class DataChores {
      * @param availableColors      the Color List of available Colors.
      */
     public static void checkColorNumber(Student[] studArray, Color[] studColors, int i, int startingIndex, List<Color> availableColors){
-        List<Color> currentStudColors = List.of(studColors).subList(startingIndex, studColors.length);
+        List<Color> currentStudColors = Arrays.asList(studColors).subList(startingIndex, studColors.length);
         if(Arrays.stream(studArray).filter(s -> (s != null && s.getColor() == studColors[i])).count() - currentStudColors.stream().filter(c -> c == studColors[i]).count() == 0) {
             availableColors.remove(studColors[i]);
         }
