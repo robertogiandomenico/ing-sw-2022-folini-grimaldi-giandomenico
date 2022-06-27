@@ -18,6 +18,10 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This class represents the server. It is used to start and close the games,
+ * and to manage clients that connect to play.
+ */
 public class Server {
     private final int port;
     private ServerSocket serverSocket;
@@ -27,6 +31,11 @@ public class Server {
     private final Object lobbyLock = new Object();
     public static final Logger SERVER_LOGGER = Logger.getLogger(Server.class.getName() + "Logger");
 
+    /**
+     * Class constructor.
+     *
+     * @param port           the Server port.
+     */
     public Server(int port) {
         this.port = port;
         lobbies = new ConcurrentHashMap<>();
@@ -34,6 +43,10 @@ public class Server {
         this.executor = Executors.newCachedThreadPool();
     }
 
+    /**
+     * Initializes server socket, waits for client connections and accepts them,
+     * delegating the {@link ClientHandler} for further actions.
+     */
     public void start(){
         try {
             serverSocket = new ServerSocket(port);
@@ -56,10 +69,21 @@ public class Server {
         }
     }
 
+    /**
+     * Returns the lobbies.
+     *
+     * @return               the Map that represents the lobbies.
+     */
     public Map<Controller, Integer> getLobbies() {
         return lobbies;
     }
 
+    /**
+     * Adds a client to the lobby of the given game.
+     *
+     * @param gameName       the name of the Game.
+     * @param clientHandler  a ClientHandler.
+     */
     public void addToLobby(String gameName, ClientHandler clientHandler){
         synchronized (lobbyLock){
             Controller gameController = lobbies.keySet().stream().filter(l -> l.getGameName().equalsIgnoreCase(gameName)).findFirst().get();
@@ -73,6 +97,12 @@ public class Server {
         }
     }
 
+    /**
+     * Checks a lobby removing players if they exceed the required number and
+     * starts the game if possible.
+     *
+     * @param controller     a Controller.
+     */
     public void checkLobby(Controller controller) {
         synchronized (lobbyLock){
             if(lobbies.get(controller) == controller.getHandlers().size()) {
@@ -98,6 +128,16 @@ public class Server {
         }
     }
 
+    /**
+     * Checks the availability of a nickname:
+     * <p>
+     * - sets the client handler to the following phase if so;
+     * </p> <p>
+     * - asks another nickname if not.
+     * </p>
+     *
+     * @param clientHandler  a ClientHandler.
+     */
     public void validateNickname(ClientHandler clientHandler){
         if(!notAvailableNames.contains(clientHandler.getClientNickname())){
             notAvailableNames.add(clientHandler.getClientNickname());
@@ -109,6 +149,12 @@ public class Server {
         }
     }
 
+    /**
+     * Removes a disconnected client and removes the correspondent controller from
+     * the lobbies.
+     *
+     * @param clientHandler  a ClientHandler.
+     */
     public void removeClient(ClientHandler clientHandler) {
         Optional<Controller> controller = lobbies.keySet().stream().filter(c -> c.getHandlers().contains(clientHandler)).findFirst();
         if (controller.isPresent()){
@@ -123,9 +169,15 @@ public class Server {
         }
     }
 
+    /**
+     * Ends a game removing the correspondent controller from the lobbies.
+     *
+     * @param controller     the Controller to remove.
+     */
     public void endGame(Controller controller) {
         synchronized (lobbyLock){
             lobbies.remove(controller);
         }
     }
+
 }

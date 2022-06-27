@@ -54,6 +54,9 @@ public class Board {
         mapSetup();
     }
 
+    /**
+     * Sets all the board content (islands, bag, clouds, school boards, characters).
+     */
     public void initBoard(){
         //initialize the islands with mother nature and the students
         initializeIslands(new Random().nextInt(12));
@@ -128,6 +131,14 @@ public class Board {
         }
     }
 
+    /**
+     * Updates player's coins whenever they position a student in a dining room
+     * space that allows them to get an additional coin, according to game rules
+     * (only in Expert Mode).
+     *
+     * @param currSB                the SchoolBoard of the current Player.
+     * @param indexDR               the index of the dining room.
+     */
     public void updatePlayerCoins(SchoolBoard currSB, int indexDR){
         //TODO: resolve a bug that doesn't allow to receive coins from the DR
         boolean canTake = currSB.checkCoinsPath(indexDR, currSB.getDiningRoom()[indexDR]);

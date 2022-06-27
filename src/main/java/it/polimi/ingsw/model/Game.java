@@ -92,9 +92,10 @@ public class Game {
 
     /**
      * Updates playing order according to the weight of the chosen assistant cards.
+     * Uses a simple sorting algorithm to sort the players according to the weight
+     * of the last assistant played and then sets the current player as the first
+     * player for the next turn.
      */
-    //this method uses a simple sorting algorithm to sort the players according to the weight
-    //of the last assistant played and then sets the current player as the first player for the next turn
     public void updatePlayersOrder() {
         for (int i = 0; i < numberOfPlayers - 1; i++) {
             for (int j = i + 1; j < numberOfPlayers; j++) {

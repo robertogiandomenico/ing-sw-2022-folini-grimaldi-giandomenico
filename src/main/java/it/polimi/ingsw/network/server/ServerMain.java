@@ -4,6 +4,9 @@ import it.polimi.ingsw.view.cli.CliColor;
 
 import java.util.Scanner;
 
+/**
+ * This class is used to start the server.
+ */
 public class ServerMain {
     private static final int MIN = 1024;
     private static final int MAX = 65535;
@@ -61,4 +64,5 @@ public class ServerMain {
 
         new Server(port).start();
     }
+
 }

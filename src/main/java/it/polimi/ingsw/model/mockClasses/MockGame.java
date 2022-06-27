@@ -11,10 +11,23 @@ import it.polimi.ingsw.model.GameCharacter;
  */
 public class MockGame extends Game {
 
+    /**
+     * Class constructor specifying the chosen game mode.
+     *
+     * @param expertMode            a boolean whose value is:
+     *                              <p>
+     *                              -{@code true} if Expert Mode is chosen;
+     *                              </p> <p>
+     *                              -{@code false} if Easy Mode is chosen.
+     *                              </p>
+     */
     public MockGame(boolean expertMode) {
         super(expertMode);
     }
 
+    /**
+     * Initializes board (either easy or expert mode).
+     */
     @Override
     public void initializeBoard() {
         int TOTALCLOUDS, CLOUDSIZE, ENTRANCESIZE, TOTALTOWERS;

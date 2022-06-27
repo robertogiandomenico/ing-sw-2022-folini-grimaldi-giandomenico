@@ -74,7 +74,7 @@ public class JesterEffect implements Effect {
      *                         <p>
      *                         -{@code true} if there is the sought match;
      *                         </p> <p>
-     *                         -{@code false} if there isn't the sought match.
+     *                         -{@code false} otherwise.
      *                         </p>
      */
     private boolean alreadyPresent(int index, int[] indexes){
