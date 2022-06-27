@@ -26,7 +26,7 @@
             <Font size="29.0" />
          </font>
       </Label>
-      <Label fx:id="subtitleLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="500.0" styleClass="resultText" stylesheets="@../css/setup.css" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+      <Label fx:id="subtitleLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="66.0" prefWidth="456.0" styleClass="resultText" stylesheets="@../css/setup.css" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <font>
             <Font size="20.0" />
          </font>
