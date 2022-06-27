@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.effects.*;
-import it.polimi.ingsw.model.mockClasses.MockBag;
 import it.polimi.ingsw.model.mockClasses.MockBoard;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import org.junit.jupiter.api.AfterEach;
@@ -34,7 +33,7 @@ class BoardTest {
         players.add(new Player("player2", TowerColor.BLACK, Wizard.DESERTWIZARD));
         players.add(new Player("player3", TowerColor.GREY, Wizard.FORESTWIZARD));
 
-        players.get(0).setCanMoveStudents(true);
+        players.get(0).setCurrentPlayer(true);
 
         selectedCharacters.add(new GameCharacter[]{
                 new GameCharacter(3, new HeraldEffect(), "Herald"),

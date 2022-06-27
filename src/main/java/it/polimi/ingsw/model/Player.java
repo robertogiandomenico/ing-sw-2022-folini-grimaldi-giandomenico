@@ -14,9 +14,7 @@ public class Player {
     private final TowerColor towerColor;
     private Assistant discardPile;
     private final Wizard selectedWizard;
-    private boolean canChooseAssistant;
-    private boolean canMoveStudents;
-    private boolean canBuyCharacter;
+    private boolean currentPlayer;
     private int maxSteps;
     private int selectedSteps;
 
@@ -102,45 +100,17 @@ public class Player {
     }
 
     /**
-     * Sets the variable that states whether this player can choose an assistant.
-     *
-     * @param canChooseAssistant    a boolean whose value is:
-     *                              <p>
-     *                              -{@code true} if the Player can choose an Assistant;
-     *                              </p> <p>
-     *                              -{@code false} otherwise.
-     *                              </p>
-     */
-    public void setCanChooseAssistant(boolean canChooseAssistant) {
-        this.canChooseAssistant = canChooseAssistant;
-    }
-
-    /**
      * Sets the variable that states whether this player can move students.
      *
-     * @param canMoveStudents       a boolean whose value is:
+     * @param currentPlayer       a boolean whose value is:
      *                              <p>
-     *                              -{@code true} if the Player can move a Student;
+     *                              -{@code true} if the Player is the current player;
      *                              </p> <p>
      *                              -{@code false} otherwise.
      *                              </p>
      */
-    public void setCanMoveStudents(boolean canMoveStudents) {
-        this.canMoveStudents = canMoveStudents;
-    }
-
-    /**
-     * Sets the variable that states whether this player can buy a character.
-     *
-     * @param canBuyCharacter       a boolean whose value is:
-     *                              <p>
-     *                              -{@code true} if the Player can buy a GameCharacter;
-     *                              </p> <p>
-     *                              -{@code false} otherwise.
-     *                              </p>
-     */
-    public void setCanBuyCharacter(boolean canBuyCharacter) {
-        this.canBuyCharacter = canBuyCharacter;
+    public void setCurrentPlayer(boolean currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     /**
@@ -182,19 +152,6 @@ public class Player {
     }
 
     /**
-     * States whether this player can choose an assistant or not.
-     *
-     * @return                  a boolean whose value is:
-     *                          <p>
-     *                          -{@code true} if this Player can choose an Assistant;
-     *                          </p>
-     *                          -{@code false} otherwise.
-     */
-    public boolean getCanChooseAssistant() {
-        return canChooseAssistant;
-    }
-
-    /**
      * States whether this player can move students or not.
      *
      * @return                  a boolean whose value is:
@@ -204,22 +161,8 @@ public class Player {
      *                          -{@code false} otherwise.
      *                          </p>
      */
-    public boolean getCanMoveStudents() {
-        return canMoveStudents;
-    }
-
-    /**
-     * States whether this player can buy a character or not.
-     *
-     * @return                  a boolean whose value is:
-     *                          <p>
-     *                          -{@code true} if this Player can buy a GameCharacter;
-     *                          </p> <p>
-     *                          -{@code false} otherwise.
-     *                          </p>
-     */
-    public boolean getCanBuyCharacter() {
-        return canBuyCharacter;
+    public boolean isCurrentPlayer() {
+        return currentPlayer;
     }
 
     /**

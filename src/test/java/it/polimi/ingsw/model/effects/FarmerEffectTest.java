@@ -32,7 +32,7 @@ class FarmerEffectTest {
                                                  new GameCharacter(1, new MinstrelEffect(), "Minstrel"),
                                                  new GameCharacter(1, new JesterEffect(), "Jester")};
 
-        players.get(0).setCanMoveStudents(true);
+        players.get(0).setCurrentPlayer(true);
 
         board = new MockBoard(players, 3, 4, 9, 6, selectedCharacters, 0);
     }
@@ -65,8 +65,8 @@ class FarmerEffectTest {
         board.getCurrentPlayerSchoolBoard().setFarmerEffect(false);
 
         //CurrentPlayer = player0 -> player1
-        players.get(0).setCanMoveStudents(false);
-        players.get(1).setCanMoveStudents(true);
+        players.get(0).setCurrentPlayer(false);
+        players.get(1).setCurrentPlayer(true);
 
         //player1's profTable = [false, false, false, false, false]
         //player1's diningRoom = [1, 1, 0, 0, 0]

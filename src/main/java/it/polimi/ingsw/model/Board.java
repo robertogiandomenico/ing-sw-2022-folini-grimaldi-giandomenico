@@ -417,7 +417,7 @@ public class Board {
     public SchoolBoard getCurrentPlayerSchoolBoard() {
         SchoolBoard currentPlayerSchoolBoard = null;
         for (SchoolBoard s : playerBoards) {
-            if (s.getPlayer().getCanMoveStudents()) {
+            if (s.getPlayer().isCurrentPlayer()) {
                 currentPlayerSchoolBoard = s;
             }
         }

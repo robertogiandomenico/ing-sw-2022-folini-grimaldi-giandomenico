@@ -172,6 +172,8 @@ public class BoardSceneController implements SceneControllerInterface {
             ((ImageView)((AnchorPane) thisPlayerPane.getChildren().get(5)).getChildren().get(i)).setImage(getTowerIcon(thisPlayerBoard.getPlayer().getTowerColor()));
             if(i >= thisPlayerBoard.getTowersLeft())
                 ((AnchorPane) thisPlayerPane.getChildren().get(5)).getChildren().get(i).setVisible(false);
+            else
+                ((AnchorPane) thisPlayerPane.getChildren().get(5)).getChildren().get(i).setVisible(true);
         }
 
         //set professor table
@@ -378,6 +380,8 @@ public class BoardSceneController implements SceneControllerInterface {
                 ((ImageView)((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(4)).getChildren().get(j)).setImage(getTowerIcon(otherPlayers[i].getPlayer().getTowerColor()));
                 if(j >= otherPlayers[i].getTowersLeft())
                     ((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(4)).getChildren().get(j).setVisible(false);
+                else
+                    ((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(4)).getChildren().get(j).setVisible(true);
             }
 
             //set professor table

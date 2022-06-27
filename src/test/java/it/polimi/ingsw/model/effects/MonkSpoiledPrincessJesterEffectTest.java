@@ -34,7 +34,7 @@ class MonkSpoiledPrincessJesterEffectTest {
                 new GameCharacter(2, new SpoiledPrincessEffect(), "SpoiledPrincess"),
                 new GameCharacter(1, new JesterEffect(), "Jester")};
 
-        players.get(0).setCanMoveStudents(true);
+        players.get(0).setCurrentPlayer(true);
 
         board = new MockBoard(players, 3, 4, 9, 6, selectedCharacters, 0);
     }

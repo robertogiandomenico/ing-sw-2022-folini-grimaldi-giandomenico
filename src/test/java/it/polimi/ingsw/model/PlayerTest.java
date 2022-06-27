@@ -107,16 +107,11 @@ class PlayerTest {
     @Test
     void testBooleanFlags() {
         for (int i = 0; i < NUMPLAYERS; i++){
-            assertFalse(players.get(i).getCanChooseAssistant());
-            assertFalse(players.get(i).getCanMoveStudents());
-            assertFalse(players.get(i).getCanBuyCharacter());
+            assertFalse(players.get(i).isCurrentPlayer());
         }
+        players.get(0).setCurrentPlayer(true);
 
-        players.get(0).setCanChooseAssistant(true);
-        players.get(0).setCanMoveStudents(true);
-        players.get(0).setCanBuyCharacter(true);
-
-        assertTrue(players.get(0).getCanChooseAssistant());
+        assertTrue(players.get(0).isCurrentPlayer());
     }
 
     @Test

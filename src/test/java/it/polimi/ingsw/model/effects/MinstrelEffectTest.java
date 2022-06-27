@@ -31,7 +31,7 @@ class MinstrelEffectTest {
                 new GameCharacter(1, new MinstrelEffect(), "Minstrel"),
                 new GameCharacter(1, new CentaurEffect(), "Centaur")};
 
-        players.get(0).setCanMoveStudents(true);
+        players.get(0).setCurrentPlayer(true);
 
         board = new MockBoard(players, 3, 4, 9, 6, selectedCharacters, 0);
         initializeEntrances(board);
