@@ -7,14 +7,14 @@ Group 45
 ## Messages
 
 ### NicknameRequest
-Server asks the client for a valid nickname. It is used to uniquely identify the user.
+Server asks the client for a valid nickname between 3 and 10 alphanumeric characters. It is used to uniquely identify the user.
 
 #### Response
 - NicknameReply(_nickname_).
 
 
 ### GameNameRequest
-Server asks the client for a valid game name. It is used to uniquely identify a game.
+Server asks the client for a valid game name between 3 and 10 alphanumeric characters. It is used to uniquely identify a game.
 
 #### Response
 - GameNameReply(_gameName_).
@@ -25,16 +25,21 @@ Server asks the client for a valid game name. It is used to uniquely identify a 
 Server asks the client for the game mode they want to play.
 
 #### Response
-- GameModeReply(_mode_).  
+- GameModeReply(_gameMode_).  
   mode can be one of the two: **easy** or **expert**.
 
 
-### NumPlayersRequest
+### PlayerNumberRequest
 Server asks the client for the number of players of the just created game.
 
 #### Response
-- NumPlayerReply(_num_).
+- PlayerNumberReply(_numPlayers_).
 
+### TextMessage
+It is used by the server to communicate a message to the client.
+
+#### Arguments
+- message: a String representing the message.
 
 ### WizardRequest
 Server asks the client to select one of the available wizards.
@@ -45,59 +50,54 @@ Server asks the client to select one of the available wizards.
 #### Response
 - WizardReply(_wizard_).
 
-
-### PhaseEnteringMessage
-Server communicates to the client the phase of the game about to start.
-
-#### Arguments
-- phase: specifies the phase of the game about to start (**planning**/**action**).
-
-
-### StartTurnMessage
-Server communicates to the current player's client that their turn has started.
-
-
 ### ChooseAssistantRequest
 Server asks the client to select one of the available assistants.
 
 #### Arguments
 - availableAssistants: list of the available assistants.
+- discardedAssistants: list of the assistants chosen by the other players in that round.
+- lightBoard: a light representation of the Board.
 
 #### Response
 - ChooseAssistantReply(_assistant_).
 
+### BoardData
+Server sends the client a light version of the board to be displayed by their view.
+
+#### Arguments
+- lightBoard: a light representation of the Board.
 
 ### ActionRequest
 Server asks the client to select one of the possible actions.
-
 
 #### Arguments
 - possibleActions: list of the possible actions.
 
 #### Response
-- ActionReply(_chosenAction_). 
+- ActionReply(_actionIndex_). 
   Depending on the current game phase, it can be one of the possible action type:  
   - `MOVE_STUDENT_ACTION`
   - `MOVE_MN_ACTION`
   - `BUY_CHARACTER_ACTION`
+  - `NEXT_PHASE_ACTION`
 
 
-### SelectStudentRequest
+### StudentRequest
 Server asks the client to select one of the students to be moved.
 
 #### Arguments
 - availableColors: possible colors to be chosen. It is used to check whether the selected color is valid or not.
 
 #### Response
-- SelectStudentReply(_studentColor_).  
+- StudentReply(_studColor_).  
   _studentColor_ is the color of the chosen student.
 
 
-### SelectPlaceRequest
+### PlaceRequest
 Server asks the client to select the place where they want to move the student.
 
 #### Response
-- SelectPlaceReply(_place_).  
+- PlaceReply(_place_).  
   _place_ is where the student will be moved.
 
 
@@ -105,35 +105,31 @@ Server asks the client to select the place where they want to move the student.
 Server asks the client to select one of three the available characters.
 
 #### Arguments
-- availableCharacter: possible character to be chosen.
+- lightBoard: a light representation of the Board containing a light version of the characters.
 
 #### Response
 ###### this reply contains all possible parameters that can be chosen, but only the necessary ones will be set by the user
 - SelectCharacterReply(_character_,_archiIndex_,_studentNumber_,_studColors_).
 
 
-### SelectMNStepsRequest
+### MNStepsRequest
 Server asks the client to select the number of steps mother nature will do.
 
 #### Arguments
 - maxMNSteps: maximum steps can do based on the selected assistant.
 
 #### Response
-- SelectMNStepsReply(_steps_).
+- MNStepsReply(_mnSteps_).
 
 
-### SelectCloudRequest
+### CloudRequest
 Server asks the client to select the cloud from which to take the students.
 
 #### Arguments
-- clouds: list of the available clouds.
+- indexesAvailableClouds: list of the indexes of available (not empty) clouds.
 
 #### Response
-- SelectCloudReply(_cloud_).
-
-
-### EndTurnMessage
-Server communicates to the current player's client that their turn has ended.
+- CloudReply(_cloudIndex_).
 
 
 ### ResultMessage
@@ -150,20 +146,19 @@ Server communicates to the client their game result.
 <img src="resources/1-AccessToTheGame.png" width=400px>
 
 1. Client accesses the server with IP address and server port;
-2. once connection is established, server asks the client for their nickname until it is valid (not already taken and only alphanumeric characters);
+2. once connection is established, server asks the client for their nickname until it is valid (not already taken, only 3 to 10 alphanumeric characters);
 3. server asks for the name of the game they want to join:
    1. if the name corresponds to that of one existing game, the client joins the lobby;
    2. otherwise a new game with that name is created. The server asks the game mode (**easy**/**expert**) and the number of players that will join;
-4. once all the players joined, the game starts and asks every client, following the connection order, to select a wizard from the list of the available ones.
+4. once all the players joined a lobby, the game starts and asks every client, following the connection order, to select a wizard from the list of the available ones.
 
 
 
 ### Planning Phase
 <img src="resources/2-PlanningPhase.png" width=350px>
 
-1. Server sends a message notifying the client that a phase (_planningPhase_) is about to start;
-2. server notifies the current player that their turn starts now;
-3. server asks the client to play an assistant card from their deck of available assistants. The server sends only the available assistants which have not already been chosen by the other players in this round.
+1. server asks the current player's client to play an assistant card from their deck of available assistants. The server sends only the available assistants which have not already been chosen by the other players in this round.
+2. the other(s) non-current player's client(s) receive a BoardData message in order to display the board.
 
 
 
@@ -171,11 +166,10 @@ Server communicates to the client their game result.
 
 <img src="resources/3-ActionPhase1.png" width="450"/>
 
-1. Server sends a message notifying the client that a phase (_actionPhase_) is about to start;
-2. server asks the client to do one of the following actions:
+1. server asks the client to do one of the following actions:
    1. select a student from the entrance and, after the reply, the place (**archipelago**/**dining room**) where they want to put it;
    2. select a character from the available ones to use their special effect. This action may only be chosen once in the whole turn.
-3. The operation 2 is repeated until three students from the entrance are moved.
+2. The operation 2 is repeated until all the actions are executed or the "Go to next phase" action is selected (the player need to move all 3 students and not select a character to make it appear).
 
 
 
@@ -186,13 +180,14 @@ Server communicates to the client their game result.
 Server asks the client to do one of the following actions:
     1. select a character from the available ones to use their special effect, if not chosen during the action phase 1;
     2. select the number of steps mother nature will take between 1 and maxMNSteps.
+If the player does not want to play a character, the "Go to next phase" action will appear after moving Mother Nature.
 
 
 ### Action Phase 3: Draw from cloud
 <img src="resources/5-ActionPhase3.png" width="300"/>
 
 1. Server asks the client to choose a cloud from the list of the still full ones;
-2. after the client reply, server notifies the client that their turn is over.
+2. after the client reply, another player's turn begin.
 
 
 ### End of the Game

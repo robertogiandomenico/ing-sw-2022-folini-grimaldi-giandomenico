@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.controller.phases.ClientHandlerPhases;
-import it.polimi.ingsw.controller.phases.gamePhases.ActionPhase;
 import it.polimi.ingsw.controller.phases.gamePhases.GamePhase;
 import it.polimi.ingsw.controller.phases.gamePhases.PlanningPhase;
 import it.polimi.ingsw.controller.phases.gamePhases.SetupPhase;
@@ -12,7 +11,6 @@ import it.polimi.ingsw.model.SchoolBoard;
 import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.BoardData;
 import it.polimi.ingsw.network.messages.serverMessages.IsWinner;
-import it.polimi.ingsw.network.messages.serverMessages.PhaseEntering;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.Server;
 
@@ -71,9 +69,6 @@ public class Controller {
 
     public void setGamePhase(GamePhase gamePhase) {
         this.gamePhase = gamePhase;
-        if(gamePhase instanceof PlanningPhase || gamePhase instanceof ActionPhase){
-            broadcastMessage(new PhaseEntering(gamePhase.toString()));
-        }
         gamePhase.execute(this);
     }
 
