@@ -40,7 +40,7 @@ public class DisplayBoard {
         for (int i = 0; i < nicknameLength; i++)    //backward for -nicknameLength- columns
             System.out.print("\033[1D");
 
-        System.out.print(color); //FIXME: does not work as it should
+        System.out.print(color);
         System.out.print("╭───┬──────────────────┬───────╮" + "\033[1B" + "\033[32D");
         System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
         System.out.print("│   │ │           ║    │       │" + "\033[1B" + "\033[32D");
@@ -178,13 +178,15 @@ public class DisplayBoard {
         System.out.print(CliColor.BBLUE + formatter.format(MatrixOperations.columnSum(archipelago.getIslands(), 4)));
         System.out.print(CliColor.RESET);
 
-        System.out.print("\033[2B" + "\033[12D");
+        System.out.print("\033[2B" + "\033[13D");
 
         //print no entry tile
-        if (archipelago.isNoEntryTilePresent())
-            System.out.print(CliColor.BOLDRED + "X" + CliColor.RESET);
+        if (archipelago.getNoEntryTiles() == 1)
+            System.out.print(CliColor.BOLDRED + " X" + CliColor.RESET);
+        else if (archipelago.getNoEntryTiles() > 1)
+            System.out.print(CliColor.BOLDRED + Integer.toString(archipelago.getNoEntryTiles()) + "X" + CliColor.RESET);
         else
-            System.out.print("\033[1C");
+            System.out.print("\033[2C");
 
         System.out.print("\033[4C");
 
@@ -208,13 +210,16 @@ public class DisplayBoard {
 
         System.out.print("\033[1B");
 
-        //print size of the archipelago
-        if(archipelago.getSize() < 10)
-            System.out.print("×" + archipelago.getSize());
-        else {
-            System.out.print("\033[1D");
-            System.out.print("×" + archipelago.getSize());
-        }
+        //print size of the archipelago if it's > 1
+        if (archipelago.getSize() > 1) {
+            if (archipelago.getSize() < 10)
+                System.out.print("×" + archipelago.getSize());
+            else {
+                System.out.print("\033[1D");
+                System.out.print("×" + archipelago.getSize());
+            }
+        } else
+            System.out.print("\033[2C");
 
         System.out.print("\033[1C");
     }
@@ -350,7 +355,7 @@ public class DisplayBoard {
     }
 
     /**
-     * Displays the students table in a school board.
+     * Displays the students' table in a school board.
      * Called in {@link CLI#printBoard printBoard} for each color.
      *
      * @param sB            the LightSchoolBoard.

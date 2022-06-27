@@ -34,6 +34,9 @@ public class Client {
     private final Thread messageListener;
     private final Thread messageHandler;
     private String nickname;
+    private boolean movingMN = false;
+    private boolean movingStud = false;
+    private boolean choosingChar = false;
 
     /**
      * Class constructor. Sets server IP and port and builds the threads
@@ -107,12 +110,28 @@ public class Client {
             while (clientConnected.get()) {
                 Object msg = inputStream.readObject();
                 if(msg instanceof GenericServerMessage){
-                    if (((GenericServerMessage) msg).getType() == MessageType.RESULT){
+                    if (((GenericServerMessage) msg).getType() == MessageType.RESULT) {
                         messageQueue.clear();
                         ((GenericServerMessage) msg).show(view);
                         disconnect(false);
                     }
                     messageQueue.add((GenericServerMessage) msg);
+
+                    if (((GenericServerMessage) msg).getType() == MessageType.MNSTEPS_REQUEST) {
+                        movingMN = true;
+                        choosingChar = false;
+                        movingStud = false;
+                    } else if (((GenericServerMessage) msg).getType() == MessageType.CHARACTER_REQUEST) {
+                        movingMN = false;
+                        choosingChar = true;
+                        movingStud = false;
+                    }
+                    else if (((GenericServerMessage) msg).getType() == MessageType.PLACE_REQUEST) {
+                        movingMN = false;
+                        choosingChar = false;
+                        movingStud = true;
+                    }
+
                 } else if (msg instanceof DisconnectionMessage) {
                     messageQueue.clear();
                     ((DisconnectionMessage) msg).show(view);
@@ -148,22 +167,25 @@ public class Client {
      *                      </p>
      */
     public void disconnect(boolean error){
-        if(messageListener.isAlive()) messageListener.interrupt();
-        if(messageHandler.isAlive()) messageHandler.interrupt();
+        if(clientConnected.get()) {
+            clientConnected.set(false);
+            if (messageListener.isAlive()) messageListener.interrupt();
+            if (messageHandler.isAlive()) messageHandler.interrupt();
 
-        try {
-            inputStream.close();
-        } catch (IOException ignored) {}
+            try {
+                inputStream.close();
+            } catch (IOException ignored) {}
 
-        try {
-            outputStream.close();
-        } catch (IOException ignored) {}
+            try {
+                outputStream.close();
+            } catch (IOException ignored) {}
 
-        try {
-            clientSocket.close();
-        } catch (IOException ignored) {}
+            try {
+                clientSocket.close();
+            } catch (IOException ignored) {}
 
-        if(error) view.displayErrorAndExit("An error occurred during the communication with the server, you're being disconnected! See ya!");
+            if (error) view.displayErrorAndExit("An error occurred during the communication with the server, you're being disconnected! See ya!");
+        }
     }
 
     /**
@@ -184,4 +206,28 @@ public class Client {
         return nickname;
     }
 
+
+    public void setMovingMN(boolean movingMN) {
+        this.movingMN = movingMN;
+    }
+
+    public boolean isMovingMN() {
+        return movingMN;
+    }
+
+    public void setMovingStud(boolean movingStud) {
+        this.movingStud = movingStud;
+    }
+
+    public boolean isMovingStud() {
+        return movingStud;
+    }
+
+    public void setChoosingChar(boolean choosingChar) {
+        this.choosingChar = choosingChar;
+    }
+
+    public boolean isChoosingChar() {
+        return choosingChar;
+    }
 }

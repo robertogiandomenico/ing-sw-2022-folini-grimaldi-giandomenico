@@ -40,12 +40,7 @@ public class WizardSceneController implements SceneControllerInterface {
      */
     @FXML
     private void initialize() {
-        goButton.setDisable(true);
-
-        articWizard.setDisable(true);
-        skyWizard.setDisable(true);
-        desertWizard.setDisable(true);
-        forestWizard.setDisable(true);
+        disableAll();
     }
 
     /**
@@ -55,46 +50,40 @@ public class WizardSceneController implements SceneControllerInterface {
      */
     @FXML
     private void handleOnMouseClicked(MouseEvent event) {
-
-        Node selectedWizardNode = event.getPickResult().getIntersectedNode().getParent();
-
         if (event.getButton().equals(MouseButton.PRIMARY)) {
+            Node selectedWizardNode = event.getPickResult().getIntersectedNode().getParent();
+            chosenWizardID = selectedWizardNode.getId();
+
 
             if (selectedWizardNode.getPseudoClassStates().contains(focusedElement)) {
                 selectedWizardNode.pseudoClassStateChanged(focusedElement, false);
                 goButton.setDisable(true);
-            } else {
+            } else if (chosenWizardID != null){
                 selectedWizardNode.pseudoClassStateChanged(focusedElement, true);
                 goButton.setDisable(false);
             }
 
-            chosenWizardID = event.getPickResult().getIntersectedNode().getParent().getId();
-
             try {
                 switch (chosenWizardID) {
                     case "articWizard":
-                        System.out.println("articWizard selected");
                         desertWizard.pseudoClassStateChanged(focusedElement, false);
                         forestWizard.pseudoClassStateChanged(focusedElement, false);
                         skyWizard.pseudoClassStateChanged(focusedElement, false);
                         break;
 
                     case "desertWizard":
-                        System.out.println("desertWizard selected");
                         articWizard.pseudoClassStateChanged(focusedElement, false);
                         forestWizard.pseudoClassStateChanged(focusedElement, false);
                         skyWizard.pseudoClassStateChanged(focusedElement, false);
                         break;
 
                     case "forestWizard":
-                        System.out.println("forestWizard selected");
                         articWizard.pseudoClassStateChanged(focusedElement, false);
                         desertWizard.pseudoClassStateChanged(focusedElement, false);
                         skyWizard.pseudoClassStateChanged(focusedElement, false);
                         break;
 
                     case "skyWizard":
-                        System.out.println("skyWizard selected");
                         articWizard.pseudoClassStateChanged(focusedElement, false);
                         desertWizard.pseudoClassStateChanged(focusedElement, false);
                         forestWizard.pseudoClassStateChanged(focusedElement, false);
@@ -103,7 +92,7 @@ public class WizardSceneController implements SceneControllerInterface {
                     default:
                         break;
                 }
-            } catch (Exception ignored) {}
+            } catch (NullPointerException ignored) {}
         }
     }
 
@@ -117,9 +106,10 @@ public class WizardSceneController implements SceneControllerInterface {
                 //System.out.println("Go! Selected wizard: " + chosenWizardID.toUpperCase());
                 goButton.setDisable(true);
                 gui.getClient().sendMsgToServer(new WizardReply(availableWizards.get(getWizardIndex())));
+                disableAll();
             }
         } catch (Exception e) {
-            gui.errorDialog("No wizard is selected. Try again.");
+            gui.errorDialog("No wizard is selected. Try again.", false);
         }
     }
 
@@ -129,7 +119,6 @@ public class WizardSceneController implements SceneControllerInterface {
     @FXML
     private void exit() {
         gui.closeWindow(gui.getStage());
-        System.exit(0);
     }
 
     /**
@@ -140,7 +129,7 @@ public class WizardSceneController implements SceneControllerInterface {
     public void setAvailableWizards(List<Wizard> availableWizards) {
         this.availableWizards = availableWizards;
 
-        for(Wizard w : availableWizards) {
+        for (Wizard w : availableWizards) {
             switch (w.name().toUpperCase()) {
                 case "ARTICWIZARD":
                     articWizard.setDisable(false);
@@ -179,6 +168,14 @@ public class WizardSceneController implements SceneControllerInterface {
                 break;
         }
         return -1;
+    }
+
+    private void disableAll() {
+        goButton.setDisable(true);
+        articWizard.setDisable(true);
+        skyWizard.setDisable(true);
+        desertWizard.setDisable(true);
+        forestWizard.setDisable(true);
     }
 
     /**

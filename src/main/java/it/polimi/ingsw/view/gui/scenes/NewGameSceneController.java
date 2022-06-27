@@ -34,8 +34,11 @@ public class NewGameSceneController implements SceneControllerInterface {
      */
     @FXML
     private void initialize() {
-        n2Players.setDisable(true);
-        n3Players.setDisable(true);
+        disableNPlayers();
+        easyMode.setToggleGroup(gameMode);
+        expertMode.setToggleGroup(gameMode);
+        n2Players.setToggleGroup(nPlayers);
+        n3Players.setToggleGroup(nPlayers);
     }
 
     /**
@@ -44,18 +47,17 @@ public class NewGameSceneController implements SceneControllerInterface {
      */
     @FXML
     private void next() {
-        if(isGameModeEnabled() && !isNPlayersEnabled()) {
+        if (isGameModeEnabled() && !isNPlayersEnabled()) {
             gui.getClient().sendMsgToServer(new GameModeReply(expertMode.isSelected()));
-
             disableGameMode();
             enableNPlayers();
             return;
         }
 
-        if(!isGameModeEnabled() && isNPlayersEnabled()) {
+        if (!isGameModeEnabled() && isNPlayersEnabled()) {
             gui.getClient().sendMsgToServer(new PlayerNumberReply(getPlayerNumber()));
+            disableNPlayers();
         }
-        //FIXME: unable to read the toggle value, it returns null but it should return the actual value of the toggle
     }
 
     /**
@@ -64,7 +66,6 @@ public class NewGameSceneController implements SceneControllerInterface {
     @FXML
     private void exit() {
         gui.closeWindow(gui.getStage());
-        System.exit(0);
     }
 
     /**
@@ -113,6 +114,12 @@ public class NewGameSceneController implements SceneControllerInterface {
     private void enableNPlayers() {
         n2Players.setDisable(false);
         n3Players.setDisable(false);
+        n2Players.requestFocus();
+    }
+
+    private void disableNPlayers() {
+        n2Players.setDisable(true);
+        n3Players.setDisable(true);
     }
 
     /**
@@ -121,10 +128,7 @@ public class NewGameSceneController implements SceneControllerInterface {
      * @return          the selected number of players.
      */
     private int getPlayerNumber() {
-        if (n2Players.isSelected())
-            return 2;
-        else
-            return 3;
+        return Integer.parseInt(((RadioButton)nPlayers.getSelectedToggle()).getText());
     }
 
     /**

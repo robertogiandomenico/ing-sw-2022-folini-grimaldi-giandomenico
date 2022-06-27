@@ -149,11 +149,17 @@ public class SchoolBoard {
      *
      * @param index         the index corresponding to the Color of the Student
      *                      to be removed.
+     * @param steal         a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if the method is called by {@link it.polimi.ingsw.model.effects.ThiefEffect}.
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
      */
-    public void removeFromDiningRoom(int index){
+    public void removeFromDiningRoom(int index, boolean steal){
         if(diningRoom[index]>0) {
             diningRoom[index]--;
-            checkProfessorMovement(index, "remove");
+            if(!steal) checkProfessorMovement(index, "remove");
         }
     }
 
@@ -193,7 +199,7 @@ public class SchoolBoard {
     }
 
     /**
-     * Updates the coins path of this school board. It increases every time the
+     * Updates the coins' path of this school board. It increases every time the
      * player puts a student for the first time in a dining room position
      * containing a coin. (only in Expert Mode)
      *
@@ -204,7 +210,7 @@ public class SchoolBoard {
     }
 
     /**
-     * Returns the coins path of this school board.
+     * Returns the coins' path of this school board.
      *
      * @return              the Array representing coins path.
      */
@@ -299,7 +305,7 @@ public class SchoolBoard {
                         // case opponent not found, I ipso facto take the professor
                         professorTable[index] = true;
                     } else if((diningRoom[index] > enemyBoard.getDiningRoom()[index]) ||
-                              (diningRoom[index] == enemyBoard.getDiningRoom()[index] && farmerEffect)){
+                              (diningRoom[index] == enemyBoard.getDiningRoom()[index] && farmerEffect)) {
                         // case opponent found and I have more students OR I have equal students with farmerEffect active
                         professorTable[index] = true;
                         enemyBoard.setProfessor(index, false);

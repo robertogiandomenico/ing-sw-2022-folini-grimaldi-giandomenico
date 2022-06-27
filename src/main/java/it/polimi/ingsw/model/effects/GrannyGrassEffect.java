@@ -22,10 +22,8 @@ public class GrannyGrassEffect implements Effect {
      */
     public void applyEffect(Board board, int archiIndex, int numOfStudents, Color...studColors) {
         if(noEntryTiles > 0 && noEntryTiles <= 4) {
-            board.getArchipelago(archiIndex).setNoEntryTile(true);
+            board.getArchipelago(archiIndex).setNoEntryTile(board.getArchipelago(archiIndex).getNoEntryTile() + 1);
             noEntryTiles--;
-        } else {
-            //TODO: print("no more tiles available, impossible to activate the effect")
         }
     }
 

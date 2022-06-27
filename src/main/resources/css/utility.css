@@ -1,0 +1,56 @@
+.mainPanel {
+    -fx-background-image: url("../img/backgrounds/back_ext.png");
+    -fx-background-size: stretch;
+}
+
+.yellowButton {
+    -fx-background-image: url("../img/buttons/yellow.png");
+    -fx-background-size: stretch;
+    -fx-background-color: transparent;
+    -fx-font-size: 21;
+    -fx-font-family: "Metamorphous";
+}
+
+.yellowButton:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-font-size: 21;
+    -fx-font-family: "Metamorphous";
+}
+
+.yellowButton:pressed {
+    -fx-background-image: url("../img/buttons/yellow_pressed.png");
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+    -fx-font-family: "Metamorphous";
+}
+
+.yellowButton:disabled {
+    -fx-background-image: url("../img/buttons/disabled.png");
+    -fx-font-family: "Metamorphous";
+    -fx-opacity: 1;
+    -fx-font-size: 21;
+    -fx-focus-traversable: false;
+}
+
+.text {
+    -fx-font-family: "Metamorphous";
+}
+
+.pawnBox:hover,
+.pawnBox:focused {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
+    -fx-font-size: 18;
+    -fx-font-family: "Metamorphous";
+    -fx-translate-y: -15;
+}
+
+.pawnBox:pressed {
+    -fx-scale-x: 1.06;
+    -fx-scale-y: 1.06;
+    -fx-effect: dropshadow(gaussian, #a1a1a1, 10, 0.5, 0.0, 0.0);
+    -fx-font-family: "Metamorphous";
+    -fx-translate-y: -15;
+}

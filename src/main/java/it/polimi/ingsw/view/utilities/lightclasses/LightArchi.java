@@ -2,7 +2,6 @@ package it.polimi.ingsw.view.utilities.lightclasses;
 
 import it.polimi.ingsw.model.Archipelago;
 import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.Island;
 import it.polimi.ingsw.model.TowerColor;
 
 import java.io.Serializable;
@@ -16,7 +15,7 @@ import java.util.EnumMap;
 public class LightArchi implements Serializable {
     private int[][] islands;
     private boolean motherNature;
-    private boolean noEntryTile;
+    private int noEntryTile;
     private TowerColor towerColor;
     private int size;
 
@@ -28,7 +27,7 @@ public class LightArchi implements Serializable {
      */
     LightArchi(Archipelago a, EnumMap<Color,Integer> colorsIndex){
         this.motherNature = a.isMNPresent();
-        this.noEntryTile = a.isNoEntryTilePresent();
+        this.noEntryTile = a.getNoEntryTile();
         this.towerColor = a.getTowerColor();
         this.size = a.getIslands().size();
         this.islands = new int[a.getIslands().size()][5];
@@ -75,7 +74,7 @@ public class LightArchi implements Serializable {
      *                     -{@code false} otherwise.
      *                     </p>
      */
-    public boolean isNoEntryTilePresent() {
+    public int getNoEntryTiles() {
         return noEntryTile;
     }
 

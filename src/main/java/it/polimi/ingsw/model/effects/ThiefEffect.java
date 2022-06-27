@@ -25,13 +25,14 @@ public class ThiefEffect implements Effect {
         for(SchoolBoard s : board.getPlayerBoards()) {
             for(int i=0; i<3; i++) {
                 if(s.getDiningRoom()[indexSelectedColor] > 0) {
-                    s.removeFromDiningRoom(indexSelectedColor);
+                    s.removeFromDiningRoom(indexSelectedColor, true);
                     board.getBag().put(new Student(studColors[numOfStudents-1]));
                 } else {
                     break;
                 }
             }
         }
+
     }
 
 }

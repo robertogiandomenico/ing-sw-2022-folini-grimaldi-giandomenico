@@ -35,7 +35,7 @@ public class MinstrelEffect implements Effect {
 
         //Removing the students from the dining room
         for (int i = 0; i < numOfStudents ; i++) {
-            currentPlayerSB.removeFromDiningRoom(board.mapToIndex(studColors[i]));
+            currentPlayerSB.removeFromDiningRoom(board.mapToIndex(studColors[i]), false);
             studentsFromDR[i] = new Student(studColors[i]);
         }
 

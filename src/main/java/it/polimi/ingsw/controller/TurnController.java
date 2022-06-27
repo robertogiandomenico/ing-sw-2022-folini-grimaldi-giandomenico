@@ -6,14 +6,13 @@ import it.polimi.ingsw.controller.phases.turnPhases.SelectCloudPhase;
 import it.polimi.ingsw.controller.phases.turnPhases.TurnPhase;
 import it.polimi.ingsw.model.GameCharacter;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.effects.GrannyGrassEffect;
 import it.polimi.ingsw.network.messages.serverMessages.ActionRequest;
 import it.polimi.ingsw.network.messages.serverMessages.BoardData;
 import it.polimi.ingsw.network.server.ClientHandler;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class TurnController {
     private final Player currentPlayer;
@@ -44,10 +43,32 @@ public class TurnController {
     }
 
     private boolean canBuyCharacter() {
-        for (GameCharacter c : controller.getGame().getBoard().getSelectedCharacters()){
-            if (currentPlayer.getCoins() >= c.getCost()) return true;
+        List<GameCharacter> buyableCharacters = new ArrayList<>();
+        Predicate<GameCharacter> minstrelPredicate = c -> c.getName().equals("Minstrel");
+        Predicate<GameCharacter> grannyGrassPredicate = c -> c.getName().equals("GrannyGrass");
+        GameCharacter[] selectedCharacters = controller.getGame().getBoard().getSelectedCharacters();
+
+        for (GameCharacter selectedCharacter : selectedCharacters) {
+            if (currentPlayer.getCoins() >= selectedCharacter.getCost()) buyableCharacters.add(selectedCharacter);
         }
-        return false;
+
+        if(buyableCharacters.stream().anyMatch(minstrelPredicate) && !canBuyMinstrel()){
+            buyableCharacters.remove(buyableCharacters.stream().filter(minstrelPredicate).findFirst().get());
+        }
+
+        if(buyableCharacters.stream().anyMatch(grannyGrassPredicate) && !canBuyGrannyGrass(buyableCharacters.stream().filter(grannyGrassPredicate).findFirst().get())){
+            buyableCharacters.remove(buyableCharacters.stream().filter(grannyGrassPredicate).findFirst().get());
+        }
+
+        return buyableCharacters.size() > 0;
+    }
+
+    private boolean canBuyGrannyGrass(GameCharacter selectedCharacter) {
+        return ((GrannyGrassEffect) selectedCharacter.getEffect()).getNoEntryTiles() > 0;
+    }
+
+    private boolean canBuyMinstrel() {
+        return !Arrays.stream(controller.getGame().getBoard().getCurrentPlayerSchoolBoard().getDiningRoom()).allMatch(t -> t == 0);
     }
 
     private void fillPossibleActions() {
@@ -110,7 +131,7 @@ public class TurnController {
 
         if(!availableActions.isEmpty() && !(availableActions.size() == 1 && availableActions.get(0) == ActionType.NEXT_PHASE_ACTION)) {
             if (availableActions.size() == 1 && availableActions.get(0) == ActionType.BUY_CHARACTER_ACTION){
-                availableActions.add(ActionType.NEXT_PHASE_ACTION);
+                availableActions.add(0, ActionType.NEXT_PHASE_ACTION);
             }
             clientHandler.sendMsgToClient(new ActionRequest(availableActions, controller.getGame().getBoard().getLightBoard()));
         } else {

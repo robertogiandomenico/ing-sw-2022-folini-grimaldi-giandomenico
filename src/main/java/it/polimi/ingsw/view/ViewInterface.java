@@ -78,14 +78,6 @@ public interface ViewInterface {
      */
     void askPlace(int maxArchis);
 
-    /**
-     * Asks the user the index of the archipelago they want to move the
-     * student on.
-     *
-     * @param maxArchis            the number of Archipelagos.
-     * @return                     the index of the chosen Archipelago.
-     */
-    int askArchipelago(int maxArchis);
 
     /**
      * Asks the user the character they want to play. Then, based on the selected

@@ -91,7 +91,7 @@ public class Server {
             clientHandler.setController(gameController);
             checkLobby(gameController);
         }
-        if(clientHandler.getClientHandlerPhase() != ClientHandlerPhases.WAITING_GAMEMODE && clientHandler.getClientHandlerPhase() != ClientHandlerPhases.WAITING_PLAYERNUMBER) {
+        if(!clientHandler.getController().isGameStarted() && clientHandler.getClientHandlerPhase() != ClientHandlerPhases.WAITING_GAMEMODE && clientHandler.getClientHandlerPhase() != ClientHandlerPhases.WAITING_PLAYERNUMBER) {
             clientHandler.setClientHandlerPhase(ClientHandlerPhases.WAITING_IN_LOBBY);
             clientHandler.sendMsgToClient(new TextMessage("Waiting for the other player(s) to join"));
         }
@@ -158,14 +158,17 @@ public class Server {
     public void removeClient(ClientHandler clientHandler) {
         Optional<Controller> controller = lobbies.keySet().stream().filter(c -> c.getHandlers().contains(clientHandler)).findFirst();
         if (controller.isPresent()){
-            for (ClientHandler c : controller.get().getHandlers()){
-                notAvailableNames.remove(c.getClientNickname());
+            notAvailableNames.remove(clientHandler.getClientNickname());
+            synchronized (lobbyLock) {
+                lobbies.replace(controller.get(), lobbies.get(controller.get())-1);
+                if (lobbies.get(controller.get()) <= 0)
+                    lobbies.remove(controller.get());
+                else if (!controller.get().isGameEnded())
+                    controller.get().broadcastMessage(new DisconnectionMessage(clientHandler.getClientNickname()));
             }
-            controller.get().getHandlers().remove(clientHandler);
-            controller.get().broadcastMessage(new DisconnectionMessage(clientHandler.getClientNickname()));
-            synchronized (lobbyLock){
-                lobbies.remove(controller.get());
-            }
+
+        } else {
+            notAvailableNames.remove(clientHandler.getClientNickname());
         }
     }
 
@@ -174,7 +177,12 @@ public class Server {
      *
      * @param controller     the Controller to remove.
      */
-    public void endGame(Controller controller) {
+    public void disconnectAllAfterEndgame(Controller controller) {
+        for (ClientHandler c : controller.getHandlers()){
+            notAvailableNames.remove(c.getClientNickname());
+            c.disconnect();
+        }
+
         synchronized (lobbyLock){
             lobbies.remove(controller);
         }

@@ -4,6 +4,7 @@ import it.polimi.ingsw.view.gui.GUI;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -15,20 +16,6 @@ public class SceneController implements SceneControllerInterface {
     private static Scene scene;
     private static FXMLLoader loader;
     private static SceneControllerInterface currentController;
-
-    /**
-     * Displays an error in a popup.
-     */
-    public static void displayError() {
-        //TODO: implement displayError method
-    }
-
-    /**
-     * Displays who won the game.
-     */
-    public static void displayWinner() {
-        //TODO: implement displayWinner method
-    }
 
     /**
      * Switches between scenes.
@@ -43,7 +30,19 @@ public class SceneController implements SceneControllerInterface {
         loader.setController(sci);
         scene = new Scene(loader.load());
         stage.setScene(scene);
-        //stage.show();
+    }
+
+    public static void popUpScene(Stage stage, String fxmlFile, SceneControllerInterface sci) throws IOException {
+        loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxmlFile + ".fxml"));
+        loader.setController(sci);
+        scene = new Scene(loader.load());
+        stage.setScene(scene);
+
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setResizable(false);
+        stage.setAlwaysOnTop(true);
+
+        stage.show();
     }
 
     /**

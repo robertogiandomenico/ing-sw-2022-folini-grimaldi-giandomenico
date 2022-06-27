@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.Assistant;
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Wizard;
 import it.polimi.ingsw.network.client.Client;
+import it.polimi.ingsw.network.messages.clientMessages.StudentReply;
 import it.polimi.ingsw.view.ViewInterface;
 import it.polimi.ingsw.view.gui.scenes.*;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
@@ -18,7 +19,6 @@ import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -33,7 +33,13 @@ public class GUI extends Application implements ViewInterface {
     private Client client;
     private Stage stage;
     protected static MediaPlayer mediaPlayer;
+    private BoardSceneController bsc = new BoardSceneController();
+    private Color studColor;
+    private int archiIndex;
     private boolean firstPrintBoard = true;
+    private boolean muted = false;
+    private final Object lock = new Object();
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -67,8 +73,7 @@ public class GUI extends Application implements ViewInterface {
             Image icon = new Image("/img/icon.png");
             stage.getIcons().add(icon);
             stage.setTitle("Eriantys");
-            stage.setMinHeight(630);
-            stage.setMinWidth(610);
+            stage.sizeToScene();
             stage.setResizable(false);
 
             stage.setScene(scene);
@@ -79,9 +84,9 @@ public class GUI extends Application implements ViewInterface {
                 closeWindow(stage);
             });
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(-1);
+        } catch (IOException e) {
+            Platform.exit();
+            System.exit(0);
         }
     }
 
@@ -188,11 +193,10 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
-        SceneControllerInterface bsc = getBoardSceneController();
-
         Platform.runLater(() -> {
-                ((BoardSceneController) bsc).setAssistants(availableAssistants, discardedAssistants);
-                ((BoardSceneController) bsc).enableAssistantBox();
+                bsc.setAssistants(availableAssistants, discardedAssistants);
+                infoDialog("It's your turn to choose the assistant!");
+                bsc.enableAssistantBox();
             });
     }
 
@@ -203,7 +207,27 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askAction(List<ActionType> possibleActions) {
+        SceneControllerInterface aasc = new AskActionSceneController();
+        SceneController.setCurrentController(aasc);
+        aasc.setGUI(this);
 
+
+        Platform.runLater(() -> {
+            try {
+                Stage actionStage = new Stage();
+
+                SceneController.popUpScene(actionStage, "AskActionScene", aasc);
+                ((AskActionSceneController) aasc).setPossibleActions(possibleActions);
+
+                actionStage.setOnCloseRequest(event -> {
+                    warningDialog("You have to choose the action first in order to close this panel");
+                    event.consume();
+                });
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**
@@ -213,9 +237,40 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askStudent(List<Color> availableColors) {
-        Platform.runLater(() -> SceneController.switchScene(stage));
-        ((BoardSceneController)SceneController.getCurrentController()).enableSchoolBoard();
-        //...
+        askColor(availableColors, "Select the color of the student you would like to move");
+        getClient().sendMsgToServer(new StudentReply(studColor));
+    }
+
+    public void askColor(List<Color> availableColors, String text) {
+        SceneControllerInterface acsc = new AskColorSceneController();
+        SceneController.setCurrentController(acsc);
+        acsc.setGUI(this);
+
+        Platform.runLater(() -> {
+            try {
+                Stage colorStage = new Stage();
+
+                SceneController.popUpScene(colorStage, "AskColorScene", acsc);
+                ((AskColorSceneController) acsc).setAvailableColors(availableColors);
+                ((AskColorSceneController) acsc).setLabel(text);
+
+                colorStage.setOnCloseRequest(event -> {
+                    warningDialog("You have to choose the color first in order to close this panel");
+                    event.consume();
+                });
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        synchronized (lock) {
+            try {
+                lock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -225,22 +280,32 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askPlace(int maxArchis) {
+        SceneControllerInterface apsc = new AskPlaceSceneController();
+        SceneController.setCurrentController(apsc);
+        apsc.setGUI(this);
 
+        Platform.runLater(() -> {
+            try {
+                Stage placeStage = new Stage();
+
+                SceneController.popUpScene(placeStage, "AskPlaceScene", apsc);
+
+                placeStage.setOnCloseRequest(event -> {
+                    warningDialog("You have to choose the place first in order to close this panel");
+                    event.consume();
+                });
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**
-     * Asks the user the index of the archipelago they want to move the
-     * student on.
-     *
-     * @param maxArchis            the number of Archipelagos.
-     * @return                     the index of the chosen Archipelago.
+     * Enables the archipelagos.
      */
-    @Override
-    public int askArchipelago(int maxArchis) {
-        Platform.runLater(() -> SceneController.switchScene(stage));
-        ((BoardSceneController)SceneController.getCurrentController()).enableArchipelagos();
-        //...
-        return -1;
+    public void enableArchiBox() {
+        Platform.runLater(() -> bsc.enableArchipelagos());
     }
 
     /**
@@ -251,9 +316,8 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askCharacter(LightBoard board) {
-        Platform.runLater(() -> SceneController.switchScene(stage));
-        ((BoardSceneController)SceneController.getCurrentController()).enableCharactersBox();
-        //switch case
+        Platform.runLater(() -> bsc.enableCharactersBox());
+        //BoardSceneController takes care of sending the reply
     }
 
     /**
@@ -263,7 +327,8 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askMNSteps(int maxMNSteps) {
-
+        Platform.runLater(() -> bsc.enableArchisForMN(maxMNSteps));
+        //BoardSceneController takes care of sending the reply
     }
 
     /**
@@ -273,9 +338,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void askCloud(List<Integer> availableClouds) {
-        SceneControllerInterface bsc = getBoardSceneController();
-
-        Platform.runLater(() -> ((BoardSceneController) bsc).enableCloudBox());
+        Platform.runLater(() -> bsc.enableCloudBox());
     }
 
     /**
@@ -307,7 +370,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void displayDisconnectionMessage(String disconnectedNickname, String message) {
-        errorDialog(disconnectedNickname + message);
+        errorDialog(disconnectedNickname + message, true);
     }
 
     /**
@@ -317,8 +380,7 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void displayErrorAndExit(String message) {
-        errorDialog(message);
-        System.exit(1);
+        errorDialog(message, true);
     }
 
     /**
@@ -328,28 +390,30 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void printBoard(LightBoard board) {
-        SceneControllerInterface bsc = getBoardSceneController();
         SceneController.setCurrentController(bsc);
         bsc.setGUI(this);
-        ((BoardSceneController) bsc).setLightBoard(board);
+        bsc.setBoard(board);
 
         Platform.runLater(() -> {
             try {
-                SceneController.switchScene(stage, "BoardScene", bsc);
-
                 if (firstPrintBoard) {
-                    stage.setMaximized(true);
-                    stage.setX(Screen.getPrimary().getVisualBounds().getMinX());
-                    stage.setY(Screen.getPrimary().getVisualBounds().getMinY());
-                    stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
-                    stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
-
-                    //stage.setFullScreenExitHint("Press ESC to exit fullscreen");
-                    stage.setMinHeight(720);
-                    stage.setMinWidth(1280);
+                    SceneController.switchScene(stage, "BoardScene", bsc);
+                    //stage.setX(Screen.getPrimary().getVisualBounds().getMinX());
+                    //stage.setY(Screen.getPrimary().getVisualBounds().getMinY());
+                    //stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+                    //stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+                    stage.setMinHeight(700);
+                    stage.setMinWidth(1200);
+                    //stage.sizeToScene();
+                    //stage.centerOnScreen();
                     stage.setResizable(true);
+                    stage.setMaximized(true);
+
                     firstPrintBoard = false;
+                } else {
+                    bsc.initialize();
                 }
+
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -365,9 +429,48 @@ public class GUI extends Application implements ViewInterface {
      */
     @Override
     public void displayEndgameResult(String winner, String condition) {
-        //popup victory
-        //changeLabel()
-        //create ResultController
+        SceneControllerInterface rsc = new ResultSceneController();
+        SceneController.setCurrentController(rsc);
+        rsc.setGUI(this);
+
+        if (!muted) {
+            mediaPlayer.setAutoPlay(false);
+            mediaPlayer.stop();
+        }
+
+        Platform.runLater(() -> {
+            try {
+                Stage resultStage = new Stage();
+
+                SceneController.popUpScene(resultStage, "ResultScene", rsc);
+                if (getClient().getNickname().equals(winner)) {
+                    ((ResultSceneController)rsc).setWinner("Congratulations, you WON!");
+
+                    if (!muted) {
+                        Media winSFX = new Media(getClass().getClassLoader().getResource("audio/Win_SFX.mp3").toString());
+                        mediaPlayer = new MediaPlayer(winSFX);
+                        mediaPlayer.play();
+                    }
+
+                } else {
+                    ((ResultSceneController)rsc).setWinner("You lost!");
+                    ((ResultSceneController)rsc).setSubtitle(winner + " WINS! " + condition);
+
+                    if (!muted) {
+                        Media loseSFX = new Media(getClass().getClassLoader().getResource("audio/Lose_SFX.mp3").toString());
+                        mediaPlayer = new MediaPlayer(loseSFX);
+                        mediaPlayer.play();
+                    }
+                }
+
+                resultStage.setOnCloseRequest(event -> {
+                    closeWindow(resultStage);
+                });
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**
@@ -384,12 +487,67 @@ public class GUI extends Application implements ViewInterface {
      *
      * @param error                the specific game error.
      */
-    public void errorDialog(String error) {
-        Alert errorDialog = new Alert(Alert.AlertType.ERROR);
-        errorDialog.setTitle("Game Error");
-        errorDialog.setHeaderText("Error!");
-        errorDialog.setContentText(error);
-        errorDialog.showAndWait();
+    public void errorDialog(String error, boolean shutDown) {
+        Platform.runLater(() -> {
+            Alert errorDialog = new Alert(Alert.AlertType.ERROR);
+            errorDialog.setTitle("Game Error");
+            errorDialog.setHeaderText("Error!");
+            errorDialog.setContentText(error);
+            ((Stage) errorDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            errorDialog.showAndWait();
+
+            if(shutDown) {
+                System.exit(0);
+            }
+        });
+    }
+
+    /**
+     * Shows a warning dialog to the user.
+     *
+     * @param warning              the specific warning.
+     */
+    public void warningDialog(String warning) {
+        Alert warningDialog = new Alert(Alert.AlertType.WARNING);
+        warningDialog.setTitle("Game Warning");
+        warningDialog.setHeaderText("Careful");
+        warningDialog.setContentText(warning);
+        ((Stage)warningDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+        ((Stage)warningDialog.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
+        warningDialog.showAndWait();
+    }
+
+    /**
+     * Shows an information dialog to the user.
+     *
+     * @param info                the specific information.
+     */
+    public void infoDialog(String info) {
+        Alert infoDialog = new Alert(Alert.AlertType.INFORMATION);
+        infoDialog.setTitle("Game Info");
+        infoDialog.setHeaderText("Your next step");
+        infoDialog.setContentText(info);
+        ((Stage)infoDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+        ((Stage)infoDialog.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
+        infoDialog.showAndWait();
+    }
+
+    public void charInfoDialog(String charInfo) {
+        Platform.runLater(() -> {
+            infoDialog(charInfo);
+
+            synchronized (lock) {
+                lock.notify();
+            }
+        });
+
+        synchronized (lock) {
+            try {
+                lock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -402,35 +560,14 @@ public class GUI extends Application implements ViewInterface {
         alertDialog.setTitle("Exiting");
         alertDialog.setHeaderText("You're about to exit");
         alertDialog.setContentText("Do you want to close the game?");
+        ((Stage)alertDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+        ((Stage)alertDialog.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
 
         if (alertDialog.showAndWait().get() == ButtonType.OK) {
-            System.out.println("Exit confirmed.");
             stage.close();
-            System.exit(0);                 //FIXME: idk if this is necessary
+            Platform.exit();
+            System.exit(0);
         }
-    }
-
-    /**
-     * Returns a Board Scene Controller, creating one if not already instantiated.
-     *
-     * @return                     a BoardSceneController.
-     */
-    private BoardSceneController getBoardSceneController() {
-        BoardSceneController bsc;
-        try {
-            bsc = (BoardSceneController) SceneController.getCurrentController();
-        } catch (ClassCastException e) {
-            bsc = new BoardSceneController();
-            BoardSceneController finalBsc = bsc;
-            Platform.runLater(() -> {
-                try {
-                    SceneController.switchScene(stage, "BoardScene", finalBsc);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
-        }
-        return bsc;
     }
 
     /**
@@ -458,5 +595,25 @@ public class GUI extends Application implements ViewInterface {
      */
     public Stage getStage() {
         return stage;
+    }
+
+    public void setStudColor(Color studColor) {
+        this.studColor = studColor;
+    }
+
+    public Color getStudColor() {
+        return studColor;
+    }
+
+    public Object getLock() {
+        return lock;
+    }
+
+    public void setMuted(boolean muted) {
+        this.muted = muted;
+    }
+
+    public void setArchiIndex(int archiIndex) {
+        this.archiIndex = archiIndex;
     }
 }

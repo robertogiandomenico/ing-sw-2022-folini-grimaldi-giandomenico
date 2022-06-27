@@ -74,10 +74,12 @@ public class StartSceneController implements SceneControllerInterface {
             audioButton.setImage(new javafx.scene.image.Image(getClass().getResourceAsStream("/img/audio/audio_on.png")));
             gui.getMediaPlayer().play();
             muted = false;
+            gui.setMuted(false);
         } else {
             audioButton.setImage(new javafx.scene.image.Image(getClass().getResourceAsStream("/img/audio/audio_off.png")));
             gui.getMediaPlayer().stop();
             muted = true;
+            gui.setMuted(true);
         }
     }
 

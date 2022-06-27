@@ -31,8 +31,9 @@ public class Controller {
     private final List<ClientHandler> clientHandlers;
     private Server server;
     private final Lock connectionLock;
-
     private boolean gameStarted;
+    private boolean gameEnded;
+
 
     public Controller(String gameName){
         this.gameName = gameName;
@@ -123,6 +124,8 @@ public class Controller {
         Player currentPlayer = game.getCurrentPlayer();
         List<Player> playersOrder = game.getPlayerOrder();
         broadcastMessage(new BoardData(game.getBoard().getLightBoard()));
+        game.getBoard().getCurrentPlayerSchoolBoard().setFarmerEffect(false);
+
         if (gamePhase.toString().equals("ActionPhase") && playersOrder.indexOf(currentPlayer) < playersOrder.size() - 1){
             game.setCurrentPlayer(playersOrder.get(playersOrder.indexOf(currentPlayer)+1));
             gamePhase.execute(this);
@@ -155,6 +158,7 @@ public class Controller {
         Player winner = null;
         SchoolBoard[] psb = game.getBoard().getPlayerBoards();
         String condition;
+
         int minTowers = Arrays.stream(psb).map(SchoolBoard::getTowersLeft).sorted().collect(Collectors.toList()).get(0);
         if(Arrays.stream(psb).filter(sb -> sb.getTowersLeft() == minTowers).count() == 1){
             winner = Arrays.stream(psb).filter(sb -> sb.getTowersLeft() == minTowers).findFirst().get().getPlayer();
@@ -173,6 +177,7 @@ public class Controller {
         }
 
         assert winner != null;
+        gameEnded = true;
         warnPlayersAboutGameEnd(winner.getNickname(), condition);
     }
 
@@ -185,10 +190,11 @@ public class Controller {
     }
 
     public void warnPlayersAboutGameEnd(String winnerNickname, String condition){
-        for (ClientHandler c : clientHandlers){
-            c.sendMsgToClient(new IsWinner(winnerNickname, condition, game.getBoard().getLightBoard()));
-            c.disconnect();
-        }
-        server.endGame(this);
+        broadcastMessage(new IsWinner(winnerNickname, condition, game.getBoard().getLightBoard()));
+        server.disconnectAllAfterEndgame(this);
+    }
+
+    public boolean isGameEnded() {
+        return gameEnded;
     }
 }

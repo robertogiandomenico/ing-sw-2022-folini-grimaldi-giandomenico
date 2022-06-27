@@ -32,11 +32,9 @@ public class ConnectionSceneController implements SceneControllerInterface {
 
     /**
      * Gets IP address and port from user input.
-     *
-     * @throws IOException   IOException.
      */
     @FXML
-    private void connect() throws IOException {
+    private void connect() {
         ipAddress = ipAddressField.getText();
         port = portField.getText();
 
@@ -44,7 +42,7 @@ public class ConnectionSceneController implements SceneControllerInterface {
         try {
             gui.getClient().init();
         } catch (IOException e) {
-            gui.errorDialog("Server is closed. Please, run the server and try again.");
+            gui.errorDialog("Server is closed. Please, run the server and try again.", false);
         }
     }
 
@@ -77,7 +75,7 @@ public class ConnectionSceneController implements SceneControllerInterface {
         connectButton.setDisable( !validPort || !IPvalidator.validateIP(ipAddress) );
 
         if (e.getCode().toString().equals("ENTER") && !connectButton.isDisable()) {
-            connectButton.requestFocus();
+           connect();
         }
     }
 
@@ -87,7 +85,6 @@ public class ConnectionSceneController implements SceneControllerInterface {
     @FXML
     private void exit() {
         gui.closeWindow(gui.getStage());
-        System.exit(0);
     }
 
     /**

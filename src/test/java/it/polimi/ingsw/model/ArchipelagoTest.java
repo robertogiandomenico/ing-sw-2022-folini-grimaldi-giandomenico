@@ -47,8 +47,13 @@ class ArchipelagoTest {
     }
 
     @Test
+    void testGetNoEntryTile(){
+        assertEquals(0, archipelagos.get(0).getNoEntryTile());
+    }
+
+    @Test
     void testSetNoEntryTile(){
-        archipelagos.get(0).setNoEntryTile(true);
+        archipelagos.get(0).setNoEntryTile(archipelagos.get(0).getNoEntryTile() + 1);
         assertTrue(archipelagos.get(0).isNoEntryTilePresent());
     }
 
@@ -92,7 +97,6 @@ class ArchipelagoTest {
 
     @Test
     void testGetTotalStudents() {
-        Color[] colors = Color.values();
 
         for (Archipelago a : archipelagos){
             for(Color c : Color.values()){
