@@ -13,24 +13,24 @@ _Eriantys_ is the final test of **"Software Engineering"** course of **"Computer
 UML files have been made to document the progress of the project.
 
 - [Initial UML](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/deliveries/Initial_UML.png): basic _model_ implementation made during the first _design_ phase;  
-- Final UML(): complete generated UML to capture the whole structure of the implementation;
+- Final UML(): complete generated UML to capture the whole structure of the implementation.
 
 ## Communication Protocol
 The comunication protocol documentation has been redacted before the actual implementation and can be found [_here_](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/deliveries/UML/Sequence%20Diagram/Eriantys%20Protocol%20Documentation.md).
 
 ## Implemented features
-| Functionality     |                                                                         Status                                                                          |
-|:------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| Basic rules       |           [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/model)            |
-| Complete rules    |           [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/model)            |
-| Socket            |          [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/network)           |
-| CLI               |          [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/view/cli)          |
-| GUI               |          [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/view/gui)          |
-| 12 Character Card |    [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/src/main/java/it/polimi/ingsw/model/Game.java#L170)    |
-| Multiple games    | [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/src/main/java/it/polimi/ingsw/network/server/Server.java) |
-| 4 players match   |                                                                            ⛔                                                                            |
-| Persistence       |                                                                            ⛔                                                                            |
-| Resilience        |                                                                            ⛔                                                                            |
+| Functionality      |                                                                         Status                                                                          |
+|:-------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Basic rules        |           [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/model)            |
+| Complete rules     |           [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/model)            |
+| Socket             |          [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/network)           |
+| CLI                |          [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/view/cli)          |
+| GUI                |          [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/view/gui)          |
+| 12 Character Cards |    [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/src/main/java/it/polimi/ingsw/model/Game.java#L170)    |
+| Multiple games     | [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/src/main/java/it/polimi/ingsw/network/server/Server.java) |
+| 4 players match    |                                                                            ⛔                                                                            |
+| Persistence        |                                                                            ⛔                                                                            |
+| Resilience         |                                                                            ⛔                                                                            |
 #### Legend
 ⛔ Not Implemented &nbsp;&nbsp; ✅ Implemented
 
@@ -53,7 +53,7 @@ The jars are used to launch the software. A detailed guide on how to launch jar 
 To launch the game is necessary to open the server first.
 
 #### Windows
-To give Windows users the best game experience it is recommended to use the Command Prompt the latest _Windows Terminal_ version that can be found [here](https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701).\
+To give Windows users the best game experience it is recommended to use the Command Prompt with the latest _Windows Terminal_ version that can be found [here](https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701).\
 It is also suggested enabling the UTF-8 characters support in the terminal, as following:
 1. Open the _Region_ control panel by typing `intl.cpl` in the Windows search bar and press `Enter`
 2. In the _Administrative_ tab, choose `Change system locale...` and check `Beta: Use Unicode UTF-8 for worldwide language support`
