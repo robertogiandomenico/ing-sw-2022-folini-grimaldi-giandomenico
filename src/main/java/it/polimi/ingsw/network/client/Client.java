@@ -54,8 +54,8 @@ public class Client {
         messageListener = new Thread(this::readMessages);
         messageHandler = new Thread(this::handleMessages);
 
-        pingThread = new Thread(()->{
-            while (clientConnected.get()){
+        pingThread = new Thread(() -> {
+            while (clientConnected.get()) {
                 try {
                     Thread.sleep(PING_TIME);
                     sendMsgToServer(new Ping());
@@ -71,8 +71,8 @@ public class Client {
      *
      * @param message       the message to be sent.
      */
-    public void sendMsgToServer(Serializable message){
-        if(clientConnected.get()){
+    public void sendMsgToServer(Serializable message) {
+        if (clientConnected.get()) {
             try {
                 outputStream.writeObject(message);
                 outputStream.flush();
@@ -105,7 +105,7 @@ public class Client {
      * Handles RESULT and DISCONNECTION messages differently, displaying a message
      * to the user and then disconnecting.
      */
-    public void readMessages(){
+    public void readMessages() {
         try {
             while (clientConnected.get()) {
                 Object msg = inputStream.readObject();
@@ -138,7 +138,7 @@ public class Client {
                     disconnect(false);
                 }
             }
-        } catch (IOException | ClassNotFoundException e){
+        } catch (IOException | ClassNotFoundException e) {
             disconnect(true);
         }
     }
@@ -146,9 +146,9 @@ public class Client {
     /**
      * Handles the received messages removing them from the queue and showing them.
      */
-    public void handleMessages(){
-        while (clientConnected.get()){
-            if(!messageQueue.isEmpty()){
+    public void handleMessages() {
+        while (clientConnected.get()) {
+            if (!messageQueue.isEmpty()) {
                 GenericServerMessage msg = messageQueue.poll();
                 assert msg != null;
                 msg.show(view);
@@ -166,8 +166,8 @@ public class Client {
      *                      -{@code false} otherwise.
      *                      </p>
      */
-    public void disconnect(boolean error){
-        if(clientConnected.get()) {
+    public void disconnect(boolean error) {
+        if (clientConnected.get()) {
             clientConnected.set(false);
             if (messageListener.isAlive()) messageListener.interrupt();
             if (messageHandler.isAlive()) messageHandler.interrupt();
@@ -206,27 +206,86 @@ public class Client {
         return nickname;
     }
 
-
+    /**
+     * Sets the boolean value movingMN after sending the reply.
+     *
+     * @param movingMN      a boolean whose value is:
+     *                      <p>
+     *                      -{@code false} if it the sent reply is a MNSteps reply
+     *                      </p> <p>
+     *                      -{@code true} otherwise.
+     *                      </p>
+     */
     public void setMovingMN(boolean movingMN) {
         this.movingMN = movingMN;
     }
 
+    /**
+     * Returns a boolean that states whether the sent message is a MNSteps request or not.
+     *
+     * @return              a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if it the sent message is a MNSteps request
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
+     */
     public boolean isMovingMN() {
         return movingMN;
     }
 
+    /**
+     * Sets the boolean value movingStud after sending the reply.
+     *
+     * @param movingStud    a boolean whose value is:
+     *                      <p>
+     *                      -{@code false} if it the sent reply is a place request
+     *                      </p> <p>
+     *                      -{@code true} otherwise.
+     *                      </p>
+     */
     public void setMovingStud(boolean movingStud) {
         this.movingStud = movingStud;
     }
 
+    /**
+     * Returns a boolean that states whether the sent message is a place request or not.
+     *
+     * @return              a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if it the sent message is a place request
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
+     */
     public boolean isMovingStud() {
         return movingStud;
     }
 
+    /**
+     * Sets the boolean value choosingChar after sending the reply.
+     *
+     * @param choosingChar  a boolean whose value is:
+     *                      <p>
+     *                      -{@code false} if it the sent message is a character reply
+     *                      </p> <p>
+     *                      -{@code true} otherwise.
+     *                      </p>
+     */
     public void setChoosingChar(boolean choosingChar) {
         this.choosingChar = choosingChar;
     }
 
+    /**
+     * Returns a boolean that states whether the sent message is a character request or not.
+     *
+     * @return              a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if it the sent message is a character request
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
+     */
     public boolean isChoosingChar() {
         return choosingChar;
     }

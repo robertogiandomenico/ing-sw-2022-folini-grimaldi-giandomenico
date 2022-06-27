@@ -2,7 +2,6 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.Controller;
 import it.polimi.ingsw.controller.phases.ClientHandlerPhases;
-import it.polimi.ingsw.network.client.Client;
 import it.polimi.ingsw.network.messages.connectionMessages.DisconnectionMessage;
 import it.polimi.ingsw.network.messages.serverMessages.GameNameRequest;
 import it.polimi.ingsw.network.messages.serverMessages.NicknameRequest;
@@ -173,7 +172,7 @@ public class Server {
     }
 
     /**
-     * Ends a game removing the correspondent controller from the lobbies.
+     * Removes every controller from the lobbies after the game ends.
      *
      * @param controller     the Controller to remove.
      */

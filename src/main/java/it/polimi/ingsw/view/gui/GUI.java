@@ -398,14 +398,9 @@ public class GUI extends Application implements ViewInterface {
             try {
                 if (firstPrintBoard) {
                     SceneController.switchScene(stage, "BoardScene", bsc);
-                    //stage.setX(Screen.getPrimary().getVisualBounds().getMinX());
-                    //stage.setY(Screen.getPrimary().getVisualBounds().getMinY());
-                    //stage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
-                    //stage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
+
                     stage.setMinHeight(700);
                     stage.setMinWidth(1200);
-                    //stage.sizeToScene();
-                    //stage.centerOnScreen();
                     stage.setResizable(true);
                     stage.setMaximized(true);
 
@@ -597,22 +592,52 @@ public class GUI extends Application implements ViewInterface {
         return stage;
     }
 
+    /**
+     * Sets the value studColor with a color.
+     *
+     * @param studColor            the color to set.
+     */
     public void setStudColor(Color studColor) {
         this.studColor = studColor;
     }
 
+    /**
+     * Returns the color of the student.
+     *
+     * @return                     the stored color.
+     */
     public Color getStudColor() {
         return studColor;
     }
 
+    /**
+     * Returns an object used to synchronize threads.
+     *
+     * @return                     the object.
+     */
     public Object getLock() {
         return lock;
     }
 
+    /**
+     * Sets the boolean value.
+     *
+     * @param muted         a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if the user muted the audio from the game
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
+     */
     public void setMuted(boolean muted) {
         this.muted = muted;
     }
 
+    /**
+     * Sets the value archiIndex with an index.
+     *
+     * @param archiIndex            the index to set.
+     */
     public void setArchiIndex(int archiIndex) {
         this.archiIndex = archiIndex;
     }
