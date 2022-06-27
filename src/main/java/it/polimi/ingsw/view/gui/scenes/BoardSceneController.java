@@ -523,10 +523,13 @@ public class BoardSceneController implements SceneControllerInterface {
     private void chooseCloud(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             int cloudIndex ;
-            String cloudId = event.getPickResult().getIntersectedNode().getParent().getId();
+            String cloudId = event.getPickResult().getIntersectedNode().getId();
 
-            if (cloudId == null)
-                cloudId = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
+            if (cloudId == null) {
+                cloudId = event.getPickResult().getIntersectedNode().getParent().getId();
+                if (cloudId == null)
+                    cloudId = event.getPickResult().getIntersectedNode().getParent().getParent().getId();
+            }
 
             cloudIndex = Character.getNumericValue(cloudId.charAt(cloudId.length() - 1));
 

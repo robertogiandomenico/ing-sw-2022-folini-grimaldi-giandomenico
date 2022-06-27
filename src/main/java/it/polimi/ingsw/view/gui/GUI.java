@@ -80,12 +80,13 @@ public class GUI extends Application implements ViewInterface {
             stage.show();
 
             stage.setOnCloseRequest(event -> {
-                closeWindow(stage);
                 event.consume();
+                closeWindow(stage);
             });
 
         } catch (IOException e) {
             Platform.exit();
+            System.exit(0);
         }
     }
 
@@ -495,8 +496,9 @@ public class GUI extends Application implements ViewInterface {
             ((Stage) errorDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
             errorDialog.showAndWait();
 
-            if(shutDown)
-                Platform.exit();
+            if(shutDown) {
+                System.exit(0);
+            }
         });
     }
 

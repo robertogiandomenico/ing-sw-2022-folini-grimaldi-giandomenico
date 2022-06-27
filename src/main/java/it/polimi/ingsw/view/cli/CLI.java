@@ -381,16 +381,16 @@ public class CLI implements ViewInterface {
             if (board.getSelectedCharacters()[characterIndex].getCost() > board.getCurrentPlayerSchoolBoard().getPlayer().getCoins()) {
                 canBuy = false;
                 System.out.print(CliColor.RESET_LINE);
-                System.out.print("Cannot choose this character card since you do not have enough coins. Try again: ");
+                System.out.print("\033[1A" + "Cannot choose this character card since you do not have enough coins. Try again: ");
                 characterIndex = IntegerReader.readInput(scanner);
             } else if (board.getSelectedCharacters()[characterIndex].getName().equals("Minstrel") && Arrays.stream(board.getCurrentPlayerSchoolBoard().getDiningRoom()).allMatch(t -> t == 0)) {
                 canBuy = false;
                 System.out.print(CliColor.RESET_LINE);
-                System.out.print("Cannot choose Minstrel card since you do not have any students in your dining room. Try again: ");
+                System.out.print("\033[1A" + "Cannot choose Minstrel card since you do not have any students in your dining room. Try again: ");
                 characterIndex = IntegerReader.readInput(scanner);
             } else if (board.getSelectedCharacters()[characterIndex].getName().equals("GrannyGrass") && board.getSelectedCharacters()[characterIndex].getNoEntryTiles() == 0) {
                 canBuy = false;
-                System.out.print(CliColor.RESET_LINE);
+                System.out.print("\033[1A" + CliColor.RESET_LINE);
                 System.out.print("Cannot choose Granny Grass card since it has no more No Entry Tiles. Try again: ");
                 characterIndex = IntegerReader.readInput(scanner);
             } else {

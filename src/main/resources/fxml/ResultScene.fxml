@@ -14,19 +14,19 @@
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="245.39998779296874" minHeight="10.0" prefHeight="197.00000610351563" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="224.6000061035156" minHeight="10.0" prefHeight="129.1999755859375" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="220.80000610351556" minHeight="10.0" prefHeight="175.6000244140625" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="224.6000061035156" minHeight="10.0" prefHeight="161.60001220703126" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="220.80000610351556" minHeight="10.0" prefHeight="142.39998779296877" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label fx:id="resultLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="58.0" prefWidth="640.0" styleClass="resultText" stylesheets="@../css/setup.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <Label fx:id="resultLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="500.0" styleClass="resultText" stylesheets="@../css/setup.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <GridPane.margin>
-            <Insets />
+            <Insets bottom="10.0" />
          </GridPane.margin>
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <Label fx:id="subtitleLabel" alignment="BOTTOM_CENTER" contentDisplay="CENTER" prefHeight="55.0" prefWidth="600.0" styleClass="resultText" stylesheets="@../css/setup.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+      <Label fx:id="subtitleLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="65.0" prefWidth="500.0" styleClass="resultText" stylesheets="@../css/setup.css" textAlignment="CENTER" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
          <font>
             <Font size="20.0" />
          </font>
