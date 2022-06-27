@@ -28,6 +28,7 @@ The comunication protocol documentation has been redacted before the actual impl
 | GUI               |          [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/view/gui)          |
 | 12 Character Card |    [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/src/main/java/it/polimi/ingsw/model/Game.java#L170)    |
 | Multiple games    | [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/src/main/java/it/polimi/ingsw/network/server/Server.java) |
+| 4 players match   |                                                                            ⛔                                                                            |
 | Persistence       |                                                                            ⛔                                                                            |
 | Resilience        |                                                                            ⛔                                                                            |
 #### Legend
