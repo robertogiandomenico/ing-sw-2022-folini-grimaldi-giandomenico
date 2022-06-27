@@ -3,6 +3,10 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.view.cli.CLI;
 import it.polimi.ingsw.view.gui.GUI;
 
+/**
+ * This class is used to launch the game client side ({@link CLI} mode if -cli
+ * argument is specified, {@link GUI} mode if there are no arguments).
+ */
 public class ClientMain {
     private static final String CLI_ARGUMENT = "-cli";
 
@@ -19,4 +23,5 @@ public class ClientMain {
                 System.out.println("Command not found, insert " + CLI_ARGUMENT + " start in CLI mode.");
         }
     }
+
 }

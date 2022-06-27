@@ -16,6 +16,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * This class is used to manage the connection and communication of a client
+ * with the server.
+ */
 public class Client {
     private final String ip;
     private final int port;
@@ -32,7 +36,8 @@ public class Client {
     private String nickname;
 
     /**
-     * Class constructor.
+     * Class constructor. Sets server IP and port and builds the threads
+     * needed for messages (listener, handler and ping).
      *
      * @param ip        the IP address.
      * @param port      the port.
@@ -58,6 +63,11 @@ public class Client {
         });
     }
 
+    /**
+     * Sends a message to the server.
+     *
+     * @param message       the message to be sent.
+     */
     public void sendMsgToServer(Serializable message){
         if(clientConnected.get()){
             try {
@@ -70,6 +80,12 @@ public class Client {
         }
     }
 
+    /**
+     * Initializes client socket and objects, starts the threads needed for
+     * messages handling throughout the game.
+     *
+     * @throws IOException  if an I/O exception occurs.
+     */
     public void init() throws IOException {
         clientSocket = new Socket();
         clientSocket.connect(new InetSocketAddress(ip, port));
@@ -81,6 +97,11 @@ public class Client {
         messageListener.start();
     }
 
+    /**
+     * Reads the received messages and adds them to the message queue.
+     * Handles RESULT and DISCONNECTION messages differently, displaying a message
+     * to the user and then disconnecting.
+     */
     public void readMessages(){
         try {
             while (clientConnected.get()) {
@@ -103,6 +124,9 @@ public class Client {
         }
     }
 
+    /**
+     * Handles the received messages removing them from the queue and showing them.
+     */
     public void handleMessages(){
         while (clientConnected.get()){
             if(!messageQueue.isEmpty()){
@@ -113,6 +137,16 @@ public class Client {
         }
     }
 
+    /**
+     * Handles the disconnection of the client.
+     *
+     * @param error         a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if an error occurred;
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
+     */
     public void disconnect(boolean error){
         if(messageListener.isAlive()) messageListener.interrupt();
         if(messageHandler.isAlive()) messageHandler.interrupt();
@@ -149,4 +183,5 @@ public class Client {
     public String getNickname() {
         return nickname;
     }
+
 }

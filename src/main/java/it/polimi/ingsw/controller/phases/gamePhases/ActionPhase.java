@@ -10,6 +10,7 @@ import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
 public class ActionPhase implements GamePhase {
     TurnController turnController;
     Controller controller;
+
     @Override
     public void execute(Controller controller) {
         this.controller = controller;

@@ -1,5 +1,9 @@
 package it.polimi.ingsw.controller.phases;
 
+/**
+ * This enumeration lists all the possible phases for the
+ * {@link it.polimi.ingsw.network.server.ClientHandler Client Handler}.
+ */
 public enum ClientHandlerPhases {
     WAITING_IN_LOBBY,
     WAITING_GAMENAME,

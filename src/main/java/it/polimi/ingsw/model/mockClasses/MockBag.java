@@ -32,6 +32,12 @@ public class MockBag extends Bag {
         }
     }
 
+    /**
+     * Puts the given student inside this bag.
+     *
+     * @param student          the Student added to the List that represents the bag
+     *                         content.
+     */
     @Override
     public void put(Student student){
         getBagContent().add(student);
