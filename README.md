@@ -12,7 +12,7 @@ _Eriantys_ is the final test of **"Software Engineering"** course of **"Computer
 ## UML
 UML files have been made to document the progress of the project.
 
-- [Initial UML](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/deliveries/Initial_UML.png): basic _model_ implementation made during the first _design_ phase;  
+- [Initial UML](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/deliveries/UML/Initial_UML.png): basic _model_ implementation made during the first _design_ phase;  
 - Final UML(): complete generated UML to capture the whole structure of the implementation.
 
 ## Communication Protocol
@@ -26,7 +26,7 @@ The comunication protocol documentation has been redacted before the actual impl
 | Socket             |          [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/network)           |
 | CLI                |          [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/view/cli)          |
 | GUI                |          [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/view/gui)          |
-| 12 Character Cards |    [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/src/main/java/it/polimi/ingsw/model/Game.java#L170)    |
+| 12 character cards |       [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/model/effects)        |
 | Multiple games     | [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/src/main/java/it/polimi/ingsw/network/server/Server.java) |
 | 4 players match    |                                                                            ⛔                                                                            |
 | Persistence        |                                                                            ⛔                                                                            |
@@ -107,6 +107,6 @@ java -jar Eriantys_Client.jar -cli
 - [Francesca Grimaldi](https://github.com/FrancescaGrimaldi) -`francesca1.grimaldi@mail.polimi.it`
 
 ## License
-This project has been developed in collaboration with [Cranio Creations](http://www.craniocreations.it).
+This project has been developed in collaboration with [Cranio Creations](https://www.craniocreations.it/prodotto/eriantys).
 
 <img src="github/Eriantys_slider.jpg" />
