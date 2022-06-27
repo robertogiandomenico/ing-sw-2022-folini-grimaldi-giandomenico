@@ -35,13 +35,14 @@ The comunication protocol documentation has been redacted before the actual impl
 ⛔ Not Implemented &nbsp;&nbsp; ✅ Implemented
 
 ## Tools
-| Tool                                                                       | Description           |
-|:---------------------------------------------------------------------------|:----------------------|
-| [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea)                   | IDE                   |
-| [AstahUML](https://astah.net/products/astah-uml)                           | UML Diagram           |
-| [Maven](https://maven.apache.org)                                          | Dependency Management |
-| [JUnit](https://junit.org/junit5)                                          | Unit Testing          |
-| [JavaFX](https://openjfx.io)                                               | Graphical Library     |
+| Tool                                                     | Description           |
+|:---------------------------------------------------------|:----------------------|
+| [IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea) | IDE                   |
+| [AstahUML](https://astah.net/products/astah-uml)         | UML Class Diagram     |
+| [SequenceDiagram.org](https://sequencediagram.org)       | UML Sequence Diagram  |
+| [Maven](https://maven.apache.org)                        | Dependency Management |
+| [JUnit](https://junit.org/junit5)                        | Unit Testing          |
+| [JavaFX](https://openjfx.io)                             | Graphical Library     |
 
 ## Testing
 The JUnit tests cover 99.5% of the lines of the model. The few non-covered lines mainly deal with methods that have not been used in tests due to their random nature. Since tests must be implemented with deterministic methods, we opted to create new '_mock_' classes that have been used exclusively for this purpose.
