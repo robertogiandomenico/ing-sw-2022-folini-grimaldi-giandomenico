@@ -14,12 +14,20 @@ import it.polimi.ingsw.network.server.ClientHandler;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the setup phase of the game.
+ */
 public class SetupPhase implements GamePhase {
     private Controller controller;
     private List<Wizard> availableWizards;
 
     private int playerIndex = 0;
 
+    /**
+     * Executes the phase.
+     *
+     * @param controller a Controller.
+     */
     @Override
     public void execute(Controller controller) {
         this.controller = controller;
@@ -35,6 +43,9 @@ public class SetupPhase implements GamePhase {
         controller.getHandlers().get(playerIndex).sendMsgToClient(new WizardRequest(availableWizards));
     }
 
+    /**
+     * Adds new players to the game.
+     */
     private void addPlayers() {
         for (ClientHandler connection : controller.getHandlers()){
             Player p = new Player(connection.getClientNickname(),
@@ -45,6 +56,11 @@ public class SetupPhase implements GamePhase {
         }
     }
 
+    /**
+     * Handles a received message.
+     *
+     * @param msg        the received GenericClientMessage.
+     */
     @Override
     public void receiveMessage(GenericClientMessage msg) {
         if(msg == null || msg.getType() != MessageType.WIZARD_REPLY){
@@ -69,4 +85,5 @@ public class SetupPhase implements GamePhase {
     public String toString() {
         return "SetupPhase";
     }
+
 }

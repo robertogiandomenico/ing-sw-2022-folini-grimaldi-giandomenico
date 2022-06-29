@@ -241,6 +241,12 @@ public class GUI extends Application implements ViewInterface {
         getClient().sendMsgToServer(new StudentReply(studColor));
     }
 
+    /**
+     * Asks the user to choose a color among the available ones.
+     *
+     * @param availableColors      a Color List of the available ones.
+     * @param text                 a text.
+     */
     public void askColor(List<Color> availableColors, String text) {
         SceneControllerInterface acsc = new AskColorSceneController();
         SceneController.setCurrentController(acsc);

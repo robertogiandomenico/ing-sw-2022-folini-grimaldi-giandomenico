@@ -23,6 +23,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
+/**
+ * This class controls the {@link Game} evolution.
+ */
 public class Controller {
     private Game game;
     private final String gameName;
@@ -34,7 +37,12 @@ public class Controller {
     private boolean gameStarted;
     private boolean gameEnded;
 
-
+    /**
+     * Class constructor specifying the name of the game this controller is
+     * associated to.
+     *
+     * @param gameName       the Game name.
+     */
     public Controller(String gameName){
         this.gameName = gameName;
         connectionLock = new ReentrantLock();
@@ -42,13 +50,37 @@ public class Controller {
         clientHandlers = new ArrayList<>();
     }
 
+    /**
+     * States whether the game is started.
+     *
+     * @return               a boolean whose value is:
+     *                       <p>
+     *                       -{@code true} if the game is started;
+     *                       </p> <p>
+     *                       -{@code false} otherwise.
+     *                       </p>
+     */
     public boolean isGameStarted() {
         return gameStarted;
     }
+
+    /**
+     * Sets the game mode as "expert".
+     *
+     * @param expertMode     a Boolean whose value is:
+     *                       <p>
+     *                       -{@code true} if Expert mode was chosen;
+     *                       </p> <p>
+     *                       -{@code false} otherwise.
+     *                       </p>
+     */
     public void setExpertMode(Boolean expertMode){
         this.expertMode = expertMode;
     }
 
+    /**
+     * Starts the game for the connected players.
+     */
     public void startGame(){
         if(game == null) game = new Game(expertMode);
         game.setNumberOfPlayers(clientHandlers.size());
@@ -60,35 +92,76 @@ public class Controller {
         setGamePhase(new SetupPhase());
     }
 
+    /**
+     * Returns the game associated to this controller.
+     *
+     * @return               the Game.
+     */
     public Game getGame() {
         return game;
     }
 
+    /**
+     * Returns the name of the game associated to this Controller.
+     *
+     * @return               the Game name.
+     */
     public String getGameName() {
         return gameName;
     }
 
+    /**
+     * Sets the given game phase and executes it.
+     *
+     * @param gamePhase      a GamePhase.
+     */
     public void setGamePhase(GamePhase gamePhase) {
         this.gamePhase = gamePhase;
         gamePhase.execute(this);
     }
 
+    /**
+     * Returns the client handlers.
+     *
+     * @return               a ClientHandler List.
+     */
     public List<ClientHandler> getHandlers() {
         return clientHandlers;
     }
 
+    /**
+     * Adds a client handler.
+     *
+     * @param clientHandler  a ClientHandler.
+     */
     public void addHandler(ClientHandler clientHandler) {
         clientHandlers.add(clientHandler);
     }
 
+    /**
+     * Returns the server.
+     *
+     * @return               the Server.
+     */
     public Server getServer() {
         return server;
     }
 
+    /**
+     * Sets the server.
+     *
+     * @param server         a Server.
+     */
     public void setServer(Server server) {
         this.server = server;
     }
 
+    /**
+     * Returns the client handler corresponding to the given nickname.
+     *
+     * @param nickname       the nickname of a Player.
+     * @return               the corresponding ClientHandler.
+     */
     public ClientHandler getHandlerByNickname(String nickname){
         connectionLock.lock();
         try {
@@ -104,6 +177,11 @@ public class Controller {
         return null;
     }
 
+    /**
+     * Sends a message to all the clients.
+     *
+     * @param msg            the message to be sent.
+     */
     public void broadcastMessage(Serializable msg){
         connectionLock.lock();
         try {
@@ -116,10 +194,19 @@ public class Controller {
 
     }
 
+    /**
+     * Gets a message.
+     *
+     * @param msg            the received GenericClientMessage.
+     */
     public void receiveMessage(GenericClientMessage msg){
         gamePhase.receiveMessage(msg);
     }
 
+    /**
+     * Moves to the next turn determining the new current player or sets a new
+     * game phase.
+     */
     public void nextTurn() {
         Player currentPlayer = game.getCurrentPlayer();
         List<Player> playersOrder = game.getPlayerOrder();
@@ -143,17 +230,30 @@ public class Controller {
         }
     }
 
+    /**
+     * Checks whether one of the players has built all of their towers. If so,
+     * they are the winner of the game.
+     */
     public void checkTowerConditionsWin() {
         Optional<SchoolBoard> winner = Arrays.stream(game.getBoard().getPlayerBoards()).filter(b -> b.getTowersLeft() == 0).findFirst();
         winner.ifPresent(schoolBoard -> warnPlayersAboutGameEnd(schoolBoard.getPlayer().getNickname(), "They built all of their towers!"));
     }
 
+    /**
+     * Checks whether there are only 3 archipelagos on the board. If so, the
+     * game ends and a winner has to be determined.
+     */
     public void checkIslandConditionsWin() {
         if (game.getBoard().getArchipelagos().size() == 3){
             calculateWinner();
         }
     }
 
+    /**
+     * Determines which player is the winner of the game.
+     * (Could be because they built the largest number of towers or because they
+     * control the largest number of players).
+     */
     private void calculateWinner() {
         Player winner = null;
         SchoolBoard[] psb = game.getBoard().getPlayerBoards();
@@ -181,6 +281,12 @@ public class Controller {
         warnPlayersAboutGameEnd(winner.getNickname(), condition);
     }
 
+    /**
+     * Counts the number of professors in a school board.
+     *
+     * @param professorTable the boolean array representing the professor table.
+     * @return               the number of professors in the professor table.
+     */
     private int countProfessors(boolean[] professorTable) {
         int count = 0;
         for (boolean p : professorTable){
@@ -189,12 +295,30 @@ public class Controller {
         return count;
     }
 
+    /**
+     * Broadcasts a message to all the players communicating who is the winner of
+     * the game.
+     *
+     * @param winnerNickname the nickname of the Player who won.
+     * @param condition      the winning condition.
+     */
     public void warnPlayersAboutGameEnd(String winnerNickname, String condition){
         broadcastMessage(new IsWinner(winnerNickname, condition, game.getBoard().getLightBoard()));
         server.disconnectAllAfterEndgame(this);
     }
 
+    /**
+     * States whether the game has ended.
+     *
+     * @return              a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if the game ended;
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
+     */
     public boolean isGameEnded() {
         return gameEnded;
     }
+
 }

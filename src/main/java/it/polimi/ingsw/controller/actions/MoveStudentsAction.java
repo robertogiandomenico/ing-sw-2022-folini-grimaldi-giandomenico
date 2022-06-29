@@ -16,22 +16,31 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
+/**
+ * This class represents the action of moving students during a turn.
+ */
 public class MoveStudentsAction implements Action {
     private final ActionType type = ActionType.MOVE_STUDENT_ACTION;
     private final Player currentPlayer;
     private final ClientHandler clientHandler;
     private final TurnController turnController;
-
     private Student studentToBeMoved;
     private Map<Color, Integer> availableColors;
 
+    /**
+     * Class constructor.
+     *
+     * @param turnController a TurnController.
+     */
     public MoveStudentsAction(TurnController turnController) {
         this.turnController = turnController;
         currentPlayer = turnController.getCurrentPlayer();
         clientHandler = turnController.getClientHandler();
-
     }
 
+    /**
+     * Executes the action sending a request to the client.
+     */
     @Override
     public void execute() {
         availableColors = new HashMap<>();
@@ -42,11 +51,21 @@ public class MoveStudentsAction implements Action {
         clientHandler.sendMsgToClient(new StudentRequest(availableColors.keySet().stream().filter(c -> availableColors.get(c) > 0).sorted(Comparator.comparingInt(Enum::ordinal)).collect(Collectors.toList())));
     }
 
+    /**
+     * Returns the type of the action.
+     *
+     * @return               the ActionType.
+     */
     @Override
     public ActionType getType() {
         return type;
     }
 
+    /**
+     * Handles a received message.
+     *
+     * @param msg            the received GenericClientMessage.
+     */
     @Override
     public void receiveMessage(GenericClientMessage msg) {
         Board b = turnController.getController().getGame().getBoard();
@@ -82,4 +101,5 @@ public class MoveStudentsAction implements Action {
             }
         }
     }
+
 }

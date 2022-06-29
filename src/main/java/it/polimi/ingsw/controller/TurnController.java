@@ -14,6 +14,9 @@ import it.polimi.ingsw.network.server.ClientHandler;
 import java.util.*;
 import java.util.function.Predicate;
 
+/**
+ * This class is useful to control a single turn.
+ */
 public class TurnController {
     private final Player currentPlayer;
     private final ClientHandler clientHandler;
@@ -23,6 +26,13 @@ public class TurnController {
     private final Map<Action, Boolean> possibleActions;
     private boolean alreadyBoughtCharacter = false;
 
+    /**
+     * Class constructor.
+     * Initializes the structures that contain the possible/available actions.
+     *
+     * @param currentPlayer     the current Player.
+     * @param controller        the Controller to access the corresponding ClientHandler.
+     */
     public TurnController(Player currentPlayer, Controller controller) {
         this.currentPlayer = currentPlayer;
         this.controller = controller;
@@ -32,6 +42,12 @@ public class TurnController {
         fillPossibleActions();
     }
 
+    /**
+     * Sets the given turn phase and the actions associated to it. Asks the client
+     * to choose an action among the available ones.
+     *
+     * @param turnPhase         a TurnPhase.
+     */
     public void setTurnPhase(TurnPhase turnPhase) {
         this.turnPhase = turnPhase;
         availableActions = turnPhase.getAvailableTurnActions();
@@ -42,6 +58,16 @@ public class TurnController {
         clientHandler.sendMsgToClient(new ActionRequest(availableActions, controller.getGame().getBoard().getLightBoard()));
     }
 
+    /**
+     * States whether the player can buy a character in that specific moment.
+     *
+     * @return                  a boolean whose value is:
+     *                          <p>
+     *                          -{@code true} if the Player can buy a GameCharacter;
+     *                          </p> <p>
+     *                          -{@code false} otherwise.
+     *                          </p>
+     */
     private boolean canBuyCharacter() {
         List<GameCharacter> buyableCharacters = new ArrayList<>();
         Predicate<GameCharacter> minstrelPredicate = c -> c.getName().equals("Minstrel");
@@ -63,14 +89,44 @@ public class TurnController {
         return buyableCharacters.size() > 0;
     }
 
+    /**
+     * States whether the {@link GrannyGrassEffect GrannyGrass} character can be
+     * bought that moment (at least 1 No Entry tile needs to be present on the card).
+     *
+     * @param selectedCharacter the GameCharacter.
+     * @return                  a boolean whose value is:
+     *                          <p>
+     *                          -{@code true} if the Granny Grass character can be used;
+     *                          </p> <p>
+     *                          -{@code false} otherwise.
+     *                          </p>
+     */
     private boolean canBuyGrannyGrass(GameCharacter selectedCharacter) {
         return ((GrannyGrassEffect) selectedCharacter.getEffect()).getNoEntryTiles() > 0;
     }
 
+    /**
+     * States whether the {@link it.polimi.ingsw.model.effects.MinstrelEffect Minstrel}
+     * character can be bought that moment (current player's dining room can't
+     * be empty).
+     *
+     * @return                  a boolean whose value is:
+     *                          <p>
+     *                          -{@code true} if the Minstrel character can be used;
+     *                          </p> <p>
+     *                          -{@code false} otherwise.
+     *                          </p>
+     */
     private boolean canBuyMinstrel() {
         return !Arrays.stream(controller.getGame().getBoard().getCurrentPlayerSchoolBoard().getDiningRoom()).allMatch(t -> t == 0);
     }
 
+    /**
+     * Fills the possibleActions HashMap with all the actions that a player can
+     * possibly do in a turn (move students, buy a character, move mother nature,
+     * select a cloud). These are all initialized as false, then they are set as
+     * true if they are available indeed.
+     */
     private void fillPossibleActions() {
         possibleActions.put(new MoveStudentsAction(this), false);
         possibleActions.put(new MoveMNAction(this), false);
@@ -78,6 +134,10 @@ public class TurnController {
         possibleActions.put(new BuyCharacterAction(this), false);
     }
 
+    /**
+     * Updates the possibleActions HashMap setting as true the actions that are
+     * de facto available.
+     */
     private void updatePossibleActions() {
         for (Action a : possibleActions.keySet()){
             if (availableActions.contains(a.getType())){
@@ -86,18 +146,38 @@ public class TurnController {
         }
     }
 
+    /**
+     * Returns the current player.
+     *
+     * @return                  the current Player.
+     */
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
+    /**
+     * Returns the client handler corresponding to the current player.
+     *
+     * @return                  the ClientHandler.
+     */
     public ClientHandler getClientHandler() {
         return clientHandler;
     }
 
+    /**
+     * Returns the controller.
+     *
+     * @return                  the Controller.
+     */
     public Controller getController() {
         return controller;
     }
 
+    /**
+     * Executes the given action.
+     *
+     * @param actionIndex       the index of the Action.
+     */
     public void executeAction(int actionIndex) {
         if(availableActions.get(actionIndex) == ActionType.NEXT_PHASE_ACTION){
             setTurnPhase(calculateNextTurnPhase());
@@ -108,6 +188,11 @@ public class TurnController {
         chosenAction.execute();
     }
 
+    /**
+     * Switches to the next action.
+     *
+     * @param endedAction       the Action that just ended.
+     */
     public void nextAction(Action endedAction) {
         availableActions.remove(endedAction.getType());
 
@@ -139,6 +224,11 @@ public class TurnController {
         }
     }
 
+    /**
+     * Determines which turn phase is next, based on the current one.
+     *
+     * @return                  the next TurnPhase.
+     */
     private TurnPhase calculateNextTurnPhase() {
         if(turnPhase.toString().equals("MoveStudentsPhase")){
             return new MoveMNPhase();
@@ -146,7 +236,19 @@ public class TurnController {
         return new SelectCloudPhase();
     }
 
+    /**
+     * Sets the value of the attribute that states whether a character was already
+     * bought in this turn.
+     *
+     * @param alreadyBoughtCharacter a boolean whose value is:
+     *                               <p>
+     *                               -{@code true} if a character was already bought;
+     *                               </p> <p>
+     *                               -{@code false} otherwise.
+     *                               </p>
+     */
     public void setAlreadyBoughtCharacter(boolean alreadyBoughtCharacter) {
         this.alreadyBoughtCharacter = alreadyBoughtCharacter;
     }
+
 }

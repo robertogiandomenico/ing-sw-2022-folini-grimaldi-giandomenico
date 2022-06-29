@@ -6,7 +6,16 @@ import it.polimi.ingsw.controller.actions.ActionType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the turn phase in which the player can move students.
+ */
 public class MoveStudentsPhase implements TurnPhase {
+
+    /**
+     * Returns the available turn actions.
+     *
+     * @return      an ActionType List of the available actions for this turn phase.
+     */
     @Override
     public List<ActionType> getAvailableTurnActions() {
         List<ActionType> actions = new ArrayList<>();
@@ -20,4 +29,5 @@ public class MoveStudentsPhase implements TurnPhase {
     public String toString() {
         return "MoveStudentsPhase";
     }
+
 }

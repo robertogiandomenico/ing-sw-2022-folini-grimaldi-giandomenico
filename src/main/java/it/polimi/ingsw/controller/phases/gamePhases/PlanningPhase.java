@@ -15,15 +15,21 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents the planning phase of a player's turn.
+ */
 public class PlanningPhase implements GamePhase {
-
     private Controller controller;
     private Player currentPlayer;
     private int playerIndex = 0;
     private List<Assistant> chosenAssistant;
-
     private LightBoard lightBoard;
 
+    /**
+     * Executes the phase.
+     *
+     * @param controller a Controller.
+     */
     @Override
     public void execute(Controller controller) {
         this.controller = controller;
@@ -45,6 +51,11 @@ public class PlanningPhase implements GamePhase {
         controller.getHandlerByNickname(currentPlayer.getNickname()).sendMsgToClient(new ChooseAssistantRequest(currentPlayer.getCards(), chosenAssistant, lightBoard));
     }
 
+    /**
+     * Handles a received message.
+     *
+     * @param msg        the received GenericClientMessage.
+     */
     @Override
     public void receiveMessage(GenericClientMessage msg) {
         if(msg == null || msg.getType() != MessageType.CHOOSE_ASSISTANT_REPLY){
@@ -68,4 +79,5 @@ public class PlanningPhase implements GamePhase {
     public String toString() {
         return "PlanningPhase";
     }
+
 }
