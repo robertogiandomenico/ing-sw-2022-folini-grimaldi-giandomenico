@@ -30,7 +30,7 @@ public class NewGameSceneController implements SceneControllerInterface {
     private GUI gui;
 
     /**
-     * Initializes the scene.
+     * Initializes the scene and divides the buttons in Toggle groups.
      */
     @FXML
     private void initialize() {
@@ -117,6 +117,9 @@ public class NewGameSceneController implements SceneControllerInterface {
         n2Players.requestFocus();
     }
 
+    /**
+     * Disables the buttons for the selection of the number of players.
+     */
     private void disableNPlayers() {
         n2Players.setDisable(true);
         n3Players.setDisable(true);

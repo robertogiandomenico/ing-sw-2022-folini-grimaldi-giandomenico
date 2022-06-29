@@ -31,12 +31,12 @@ public class WizardSceneController implements SceneControllerInterface {
     private Button exitButton;
     private String chosenWizardID;
     List<Wizard> availableWizards;
-
-    private static final PseudoClass focusedElement = PseudoClass.getPseudoClass("focused");
     private GUI gui;
 
+    private static final PseudoClass focusedElement = PseudoClass.getPseudoClass("focused");
+
     /**
-     * Initializes the wizards VBoxes.
+     * Initializes the scene.
      */
     @FXML
     private void initialize() {
@@ -46,7 +46,7 @@ public class WizardSceneController implements SceneControllerInterface {
     /**
      * Puts the focus on a specific wizard card according to the mouse event.
      *
-     * @param event             a MouseEvent.
+     * @param event             a MouseEvent representing a click.
      */
     @FXML
     private void handleOnMouseClicked(MouseEvent event) {
@@ -170,6 +170,9 @@ public class WizardSceneController implements SceneControllerInterface {
         return -1;
     }
 
+    /**
+     * Disables all the wizard's vertical boxes and buttons.
+     */
     private void disableAll() {
         goButton.setDisable(true);
         articWizard.setDisable(true);

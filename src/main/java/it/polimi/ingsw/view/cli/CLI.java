@@ -703,7 +703,7 @@ public class CLI implements ViewInterface {
      * Displays the results of the game.
      *
      * @param winner               the nickname of the winner.
-     * @param condition            the condition to print.
+     * @param condition            the condition for which they won.
      */
     @Override
     public void displayEndgameResult(String winner, String condition) {

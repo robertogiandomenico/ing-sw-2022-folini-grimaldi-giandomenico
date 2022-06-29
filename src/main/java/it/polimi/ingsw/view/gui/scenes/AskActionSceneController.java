@@ -16,8 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class represents the controller for the scene in which the user is
+ * asked which action they want to perform.
+ */
 public class AskActionSceneController implements SceneControllerInterface {
-
     @FXML
     private Label actionLabel;
     @FXML
@@ -29,6 +32,9 @@ public class AskActionSceneController implements SceneControllerInterface {
     private String selectedAction;
     private GUI gui;
 
+    /**
+     * Initializes the scene.
+     */
     @FXML
     private void initialize() {
         confirmButton.setDisable(true);
@@ -43,6 +49,9 @@ public class AskActionSceneController implements SceneControllerInterface {
         });
     }
 
+    /**
+     * Confirms the choice and sends an {@link ActionReply} to the server.
+     */
     @FXML
     private void confirm() {
         int index = possibleActions.stream().map(ActionType::getAction).collect(Collectors.toList()).indexOf(selectedAction);
@@ -51,12 +60,22 @@ public class AskActionSceneController implements SceneControllerInterface {
         ((Stage) confirmButton.getScene().getWindow()).close();
     }
 
+    /**
+     * Confirms the choice when 'ENTER' key is pressed.
+     *
+     * @param e                 the pressed key.
+     */
     @FXML
     private void typeOnList(KeyEvent e) {
         if (e.getCode().toString().equals("ENTER") && !confirmButton.isDisable())
             confirm();
     }
 
+    /**
+     * Sets the possible actions.
+     *
+     * @param possibleActions   the ActionType List of possible ones.
+     */
     public void setPossibleActions(List<ActionType> possibleActions) {
         this.possibleActions = new ArrayList<>(possibleActions);
         String action;

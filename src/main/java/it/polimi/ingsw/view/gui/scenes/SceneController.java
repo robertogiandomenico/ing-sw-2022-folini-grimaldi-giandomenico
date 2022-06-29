@@ -32,6 +32,14 @@ public class SceneController implements SceneControllerInterface {
         stage.setScene(scene);
     }
 
+    /**
+     * Opens a popup.
+     *
+     * @param stage             a Stage.
+     * @param fxmlFile          the name of the fxml corresponding to the popup scene.
+     * @param sci               the SceneControllerInterface corresponding to the popup scene.
+     * @throws IOException      if it is impossible to load the FXML file.
+     */
     public static void popUpScene(Stage stage, String fxmlFile, SceneControllerInterface sci) throws IOException {
         loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxmlFile + ".fxml"));
         loader.setController(sci);

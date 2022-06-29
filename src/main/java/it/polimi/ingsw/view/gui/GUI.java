@@ -245,7 +245,8 @@ public class GUI extends Application implements ViewInterface {
      * Asks the user to choose a color among the available ones.
      *
      * @param availableColors      a Color List of the available ones.
-     * @param text                 a text.
+     * @param text                 a text that includes the situation for which
+     *                             the user has to choose a Color.
      */
     public void askColor(List<Color> availableColors, String text) {
         SceneControllerInterface acsc = new AskColorSceneController();
@@ -521,7 +522,7 @@ public class GUI extends Application implements ViewInterface {
     /**
      * Shows an information dialog to the user.
      *
-     * @param info                the specific information.
+     * @param info                 the specific information.
      */
     public void infoDialog(String info) {
         Alert infoDialog = new Alert(Alert.AlertType.INFORMATION);
@@ -533,6 +534,12 @@ public class GUI extends Application implements ViewInterface {
         infoDialog.showAndWait();
     }
 
+    /**
+     * Shows information about the characters to the user (e.g. they
+     * have been activated and what their effect is).
+     *
+     * @param charInfo             the character information.
+     */
     public void charInfoDialog(String charInfo) {
         Platform.runLater(() -> {
             infoDialog(charInfo);
@@ -601,7 +608,7 @@ public class GUI extends Application implements ViewInterface {
     /**
      * Sets the value studColor with a color.
      *
-     * @param studColor            the color to set.
+     * @param studColor            the Color to set.
      */
     public void setStudColor(Color studColor) {
         this.studColor = studColor;
@@ -610,7 +617,7 @@ public class GUI extends Application implements ViewInterface {
     /**
      * Returns the color of the student.
      *
-     * @return                     the stored color.
+     * @return                     the stored Color.
      */
     public Color getStudColor() {
         return studColor;
@@ -619,7 +626,7 @@ public class GUI extends Application implements ViewInterface {
     /**
      * Returns an object used to synchronize threads.
      *
-     * @return                     the object.
+     * @return                     the Object.
      */
     public Object getLock() {
         return lock;
@@ -628,12 +635,12 @@ public class GUI extends Application implements ViewInterface {
     /**
      * Sets the boolean value.
      *
-     * @param muted         a boolean whose value is:
-     *                      <p>
-     *                      -{@code true} if the user muted the audio from the game
-     *                      </p> <p>
-     *                      -{@code false} otherwise.
-     *                      </p>
+     * @param muted                a boolean whose value is:
+     *                             <p>
+     *                             -{@code true} if the user muted the audio from the game;
+     *                             </p> <p>
+     *                             -{@code false} otherwise.
+     *                             </p>
      */
     public void setMuted(boolean muted) {
         this.muted = muted;
@@ -642,7 +649,7 @@ public class GUI extends Application implements ViewInterface {
     /**
      * Sets the value archiIndex with an index.
      *
-     * @param archiIndex            the index to set.
+     * @param archiIndex           the index to set.
      */
     public void setArchiIndex(int archiIndex) {
         this.archiIndex = archiIndex;

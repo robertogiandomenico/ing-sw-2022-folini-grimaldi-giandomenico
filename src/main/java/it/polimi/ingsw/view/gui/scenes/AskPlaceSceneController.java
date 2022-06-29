@@ -11,25 +11,35 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * This class represents the controller for the scene in which the user is
+ * asked to select a place.
+ */
 public class AskPlaceSceneController implements SceneControllerInterface {
-
     @FXML
     private VBox diningRoomBox;
     @FXML
     private VBox archipelagoBox;
     @FXML
     private Button confirmButton;
-
     private GUI gui;
     private String chosenPlaceID;
 
     private static final PseudoClass focusedElement = PseudoClass.getPseudoClass("focused");
 
+    /**
+     * Initializes the scene.
+     */
     @FXML
     private void initialize() {
         confirmButton.setDisable(true);
     }
 
+    /**
+     * Puts the focus on the clicked place if it wasn't already focused.
+     *
+     * @param event     a MouseEvent representing a click.
+     */
     @FXML
     private void onPlaceClick(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
@@ -55,6 +65,14 @@ public class AskPlaceSceneController implements SceneControllerInterface {
     }
 
 
+    /**
+     * Confirms the choice and
+     * <p>
+     * -sends a {@link PlaceReply} to the server if the chosen place is the dining room;
+     * </p> <p>
+     * -allows the user to select an archipelago otherwise.
+     * </p>
+     */
     @FXML
     private void confirm() {
         try {
@@ -73,6 +91,9 @@ public class AskPlaceSceneController implements SceneControllerInterface {
     }
 
 
+    /**
+     * Disables all the buttons and boxes.
+     */
     private void disableAll() {
         confirmButton.setDisable(true);
         archipelagoBox.setDisable(true);
@@ -83,7 +104,7 @@ public class AskPlaceSceneController implements SceneControllerInterface {
     /**
      * Sets the GUI.
      *
-     * @param gui               a GUI.
+     * @param gui       a GUI.
      */
     @Override
     public void setGUI(GUI gui) {

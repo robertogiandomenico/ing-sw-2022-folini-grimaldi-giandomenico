@@ -15,8 +15,11 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * This class represents the controller for the scene in which the user is
+ * asked to select a color.
+ */
 public class AskColorSceneController implements SceneControllerInterface {
-
     @FXML
     private HBox colorBox;
     @FXML
@@ -33,18 +36,25 @@ public class AskColorSceneController implements SceneControllerInterface {
     private Button confirmButton;
     @FXML
     private Label label;
-
     private GUI gui;
     private Color studColor;
     private String chosenColorID;
 
     private static final PseudoClass focusedElement = PseudoClass.getPseudoClass("focused");
 
+    /**
+     * Initializes the scene.
+     */
     @FXML
     private void initialize() {
         confirmButton.setDisable(true);
     }
 
+    /**
+     * Puts the focus on the clicked color if it wasn't already focused.
+     *
+     * @param event             a MouseEvent representing a click.
+     */
     @FXML
     private void onColorClick(MouseEvent event) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
@@ -105,6 +115,12 @@ public class AskColorSceneController implements SceneControllerInterface {
     }
 
 
+    /**
+     * Sets the boxes of the available colors removing those of the colors that
+     * can't be chosen.
+     *
+     * @param availableColors   the Color List of available ones.
+     */
     public void setAvailableColors(List<Color> availableColors) {
         if (!availableColors.contains(Color.GREEN))
             colorBox.getChildren().remove(greenBox);
@@ -118,6 +134,9 @@ public class AskColorSceneController implements SceneControllerInterface {
             colorBox.getChildren().remove(blueBox);
     }
 
+    /**
+     * Confirms the choice setting the selected color.
+     */
     @FXML
     private void confirm() {
         try {
@@ -138,6 +157,11 @@ public class AskColorSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Returns the selected color according to the clicked box.
+     *
+     * @return                  the selected Color.
+     */
     private Color getSelectedColor() {
         switch (chosenColorID) {
             case "greenBox":
@@ -155,15 +179,22 @@ public class AskColorSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Sets a label.
+     *
+     * @param text              the text to be set as label.
+     */
     public void setLabel(String text) {
         label.setText(text);
     }
 
+    /**
+     * Disables buttons and boxes.
+     */
     private void disableAll() {
         confirmButton.setDisable(true);
         colorBox.setDisable(true);
     }
-
 
     /**
      * Sets the GUI.

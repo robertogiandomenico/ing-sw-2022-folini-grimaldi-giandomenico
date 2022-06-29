@@ -507,7 +507,7 @@ public class BoardSceneController implements SceneControllerInterface {
     /**
      * Gets the assistant chosen by the user and sends it to the server.
      *
-     * @param event               a MouseEvent.
+     * @param event               a MouseEvent representing a click.
      */
     @FXML
     private void chooseAssistant(MouseEvent event) {
@@ -521,7 +521,7 @@ public class BoardSceneController implements SceneControllerInterface {
     /**
      * Gets the cloud chosen by the user and sends it to the server.
      *
-     * @param event               a MouseEvent.
+     * @param event               a MouseEvent representing a click.
      */
     @FXML
     private void chooseCloud(MouseEvent event) {
@@ -549,6 +549,12 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Enables the archipelagos Mother Nature can arrive to taking the given
+     * maximum number of steps, so that the player can choose one of them.
+     *
+     * @param maxMNSteps          the maximum number of steps for Mother Nature.
+     */
     public void enableArchisForMN(int maxMNSteps) {
         int currentMNIndex = findCurrentMNIndex(board.getArchipelagos());
         int nArchis = board.getArchipelagos().size();
@@ -561,6 +567,13 @@ public class BoardSceneController implements SceneControllerInterface {
             archipelagosBox.getChildren().get((currentMNIndex+i+1) % nArchis).setDisable(false);
     }
 
+    /**
+     * Allows the user to choose an archipelago
+     * (could be to move students or Mother Nature there, or to enable the
+     * effect of some character).
+     *
+     * @param event               a MouseEvent representing a click.
+     */
     @FXML
     private void chooseArchipelago(MouseEvent event) {
 
@@ -598,6 +611,12 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Finds the archipelago where Mother Nature is.
+     *
+     * @param archipelagos        the LightArchi List of archipelagos.
+     * @return                    the index of the Archipelago on which Mother Nature is.
+     */
     private int findCurrentMNIndex(List<LightArchi> archipelagos) {
         for(LightArchi a : archipelagos)
             if (a.isMNPresent())
@@ -643,7 +662,7 @@ public class BoardSceneController implements SceneControllerInterface {
     /**
      * Gets the character chosen by the user and sends it to the server.
      *
-     * @param event               a MouseEvent.
+     * @param event               a MouseEvent representing a click.
      */
     @FXML
     private void chooseCharacter(MouseEvent event) {
@@ -814,6 +833,13 @@ public class BoardSceneController implements SceneControllerInterface {
         }
     }
 
+    /**
+     * Gets the position of the given character in the array containing those
+     * selected for this game.
+     *
+     * @param characterName       the name of the character.
+     * @return                    the corresponding index of the Array.
+     */
     private int getCharIndexByName(String characterName) {
         for (int i = 0; i < board.getSelectedCharacters().length; i++)
             if (characterName.equalsIgnoreCase(board.getSelectedCharacters()[i].getName()))
@@ -822,6 +848,16 @@ public class BoardSceneController implements SceneControllerInterface {
         return -1;  //function cannot reach this point
     }
 
+    /**
+     * Shows an alert to the user so that they can select the number of students
+     * they want to operate with.
+     * Used in {@link #chooseCharacter(MouseEvent) chooseCharacter method}
+     * in the context of activating a characters' effect.
+     *
+     * @param maxStudNumber       the maximum number of Students that can be selected.
+     * @param text                a text.
+     * @return                    the selected number of Students.
+     */
     private int studNumberDialog(int maxStudNumber, String text) {
         AtomicInteger selectedStudNumber = new AtomicInteger();
 
@@ -906,7 +942,7 @@ public class BoardSceneController implements SceneControllerInterface {
     /**
      * Sets the light board.
      *
-     * @param board          a LightBoard.
+     * @param board               a LightBoard.
      */
     public void setBoard(LightBoard board) {
         this.board = board;

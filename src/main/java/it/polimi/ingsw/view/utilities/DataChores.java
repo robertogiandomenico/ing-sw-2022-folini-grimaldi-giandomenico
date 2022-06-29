@@ -11,6 +11,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class contains utility methods for {@link CLI}/{@link it.polimi.ingsw.view.gui.GUI GUI}.
+ */
 public class DataChores {
 
     /**

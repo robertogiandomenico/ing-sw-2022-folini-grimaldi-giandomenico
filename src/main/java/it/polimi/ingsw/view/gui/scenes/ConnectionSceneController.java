@@ -14,7 +14,6 @@ import java.io.IOException;
  * This class represents the controller for the connection to the server scene.
  */
 public class ConnectionSceneController implements SceneControllerInterface {
-
     @FXML
     private TextField ipAddressField;
     @FXML
@@ -49,7 +48,7 @@ public class ConnectionSceneController implements SceneControllerInterface {
     /**
      * Checks the validity of the inserted IP address.
      *
-     * @param e              an Event.
+     * @param e              the pressed key.
      */
     @FXML
     private void ipCheckProperty(KeyEvent e) {
@@ -66,7 +65,7 @@ public class ConnectionSceneController implements SceneControllerInterface {
     /**
      * Checks the validity of the inserted port.
      *
-     * @param e              an Event.
+     * @param e              the pressed key.
      */
     @FXML
     private void portCheckProperty(KeyEvent e) {
