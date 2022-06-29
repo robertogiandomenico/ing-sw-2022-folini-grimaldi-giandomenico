@@ -134,7 +134,7 @@ public class Archipelago {
      * This method conforms to the use of the
      * {@link it.polimi.ingsw.model.effects.GrannyGrassEffect GrannyGrassEffect}.
      *
-     * @return                 the number of no entry tiles on this archipelago
+     * @return                 the number of No Entry tiles on this Archipelago.
      */
     public int getNoEntryTile() {
         return noEntryTile;
