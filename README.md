@@ -1,6 +1,6 @@
 # Software Engineering Project A.A. 2021-2022
 
-<img src="github/Eriantys.jpg" width=300 px align="right" />
+<img src="github/assets/Eriantys.jpg" width=300 px align="right" />
 
 _Eriantys_ is the final test of **"Software Engineering"** course of **"Computer Science Engineering"** held at Politecnico di Milano (2021/2022).
 
@@ -61,7 +61,7 @@ It is also suggested enabling the UTF-8 characters support in the terminal, as f
 2. In the _Administrative_ tab, choose `Change system locale...` and check `Beta: Use Unicode UTF-8 for worldwide language support`
 3. After pressing `OK` the system will ask to restart Windows for the changes to take effect
 4. After the reboot the system will be fully ready to render special characters!
-<img src="github/UTF-8_tutorial.jpg" />
+<img src="github/assets/UTF-8_tutorial.jpg" />
 
 ##### Server
 The server can be run with the following command in a terminal window
@@ -109,5 +109,15 @@ java -jar Eriantys_Client.jar -cli
 
 ## License
 This project has been developed in collaboration with [Cranio Creations](https://www.craniocreations.it/prodotto/eriantys).
+<img src="github/assets/Eriantys_slider.jpg" />
 
-<img src="github/Eriantys_slider.jpg" />
+## Screenshots
+<img src="github/assets/Server.jpg" width=500 px align="left" />
+&nbsp;
+<img src="github/assets/WizardSelection.jpg" width=400 px align="right" />
+&nbsp;
+<img src="github/assets/BoardCLI.jpg" align="center" />
+&nbsp;
+<img src="github/assets/BoardGUI.jpg" align="center" />
+&nbsp;
+<img src="github/assets/ActionGUI.jpg" align="center" />
