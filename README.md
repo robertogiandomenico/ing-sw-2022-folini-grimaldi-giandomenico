@@ -6,7 +6,7 @@ _Eriantys_ is the final test of **"Software Engineering"** course of **"Computer
 
 **Professor**: Pierluigi San Pietro
 
-**Group**: SP45
+**Group**: PSP45
 
 
 ## UML
