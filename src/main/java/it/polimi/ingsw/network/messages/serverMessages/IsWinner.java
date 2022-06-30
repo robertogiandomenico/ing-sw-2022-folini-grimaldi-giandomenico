@@ -38,11 +38,4 @@ public class IsWinner extends GenericServerMessage {
         view.printBoard(lightBoard);
         view.displayEndgameResult(winner, condition);
     }
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + getType() +
-                '}';
-    }
 }

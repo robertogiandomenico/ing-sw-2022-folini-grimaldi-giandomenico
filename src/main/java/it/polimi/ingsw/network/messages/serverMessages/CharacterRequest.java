@@ -31,11 +31,4 @@ public class CharacterRequest extends GenericServerMessage {
     public void show(ViewInterface view) {
         view.askCharacter(lightBoard);
     }
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + getType() +
-                '}';
-    }
 }

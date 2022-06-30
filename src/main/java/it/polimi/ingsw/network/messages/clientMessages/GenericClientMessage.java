@@ -17,7 +17,7 @@ public abstract class GenericClientMessage implements Serializable {
     /**
      * Class constructor specifying the type of the message.
      *
-     * @param type  the MessageType.
+     * @param type             the MessageType.
      */
     public GenericClientMessage(MessageType type){
         this.type = type;
@@ -26,18 +26,17 @@ public abstract class GenericClientMessage implements Serializable {
     /**
      * Gets the type of the message.
      *
-     * @return      the MessageType.
+     * @return                 the MessageType.
      */
     public MessageType getType() {
         return type;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server           the Server.
+     * @param clientHandler    the ClientHandler.
+     */
     public abstract void execute(Server server, ClientHandler clientHandler);
-
-    @Override
-    public String toString() {
-        return "ClientMessage {" +
-                "type=" + type +
-                '}';
-    }
 }

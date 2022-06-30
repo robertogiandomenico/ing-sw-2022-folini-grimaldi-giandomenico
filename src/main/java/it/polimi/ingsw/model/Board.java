@@ -121,8 +121,6 @@ public class Board {
         int indexDR = mapToIndex(student.getColor());
 
         currentPlayerSB.removeFromEntrance(student.getColor());
-
-        // if(currentPlayerSB.getDiningRoom()[indexDR]<10) then do lines 125-134
         currentPlayerSB.addToDiningRoom(indexDR);
 
         if (selectedCharacters != null) {
@@ -265,8 +263,6 @@ public class Board {
         if (archipelagos.get(indexLeftArchi).getTowerColor() == archipelagos.get(indexCurrentArchi).getTowerColor()) {
             mergeIslands(indexCurrentArchi, indexLeftArchi);
         }
-
-        //We'll need to remember that if archipelagos.size() == 3 the game will end and the winner will be the player with min(towersLefts)
     }
 
     /**
@@ -421,8 +417,6 @@ public class Board {
                 currentPlayerSchoolBoard = s;
             }
         }
-
-        //short form: return Arrays.stream(playerBoards).filter(s -> s.getPlayer().getCanMoveStudents()).findFirst().orElse(null);
         return currentPlayerSchoolBoard;
     }
 
@@ -439,7 +433,6 @@ public class Board {
                 playerSchoolBoard = s;
             }
         }
-        //short form: return Arrays.stream(playerBoards).filter(s -> s.getPlayer().getPlayerTeam() == towerColor).findFirst().orElse(null);
         return playerSchoolBoard;
     }
 

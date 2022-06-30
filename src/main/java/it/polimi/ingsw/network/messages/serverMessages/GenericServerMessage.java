@@ -37,11 +37,4 @@ public abstract class GenericServerMessage implements Serializable {
      * @param view     a ViewInterface.
      */
     public abstract void show(ViewInterface view);
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + type +
-                '}';
-    }
 }

@@ -3,8 +3,6 @@ package it.polimi.ingsw.model.effects;
 import it.polimi.ingsw.model.*;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * This class implements the {@link Effect} of the Jester character.
@@ -30,8 +28,6 @@ public class JesterEffect implements Effect {
      */
     public void applyEffect(Board board, int archiIndex, int numOfStudents, Color...studColors) {
         //the user will choose how many students they want to move and this number will be saved in the variable numOfStudents
-        //the first numOfStudents Colors in studColors[] will be the colors of the students chosen FROM THIS CARD, while the remaining
-        //will be the colors of the students chosen FROM THE ENTRANCE
 
         int[] studentIndexesOnCard = new int[numOfStudents];
         Student[] studentsFromEntrance = new Student[numOfStudents];

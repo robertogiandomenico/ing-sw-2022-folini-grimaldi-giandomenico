@@ -26,11 +26,4 @@ public class GameNameRequest extends GenericServerMessage {
     public void show(ViewInterface view) {
         view.askGameName();
     }
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + getType() +
-                '}';
-    }
 }

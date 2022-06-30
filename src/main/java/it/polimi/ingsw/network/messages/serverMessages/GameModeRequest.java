@@ -26,11 +26,4 @@ public class GameModeRequest extends GenericServerMessage {
     public void show(ViewInterface view) {
         view.askGameMode();
     }
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + getType() +
-                '}';
-    }
 }

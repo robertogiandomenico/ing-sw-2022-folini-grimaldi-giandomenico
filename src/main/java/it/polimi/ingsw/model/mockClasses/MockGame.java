@@ -6,8 +6,8 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.GameCharacter;
 
 /**
- * This class is a mock version of the {@link it.polimi.ingsw.model.Game} that uses the {@link MockBoard}
- * instead of the normal {@link it.polimi.ingsw.model.Board} and that doesn't choose randomly the characters.
+ * This class is a mock version of the {@link Game} that uses the {@link MockBoard}
+ * instead of the normal {@link Board} and that doesn't choose randomly the characters.
  */
 public class MockGame extends Game {
 

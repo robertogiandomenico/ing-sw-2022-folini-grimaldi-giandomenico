@@ -41,11 +41,4 @@ public class ChooseAssistantRequest extends GenericServerMessage {
         view.printBoard(lightBoard);
         view.askAssistant(availableAssistants, discardedAssistants);
     }
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + getType() +
-                '}';
-    }
 }

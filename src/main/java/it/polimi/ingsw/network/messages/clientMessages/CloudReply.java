@@ -32,6 +32,12 @@ public class CloudReply extends GenericClientMessage {
         return cloudIndex;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server        the Server.
+     * @param clientHandler the ClientHandler.
+     */
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
         clientHandler.getCurrentAction().receiveMessage(this);

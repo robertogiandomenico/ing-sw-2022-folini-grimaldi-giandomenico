@@ -16,7 +16,7 @@ public class MNStepsReply extends GenericClientMessage {
     /**
      * Class constructor.
      *
-     * @param mnSteps   the number of steps.
+     * @param mnSteps       the number of steps.
      */
     public MNStepsReply(int mnSteps) {
         super(MessageType.MNSTEPS_REPLY);
@@ -26,12 +26,18 @@ public class MNStepsReply extends GenericClientMessage {
     /**
      * Returns the number of steps.
      *
-     * @return          the chosen number of steps.
+     * @return              the chosen number of steps.
      */
     public int getMnSteps() {
         return mnSteps;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server        the Server.
+     * @param clientHandler the ClientHandler.
+     */
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
         clientHandler.getCurrentAction().receiveMessage(this);

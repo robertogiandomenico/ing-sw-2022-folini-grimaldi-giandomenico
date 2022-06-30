@@ -20,13 +20,19 @@ public class GameNameReply extends GenericClientMessage {
     /**
      * Class constructor.
      *
-     * @param gameName  the name of the Game.
+     * @param gameName      the name of the Game.
      */
     public GameNameReply(String gameName) {
         super(MessageType.GAMENAME_REPLY);
         this.gameName = gameName;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server        the Server.
+     * @param clientHandler the ClientHandler.
+     */
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
         if(!(clientHandler.getClientHandlerPhase() == ClientHandlerPhases.WAITING_GAMENAME)){
@@ -56,14 +62,14 @@ public class GameNameReply extends GenericClientMessage {
     /**
      * States whether a game with the given name already exists on the server.
      *
-     * @param gameName  the name of the game to check.
-     * @param server    the Server.
-     * @return          a boolean whose value is:
-     *                  <p>
-     *                  -{@code true} if a game with that name already exists;
-     *                  </p> <p>
-     *                  -{@code false} otherwise.
-     *                  </p>
+     * @param gameName      the name of the game to check.
+     * @param server        the Server.
+     * @return              a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if a game with that name already exists;
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
      */
     private boolean alreadyExists(String gameName, Server server) {
         return server.getLobbies().keySet().stream().map(Controller::getGameName).anyMatch(n -> n.equals(gameName));

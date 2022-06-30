@@ -33,11 +33,4 @@ public class StudentRequest extends GenericServerMessage {
     public void show(ViewInterface view) {
         view.askStudent(availableColors);
     }
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + getType() +
-                '}';
-    }
 }

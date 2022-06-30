@@ -28,11 +28,4 @@ public abstract class GenericConnectionMessage implements Serializable {
     public MessageType getType() {
         return type;
     }
-
-    @Override
-    public String toString() {
-        return "ConnectionMessage {" +
-                "type=" + type +
-                '}';
-    }
 }

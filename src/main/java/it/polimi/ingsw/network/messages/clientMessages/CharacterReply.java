@@ -70,6 +70,12 @@ public class CharacterReply extends GenericClientMessage{
         return studColor;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server        the Server.
+     * @param clientHandler the ClientHandler.
+     */
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
         clientHandler.getCurrentAction().receiveMessage(this);

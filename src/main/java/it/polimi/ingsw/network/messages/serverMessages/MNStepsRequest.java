@@ -30,11 +30,4 @@ public class MNStepsRequest extends GenericServerMessage {
     public void show(ViewInterface view) {
         view.askMNSteps(maxMNSteps);
     }
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + getType() +
-                '}';
-    }
 }

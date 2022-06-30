@@ -38,11 +38,4 @@ public class ActionRequest extends GenericServerMessage {
         view.printBoard(lightBoard);
         view.askAction(possibleActions);
     }
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + getType() +
-                '}';
-    }
 }

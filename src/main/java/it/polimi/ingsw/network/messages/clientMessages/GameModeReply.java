@@ -18,18 +18,24 @@ public class GameModeReply extends GenericClientMessage {
     /**
      * Class constructor.
      *
-     * @param gameMode  a boolean whose value is:
-     *                  <p>
-     *                  -{@code true} if the chosen mode is expert;
-     *                  </p> <p>
-     *                  -{@code false} otherwise.
-     *                  </p>
+     * @param gameMode      a boolean whose value is:
+     *                      <p>
+     *                      -{@code true} if the chosen mode is expert;
+     *                      </p> <p>
+     *                      -{@code false} otherwise.
+     *                      </p>
      */
     public GameModeReply(boolean gameMode) {
         super(MessageType.GAMEMODE_REPLY);
         this.gameMode = gameMode;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server        the Server.
+     * @param clientHandler the ClientHandler.
+     */
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
         if(!(clientHandler.getClientHandlerPhase() == ClientHandlerPhases.WAITING_GAMEMODE)){

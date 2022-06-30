@@ -26,13 +26,4 @@ public class PlayerNumberRequest extends GenericServerMessage {
     public void show(ViewInterface view) {
         view.askPlayerNumber();
     }
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + getType() +
-                '}';
-    }
-
-
 }

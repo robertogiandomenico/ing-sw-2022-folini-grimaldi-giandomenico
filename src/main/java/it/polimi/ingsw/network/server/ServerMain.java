@@ -12,6 +12,11 @@ public class ServerMain {
     private static final int MAX = 65535;
     private static final int DEFAULT = 2807;
 
+    /**
+     * Main method.
+     *
+     * @param args  the command line arguments.
+     */
     public static void main(String[] args) {
         int port = DEFAULT;
         String input;

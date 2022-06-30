@@ -32,6 +32,12 @@ public class ActionReply extends GenericClientMessage {
         return actionIndex;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server        the Server.
+     * @param clientHandler the ClientHandler.
+     */
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
         clientHandler.getController().receiveMessage(this);

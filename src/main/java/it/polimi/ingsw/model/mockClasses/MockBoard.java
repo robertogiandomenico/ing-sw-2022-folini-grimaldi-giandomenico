@@ -5,8 +5,8 @@ import it.polimi.ingsw.model.*;
 import java.util.List;
 
 /**
- * This class is a mock version of the {@link it.polimi.ingsw.model.Board} that uses the {@link MockBag}
- * instead of the normal {@link it.polimi.ingsw.model.Bag} in order to always have the same students' disposition
+ * This class is a mock version of the {@link Board} that uses the {@link MockBag}
+ * instead of the normal {@link Bag} in order to always have the same students' disposition
  * on the board.
  */
 public class MockBoard extends Board {

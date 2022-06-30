@@ -33,11 +33,4 @@ public class WizardRequest extends GenericServerMessage {
     public void show(ViewInterface view) {
         view.askWizard(availableWizards);
     }
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + getType() +
-                '}';
-    }
 }

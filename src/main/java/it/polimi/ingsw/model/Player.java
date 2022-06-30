@@ -102,12 +102,12 @@ public class Player {
     /**
      * Sets the variable that states whether this player can move students.
      *
-     * @param currentPlayer       a boolean whose value is:
-     *                              <p>
-     *                              -{@code true} if the Player is the current player;
-     *                              </p> <p>
-     *                              -{@code false} otherwise.
-     *                              </p>
+     * @param currentPlayer     a boolean whose value is:
+     *                          <p>
+     *                          -{@code true} if the Player is the current player;
+     *                          </p> <p>
+     *                          -{@code false} otherwise.
+     *                          </p>
      */
     public void setCurrentPlayer(boolean currentPlayer) {
         this.currentPlayer = currentPlayer;

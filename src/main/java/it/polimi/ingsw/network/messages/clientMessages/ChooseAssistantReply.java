@@ -17,7 +17,7 @@ public class ChooseAssistantReply extends GenericClientMessage {
     /**
      * Class constructor.
      *
-     * @param assistant the chosen Assistant.
+     * @param assistant     the chosen Assistant.
      */
     public ChooseAssistantReply(Assistant assistant) {
         super(MessageType.CHOOSE_ASSISTANT_REPLY);
@@ -27,12 +27,18 @@ public class ChooseAssistantReply extends GenericClientMessage {
     /**
      * Returns the assistant.
      *
-     * @return          the chosen Assistant.
+     * @return              the chosen Assistant.
      */
     public Assistant getAssistant() {
         return assistant;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server        the Server.
+     * @param clientHandler the ClientHandler.
+     */
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
         clientHandler.getController().receiveMessage(this);

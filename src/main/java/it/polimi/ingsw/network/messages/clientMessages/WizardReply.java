@@ -17,7 +17,7 @@ public class WizardReply extends GenericClientMessage {
     /**
      * Class constructor.
      *
-     * @param wizard    the chosen Wizard.
+     * @param wizard        the chosen Wizard.
      */
     public WizardReply(Wizard wizard) {
         super(MessageType.WIZARD_REPLY);
@@ -27,12 +27,18 @@ public class WizardReply extends GenericClientMessage {
     /**
      * Returns the wizard.
      *
-     * @return          the chosen Wizard.
+     * @return              the chosen Wizard.
      */
     public Wizard getWizard() {
         return wizard;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server        the Server.
+     * @param clientHandler the ClientHandler.
+     */
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
         clientHandler.getController().receiveMessage(this);

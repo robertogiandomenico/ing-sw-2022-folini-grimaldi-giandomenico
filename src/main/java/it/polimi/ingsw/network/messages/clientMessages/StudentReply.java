@@ -17,7 +17,7 @@ public class StudentReply extends GenericClientMessage {
     /**
      * Class constructor.
      *
-     * @param studColor the Color of the chosen Student.
+     * @param studColor     the Color of the chosen Student.
      */
     public StudentReply(Color studColor) {
         super(MessageType.STUDENT_REPLY);
@@ -27,12 +27,18 @@ public class StudentReply extends GenericClientMessage {
     /**
      * Returns the student color.
      *
-     * @return          the Color of the chosen Student.
+     * @return              the Color of the chosen Student.
      */
     public Color getStudColor() {
         return studColor;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server        the Server.
+     * @param clientHandler the ClientHandler.
+     */
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
         clientHandler.getCurrentAction().receiveMessage(this);

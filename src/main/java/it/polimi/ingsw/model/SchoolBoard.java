@@ -151,7 +151,8 @@ public class SchoolBoard {
      *                      to be removed.
      * @param steal         a boolean whose value is:
      *                      <p>
-     *                      -{@code true} if the method is called by {@link it.polimi.ingsw.model.effects.ThiefEffect}.
+     *                      -{@code true} if the method is called by {@link it.polimi.ingsw.model.effects.ThiefEffect
+     *                      ThiefEffect};
      *                      </p> <p>
      *                      -{@code false} otherwise.
      *                      </p>
@@ -183,7 +184,7 @@ public class SchoolBoard {
      * @param dinPosition   the number of Students in that dining room.
      * @return              a boolean whose value is:
      *                      <p>
-     *                      -{@code true} if the Player has to get a coin.
+     *                      -{@code true} if the Player has to get a coin;
      *                      </p> <p>
      *                      -{@code false} otherwise.
      *                      </p>

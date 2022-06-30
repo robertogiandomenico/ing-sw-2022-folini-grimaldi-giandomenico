@@ -28,8 +28,8 @@ public class PlaceReply extends GenericClientMessage {
     /**
      * Class constructor specifying the place and the index of an archipelago.
      *
-     * @param place      the chosen place.
-     * @param archiIndex the index of the chosen Archipelago.
+     * @param place         the chosen place.
+     * @param archiIndex    the index of the chosen Archipelago.
      */
     public PlaceReply(String place, int archiIndex) {
         super(MessageType.PLACE_REPLY);
@@ -40,7 +40,7 @@ public class PlaceReply extends GenericClientMessage {
     /**
      * Returns the place.
      *
-     * @return          the chosen place.
+     * @return              the chosen place.
      */
     public String getPlace() {
         return place;
@@ -49,12 +49,18 @@ public class PlaceReply extends GenericClientMessage {
     /**
      * Returns the index of the archipelago.
      *
-     * @return          the index of the chosen Archipelago.
+     * @return              the index of the chosen Archipelago.
      */
     public int getArchiIndex() {
         return archiIndex;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server        the Server.
+     * @param clientHandler the ClientHandler.
+     */
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
         clientHandler.getCurrentAction().receiveMessage(this);

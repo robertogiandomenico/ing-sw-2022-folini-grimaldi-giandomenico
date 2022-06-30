@@ -33,11 +33,4 @@ public class CloudRequest extends GenericServerMessage {
     public void show(ViewInterface view) {
         view.askCloud(indexesAvailableClouds);
     }
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + getType() +
-                '}';
-    }
 }

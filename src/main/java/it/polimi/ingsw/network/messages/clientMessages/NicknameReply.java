@@ -18,7 +18,7 @@ public class NicknameReply extends GenericClientMessage {
     /**
      * Class constructor.
      *
-     * @param nickname  the nickname chosen by the Player.
+     * @param nickname      the nickname chosen by the Player.
      */
     public NicknameReply(String nickname) {
         super(MessageType.NICKNAME_REPLY);
@@ -28,12 +28,18 @@ public class NicknameReply extends GenericClientMessage {
     /**
      * Returns the nickname.
      *
-     * @return          the chosen nickname.
+     * @return              the chosen nickname.
      */
     public String getNickname() {
         return nickname;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server        the Server.
+     * @param clientHandler the ClientHandler.
+     */
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
         if(!(clientHandler.getClientHandlerPhase() == ClientHandlerPhases.WAITING_NICKNAME)){

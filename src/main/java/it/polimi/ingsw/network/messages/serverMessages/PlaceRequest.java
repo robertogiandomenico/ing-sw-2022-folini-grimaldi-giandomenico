@@ -30,11 +30,4 @@ public class PlaceRequest extends GenericServerMessage {
     public void show(ViewInterface view) {
         view.askPlace(maxArchis);
     }
-
-    @Override
-    public String toString() {
-        return "ServerMessage {" +
-                "type=" + getType() +
-                '}';
-    }
 }

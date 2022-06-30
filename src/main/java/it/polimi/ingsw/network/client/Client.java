@@ -87,7 +87,7 @@ public class Client {
      * Initializes client socket and objects, starts the threads needed for
      * messages handling throughout the game.
      *
-     * @throws IOException  if an I/O exception occurs.
+     * @throws IOException  if an error occurs during the connection.
      */
     public void init() throws IOException {
         clientSocket = new Socket();
@@ -207,11 +207,12 @@ public class Client {
     }
 
     /**
-     * Sets the boolean value movingMN after sending the reply.
+     * Sets the boolean value movingMN after sending the
+     * {@link it.polimi.ingsw.network.messages.clientMessages.MNStepsReply MNSteps Reply}.
      *
      * @param movingMN      a boolean whose value is:
      *                      <p>
-     *                      -{@code false} if it the sent reply is a MNSteps reply
+     *                      -{@code false} if the sent reply is a MNStepsReply;
      *                      </p> <p>
      *                      -{@code true} otherwise.
      *                      </p>
@@ -221,11 +222,13 @@ public class Client {
     }
 
     /**
-     * Returns a boolean that states whether the sent message is a MNSteps request or not.
+     * Returns a boolean that states whether the sent message is a
+     * {@link it.polimi.ingsw.network.messages.serverMessages.MNStepsRequest MNSteps Request}
+     * or not.
      *
      * @return              a boolean whose value is:
      *                      <p>
-     *                      -{@code true} if it the sent message is a MNSteps request
+     *                      -{@code true} if the sent message is a MNStepsRequest;
      *                      </p> <p>
      *                      -{@code false} otherwise.
      *                      </p>
@@ -235,11 +238,12 @@ public class Client {
     }
 
     /**
-     * Sets the boolean value movingStud after sending the reply.
+     * Sets the boolean value movingStud after sending the
+     * {@link it.polimi.ingsw.network.messages.clientMessages.PlaceReply Place Reply}.
      *
      * @param movingStud    a boolean whose value is:
      *                      <p>
-     *                      -{@code false} if it the sent reply is a place request
+     *                      -{@code false} if the sent reply is a PlaceReply;
      *                      </p> <p>
      *                      -{@code true} otherwise.
      *                      </p>
@@ -249,11 +253,13 @@ public class Client {
     }
 
     /**
-     * Returns a boolean that states whether the sent message is a place request or not.
+     * Returns a boolean that states whether the sent message is a
+     * {@link it.polimi.ingsw.network.messages.serverMessages.PlaceRequest Place Request}
+     * or not.
      *
      * @return              a boolean whose value is:
      *                      <p>
-     *                      -{@code true} if it the sent message is a place request
+     *                      -{@code true} if the sent message is a PlaceRequest;
      *                      </p> <p>
      *                      -{@code false} otherwise.
      *                      </p>
@@ -263,11 +269,12 @@ public class Client {
     }
 
     /**
-     * Sets the boolean value choosingChar after sending the reply.
+     * Sets the boolean value choosingChar after sending the
+     * {@link it.polimi.ingsw.network.messages.clientMessages.CharacterReply Character Reply}.
      *
      * @param choosingChar  a boolean whose value is:
      *                      <p>
-     *                      -{@code false} if it the sent message is a character reply
+     *                      -{@code false} if it the sent message is a CharacterReply;
      *                      </p> <p>
      *                      -{@code true} otherwise.
      *                      </p>
@@ -277,11 +284,13 @@ public class Client {
     }
 
     /**
-     * Returns a boolean that states whether the sent message is a character request or not.
+     * Returns a boolean that states whether the sent message is a
+     * {@link it.polimi.ingsw.network.messages.serverMessages.CharacterRequest Character Request}
+     * or not.
      *
      * @return              a boolean whose value is:
      *                      <p>
-     *                      -{@code true} if it the sent message is a character request
+     *                      -{@code true} if it the sent message is a CharacterRequest;
      *                      </p> <p>
      *                      -{@code false} otherwise.
      *                      </p>

@@ -25,6 +25,12 @@ public class PlayerNumberReply extends GenericClientMessage {
         this.playerNumber = playerNumber;
     }
 
+    /**
+     * Executes the specific action based on the message.
+     *
+     * @param server        the Server.
+     * @param clientHandler the ClientHandler.
+     */
     @Override
     public void execute(Server server, ClientHandler clientHandler) {
         if(!(clientHandler.getClientHandlerPhase() == ClientHandlerPhases.WAITING_PLAYERNUMBER)){
