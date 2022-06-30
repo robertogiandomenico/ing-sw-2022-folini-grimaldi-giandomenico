@@ -10,6 +10,7 @@ import it.polimi.ingsw.network.server.Server;
  * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.PlaceRequest PlaceRequest}.
  */
 public class PlaceReply extends GenericClientMessage {
+    private static final long serialVersionUID = -8722629865120560159L;
     private final String place;
     private final int archiIndex;
 

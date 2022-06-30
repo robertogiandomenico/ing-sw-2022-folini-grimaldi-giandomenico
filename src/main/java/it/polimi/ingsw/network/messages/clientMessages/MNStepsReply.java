@@ -10,6 +10,7 @@ import it.polimi.ingsw.network.server.Server;
  * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.MNStepsRequest MNStepsRequest}.
  */
 public class MNStepsReply extends GenericClientMessage {
+    private static final long serialVersionUID = -8849098489067526074L;
     private int mnSteps;
 
     /**

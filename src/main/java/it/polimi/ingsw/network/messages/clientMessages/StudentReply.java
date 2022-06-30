@@ -11,6 +11,7 @@ import it.polimi.ingsw.network.server.Server;
  * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.StudentRequest StudentRequest}.
  */
 public class StudentReply extends GenericClientMessage {
+    private static final long serialVersionUID = 4133781717050927674L;
     private Color studColor;
 
     /**

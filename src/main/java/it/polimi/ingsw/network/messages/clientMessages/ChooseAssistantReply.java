@@ -11,6 +11,7 @@ import it.polimi.ingsw.network.server.Server;
  * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.ChooseAssistantRequest ChooseAssistantRequest}.
  */
 public class ChooseAssistantReply extends GenericClientMessage {
+    private static final long serialVersionUID = -4576301150786574144L;
     private Assistant assistant;
 
     /**

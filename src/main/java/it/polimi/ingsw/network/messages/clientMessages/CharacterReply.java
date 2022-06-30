@@ -1,7 +1,6 @@
 package it.polimi.ingsw.network.messages.clientMessages;
 
 import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.GameCharacter;
 import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.Server;
@@ -13,6 +12,7 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
  * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.CharacterRequest CharacterRequest}.
  */
 public class CharacterReply extends GenericClientMessage{
+    private static final long serialVersionUID = -7752965836181499280L;
     private final LightCharacter character;
     private final int archiIndex;
     private final int studentNumber;

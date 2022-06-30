@@ -14,6 +14,7 @@ import it.polimi.ingsw.network.server.Server;
  * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.GameNameRequest GameNameRequest}.
  */
 public class GameNameReply extends GenericClientMessage {
+    private static final long serialVersionUID = 3624677593154184852L;
     private String gameName;
 
     /**
@@ -24,15 +25,6 @@ public class GameNameReply extends GenericClientMessage {
     public GameNameReply(String gameName) {
         super(MessageType.GAMENAME_REPLY);
         this.gameName = gameName;
-    }
-
-    /**
-     * Returns the name of the game.
-     *
-     * @return          the name of the Game.
-     */
-    public String getGameName() {
-        return gameName;
     }
 
     @Override

@@ -12,6 +12,7 @@ import it.polimi.ingsw.network.server.Server;
  * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.PlayerNumberRequest PlayerNumberRequest}.
  */
 public class PlayerNumberReply extends GenericClientMessage {
+    private static final long serialVersionUID = 5921830997540223602L;
     private int playerNumber;
 
     /**
@@ -22,15 +23,6 @@ public class PlayerNumberReply extends GenericClientMessage {
     public PlayerNumberReply(int playerNumber) {
         super(MessageType.PLAYERNUMBER_REPLY);
         this.playerNumber = playerNumber;
-    }
-
-    /**
-     * Returns the number of players.
-     *
-     * @return              the chosen number of Players.
-     */
-    public int getPlayerNumber() {
-        return playerNumber;
     }
 
     @Override

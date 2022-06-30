@@ -1,6 +1,5 @@
 package it.polimi.ingsw.network.messages.clientMessages;
 
-import it.polimi.ingsw.controller.actions.ActionType;
 import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.network.server.Server;
@@ -11,6 +10,7 @@ import it.polimi.ingsw.network.server.Server;
  * Follows an {@link it.polimi.ingsw.network.messages.serverMessages.ActionRequest ActionRequest}.
  */
 public class ActionReply extends GenericClientMessage {
+    private static final long serialVersionUID = 1586202770453396036L;
     private int actionIndex;
 
     /**

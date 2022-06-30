@@ -12,6 +12,7 @@ import it.polimi.ingsw.network.server.Server;
  * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.GameModeRequest GameModeRequest}.
  */
 public class GameModeReply extends GenericClientMessage {
+    private static final long serialVersionUID = 4394864072188395086L;
     private boolean gameMode; //true if expertMode, otherwise false
 
     /**
@@ -27,20 +28,6 @@ public class GameModeReply extends GenericClientMessage {
     public GameModeReply(boolean gameMode) {
         super(MessageType.GAMEMODE_REPLY);
         this.gameMode = gameMode;
-    }
-
-    /**
-     * Returns the game mode.
-     *
-     * @return          a boolean whose value is:
-     *                  <p>
-     *                  -{@code true} if expert mode was chosen;
-     *                  </p> <p>
-     *                  -{@code false} otherwise.
-     *                  </p>
-     */
-    public boolean getGameMode() {
-        return gameMode;
     }
 
     @Override

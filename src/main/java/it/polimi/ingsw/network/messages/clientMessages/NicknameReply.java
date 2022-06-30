@@ -12,6 +12,7 @@ import it.polimi.ingsw.network.server.Server;
  * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.NicknameRequest NicknameRequest}.
  */
 public class NicknameReply extends GenericClientMessage {
+    private static final long serialVersionUID = -2849240260911470749L;
     private String nickname;
 
     /**

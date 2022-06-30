@@ -10,6 +10,7 @@ import it.polimi.ingsw.network.server.Server;
  * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.CloudRequest CloudRequest}.
  */
 public class CloudReply extends GenericClientMessage {
+    private static final long serialVersionUID = 2073336034309133276L;
     private int cloudIndex;
 
     /**

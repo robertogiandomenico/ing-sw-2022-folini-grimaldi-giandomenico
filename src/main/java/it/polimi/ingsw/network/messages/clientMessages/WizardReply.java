@@ -11,6 +11,7 @@ import it.polimi.ingsw.network.server.Server;
  * Follows a {@link it.polimi.ingsw.network.messages.serverMessages.WizardRequest WizardRequest}.
  */
 public class WizardReply extends GenericClientMessage {
+    private static final long serialVersionUID = 1878414349073370676L;
     private Wizard wizard;
 
     /**

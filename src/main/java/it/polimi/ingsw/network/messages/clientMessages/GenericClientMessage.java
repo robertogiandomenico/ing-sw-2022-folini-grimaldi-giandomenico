@@ -11,6 +11,7 @@ import java.io.Serializable;
  * server.
  */
 public abstract class GenericClientMessage implements Serializable {
+    private static final long serialVersionUID = 6277215629364450602L;
     private final MessageType type;
 
     /**
