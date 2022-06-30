@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class WizardSceneController implements SceneControllerInterface {
     @FXML
-    private VBox articWizard;
+    private VBox arcticWizard;
     @FXML
     private VBox desertWizard;
     @FXML
@@ -65,26 +65,26 @@ public class WizardSceneController implements SceneControllerInterface {
 
             try {
                 switch (chosenWizardID) {
-                    case "articWizard":
+                    case "arcticWizard":
                         desertWizard.pseudoClassStateChanged(focusedElement, false);
                         forestWizard.pseudoClassStateChanged(focusedElement, false);
                         skyWizard.pseudoClassStateChanged(focusedElement, false);
                         break;
 
                     case "desertWizard":
-                        articWizard.pseudoClassStateChanged(focusedElement, false);
+                        arcticWizard.pseudoClassStateChanged(focusedElement, false);
                         forestWizard.pseudoClassStateChanged(focusedElement, false);
                         skyWizard.pseudoClassStateChanged(focusedElement, false);
                         break;
 
                     case "forestWizard":
-                        articWizard.pseudoClassStateChanged(focusedElement, false);
+                        arcticWizard.pseudoClassStateChanged(focusedElement, false);
                         desertWizard.pseudoClassStateChanged(focusedElement, false);
                         skyWizard.pseudoClassStateChanged(focusedElement, false);
                         break;
 
                     case "skyWizard":
-                        articWizard.pseudoClassStateChanged(focusedElement, false);
+                        arcticWizard.pseudoClassStateChanged(focusedElement, false);
                         desertWizard.pseudoClassStateChanged(focusedElement, false);
                         forestWizard.pseudoClassStateChanged(focusedElement, false);
                         break;
@@ -131,8 +131,8 @@ public class WizardSceneController implements SceneControllerInterface {
 
         for (Wizard w : availableWizards) {
             switch (w.name().toUpperCase()) {
-                case "ARTICWIZARD":
-                    articWizard.setDisable(false);
+                case "ARCTICWIZARD":
+                    arcticWizard.setDisable(false);
                     break;
                 case "SKYWIZARD":
                     skyWizard.setDisable(false);
@@ -156,8 +156,8 @@ public class WizardSceneController implements SceneControllerInterface {
      */
     private int getWizardIndex() {
         switch (chosenWizardID.toUpperCase()) {
-            case "ARTICWIZARD":
-                return availableWizards.indexOf(Wizard.ARTICWIZARD);
+            case "ARCTICWIZARD":
+                return availableWizards.indexOf(Wizard.ARCTICWIZARD);
             case "DESERTWIZARD":
                 return availableWizards.indexOf(Wizard.DESERTWIZARD);
             case "FORESTWIZARD":
@@ -175,7 +175,7 @@ public class WizardSceneController implements SceneControllerInterface {
      */
     private void disableAll() {
         goButton.setDisable(true);
-        articWizard.setDisable(true);
+        arcticWizard.setDisable(true);
         skyWizard.setDisable(true);
         desertWizard.setDisable(true);
         forestWizard.setDisable(true);

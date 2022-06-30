@@ -226,7 +226,7 @@ public class BoardSceneController implements SceneControllerInterface {
         switch (wizard) {
             case SKYWIZARD:
                 return new Image(getClass().getResourceAsStream("/img/wizards/s_icon.png"));
-            case ARTICWIZARD:
+            case ARCTICWIZARD:
                 return new Image(getClass().getResourceAsStream("/img/wizards/a_icon.png"));
             case DESERTWIZARD:
                 return new Image(getClass().getResourceAsStream("/img/wizards/d_icon.png"));

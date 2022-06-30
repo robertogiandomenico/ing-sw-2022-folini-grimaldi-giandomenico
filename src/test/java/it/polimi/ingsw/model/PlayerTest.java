@@ -36,7 +36,7 @@ class PlayerTest {
         ));
 
         wizards = new ArrayList<>(Arrays.asList(
-                Wizard.ARTICWIZARD,
+                Wizard.ARCTICWIZARD,
                 Wizard.DESERTWIZARD,
                 Wizard.FORESTWIZARD
         ));

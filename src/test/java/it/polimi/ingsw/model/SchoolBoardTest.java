@@ -24,7 +24,7 @@ class SchoolBoardTest {
         players = new ArrayList<>();
         otherBoards = new ArrayList<>();
 
-        players.add(new Player("player1", TowerColor.WHITE, Wizard.ARTICWIZARD));
+        players.add(new Player("player1", TowerColor.WHITE, Wizard.ARCTICWIZARD));
         players.add(new Player("player2", TowerColor.BLACK, Wizard.DESERTWIZARD));
         players.add(new Player("player3", TowerColor.GREY, Wizard.FORESTWIZARD));
 

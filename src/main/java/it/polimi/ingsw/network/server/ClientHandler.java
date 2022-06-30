@@ -33,7 +33,6 @@ public class ClientHandler implements Runnable{
     private Controller controller;
     private ClientHandlerPhases clientHandlerPhase;
     private Action currentAction;
-    private boolean disconnected;
 
     /**
      * Class constructor specifying server and socket, that initializes a
@@ -144,7 +143,7 @@ public class ClientHandler implements Runnable{
      * Handles the disconnection of the client.
      */
     public void manageDisconnection() {
-        if (!disconnected){
+        if (activeClient){
             activeClient = false;
             Server.SERVER_LOGGER.log(Level.INFO, "DISCONNECTION: client " + socket.getInetAddress().getHostAddress() + " has disconnected");
             server.removeClient(this);
@@ -211,7 +210,7 @@ public class ClientHandler implements Runnable{
      * Disconnects the server closing input and output stream and socket.
      */
     public void disconnect() {
-        disconnected = true;
+        activeClient = false;
         try {
             inputStream.close();
         } catch (IOException ignored){}
