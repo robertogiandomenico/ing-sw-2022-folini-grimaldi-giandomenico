@@ -38,7 +38,7 @@
       </Button>
       <ListView fx:id="actionList" focusTraversable="false" onKeyPressed="#typeOnList" prefHeight="292.0" prefWidth="253.0" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
          <GridPane.margin>
-            <Insets bottom="100.0" left="38.0" right="10.0" top="100.0" />
+            <Insets bottom="100.0" left="38.0" right="5.0" top="100.0" />
          </GridPane.margin>
       </ListView>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Selected Action:" textAlignment="CENTER" wrappingWidth="433.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">

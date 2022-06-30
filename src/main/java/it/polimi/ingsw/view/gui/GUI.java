@@ -495,7 +495,8 @@ public class GUI extends Application implements ViewInterface {
             errorDialog.setTitle("Game Error");
             errorDialog.setHeaderText("Error!");
             errorDialog.setContentText(error);
-            ((Stage) errorDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            ((Stage)errorDialog.getDialogPane().getScene().getWindow()).setAlwaysOnTop(true);
+            ((Stage)errorDialog.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
             errorDialog.showAndWait();
 
             if(shutDown) {
