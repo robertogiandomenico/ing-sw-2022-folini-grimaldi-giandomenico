@@ -23,5 +23,4 @@ public class IPvalidator {
         String IP_REGEX = "^(" + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + ")$";
         return address.matches(IP_REGEX);
     }
-
 }

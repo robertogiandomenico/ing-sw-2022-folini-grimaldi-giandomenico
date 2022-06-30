@@ -40,12 +40,17 @@ public class GUI extends Application implements ViewInterface {
     private boolean muted = false;
     private final Object lock = new Object();
 
+    /**
+     * Main method.
+     *
+     * @param args                 the command line arguments.
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
     /**
-     * Starts the guided user interface.
+     * Starts the graphic user interface.
      *
      * @param stage                the Stage to set.
      */
@@ -56,7 +61,7 @@ public class GUI extends Application implements ViewInterface {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/StartScene.fxml"));
             Scene scene = new Scene(loader.load());
             this.stage = stage;
-            ( (SceneControllerInterface)loader.getController() ).setGUI(this);
+            ((SceneControllerInterface)loader.getController()).setGUI(this);
 
             Font.loadFont(getClass().getResourceAsStream("/fonts/Roboto.ttf"), 13);
             Font.loadFont(getClass().getResourceAsStream("/fonts/Metamorphous.ttf"), 13);
@@ -75,7 +80,6 @@ public class GUI extends Application implements ViewInterface {
             stage.setTitle("Eriantys");
             stage.sizeToScene();
             stage.setResizable(false);
-
             stage.setScene(scene);
             stage.show();
 

@@ -20,8 +20,6 @@ public class LoginSceneController implements SceneControllerInterface {
     private Button confirmButton;
     @FXML
     private Button exitButton;
-    private boolean firstGameName = true;
-    private boolean firstNickname = true;
     private String nickname;
     private String gameName;
     private GUI gui;
@@ -65,7 +63,7 @@ public class LoginSceneController implements SceneControllerInterface {
     @FXML
     private void nicknameCheckProperty(KeyEvent e) {
         nickname = nicknameField.getText();
-        confirmButton.setDisable( nickname.trim().isEmpty() || nickname.length()<3 );
+        confirmButton.setDisable(nickname.trim().isEmpty() || nickname.length()<3);
 
         if (e.getCode().toString().equals("ENTER") && !confirmButton.isDisable())
             confirm();
@@ -79,7 +77,7 @@ public class LoginSceneController implements SceneControllerInterface {
     @FXML
     private void gameNameCheckProperty(KeyEvent e) {
         gameName = gameNameField.getText();
-        confirmButton.setDisable( gameName.trim().isEmpty() || gameName.length()<3 );
+        confirmButton.setDisable(gameName.trim().isEmpty() || gameName.length()<3);
 
         if (e.getCode().toString().equals("ENTER") && !confirmButton.isDisable())
             confirm();

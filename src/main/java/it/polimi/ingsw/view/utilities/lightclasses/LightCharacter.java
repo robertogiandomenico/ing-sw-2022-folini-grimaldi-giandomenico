@@ -45,10 +45,10 @@ public class LightCharacter implements Serializable {
             case "Jester":
                 students = ((JesterEffect)c.getEffect()).getStudents();
                 break;
-            default: break;
+            default:
+                break;
         }
     }
-
 
     /**
      * Returns the cost of this character.

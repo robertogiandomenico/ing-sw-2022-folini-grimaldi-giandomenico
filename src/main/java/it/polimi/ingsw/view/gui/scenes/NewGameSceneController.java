@@ -23,10 +23,6 @@ public class NewGameSceneController implements SceneControllerInterface {
     private ToggleGroup gameMode;
     @FXML
     private ToggleGroup nPlayers;
-    private boolean validGameMode = false;
-    private boolean validNPlayers = false;
-    private boolean expertModeBool = false;
-    private boolean num3OfPlayers = false;
     private GUI gui;
 
     /**
@@ -74,8 +70,7 @@ public class NewGameSceneController implements SceneControllerInterface {
      *
      * @return          a boolean whose value is:
      *                  <p>
-     *                  -{@code true} if at least one between {@code easyMode} button and
-     *                  {@code expertMode} button is enabled;
+     *                  -{@code true} if the player has to choose the game mode;
      *                  </p> <p>
      *                  -{@code false} otherwise.
      *                  </p>
@@ -90,8 +85,7 @@ public class NewGameSceneController implements SceneControllerInterface {
      *
      * @return          a boolean whose value is:
      *                  <p>
-     *                  -{@code true} if at least one between {@code n2Players} button and
-     *                  {@code n3Players} button is enabled;
+     *                  -{@code true} if the player has to choose the number of players;
      *                  </p> <p>
      *                  -{@code false} otherwise.
      *                  </p>

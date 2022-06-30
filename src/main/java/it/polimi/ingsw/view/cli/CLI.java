@@ -191,7 +191,7 @@ public class CLI implements ViewInterface {
         System.out.print("How many " + CliColor.BOLD + "players" + CliColor.RESET + " are going to play? [2/3]: ");
 
         int playerNumber = IntegerReader.readInput(scanner);
-        while(playerNumber != 2 && playerNumber != 3){
+        while (playerNumber != 2 && playerNumber != 3) {
             System.out.print(CliColor.RESET_LINE);
             System.out.print("\033[1A" + CliColor.RESET_LINE);
             System.out.print("Match can only be started with 2 or 3 players. Try again: ");
@@ -207,7 +207,10 @@ public class CLI implements ViewInterface {
      */
     @Override
     public void askWizard(List<Wizard> availableWizards) {
+        // to resize the console window     length:48  width:146
+        System.out.print("\033[8;48;146t");
         clearCLI();
+
         for (int i = 0; i < availableWizards.size(); i++) {
             System.out.print("[" + (i+1) + " | " + availableWizards.get(i).name() + "] \t");
         }
@@ -252,7 +255,7 @@ public class CLI implements ViewInterface {
         System.out.print("\n\nEnter the index of the " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " you would like to choose: ");
 
         int assistantIndex = IntegerReader.readInput(scanner);
-        while(assistantIndex <= 0 || assistantIndex > availableAssistants.size() || (availableAssistants.size() > 1 && discardedAssistants.contains(availableAssistants.get(assistantIndex-1)))){
+        while (assistantIndex <= 0 || assistantIndex > availableAssistants.size() || (availableAssistants.size() > 1 && discardedAssistants.contains(availableAssistants.get(assistantIndex-1)))) {
             System.out.print(CliColor.RESET_LINE);
             System.out.print("\033[1A" + CliColor.RESET_LINE);
             System.out.print("Invalid " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " index. Try again: ");
@@ -632,8 +635,8 @@ public class CLI implements ViewInterface {
     @Override
     public void printBoard(LightBoard board) {
         // to resize the console window     length:48  width:146
-        clearCLI();
         System.out.print("\033[8;48;146t");
+        clearCLI();
 
         //print all the archipelagos clockwise
         int dim = board.getArchipelagos().size() % 2 == 0 ? (board.getArchipelagos().size()/2 - 1) : (board.getArchipelagos().size()/2);
@@ -679,14 +682,15 @@ public class CLI implements ViewInterface {
         } else
             System.out.print("\033[2B" + CliColor.RESET_LINE);
 
-        LightSchoolBoard currentPlayerSB = board.getCurrentPlayerSchoolBoard();
         //find this client's schoolboard and print it as first
+        LightSchoolBoard currentPlayerSB = board.getCurrentPlayerSchoolBoard();
         for (LightSchoolBoard lsb : board.getSchoolBoards()) {
             if (lsb.getPlayer().getNickname().equals(client.getNickname())) {
                 DisplayBoard.printSchoolBoard(lsb, board.isExpertMode(), lsb.getPlayer().getNickname().equals(currentPlayerSB.getPlayer().getNickname()));
                 break;
             }
         }
+
         //print all the other schoolboards
         for (int i = 0; i < board.getSchoolBoards().size(); i++) {
             if (!board.getSchoolBoards().get(i).getPlayer().getNickname().equals(client.getNickname())) {

@@ -15,7 +15,6 @@ public class SceneController implements SceneControllerInterface {
     private GUI gui;
     private static Scene scene;
     private static FXMLLoader loader;
-    private static SceneControllerInterface currentController;
 
     /**
      * Switches between scenes.
@@ -64,30 +63,11 @@ public class SceneController implements SceneControllerInterface {
     }
 
     /**
-     * Returns the scene currently active.
-     *
-     * @return                  the current Scene.
-     */
-    public static Scene getCurrentScene() {
-        return scene;
-    }
-
-    /**
-     * Returns the controller corresponding to the currently active scene.
-     *
-     * @return                  the current scene controller.
-     */
-    public static SceneControllerInterface getCurrentController() {
-        return currentController;
-    }
-
-    /**
      * Sets the controller corresponding to the currently active scene.
      *
      * @param currentController the current scene controller.
      */
     public static void setCurrentController(SceneControllerInterface currentController) {
-        SceneController.currentController = currentController;
     }
 
     /**

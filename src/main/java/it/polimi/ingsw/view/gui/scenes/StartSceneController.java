@@ -30,7 +30,7 @@ public class StartSceneController implements SceneControllerInterface {
     }
 
     /**
-     * Opens the browser to the project repository when 'CREDITS' button is clicked.
+     * Opens the browser to the project repository when credits line is clicked.
      */
     @FXML
     private void onCreditsClick() {

@@ -2,7 +2,6 @@ package it.polimi.ingsw.view.utilities;
 
 import it.polimi.ingsw.model.Color;
 import it.polimi.ingsw.model.Student;
-import it.polimi.ingsw.view.cli.CLI;
 import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * This class contains utility methods for {@link CLI}/{@link it.polimi.ingsw.view.gui.GUI GUI}.
+ * This class contains utility methods for {@link it.polimi.ingsw.view.cli.CLI CLI}/{@link it.polimi.ingsw.view.gui.GUI GUI}.
  */
 public class DataChores {
 
@@ -73,7 +72,7 @@ public class DataChores {
 
     /**
      * Checks the color number in the dining room.
-     * Used in {@link CLI#askCharacter(LightBoard) askCharacter method} in order to
+     * Used in {@link it.polimi.ingsw.view.ViewInterface#askCharacter(LightBoard) askCharacter method} in order to
      * activate {@link it.polimi.ingsw.model.effects.MinstrelEffect MinstrelEffect}.
      *
      * @param dr                   the Array representing the current Player's dining room.
@@ -92,7 +91,7 @@ public class DataChores {
 
     /**
      * Checks the color number.
-     * Used in {@link CLI#askCharacter(LightBoard) askCharacter method} in order to
+     * Used in {@link it.polimi.ingsw.view.ViewInterface#askCharacter(LightBoard) askCharacter method} in order to
      * activate {@link it.polimi.ingsw.model.effects.MinstrelEffect MinstrelEffect} and {@link it.polimi.ingsw.model.effects.JesterEffect JesterEffect}.
      *
      * @param studArray            a Student Array.

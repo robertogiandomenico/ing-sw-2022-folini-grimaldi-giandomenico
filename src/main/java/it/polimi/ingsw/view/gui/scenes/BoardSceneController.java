@@ -130,8 +130,7 @@ public class BoardSceneController implements SceneControllerInterface {
                     ((AnchorPane)charactersBox.getChildren().get(i)).getChildren().get(2).setVisible(false);
 
             }
-        } catch (NullPointerException e) {
-            //if this exception is thrown, the game is in easy mode
+        } catch (NullPointerException e) {      //if this exception is thrown, the game is played in easy mode
             charactersBox.setDisable(true);
             charactersBox.setVisible(false);
         }
@@ -163,30 +162,28 @@ public class BoardSceneController implements SceneControllerInterface {
         setAssistants(thisPlayerBoard.getPlayer().getCards(), new ArrayList<>());
 
         //set entrance
-        for (int i = 0; i < thisPlayerBoard.getEntrance().length; i++) {
+        for (int i = 0; i < thisPlayerBoard.getEntrance().length; i++)
             ((ImageView)((AnchorPane) thisPlayerPane.getChildren().get(4)).getChildren().get(i)).setImage(displayStudent(thisPlayerBoard.getEntrance()[i]));
-        }
 
         //set towers left
         for (int i = 0; i < (-2 * board.getPlayers().size() + 12); i++) {
             ((ImageView)((AnchorPane) thisPlayerPane.getChildren().get(5)).getChildren().get(i)).setImage(getTowerIcon(thisPlayerBoard.getPlayer().getTowerColor()));
-            if(i >= thisPlayerBoard.getTowersLeft())
+
+            if (i >= thisPlayerBoard.getTowersLeft())
                 ((AnchorPane) thisPlayerPane.getChildren().get(5)).getChildren().get(i).setVisible(false);
             else
                 ((AnchorPane) thisPlayerPane.getChildren().get(5)).getChildren().get(i).setVisible(true);
         }
 
         //set professor table
-        for (int i = 0; i < thisPlayerBoard.getProfessorTable().length; i++) {
+        for (int i = 0; i < thisPlayerBoard.getProfessorTable().length; i++)
             ((VBox) thisPlayerPane.getChildren().get(6)).getChildren().get(i).setVisible(thisPlayerBoard.getProfessorTable()[i]);
-        }
 
         //set coins
-        if(board.isExpertMode()) {
+        if(board.isExpertMode())
             ((Label)((AnchorPane)thisPlayerPane.getChildren().get(7)).getChildren().get(1)).setText("x" + thisPlayerBoard.getPlayer().getCoins());
-        } else {
+        else
             thisPlayerPane.getChildren().get(7).setVisible(false);
-        }
 
         //set dining room students
         for (int i = 0; i < thisPlayerBoard.getDiningRoom().length; i++) {
@@ -220,7 +217,7 @@ public class BoardSceneController implements SceneControllerInterface {
      * Returns the icon corresponding to the given wizard.
      *
      * @param wizard              a Wizard.
-     * @return                    the corresponding Image.
+     * @return                    the corresponding icon.
      */
     private Image getWizardIcon(Wizard wizard) {
         switch (wizard) {
@@ -309,9 +306,8 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     public void initializeClouds() {
         int cloudsNumber = board.getCloudsNumber();
-        if (cloudsNumber == 2 && cloudsBox.getChildren().size() == 3) {
+        if (cloudsNumber == 2 && cloudsBox.getChildren().size() == 3)
             cloudsBox.getChildren().remove(cloudsBox.getChildren().get(2));
-        }
 
         for (int i = 0; i < cloudsNumber; i++) {
             for (int j = 0; j < cloudsNumber+1; j++) {
@@ -327,11 +323,10 @@ public class BoardSceneController implements SceneControllerInterface {
      * @param coinsSupply         the number of coins in the supply.
      */
     public void initializeCoinsSupply(int coinsSupply) {
-        if (board.isExpertMode()) {
+        if (board.isExpertMode())
             ((Label) coinsSupplyBox.getChildren().get(1)).setText("x" + coinsSupply);
-        } else {
+        else
             coinsSupplyBox.setVisible(false);
-        }
     }
 
     /**
@@ -339,7 +334,7 @@ public class BoardSceneController implements SceneControllerInterface {
      * client.
      */
     public void initializeOtherPlayers() {
-        LightSchoolBoard[] otherPlayers = new LightSchoolBoard[board.getSchoolBoards().size()-1];
+        LightSchoolBoard[] otherPlayers = new LightSchoolBoard[board.getSchoolBoards().size() - 1];
 
         //disable tab if there are only 2 players
         if (board.getSchoolBoards().size() == 2 && otherPlayersPane.getTabs().size() == 2) {
@@ -360,6 +355,7 @@ public class BoardSceneController implements SceneControllerInterface {
 
             //set nickname
             ((Label)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(1)).setText(otherPlayers[i].getPlayer().getNickname());
+
             //set chosen wizard
             ((ImageView)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(2)).setImage(getWizardIcon(otherPlayers[i].getPlayer().getSelectedWizard()));
 
@@ -378,7 +374,8 @@ public class BoardSceneController implements SceneControllerInterface {
             //set towers on the schoolboard
             for (int j = 0; j < (-2 * board.getPlayers().size() + 12); j++) {
                 ((ImageView)((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(4)).getChildren().get(j)).setImage(getTowerIcon(otherPlayers[i].getPlayer().getTowerColor()));
-                if(j >= otherPlayers[i].getTowersLeft())
+
+                if (j >= otherPlayers[i].getTowersLeft())
                     ((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(4)).getChildren().get(j).setVisible(false);
                 else
                     ((AnchorPane)((AnchorPane)otherPlayersPane.getTabs().get(i).getContent()).getChildren().get(4)).getChildren().get(j).setVisible(true);
@@ -771,12 +768,14 @@ public class BoardSceneController implements SceneControllerInterface {
                             studentNumber = studNumberDialog(2, "Select the number of students you would like to swap from the dining room [up to 2]");
 
                             while (studentNumber > Arrays.stream(board.getCurrentPlayerSchoolBoard().getDiningRoom()).sum()) {
+
                                 Platform.runLater(() -> {
                                     gui.warningDialog("Invalid student number. In the dining room there is only 1 student. Try again and select '1'");
                                     synchronized (gui.getLock()) {
                                         gui.getLock().notify();
                                     }
                                 });
+
                                 synchronized (gui.getLock()) {
                                     try {
                                         gui.getLock().wait();
@@ -867,6 +866,7 @@ public class BoardSceneController implements SceneControllerInterface {
             alert.setHeaderText("Press the right button");
             alert.setContentText(text);
             ((Stage) alert.getDialogPane().getScene().getWindow()).getIcons().add(new Image("/img/icon.png"));
+
             alert.getDialogPane().getScene().getWindow().setOnCloseRequest(event -> {
                 gui.warningDialog("You have to choose the number first in order to close this panel");
                 event.consume();

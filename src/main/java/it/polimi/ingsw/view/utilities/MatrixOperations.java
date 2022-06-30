@@ -16,9 +16,8 @@ public class MatrixOperations {
      */
     public static int columnSum(int[][] matrix, int mapIndex) {
         int sum = 0;
-        for (int[] a : matrix) {
+        for (int[] a : matrix)
             sum += a[mapIndex];
-        }
 
         return sum;
     }

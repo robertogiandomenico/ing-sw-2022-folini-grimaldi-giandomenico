@@ -308,7 +308,7 @@ public class DisplayBoard {
 
         System.out.print("\033[1A" + "\033[45D");
 
-        //print charIndex
+        //print character index
         System.out.print(charIndex);
 
         System.out.print("\033[3C");

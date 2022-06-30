@@ -31,7 +31,6 @@ public class LightSchoolBoard implements Serializable {
         diningRoom = sb.getDiningRoom();
     }
 
-
     /**
      * Returns the name of the player.
      *

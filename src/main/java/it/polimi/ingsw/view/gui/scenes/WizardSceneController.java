@@ -102,8 +102,7 @@ public class WizardSceneController implements SceneControllerInterface {
     @FXML
     private void go() {
         try {
-            if(!chosenWizardID.isEmpty()) {
-                //System.out.println("Go! Selected wizard: " + chosenWizardID.toUpperCase());
+            if (!chosenWizardID.isEmpty()) {
                 goButton.setDisable(true);
                 gui.getClient().sendMsgToServer(new WizardReply(availableWizards.get(getWizardIndex())));
                 disableAll();

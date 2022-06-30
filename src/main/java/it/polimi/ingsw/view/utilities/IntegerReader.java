@@ -27,6 +27,7 @@ public class IntegerReader {
             } catch (InputMismatchException e) {
                 System.out.print("\033[1A" + CliColor.RESET_LINE);
                 System.err.print("Numeric format requested, try again: ");
+
                 //this instruction is needed to clear the buffer and be ready to read the next input
                 scanner.next();
             }
