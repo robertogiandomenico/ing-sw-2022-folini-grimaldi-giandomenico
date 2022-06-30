@@ -14,7 +14,7 @@ UML files have been made to document the progress of the project.
 
 - [Initial Model UML](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/deliveries/UML/Class%20Diagram/Initial_Model_UML.png): basic _model_ implementation made during the first _design_ phase; 
 - [Initial Overall UML](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/deliveries/UML/Class%20Diagram/Initial_Overall_UML.png): basic and undetailed implementation of the whole project structure;
-- Generated Final UML(): complete generated UML to capture the whole structure of the implementation.
+- [Generated Final UML](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/deliveries/UML/Class%20Diagram/Generated_Final_UML.png): complete generated UML to capture the whole structure of the implementation.
 
 ## Communication Protocol
 The comunication protocol documentation has been redacted before the actual implementation and can be found [_here_](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/deliveries/UML/Sequence%20Diagram/Eriantys%20Protocol%20Documentation.md).
@@ -49,9 +49,10 @@ The comunication protocol documentation has been redacted before the actual impl
 The JUnit tests cover 100% of the model classes and 97.6% of the lines of the model. The few non-covered lines mainly deal with methods that have not been used in tests due to their random nature. Since tests must be implemented with deterministic methods, we opted to create new '_mock_' classes that have been used exclusively for this purpose.
 
 ## Jar
-The jars are used to launch the software. A detailed guide on how to launch jar files is present in the next section. It is possible to find them at this link().
+The jars are used to launch the software. A detailed guide on how to launch jar files is present in the next section. It is possible to find them at [_this link_](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/deliveries/jar).
 
 ### Jar Execution
+In order to run the jar files, _Java SE Development Kit_ is required to be installed. It can be downloaded from the official [_Oracle website_](https://www.oracle.com/java/technologies/downloads).\
 To launch the game is necessary to open the server first.
 
 #### Windows
@@ -77,10 +78,13 @@ The client can be run with the one following command in a terminal window
  ```
 java -jar Eriantys_Client.jar
  ```
+Should you see overlapping objects (i.e. cards, islands), we recommend to check the `Scale` settings in the _Display_ section of your computer settings and reduce it.
+
 ###### For the CLI:
  ```
 java -jar Eriantys_Client.jar -cli
  ```
+Should you see misaligned layout, we recommend to maximise the terminal window or, in alternative, to reduce the terminal font size.
 
 #### MacOS/Linux
 ##### Server
@@ -97,10 +101,13 @@ The client can be run with the one following command in a terminal window
  ```
 java -jar Eriantys_Client.jar
  ```
+Should you see overlapping objects (i.g. cards, islands), we recommend to check the `Scale` settings in the _Display_ section of your computer settings and reduce it.
+
 ###### For the CLI:
  ```
 java -jar Eriantys_Client.jar -cli
  ```
+Should you see misaligned layout, we recommend to maximise the terminal window or, in alternative, to reduce the terminal font size.
 
 ## Team
 - [Alessandro Folini](https://github.com/AlessandroFolini) - `alessandro.folini@mail.polimi.it`
