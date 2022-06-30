@@ -14,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.logging.Level;
 
 /**
@@ -75,7 +76,7 @@ public class ClientHandler implements Runnable{
                         GenericClientMessage msg = (GenericClientMessage) object;
                         msg.execute(server, this);
                     }
-                } catch (ClassNotFoundException e) {
+                } catch (ClassNotFoundException | SocketTimeoutException e) {
                     manageDisconnection();
                 }
 
