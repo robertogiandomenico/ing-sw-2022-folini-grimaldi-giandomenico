@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 public class Server {
     private final int port;
     private ServerSocket serverSocket;
+    private final int CLIENT_SOCKET_TIMEOUT = 10000;
     private final Map<Controller, Integer> lobbies;
     private final ExecutorService executor;
     private final Set<String> notAvailableNames;
@@ -59,6 +60,7 @@ public class Server {
         try {
             while (true){
                 Socket clientSocket = serverSocket.accept();
+                clientSocket.setSoTimeout(CLIENT_SOCKET_TIMEOUT);
                 SERVER_LOGGER.log(Level.INFO,"New client connected from (" + clientSocket.getInetAddress().getHostAddress() + ")");
                 ClientHandler clientConnection= new ClientHandler(this, clientSocket);
                 executor.submit(clientConnection);

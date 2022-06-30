@@ -253,6 +253,7 @@ class BoardTest {
             if (boards.indexOf(b) == 0) {
                 archi.setTowerColor(TowerColor.BLACK);
                 archiLeft.setTowerColor(TowerColor.WHITE);
+                archiLeft.setNoEntryTile(1);
                 archiRight.setTowerColor(TowerColor.WHITE);
                 b.playCharacter("Centaur", archiIndex, 0);
             } else if (boards.indexOf(b) == 1) {
