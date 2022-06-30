@@ -13,15 +13,15 @@ _Eriantys_ is the final test of **"Software Engineering"** course of **"Computer
 UML files have been made to document the progress of the project.
 
 - [Initial Model UML](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/deliveries/UML/Class%20Diagram/Initial_Model_UML.png): basic _model_ implementation made during the first _design_ phase; 
-- General Overview UML(): basic and undetailed implementation of the whole project structure;
+- [Initial Overall UML](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/deliveries/UML/Class%20Diagram/Initial_Overall_UML.png): basic and undetailed implementation of the whole project structure;
 - Generated Final UML(): complete generated UML to capture the whole structure of the implementation.
 
 ## Communication Protocol
 The comunication protocol documentation has been redacted before the actual implementation and can be found [_here_](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/blob/main/deliveries/UML/Sequence%20Diagram/Eriantys%20Protocol%20Documentation.md).
 
 ## Implemented features
-| Functionality      |                                                                         Status                                                                          |
-|:-------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Functionality      |                                                                         Status                                                                           |
+|:-------------------|:------------------------------------------------------------------------------------------------------------------------------------------------_-------:|
 | Basic rules        |           [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/model)            |
 | Complete rules     |           [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/model)            |
 | Socket             |          [✅](https://github.com/robertogiandomenico/ing-sw-2022-folini-grimaldi-giandomenico/tree/main/src/main/java/it/polimi/ingsw/network)           |
@@ -46,7 +46,7 @@ The comunication protocol documentation has been redacted before the actual impl
 | [JavaFX](https://openjfx.io)                             | Graphical Library     |
 
 ## Testing
-The JUnit tests cover 99.5% of the lines of the model. The few non-covered lines mainly deal with methods that have not been used in tests due to their random nature. Since tests must be implemented with deterministic methods, we opted to create new '_mock_' classes that have been used exclusively for this purpose.
+The JUnit tests cover 100% of the model classes and 97.5% of the lines of the model. The few non-covered lines mainly deal with methods that have not been used in tests due to their random nature. Since tests must be implemented with deterministic methods, we opted to create new '_mock_' classes that have been used exclusively for this purpose.
 
 ## Jar
 The jars are used to launch the software. A detailed guide on how to launch jar files is present in the next section. It is possible to find them at this link().
