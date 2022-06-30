@@ -24,7 +24,7 @@ public class ActionPhase implements GamePhase {
         this.controller = controller;
         turnController = new TurnController(controller.getGame().getCurrentPlayer(), controller);
         controller.getHandlerByNickname(turnController.getCurrentPlayer().getNickname()).setClientHandlerPhase(ClientHandlerPhases.WAITING_ACTION);
-        turnController.setTurnPhase(new MoveStudentsPhase());
+        turnController.setTurnPhase(new MoveStudentsPhase(controller.getGame().getNumberOfPlayers()));
     }
 
     /**

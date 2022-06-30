@@ -9,11 +9,21 @@ import java.util.List;
  * This class represents the turn phase in which the player can move students.
  */
 public class MoveStudentsPhase implements TurnPhase {
+    private final int numberOfPlayers;
+
+    /**
+     * Class constructor.
+     *
+     * @param numberOfPlayers       the number of players of the game.
+     */
+    public MoveStudentsPhase(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+    }
 
     /**
      * Returns the available turn actions.
      *
-     * @return      an ActionType List of the available actions for this turn phase.
+     * @return                      an ActionType List of the available actions for this turn phase.
      */
     @Override
     public List<ActionType> getAvailableTurnActions() {
@@ -21,6 +31,7 @@ public class MoveStudentsPhase implements TurnPhase {
         actions.add(ActionType.MOVE_STUDENT_ACTION);
         actions.add(ActionType.MOVE_STUDENT_ACTION);
         actions.add(ActionType.MOVE_STUDENT_ACTION);
+        if(numberOfPlayers == 3) actions.add(ActionType.MOVE_STUDENT_ACTION);
         return actions;
     }
 
