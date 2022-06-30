@@ -8,6 +8,7 @@ import java.io.Serializable;
  * This abstract class represents a generic message regarding connection.
  */
 public abstract class GenericConnectionMessage implements Serializable {
+    private static final long serialVersionUID = -2679854370210223392L;
     private final MessageType type;
 
     /**

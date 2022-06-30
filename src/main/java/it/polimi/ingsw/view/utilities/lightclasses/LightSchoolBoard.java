@@ -11,6 +11,7 @@ import java.io.Serializable;
  * ({@link it.polimi.ingsw.view.cli.CLI CLI}/{@link it.polimi.ingsw.view.gui.GUI GUI})
  */
 public class LightSchoolBoard implements Serializable {
+    private static final long serialVersionUID = 8680536766964710287L;
     private final LightPlayer player;
     private final Student[] entrance;
     private final boolean[] professorTable;

@@ -7,6 +7,7 @@ import it.polimi.ingsw.view.ViewInterface;
  * This class represents a message sent when a disconnection occurs.
  */
 public class DisconnectionMessage extends GenericConnectionMessage {
+    private static final long serialVersionUID = 3339787176056507046L;
     private final String clientNickname;
 
     /**

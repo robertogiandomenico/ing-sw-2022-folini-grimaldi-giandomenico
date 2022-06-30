@@ -14,6 +14,7 @@ import java.util.List;
  * ({@link it.polimi.ingsw.view.cli.CLI CLI}/{@link it.polimi.ingsw.view.gui.GUI GUI})
  */
 public class LightPlayer implements Serializable {
+    private static final long serialVersionUID = -2481678379700650848L;
     private final String nickname;
     private int coins;
     private List<Assistant> cards;
@@ -89,4 +90,5 @@ public class LightPlayer implements Serializable {
     public Wizard getSelectedWizard() {
         return selectedWizard;
     }
+
 }

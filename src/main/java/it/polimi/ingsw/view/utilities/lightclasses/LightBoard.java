@@ -13,6 +13,7 @@ import java.util.List;
  * ({@link it.polimi.ingsw.view.cli.CLI CLI}/{@link it.polimi.ingsw.view.gui.GUI GUI})
  */
 public class LightBoard implements Serializable {
+    private static final long serialVersionUID = 8633228302392384813L;
     private List<LightArchi> archipelagos;
     private Student[][] clouds;
     private List<LightPlayer> players;

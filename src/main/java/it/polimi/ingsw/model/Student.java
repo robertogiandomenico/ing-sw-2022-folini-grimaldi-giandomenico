@@ -6,6 +6,7 @@ import java.io.Serializable;
  * This class represents the student discs of the game.
  */
 public class Student implements Serializable {
+    private static final long serialVersionUID = -782156226291352502L;
     private final Color color;
 
     /**

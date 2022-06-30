@@ -13,6 +13,7 @@ import java.io.Serializable;
  * ({@link it.polimi.ingsw.view.cli.CLI CLI}/{@link it.polimi.ingsw.view.gui.GUI GUI})
  */
 public class LightCharacter implements Serializable {
+    private static final long serialVersionUID = 2837651904061894619L;
     private int cost;
     private final String name;
     private int noEntryTiles = -1;
@@ -98,4 +99,5 @@ public class LightCharacter implements Serializable {
     public boolean isAlreadyUsed() {
         return isAlreadyUsed;
     }
+
 }
