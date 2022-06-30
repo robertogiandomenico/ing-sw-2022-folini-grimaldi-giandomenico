@@ -32,7 +32,6 @@ public class Controller {
     private Boolean expertMode;
     private GamePhase gamePhase;
     private final List<ClientHandler> clientHandlers;
-    private Server server;
     private final Lock connectionLock;
     private boolean gameStarted;
     private boolean gameEnded;
@@ -136,24 +135,6 @@ public class Controller {
      */
     public void addHandler(ClientHandler clientHandler) {
         clientHandlers.add(clientHandler);
-    }
-
-    /**
-     * Returns the server.
-     *
-     * @return               the Server.
-     */
-    public Server getServer() {
-        return server;
-    }
-
-    /**
-     * Sets the server.
-     *
-     * @param server         a Server.
-     */
-    public void setServer(Server server) {
-        this.server = server;
     }
 
     /**
@@ -304,7 +285,6 @@ public class Controller {
      */
     public void warnPlayersAboutGameEnd(String winnerNickname, String condition){
         broadcastMessage(new IsWinner(winnerNickname, condition, game.getBoard().getLightBoard()));
-        server.disconnectAllAfterEndgame(this);
     }
 
     /**

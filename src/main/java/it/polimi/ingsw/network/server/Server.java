@@ -173,21 +173,4 @@ public class Server {
         }
     }
 
-    /**
-     * Disconnects every client handler of the given controller as the game
-     * associated to it ends, and then removes the controller from the lobbies.
-     *
-     * @param controller     the Controller to remove.
-     */
-    public void disconnectAllAfterEndgame(Controller controller) {
-        for (ClientHandler c : controller.getHandlers()){
-            notAvailableNames.remove(c.getClientNickname());
-            c.disconnect();
-        }
-
-        synchronized (lobbyLock){
-            lobbies.remove(controller);
-        }
-    }
-
 }

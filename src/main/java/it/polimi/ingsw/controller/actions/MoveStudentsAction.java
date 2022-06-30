@@ -8,12 +8,9 @@ import it.polimi.ingsw.network.messages.clientMessages.PlaceReply;
 import it.polimi.ingsw.network.messages.clientMessages.StudentReply;
 import it.polimi.ingsw.network.messages.serverMessages.PlaceRequest;
 import it.polimi.ingsw.network.messages.serverMessages.StudentRequest;
-import it.polimi.ingsw.network.messages.serverMessages.TextMessage;
 import it.polimi.ingsw.network.server.ClientHandler;
-import it.polimi.ingsw.network.server.Server;
 
 import java.util.*;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 /**
@@ -21,7 +18,6 @@ import java.util.stream.Collectors;
  */
 public class MoveStudentsAction implements Action {
     private final ActionType type = ActionType.MOVE_STUDENT_ACTION;
-    private final Player currentPlayer;
     private final ClientHandler clientHandler;
     private final TurnController turnController;
     private Student studentToBeMoved;
@@ -34,7 +30,6 @@ public class MoveStudentsAction implements Action {
      */
     public MoveStudentsAction(TurnController turnController) {
         this.turnController = turnController;
-        currentPlayer = turnController.getCurrentPlayer();
         clientHandler = turnController.getClientHandler();
     }
 

@@ -2,8 +2,6 @@ package it.polimi.ingsw.controller.actions;
 
 import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.model.Color;
-import it.polimi.ingsw.model.GameCharacter;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.network.messages.clientMessages.CharacterReply;
 import it.polimi.ingsw.network.messages.clientMessages.GenericClientMessage;
@@ -11,15 +9,12 @@ import it.polimi.ingsw.network.messages.serverMessages.CharacterRequest;
 import it.polimi.ingsw.network.server.ClientHandler;
 import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * This class represents the action of buying a character during a turn.
  */
 public class BuyCharacterAction implements Action{
     private final ActionType type = ActionType.BUY_CHARACTER_ACTION;
-    private final Player currentPlayer;
     private final ClientHandler clientHandler;
     private final TurnController turnController;
 
@@ -30,7 +25,6 @@ public class BuyCharacterAction implements Action{
      */
     public BuyCharacterAction(TurnController turnController) {
         this.turnController = turnController;
-        currentPlayer = turnController.getCurrentPlayer();
         clientHandler = turnController.getClientHandler();
     }
 

@@ -23,12 +23,13 @@ public class TurnController {
     private TurnPhase turnPhase;
     private final Controller controller;
     private List<ActionType> availableActions;
-    private final Map<Action, Boolean> possibleActions;
+    private final List<Action> possibleActions;
     private boolean alreadyBoughtCharacter = false;
 
     /**
      * Class constructor.
-     * Initializes the structures that contain the possible/available actions.
+     * Initializes the structures that contain the possible/available actions a player can do during
+     * their turn.
      *
      * @param currentPlayer     the current Player.
      * @param controller        the Controller to access the corresponding ClientHandler.
@@ -38,7 +39,7 @@ public class TurnController {
         this.controller = controller;
         clientHandler = controller.getHandlerByNickname(currentPlayer.getNickname());
         availableActions = new ArrayList<>();
-        possibleActions = new HashMap<>();
+        possibleActions = new ArrayList<>();
         fillPossibleActions();
     }
 
@@ -54,7 +55,6 @@ public class TurnController {
         if(controller.getGame().isExpertMode() && !turnPhase.toString().equals("SelectCloudPhase") && !alreadyBoughtCharacter && canBuyCharacter()){
             availableActions.add(ActionType.BUY_CHARACTER_ACTION);
         }
-        updatePossibleActions();
         clientHandler.sendMsgToClient(new ActionRequest(availableActions, controller.getGame().getBoard().getLightBoard()));
     }
 
@@ -128,22 +128,10 @@ public class TurnController {
      * true if they are available indeed.
      */
     private void fillPossibleActions() {
-        possibleActions.put(new MoveStudentsAction(this), false);
-        possibleActions.put(new MoveMNAction(this), false);
-        possibleActions.put(new SelectCloudAction(this), false);
-        possibleActions.put(new BuyCharacterAction(this), false);
-    }
-
-    /**
-     * Updates the possibleActions HashMap setting as true the actions that are
-     * de facto available.
-     */
-    private void updatePossibleActions() {
-        for (Action a : possibleActions.keySet()){
-            if (availableActions.contains(a.getType())){
-                possibleActions.replace(a, true);
-            }
-        }
+        possibleActions.add(new MoveStudentsAction(this));
+        possibleActions.add(new MoveMNAction(this));
+        possibleActions.add(new SelectCloudAction(this));
+        possibleActions.add(new BuyCharacterAction(this));
     }
 
     /**
@@ -183,13 +171,14 @@ public class TurnController {
             setTurnPhase(calculateNextTurnPhase());
             return;
         }
-        Action chosenAction = possibleActions.keySet().stream().filter(a -> a.getType() == availableActions.get(actionIndex)).findFirst().get();
+        Action chosenAction = possibleActions.stream().filter(a -> a.getType() == availableActions.get(actionIndex)).findFirst().get();
         clientHandler.setCurrentAction(chosenAction);
         chosenAction.execute();
     }
 
     /**
-     * Switches to the next action.
+     * Switches to the next action after checking if the end game conditions are met.
+     * If there aren't any available actions left in this turn phase, it calculates the next phase.
      *
      * @param endedAction       the Action that just ended.
      */
@@ -205,8 +194,6 @@ public class TurnController {
         if(!alreadyExistsAction && controller.getGame().isExpertMode() && !alreadyBoughtCharacter && canBuyCharacter()){
             availableActions.add(ActionType.BUY_CHARACTER_ACTION);
         }
-
-        updatePossibleActions();
 
         for (ClientHandler ch : controller.getHandlers()){
             if (!ch.equals(clientHandler)){

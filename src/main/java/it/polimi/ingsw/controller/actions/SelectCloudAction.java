@@ -3,7 +3,6 @@ package it.polimi.ingsw.controller.actions;
 import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.model.Board;
 import it.polimi.ingsw.model.Cloud;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.Student;
 import it.polimi.ingsw.network.messages.MessageType;
 import it.polimi.ingsw.network.messages.clientMessages.CloudReply;
@@ -20,7 +19,6 @@ import java.util.List;
  */
 public class SelectCloudAction implements Action{
     private final ActionType type =  ActionType.SELECT_CLOUD_ACTION;
-    private final Player currentPlayer;
     private final ClientHandler clientHandler;
     private final TurnController turnController;
 
@@ -31,7 +29,6 @@ public class SelectCloudAction implements Action{
      */
     public SelectCloudAction(TurnController turnController) {
         this.turnController = turnController;
-        currentPlayer = turnController.getCurrentPlayer();
         clientHandler = turnController.getClientHandler();
     }
 
