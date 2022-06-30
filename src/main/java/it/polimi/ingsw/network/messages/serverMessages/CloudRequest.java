@@ -10,6 +10,7 @@ import java.util.List;
  * asking to select a cloud.
  */
 public class CloudRequest extends GenericServerMessage {
+    private static final long serialVersionUID = 2526525956650403074L;
     private final List<Integer> indexesAvailableClouds;
 
     /**

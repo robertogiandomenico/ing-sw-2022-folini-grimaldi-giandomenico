@@ -11,6 +11,7 @@ import java.util.List;
  * asking to select a wizard.
  */
 public class WizardRequest extends GenericServerMessage {
+    private static final long serialVersionUID = -2339838021795743307L;
     private final List<Wizard> availableWizards;
 
     /**

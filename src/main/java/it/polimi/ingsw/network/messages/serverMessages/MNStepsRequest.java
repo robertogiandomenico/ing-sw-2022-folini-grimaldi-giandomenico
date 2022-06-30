@@ -8,6 +8,7 @@ import it.polimi.ingsw.view.ViewInterface;
  * asking the number of steps for a Mother Nature movement.
  */
 public class MNStepsRequest extends GenericServerMessage {
+    private static final long serialVersionUID = -7020861182647833795L;
     private final int maxMNSteps;
 
     /**

@@ -8,6 +8,7 @@ import it.polimi.ingsw.view.ViewInterface;
  * asking a place to move a student.
  */
 public class PlaceRequest extends GenericServerMessage {
+    private static final long serialVersionUID = 7060318590315655178L;
     private final int maxArchis;
 
     /**

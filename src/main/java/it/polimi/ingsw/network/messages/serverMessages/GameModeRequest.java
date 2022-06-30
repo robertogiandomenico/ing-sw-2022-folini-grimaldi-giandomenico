@@ -8,6 +8,7 @@ import it.polimi.ingsw.view.ViewInterface;
  * asking the game mode.
  */
 public class GameModeRequest extends GenericServerMessage {
+    private static final long serialVersionUID = 4873171479370449853L;
 
     /**
      * Class constructor.

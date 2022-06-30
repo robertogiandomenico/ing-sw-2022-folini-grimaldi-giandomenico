@@ -8,6 +8,7 @@ import it.polimi.ingsw.view.ViewInterface;
  * asking the game name.
  */
 public class GameNameRequest extends GenericServerMessage {
+    private static final long serialVersionUID = 4461150114615086324L;
 
     /**
      * Class constructor.

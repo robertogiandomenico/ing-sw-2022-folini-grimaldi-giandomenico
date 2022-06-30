@@ -12,6 +12,7 @@ import java.util.List;
  * asking what action they want to undertake.
  */
 public class ActionRequest extends GenericServerMessage {
+    private static final long serialVersionUID = -7361173493858617269L;
     private final List<ActionType> possibleActions;
     private final LightBoard lightBoard;
 

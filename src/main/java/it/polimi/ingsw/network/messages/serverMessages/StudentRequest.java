@@ -11,6 +11,7 @@ import java.util.List;
  * asking to select a student.
  */
 public class StudentRequest extends GenericServerMessage {
+    private static final long serialVersionUID = 6244125026089623480L;
     private final List<Color> availableColors;
 
     /**

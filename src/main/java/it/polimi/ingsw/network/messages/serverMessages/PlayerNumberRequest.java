@@ -8,6 +8,7 @@ import it.polimi.ingsw.view.ViewInterface;
  * asking the number of players.
  */
 public class PlayerNumberRequest extends GenericServerMessage {
+    private static final long serialVersionUID = -2083165574856696922L;
 
     /**
      * Class constructor.

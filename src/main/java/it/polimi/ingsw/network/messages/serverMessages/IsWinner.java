@@ -9,6 +9,7 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
  * declare who won the game.
  */
 public class IsWinner extends GenericServerMessage {
+    private static final long serialVersionUID = -8138532488978566491L;
     private final String winner;
     private final String condition;
     private final LightBoard lightBoard;

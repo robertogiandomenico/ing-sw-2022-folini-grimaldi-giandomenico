@@ -8,6 +8,7 @@ import it.polimi.ingsw.view.ViewInterface;
  * to the client.
  */
 public class TextMessage extends GenericServerMessage {
+    private static final long serialVersionUID = -350188259113524461L;
     private final String message;
 
     /**

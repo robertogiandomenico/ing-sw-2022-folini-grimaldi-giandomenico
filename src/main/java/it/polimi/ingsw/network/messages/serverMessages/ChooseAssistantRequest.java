@@ -12,6 +12,7 @@ import java.util.List;
  * asking to select an assistant.
  */
 public class ChooseAssistantRequest extends GenericServerMessage {
+    private static final long serialVersionUID = -5600698207138090264L;
     private final List<Assistant> availableAssistants;
     private final List<Assistant> discardedAssistants;
     private final LightBoard lightBoard;

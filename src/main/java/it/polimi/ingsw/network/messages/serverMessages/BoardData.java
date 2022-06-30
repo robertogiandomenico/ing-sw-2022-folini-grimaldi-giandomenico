@@ -9,6 +9,7 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightBoard;
  * show the updated board.
  */
 public class BoardData extends GenericServerMessage {
+    private static final long serialVersionUID = 8164023771647411142L;
     private final LightBoard lightBoard;
 
     /**

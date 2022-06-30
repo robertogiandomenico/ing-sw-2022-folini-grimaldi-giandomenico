@@ -8,6 +8,7 @@ import it.polimi.ingsw.view.ViewInterface;
  * asking to choose a nickname.
  */
 public class NicknameRequest extends GenericServerMessage {
+    private static final long serialVersionUID = 6670755359860541301L;
 
     /**
      * Class constructor.
