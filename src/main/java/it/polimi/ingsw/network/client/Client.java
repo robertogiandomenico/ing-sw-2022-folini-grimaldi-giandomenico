@@ -60,7 +60,7 @@ public class Client {
                     Thread.sleep(PING_TIME);
                     sendMsgToServer(new Ping());
                 } catch (InterruptedException ignored) {
-                    break;
+                    disconnect(true);
                 }
             }
         });

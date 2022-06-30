@@ -40,7 +40,7 @@ public class GameNameReply extends GenericClientMessage {
         if(!(clientHandler.getClientHandlerPhase() == ClientHandlerPhases.WAITING_GAMENAME)){
             return;
         }
-        String REGEX = "^([a-zA-Z]+\\w{2,10})$";
+        String REGEX = "^([a-zA-Z]\\w{2,10})$";
         if(gameName == null || !gameName.matches(REGEX)){
             clientHandler.sendMsgToClient(new GameNameRequest());
         } else if(!alreadyExists(gameName, server)){
