@@ -15,10 +15,7 @@ import it.polimi.ingsw.view.utilities.lightclasses.LightCharacter;
 import it.polimi.ingsw.view.utilities.lightclasses.LightSchoolBoard;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -249,7 +246,7 @@ public class CLI implements ViewInterface {
 
         CliColor color;
         for (int i = 0; i < availableAssistants.size(); i++) {
-            color = (discardedAssistants.contains(availableAssistants.get(i)) && availableAssistants.size() > 1) ? CliColor.RED : CliColor.RESET;
+            color = (discardedAssistants.contains(availableAssistants.get(i)) && availableAssistants.size() > 1 && !(new HashSet<>(availableAssistants).containsAll(discardedAssistants) && new HashSet<>(discardedAssistants).containsAll(availableAssistants))) ? CliColor.RED : CliColor.RESET;
             System.out.print(color + "[" + (i+1) + " | " + availableAssistants.get(i).name() + "  W:" + availableAssistants.get(i).getWeight() + " M:" + availableAssistants.get(i).getMaxMNSteps() + "] \t");
 
             if (i==4) System.out.print("\n\n");

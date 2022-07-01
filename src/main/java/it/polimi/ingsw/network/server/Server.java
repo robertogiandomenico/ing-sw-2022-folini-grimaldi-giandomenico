@@ -162,7 +162,7 @@ public class Server {
             notAvailableNames.remove(clientHandler.getClientNickname());
             synchronized (lobbyLock) {
                 lobbies.replace(controller.get(), lobbies.get(controller.get())-1);
-                if (lobbies.get(controller.get()) <= 0)
+                if (lobbies.get(controller.get()) <= 0 || !controller.get().isGameStarted())
                     lobbies.remove(controller.get());
                 else if (!controller.get().isGameEnded())
                     controller.get().broadcastMessage(new DisconnectionMessage(clientHandler.getClientNickname()));
