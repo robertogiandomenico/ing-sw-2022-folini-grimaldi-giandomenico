@@ -69,8 +69,8 @@ The server can be run with the following command in a terminal window
  ```
 java -jar Eriantys_Server.jar
  ```
-Once the server is opened, it is asked to specify a port number or proceed with the default one (2807) by pressing `d`.\
-Remember that the minimum number for a port is 1024 and the maximum is 65535.
+Once the server is opened, it is asked to specify a port number or proceed with the default one (`2807`) by pressing `d`.\
+Remember that the minimum number for a port is `1024` and the maximum is `65535`.
 
 ##### Client
 The client can be run with the one following command in a terminal window
@@ -92,8 +92,8 @@ The server can be run with the following command in a terminal window
  ```
 java -jar Eriantys_Server.jar
  ```
-Once the server is opened, it is asked to specify a port number or proceed with the default one (2807) by pressing `d`.\
-Remember that the minimum number for a port is 1024 and the maximum is 65535.
+Once the server is opened, it is asked to specify a port number or proceed with the default one (`2807`) by pressing `d`.\
+Remember that the minimum number for a port is `1024` and the maximum is `65535`.
 
 ##### Client
 The client can be run with the one following command in a terminal window
