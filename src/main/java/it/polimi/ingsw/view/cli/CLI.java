@@ -145,7 +145,8 @@ public class CLI implements ViewInterface {
     @Override
     public void askNickname() {
         clearCLI();
-        System.out.print("Enter your " + CliColor.BOLD + "nickname" + CliColor.RESET + ": ");
+        System.out.println("Enter your " + CliColor.BOLD + "nickname" + CliColor.RESET + " (between 3 and 11 alphanumeric characters)");
+        System.out.print(" > ");
         String nickname = scanner.nextLine();
         client.setNickname(nickname);
         client.sendMsgToServer(new NicknameReply(nickname));
@@ -157,7 +158,8 @@ public class CLI implements ViewInterface {
     @Override
     public void askGameName() {
         clearCLI();
-        System.out.print("Enter the " + CliColor.BOLD + "game name" + CliColor.RESET + ": ");
+        System.out.println("Enter the " + CliColor.BOLD + "game name" + CliColor.RESET + " (between 3 and 11 alphanumeric characters)");
+        System.out.print(" > ");
         String gameName = scanner.nextLine();
 
         client.sendMsgToServer(new GameNameReply(gameName));
@@ -231,9 +233,10 @@ public class CLI implements ViewInterface {
      *
      * @param availableAssistants  an Assistant List of available cards for the Player.
      * @param discardedAssistants  an Assistant List containing the cards chosen by others.
+     * @param numOfPlayers         the number of Players for the game.
      */
     @Override
-    public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
+    public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants, int numOfPlayers) {
         System.out.print("\n");
 
         if (!discardedAssistants.isEmpty()) {
@@ -255,7 +258,9 @@ public class CLI implements ViewInterface {
         System.out.print("\n\nEnter the index of the " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " you would like to choose: ");
 
         int assistantIndex = IntegerReader.readInput(scanner);
-        while (assistantIndex <= 0 || assistantIndex > availableAssistants.size() || (availableAssistants.size() > 1 && discardedAssistants.contains(availableAssistants.get(assistantIndex-1)))) {
+        while (assistantIndex <= 0 || assistantIndex > availableAssistants.size() || (numOfPlayers == 2 && availableAssistants.size() > 1 && discardedAssistants.contains(availableAssistants.get(assistantIndex-1)))
+                || (numOfPlayers == 3 && availableAssistants.size() > 2 && discardedAssistants.contains(availableAssistants.get(assistantIndex-1)))
+                || (numOfPlayers == 3 && availableAssistants.size() > 1 && discardedAssistants.contains(availableAssistants.get(assistantIndex-1)) && discardedAssistants.size()==1) ) {
             System.out.print(CliColor.RESET_LINE);
             System.out.print("\033[1A" + CliColor.RESET_LINE);
             System.out.print("Invalid " + CliColor.BOLDYELLOW + "assistant" + CliColor.RESET + " index. Try again: ");

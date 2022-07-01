@@ -159,7 +159,7 @@ public class BoardSceneController implements SceneControllerInterface {
         }
 
         //set assistants' cards
-        setAssistants(thisPlayerBoard.getPlayer().getCards(), new ArrayList<>());
+        setAssistants(thisPlayerBoard.getPlayer().getCards(), new ArrayList<>(), board.getSchoolBoards().size());
 
         //set entrance
         for (int i = 0; i < thisPlayerBoard.getEntrance().length; i++)
@@ -434,14 +434,20 @@ public class BoardSceneController implements SceneControllerInterface {
      *
      * @param availableAssistants the Assistant List of available Assistants.
      * @param discardedAssistants the Assistant List of discarded Assistants.
+     * @param numOfPlayers        the number of Players for the game.
      */
-    public void setAssistants(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
+    public void setAssistants(List<Assistant> availableAssistants, List<Assistant> discardedAssistants, int numOfPlayers) {
         int i;
         for (i = 0; i < availableAssistants.size(); i++) {
             ((ImageView) assistantBox.getChildren().get(i)).setImage(new Image(getClass().getResourceAsStream("/img/assistants/" + availableAssistants.get(i).name().toLowerCase() + ".png")));
 
             assistantBox.getChildren().get(i).setId(availableAssistants.get(i).name().toLowerCase());
-            assistantBox.getChildren().get(i).setDisable(availableAssistants.size() > 1 && discardedAssistants.contains(availableAssistants.get(i)));
+
+            if( (numOfPlayers == 2 && availableAssistants.size() > 1 && discardedAssistants.contains(availableAssistants.get(i)) )
+                    || (numOfPlayers == 3 && availableAssistants.size() > 2 && discardedAssistants.contains(availableAssistants.get(i)) )
+                    || (numOfPlayers == 3 && availableAssistants.size() > 1 && discardedAssistants.contains(availableAssistants.get(i)) && discardedAssistants.size()==1 ) ){
+                assistantBox.getChildren().get(i).setDisable(true);
+            }
         }
         while (i != 10) {
             assistantBox.getChildren().get(i).setDisable(true);
@@ -455,6 +461,9 @@ public class BoardSceneController implements SceneControllerInterface {
      */
     public void enableAssistantBox() {
         assistantBox.setDisable(false);
+        for (int i = 0; i < board.getCurrentPlayerSchoolBoard().getPlayer().getCards().size(); i++) {
+            assistantBox.getChildren().get(i).setDisable(false);
+        }
     }
 
     /**

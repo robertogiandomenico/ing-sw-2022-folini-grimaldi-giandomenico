@@ -54,8 +54,9 @@ public interface ViewInterface {
      *
      * @param availableAssistants  an Assistant List of available cards for the Player.
      * @param discardedAssistants  an Assistant List containing the cards chosen by others.
+     * @param numOfPlayers         the number of Players for the game.
      */
-    void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants);
+    void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants, int numOfPlayers);
 
     /**
      * Asks the user to declare which action they want to go for next.

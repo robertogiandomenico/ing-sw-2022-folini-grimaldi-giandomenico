@@ -39,6 +39,6 @@ public class ChooseAssistantRequest extends GenericServerMessage {
     @Override
     public void show(ViewInterface view) {
         view.printBoard(lightBoard);
-        view.askAssistant(availableAssistants, discardedAssistants);
+        view.askAssistant(availableAssistants, discardedAssistants, lightBoard.getSchoolBoards().size());
     }
 }

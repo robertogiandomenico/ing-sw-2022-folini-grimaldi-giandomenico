@@ -194,14 +194,15 @@ public class GUI extends Application implements ViewInterface {
      *
      * @param availableAssistants  an Assistant List of available cards for the Player.
      * @param discardedAssistants  an Assistant List containing the cards chosen by others.
+     * @param numOfPlayers         the number of Players for the game.
      */
     @Override
-    public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants) {
+    public void askAssistant(List<Assistant> availableAssistants, List<Assistant> discardedAssistants, int numOfPlayers) {
         Platform.runLater(() -> {
-                bsc.setAssistants(availableAssistants, discardedAssistants);
-                infoDialog("It's your turn to choose the assistant!");
-                bsc.enableAssistantBox();
-            });
+            bsc.enableAssistantBox();
+            bsc.setAssistants(availableAssistants, discardedAssistants, numOfPlayers);
+            infoDialog("It's your turn to choose the assistant!");
+        });
     }
 
     /**
