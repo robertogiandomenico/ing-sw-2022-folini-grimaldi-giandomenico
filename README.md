@@ -8,6 +8,8 @@ _Eriantys_ is the final test of **"Software Engineering"** course of **"Computer
 
 **Group**: PSP45
 
+**Score**: 30/30
+
 
 ## UML
 UML files have been made to document the progress of the project.
